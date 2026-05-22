@@ -33,13 +33,15 @@
 synsex_capture gui
 ```
 
-Windows (PowerShell) での注意:
-
-- `bash synsex_capture gui` ではなく、`synsex_capture gui` をそのまま実行する
-- もし `synsex_capture` が見つからない場合は以下を実行する
-
 ```powershell
 python -m synsex_capture gui
+```
+
+今すぐ起動するコマンド:
+
+```powershell
+cd D:\emnye\Documents\GitHub\synsex-capture
+.\.venv\Scripts\python.exe -m synsex_capture gui
 ```
 
 ## GUIでの解析フロー
