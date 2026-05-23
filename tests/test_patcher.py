@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from synsex_capture.errors import SyxFileError
-from synsex_capture.patcher import BytePatch, apply_byte_patches, load_patches_yaml
+from digitone_syx_toolkit.errors import SyxFileError
+from digitone_syx_toolkit.patcher import BytePatch, apply_byte_patches, load_patches_yaml
 
 
 def test_apply_byte_patches_success():

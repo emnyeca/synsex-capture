@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from synsex_capture.syx import extract_sysex_messages, load_syx_file, save_syx_file
+from digitone_syx_toolkit.syx import extract_sysex_messages, load_syx_file, save_syx_file
 
 
 def test_extract_sysex_messages_multiple_packets():

@@ -29,7 +29,7 @@ class AnalysisGui:
 
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
-        self.root.title("synsex-capture: Pattern Analysis Assistant")
+        self.root.title("digitone-syx-toolkit: Pattern Analysis Assistant")
         self.root.geometry("1100x760")
 
         self.file1_var = tk.StringVar()

@@ -1,4 +1,4 @@
-from synsex_capture.capture import SysexChunkAssembler
+from digitone_syx_toolkit.capture import SysexChunkAssembler
 
 
 def test_sysex_chunk_assembler_reassembles_fragmented_message():

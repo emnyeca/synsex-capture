@@ -1,5 +1,5 @@
-from synsex_capture.diffing import diff_bytes
-from synsex_capture.hexview import hex_dump
+from digitone_syx_toolkit.diffing import diff_bytes
+from digitone_syx_toolkit.hexview import hex_dump
 
 
 def test_diff_bytes_reports_offsets_and_values():

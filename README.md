@@ -1,4 +1,4 @@
-# synsex-capture
+# digitone-syx-toolkit
 
 Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI 経由の SysEx を扱う CLI デバッグツールです。
 
@@ -36,39 +36,39 @@ pip install -e .[dev]
 ポート番号は 1-based index（1, 2, 3...）です。ポート名も指定可能です。
 
 ```bash
-synsex_capture list_ports
+digitone_syx_toolkit list_ports
 ```
 
 ```bash
-synsex_capture capture --in-port 1 --out-dir captures --label A01 --max-messages 10
+digitone_syx_toolkit capture --in-port 1 --out-dir captures --label A01 --max-messages 10
 ```
 
 ```bash
-synsex_capture replay --out-port 2 --file captures/A01.syx
+digitone_syx_toolkit replay --out-port 2 --file captures/A01.syx
 ```
 
 ```bash
-synsex_capture diff --file1 captures/A01.syx --file2 captures/A02.syx
+digitone_syx_toolkit diff --file1 captures/A01.syx --file2 captures/A02.syx
 ```
 
 ```bash
-synsex_capture view --file captures/A01.syx
+digitone_syx_toolkit view --file captures/A01.syx
 ```
 
 ```bash
-synsex_capture gui
+digitone_syx_toolkit gui
 ```
 
-Windows (PowerShell) では `bash synsex_capture gui` ではなく、次のように実行してください。
+Windows (PowerShell) では `bash digitone_syx_toolkit gui` ではなく、次のように実行してください。
 
 ```powershell
-synsex_capture gui
+digitone_syx_toolkit gui
 ```
 
 もしコマンドが見つからない場合:
 
 ```powershell
-python -m synsex_capture gui
+python -m digitone_syx_toolkit gui
 ```
 
 GUIの解析手順は以下を参照:
@@ -77,7 +77,7 @@ GUIの解析手順は以下を参照:
 
 ### GUIで受信・再送する
 
-1. `synsex_capture gui` を起動
+1. `digitone_syx_toolkit gui` を起動
 2. `MIDI Capture/Replay` タブで `Refresh Ports`
 3. Input port に Digitone II を選択
 4. `Start Capture` を押してから Digitone II で SysEx Send
@@ -121,7 +121,7 @@ remarks: digitone pattern test
 ## Project Structure
 
 ```text
-src/synsex_capture/
+src/digitone_syx_toolkit/
   cli.py             # CLI command routing
   gui.py             # Tkinter analysis assistant
   midi.py            # MIDI port listing and selection helpers

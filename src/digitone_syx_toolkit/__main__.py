@@ -1,4 +1,4 @@
-"""Module entrypoint for python -m synsex_capture."""
+"""Module entrypoint for python -m digitone_syx_toolkit."""
 
 from .cli import main
 

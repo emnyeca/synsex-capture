@@ -1,4 +1,4 @@
-"""Command-line interface for synsex-capture."""
+"""Command-line interface for digitone-syx-toolkit."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import mido
 
 from .capture import capture_sysex
 from .diffing import diff_syx_files, format_diff
-from .errors import MidiPortError, SynsexCaptureError, SyxFileError
+from .errors import DigitoneToolkitError, MidiPortError, SyxFileError
 from .gui import run_gui
 from .hexview import hex_dump_file
 from .logging_utils import configure_logging
@@ -20,11 +20,11 @@ from .midi import list_input_ports, list_output_ports, resolve_port_name
 from .replay import replay_sysex
 from .syx import load_syx_file, save_syx_file
 
-LOG = logging.getLogger("synsex_capture")
+LOG = logging.getLogger("digitone_syx_toolkit")
 
 
 def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="synsex_capture")
+    parser = argparse.ArgumentParser(prog="digitone_syx_toolkit")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument("--log-file", help="Optional log file path")
 
@@ -166,8 +166,8 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_view(args)
         if args.command == "gui":
             return _cmd_gui()
-        raise SynsexCaptureError(f"Unknown command: {args.command}")
-    except (SynsexCaptureError, MidiPortError, SyxFileError, OSError, ValueError, mido.BackendError) as exc:
+        raise DigitoneToolkitError(f"Unknown command: {args.command}")
+    except (DigitoneToolkitError, MidiPortError, SyxFileError, OSError, ValueError, mido.BackendError) as exc:
         LOG.error("%s", exc)
         return 1
 

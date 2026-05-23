@@ -1,2 +1,0 @@
-[console_scripts]
-synsex_capture = synsex_capture.cli:main

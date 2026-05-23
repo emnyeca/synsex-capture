@@ -50,18 +50,18 @@ Digitone II の運用やOSバージョンによっては、Pattern単体のSysEx
 起動コマンド:
 
 ```bash
-synsex_capture gui
+digitone_syx_toolkit gui
 ```
 
 ```powershell
-python -m synsex_capture gui
+python -m digitone_syx_toolkit gui
 ```
 
 今すぐ起動するコマンド:
 
 ```powershell
-cd D:\emnye\Documents\GitHub\synsex-capture
-.\.venv\Scripts\python.exe -m synsex_capture gui
+cd D:\emnye\Documents\GitHub\digitone-syx-toolkit
+.\.venv\Scripts\python.exe -m digitone_syx_toolkit gui
 ```
 
 ## GUIでSysEx受信/再送する
@@ -148,7 +148,7 @@ patches:
 生成した `.syx` を以下で再送:
 
 ```bash
-synsex_capture replay --out-port 1 --file captures/patched.syx
+digitone_syx_toolkit replay --out-port 1 --file captures/patched.syx
 ```
 
 Digitone II 上で Note / LEN / Velocity / Trig の反映を確認します。
