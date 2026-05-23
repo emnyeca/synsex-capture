@@ -9,7 +9,7 @@ Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI
 - `.syx` の再送信
 - `.syx` 同士のバイナリ差分表示
 - `.syx` の Hex Viewer
-- 解析向け簡易 GUI（Diff / Hex / Selective Patch）
+- 解析向け簡易 GUI（MIDI Capture/Replay / Diff / Hex / Selective Patch）
 - キャプチャ時の YAML メタ情報出力（`datasets/`）
 
 ## Requirements
@@ -74,6 +74,15 @@ python -m synsex_capture gui
 GUIの解析手順は以下を参照:
 
 - `docs/digitone-pattern-analysis.ja.md`
+
+### GUIで受信・再送する
+
+1. `synsex_capture gui` を起動
+2. `MIDI Capture/Replay` タブで `Refresh Ports`
+3. Input port に Digitone II を選択
+4. `Start Capture` を押してから Digitone II で SysEx Send
+5. 受信後 `.syx` と `datasets/*.yaml` が保存される
+6. 再送する場合は同タブで Output port と `.syx` を指定して `Send to Output Port`
 
 ### Capture Metadata (YAML)
 

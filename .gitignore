@@ -1,0 +1,19 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# Test/cache tooling
+.pytest_cache/
+.mypy_cache/
+
+# Local capture outputs
+captures/
+datasets/
+
+# Local logs
+*.log

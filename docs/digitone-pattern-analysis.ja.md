@@ -21,6 +21,26 @@
 
 - Sound / Synth Parameter
 
+## Pattern送信できない場合（Project送信で進める）
+
+Digitone II の運用やOSバージョンによっては、Pattern単体のSysEx送信ができず Project送信のみ可能な場合があります。
+その場合でも、このガイドの方針はそのまま適用できます。
+
+進め方:
+
+1. 基準ProjectをDumpして保存（例: `project_base.syx`）
+2. 変更したいPatternの1項目だけ変更（例: Track2 Step5 Note +1）
+3. 再度Project Dumpして保存（例: `project_note_t2s5.syx`）
+4. GUIの `Diff & Mapping` で2つのProject dumpを比較
+5. 差分オフセットを `Export Patch YAML` で保存
+6. `Selective Patch` で基準Projectに必要差分だけを適用して再送
+
+注意:
+
+- 1回の実験で変更は必ず1項目だけにする
+- Project dumpは範囲が広いため、Pattern以外の自動更新が起きる場合がある
+- そのため同条件で複数回比較し、毎回共通して変わるオフセットを優先して採用する
+
 ## 前提
 
 - Digitone II 上に、Harmony Cloud用音色を配置したテンプレート Pattern を作成済み
@@ -43,6 +63,25 @@ python -m synsex_capture gui
 cd D:\emnye\Documents\GitHub\synsex-capture
 .\.venv\Scripts\python.exe -m synsex_capture gui
 ```
+
+## GUIでSysEx受信/再送する
+
+1. GUIの `MIDI Capture/Replay` タブを開く
+2. `Refresh Ports` を押す
+3. `Input port` に Digitone II を選択
+4. 必要なら `Out dir` と `Label` を設定
+5. `Start Capture` を押してから、Digitone II 側で SysEx Send を実行
+6. `MIDI Log` に `Captured SysEx` が表示され、`.syx` と `datasets/*.yaml` が保存される
+7. 再送する場合は `Output port` と `.syx file` を選び、`Send to Output Port` を実行
+
+受信できない場合:
+
+- Digitone II の USB MIDI 設定と SysEx 送信設定が有効か確認
+- 他アプリが同じMIDIポートを掴んでいないか確認
+- `Refresh Ports` 後にポート名が変わっていないか確認
+- `Start Capture` 後に 0件のままなら、Digitone II の `MIDI CONFIG > PORT CONFIG` で出力先に USB を含める
+- 長時間 `sending` 点滅して止まらない場合、送信先が想定外(DINのみ等)の可能性があるため、USBルーティングを再確認する
+- 0件受信時は `.syx` を保存しない（GUIログに原因候補を表示）
 
 ## GUIでの解析フロー
 

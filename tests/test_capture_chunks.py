@@ -1,0 +1,15 @@
+from synsex_capture.capture import SysexChunkAssembler
+
+
+def test_sysex_chunk_assembler_reassembles_fragmented_message():
+    asm = SysexChunkAssembler()
+    assert asm.feed([0xF0, 0x00, 0x20]) == []
+    assert asm.feed([0x3C, 0x15, 0x00]) == []
+    packets = asm.feed([0x54, 0x01, 0xF7])
+    assert packets == [bytes([0xF0, 0x00, 0x20, 0x3C, 0x15, 0x00, 0x54, 0x01, 0xF7])]
+
+
+def test_sysex_chunk_assembler_handles_two_messages_in_stream():
+    asm = SysexChunkAssembler()
+    packets = asm.feed([0xF0, 0x01, 0xF7, 0xF0, 0x02, 0x03, 0xF7])
+    assert packets == [bytes([0xF0, 0x01, 0xF7]), bytes([0xF0, 0x02, 0x03, 0xF7])]

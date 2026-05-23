@@ -6,7 +6,7 @@ import logging
 import time
 from dataclasses import dataclass
 
-import mido
+import rtmidi
 
 
 @dataclass
@@ -15,6 +15,37 @@ class CaptureResult:
 
     messages: list[bytes]
     elapsed_seconds: float
+
+
+class SysexChunkAssembler:
+    """Assemble full SysEx packets from potentially fragmented MIDI chunks."""
+
+    def __init__(self) -> None:
+        self._buffer = bytearray()
+        self._collecting = False
+
+    def feed(self, chunk: list[int] | bytes) -> list[bytes]:
+        """Feed one MIDI byte chunk and return zero or more completed SysEx packets."""
+        completed: list[bytes] = []
+
+        for value in chunk:
+            b = int(value) & 0xFF
+
+            if b == 0xF0:
+                self._buffer = bytearray([0xF0])
+                self._collecting = True
+                continue
+
+            if not self._collecting:
+                continue
+
+            self._buffer.append(b)
+            if b == 0xF7:
+                completed.append(bytes(self._buffer))
+                self._buffer.clear()
+                self._collecting = False
+
+        return completed
 
 
 def capture_sysex(
@@ -35,24 +66,34 @@ def capture_sysex(
     packets: list[bytes] = []
     started = time.perf_counter()
 
-    with mido.open_input(in_port_name) as in_port:
+    midi_in = rtmidi.MidiIn()
+    try:
+        ports = midi_in.get_ports()
+        if in_port_name not in ports:
+            raise ValueError(f"Input port not found for rtmidi: {in_port_name}")
+
+        port_index = ports.index(in_port_name)
+        midi_in.open_port(port_index)
+        midi_in.ignore_types(sysex=False, timing=False, active_sense=True)
+
+        assembler = SysexChunkAssembler()
         log.info("Capture started on input port: %s", in_port_name)
+
         try:
             while True:
-                for msg in in_port.iter_pending():
-                    if msg.type != "sysex":
-                        continue
+                message = midi_in.get_message()
+                if message:
+                    chunk, _delta = message
+                    for packet in assembler.feed(chunk):
+                        packets.append(packet)
+                        log.info(
+                            "Captured SysEx #%d length=%d bytes", len(packets), len(packet)
+                        )
 
-                    packet = bytes(msg.bytes())
-                    packets.append(packet)
-                    log.info(
-                        "Captured SysEx #%d length=%d bytes", len(packets), len(packet)
-                    )
-
-                    if max_messages is not None and len(packets) >= max_messages:
-                        elapsed = time.perf_counter() - started
-                        log.info("Capture stopped by max_messages=%d", max_messages)
-                        return CaptureResult(messages=packets, elapsed_seconds=elapsed)
+                        if max_messages is not None and len(packets) >= max_messages:
+                            elapsed = time.perf_counter() - started
+                            log.info("Capture stopped by max_messages=%d", max_messages)
+                            return CaptureResult(messages=packets, elapsed_seconds=elapsed)
 
                 if duration_seconds is not None:
                     elapsed_now = time.perf_counter() - started
@@ -65,3 +106,8 @@ def capture_sysex(
             elapsed = time.perf_counter() - started
             log.info("Capture interrupted by user")
             return CaptureResult(messages=packets, elapsed_seconds=elapsed)
+    finally:
+        try:
+            midi_in.close_port()
+        except Exception:  # noqa: BLE001
+            pass

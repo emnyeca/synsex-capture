@@ -2,15 +2,26 @@
 
 from __future__ import annotations
 
+from contextlib import ExitStack
+import threading
+import time
 import tkinter as tk
+from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
+import mido
+import rtmidi
 import yaml
 
+from .capture import SysexChunkAssembler
 from .diffing import DiffResult, diff_syx_files, format_diff
 from .hexview import hex_dump_file
+from .metadata import write_capture_metadata
+from .midi import list_input_ports, list_output_ports
 from .patcher import patch_syx_file
+from .replay import replay_sysex
+from .syx import load_syx_file, save_syx_file
 
 
 class AnalysisGui:
@@ -28,6 +39,21 @@ class AnalysisGui:
         self.patch_yaml_var = tk.StringVar()
         self.output_var = tk.StringVar()
         self.diff_limit_var = tk.StringVar(value="256")
+        self.capture_in_port_var = tk.StringVar()
+        self.capture_all_inputs_var = tk.BooleanVar(value=False)
+        self.capture_log_all_var = tk.BooleanVar(value=False)
+        self.replay_out_port_var = tk.StringVar()
+        self.capture_out_dir_var = tk.StringVar(value="captures")
+        self.capture_label_var = tk.StringVar()
+        self.capture_max_messages_var = tk.StringVar(value="1")
+        self.capture_duration_var = tk.StringVar(value="")
+        self.capture_datasets_dir_var = tk.StringVar(value="datasets")
+        self.replay_file_var = tk.StringVar()
+        self.replay_delay_var = tk.StringVar(value="0")
+
+        self._capture_thread: threading.Thread | None = None
+        self._stop_capture_event = threading.Event()
+        self._captured_packets: list[bytes] = []
 
         self._build_ui()
 
@@ -38,14 +64,118 @@ class AnalysisGui:
         tab_diff = ttk.Frame(notebook)
         tab_hex = ttk.Frame(notebook)
         tab_patch = ttk.Frame(notebook)
+        tab_midi = ttk.Frame(notebook)
 
+        notebook.add(tab_midi, text="MIDI Capture/Replay")
         notebook.add(tab_diff, text="Diff & Mapping")
         notebook.add(tab_hex, text="Hex Viewer")
         notebook.add(tab_patch, text="Selective Patch")
 
+        self._build_midi_tab(tab_midi)
         self._build_diff_tab(tab_diff)
         self._build_hex_tab(tab_hex)
         self._build_patch_tab(tab_patch)
+
+    def _build_midi_tab(self, parent: ttk.Frame) -> None:
+        ports_frame = ttk.LabelFrame(parent, text="Ports")
+        ports_frame.pack(fill=tk.X, padx=8, pady=8)
+
+        ttk.Label(ports_frame, text="Input port").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        self.in_port_combo = ttk.Combobox(
+            ports_frame, textvariable=self.capture_in_port_var, width=70, state="readonly"
+        )
+        self.in_port_combo.grid(row=0, column=1, padx=4, pady=4)
+        ttk.Checkbutton(
+            ports_frame,
+            text="Capture all input ports (auto detect)",
+            variable=self.capture_all_inputs_var,
+        ).grid(row=0, column=3, sticky="w", padx=4, pady=4)
+        ttk.Checkbutton(
+            ports_frame,
+            text="Log all MIDI messages (diagnostic)",
+            variable=self.capture_log_all_var,
+        ).grid(row=1, column=3, sticky="w", padx=4, pady=4)
+
+        ttk.Label(ports_frame, text="Output port").grid(row=1, column=0, sticky="w", padx=4, pady=4)
+        self.out_port_combo = ttk.Combobox(
+            ports_frame, textvariable=self.replay_out_port_var, width=70, state="readonly"
+        )
+        self.out_port_combo.grid(row=1, column=1, padx=4, pady=4)
+
+        ttk.Button(ports_frame, text="Refresh Ports", command=self._refresh_ports).grid(
+            row=0, column=2, rowspan=2, padx=4, pady=4
+        )
+
+        capture_frame = ttk.LabelFrame(parent, text="Capture SysEx")
+        capture_frame.pack(fill=tk.X, padx=8, pady=8)
+
+        ttk.Label(capture_frame, text="Out dir").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(capture_frame, textvariable=self.capture_out_dir_var, width=60).grid(
+            row=0, column=1, padx=4, pady=4
+        )
+        ttk.Button(
+            capture_frame,
+            text="Browse",
+            command=lambda: self._pick_directory(self.capture_out_dir_var),
+        ).grid(row=0, column=2, padx=4, pady=4)
+
+        ttk.Label(capture_frame, text="Label").grid(row=1, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(capture_frame, textvariable=self.capture_label_var, width=24).grid(
+            row=1, column=1, sticky="w", padx=4, pady=4
+        )
+
+        ttk.Label(capture_frame, text="Max messages").grid(row=2, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(capture_frame, textvariable=self.capture_max_messages_var, width=12).grid(
+            row=2, column=1, sticky="w", padx=4, pady=4
+        )
+
+        ttk.Label(capture_frame, text="Duration sec (optional)").grid(row=3, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(capture_frame, textvariable=self.capture_duration_var, width=12).grid(
+            row=3, column=1, sticky="w", padx=4, pady=4
+        )
+
+        ttk.Label(capture_frame, text="datasets dir").grid(row=4, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(capture_frame, textvariable=self.capture_datasets_dir_var, width=60).grid(
+            row=4, column=1, padx=4, pady=4
+        )
+
+        capture_btn_row = ttk.Frame(capture_frame)
+        capture_btn_row.grid(row=5, column=0, columnspan=3, sticky="w", padx=4, pady=6)
+        self.capture_start_btn = ttk.Button(capture_btn_row, text="Start Capture", command=self._start_capture)
+        self.capture_start_btn.pack(side=tk.LEFT)
+        self.capture_stop_btn = ttk.Button(
+            capture_btn_row, text="Stop Capture", command=self._stop_capture, state=tk.DISABLED
+        )
+        self.capture_stop_btn.pack(side=tk.LEFT, padx=6)
+
+        replay_frame = ttk.LabelFrame(parent, text="Replay SysEx")
+        replay_frame.pack(fill=tk.X, padx=8, pady=8)
+
+        ttk.Label(replay_frame, text=".syx file").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(replay_frame, textvariable=self.replay_file_var, width=60).grid(
+            row=0, column=1, padx=4, pady=4
+        )
+        ttk.Button(
+            replay_frame,
+            text="Browse",
+            command=lambda: self._pick_file(self.replay_file_var),
+        ).grid(row=0, column=2, padx=4, pady=4)
+
+        ttk.Label(replay_frame, text="Delay ms").grid(row=1, column=0, sticky="w", padx=4, pady=4)
+        ttk.Entry(replay_frame, textvariable=self.replay_delay_var, width=12).grid(
+            row=1, column=1, sticky="w", padx=4, pady=4
+        )
+
+        ttk.Button(replay_frame, text="Send to Output Port", command=self._run_replay_from_gui).grid(
+            row=2, column=0, columnspan=3, sticky="w", padx=4, pady=6
+        )
+
+        log_frame = ttk.LabelFrame(parent, text="MIDI Log")
+        log_frame.pack(fill=tk.BOTH, expand=True, padx=8, pady=8)
+        self.midi_log_text = tk.Text(log_frame, wrap=tk.NONE, height=14)
+        self.midi_log_text.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
+
+        self._refresh_ports()
 
     def _build_diff_tab(self, parent: ttk.Frame) -> None:
         top = ttk.Frame(parent)
@@ -121,6 +251,207 @@ class AnalysisGui:
         path = filedialog.asksaveasfilename(defaultextension=".syx", filetypes=[("SysEx", "*.syx"), ("All", "*.*")])
         if path:
             self.output_var.set(path)
+
+    def _pick_directory(self, target_var: tk.StringVar) -> None:
+        path = filedialog.askdirectory()
+        if path:
+            target_var.set(path)
+
+    def _log_midi(self, message: str) -> None:
+        self.midi_log_text.insert(tk.END, message + "\n")
+        self.midi_log_text.see(tk.END)
+
+    def _refresh_ports(self) -> None:
+        try:
+            in_ports = list_input_ports()
+            out_ports = list_output_ports()
+            self.in_port_combo["values"] = in_ports
+            self.out_port_combo["values"] = out_ports
+
+            if in_ports and not self.capture_in_port_var.get():
+                self.capture_in_port_var.set(in_ports[0])
+            if out_ports and not self.replay_out_port_var.get():
+                self.replay_out_port_var.set(out_ports[0])
+
+            self._log_midi(f"Ports refreshed: in={len(in_ports)} out={len(out_ports)}")
+        except Exception as exc:  # noqa: BLE001
+            messagebox.showerror("Port Error", str(exc))
+
+    def _start_capture(self) -> None:
+        if self._capture_thread is not None and self._capture_thread.is_alive():
+            messagebox.showerror("Capture Running", "Capture is already running.")
+            return
+
+        in_port = self.capture_in_port_var.get().strip()
+        if not in_port:
+            messagebox.showerror("Input Error", "Please select an input port.")
+            return
+
+        self._captured_packets = []
+        self._stop_capture_event.clear()
+        self.capture_start_btn.config(state=tk.DISABLED)
+        self.capture_stop_btn.config(state=tk.NORMAL)
+
+        self._capture_thread = threading.Thread(target=self._capture_worker, daemon=True)
+        self._capture_thread.start()
+
+    def _stop_capture(self) -> None:
+        self._stop_capture_event.set()
+        self._log_midi("Stop requested.")
+
+    def _capture_worker(self) -> None:
+        in_port = self.capture_in_port_var.get().strip()
+        capture_all = self.capture_all_inputs_var.get()
+        log_all_messages = self.capture_log_all_var.get()
+        out_dir = Path(self.capture_out_dir_var.get().strip() or "captures")
+        datasets_dir = Path(self.capture_datasets_dir_var.get().strip() or "datasets")
+        label = self.capture_label_var.get().strip() or datetime.now().strftime("capture_%Y%m%d_%H%M%S")
+
+        max_messages: int | None = None
+        if self.capture_max_messages_var.get().strip():
+            max_messages = int(self.capture_max_messages_var.get().strip())
+
+        duration_seconds: float | None = None
+        if self.capture_duration_var.get().strip():
+            duration_seconds = float(self.capture_duration_var.get().strip())
+
+        started = time.perf_counter()
+        non_sysex_count = 0
+
+        def ui_log(msg: str) -> None:
+            self.root.after(0, lambda: self._log_midi(msg))
+
+        try:
+            if capture_all:
+                port_names = list_input_ports()
+                if not port_names:
+                    raise RuntimeError("No input ports available.")
+                ui_log("Capture start: input=ALL")
+            else:
+                if not in_port:
+                    raise RuntimeError("No input port selected.")
+                port_names = [in_port]
+                ui_log(f"Capture start: input={in_port}")
+
+            with ExitStack() as stack:
+                midi_ins: list[tuple[str, rtmidi.MidiIn, SysexChunkAssembler]] = []
+                for name in port_names:
+                    midi_in = rtmidi.MidiIn()
+                    available = midi_in.get_ports()
+                    if name not in available:
+                        raise RuntimeError(f"Input port not found for rtmidi: {name}")
+
+                    port_index = available.index(name)
+                    midi_in.open_port(port_index)
+                    midi_in.ignore_types(sysex=False, timing=False, active_sense=True)
+                    stack.callback(midi_in.close_port)
+                    midi_ins.append((name, midi_in, SysexChunkAssembler()))
+
+                while True:
+                    for src_name, midi_in, assembler in midi_ins:
+                        message = midi_in.get_message()
+                        if not message:
+                            continue
+
+                        chunk, _delta = message
+                        parsed_packets = assembler.feed(chunk)
+
+                        if parsed_packets:
+                            for packet in parsed_packets:
+                                self._captured_packets.append(packet)
+                                ui_log(
+                                    f"Captured SysEx #{len(self._captured_packets)} "
+                                    f"length={len(packet)} source={src_name}"
+                                )
+
+                                if max_messages is not None and len(self._captured_packets) >= max_messages:
+                                    raise StopIteration
+                            continue
+
+                        non_sysex_count += 1
+                        if log_all_messages and non_sysex_count <= 64:
+                            ui_log(
+                                f"MIDI(non-sysex/chunk) source={src_name} bytes={chunk}"
+                            )
+
+                    if self._stop_capture_event.is_set():
+                        break
+
+                    if duration_seconds is not None and (time.perf_counter() - started) >= duration_seconds:
+                        break
+
+                    time.sleep(0.01)
+        except StopIteration:
+            pass
+        except Exception as exc:  # noqa: BLE001
+            self.root.after(0, lambda: messagebox.showerror("Capture Error", str(exc)))
+        finally:
+            elapsed = time.perf_counter() - started
+            try:
+                if not self._captured_packets:
+                    if non_sysex_count > 0:
+                        ui_log(
+                            f"Diagnostic: non-sysex MIDI was received ({non_sysex_count} messages), "
+                            "but no SysEx arrived. Device SysEx send/filter setting is likely blocking."
+                        )
+                    else:
+                        ui_log(
+                            "Diagnostic: no MIDI traffic detected on selected inputs. "
+                            "Check port routing or whether another app has the MIDI device open."
+                        )
+                    ui_log(
+                        "No SysEx captured. Nothing was saved. "
+                        "Check Digitone USB routing/SysEx send settings and selected input port."
+                    )
+                    ui_log(
+                        "Troubleshooting: 1) Digitone MIDI CONFIG > PORT CONFIG output includes USB, "
+                        "2) SysEx send is enabled, 3) no DAW/app is holding the same MIDI port, "
+                        "4) try Capture all input ports to identify actual route."
+                    )
+                    return
+
+                out_dir.mkdir(parents=True, exist_ok=True)
+                syx_path = out_dir / f"{label}.syx"
+                save_syx_file(self._captured_packets, syx_path)
+
+                total_bytes = sum(len(m) for m in self._captured_packets)
+                metadata_path = write_capture_metadata(
+                    datasets_dir=datasets_dir,
+                    syx_file=syx_path,
+                    label=label,
+                    message_count=len(self._captured_packets),
+                    total_bytes=total_bytes,
+                )
+                ui_log(
+                    "Capture finished: "
+                    f"messages={len(self._captured_packets)} "
+                    f"bytes={total_bytes} elapsed={elapsed:.2f}s "
+                    f"file={syx_path} metadata={metadata_path}"
+                )
+            except Exception as exc:  # noqa: BLE001
+                self.root.after(0, lambda: messagebox.showerror("Save Error", str(exc)))
+            finally:
+                self.root.after(0, lambda: self.capture_start_btn.config(state=tk.NORMAL))
+                self.root.after(0, lambda: self.capture_stop_btn.config(state=tk.DISABLED))
+
+    def _run_replay_from_gui(self) -> None:
+        out_port = self.replay_out_port_var.get().strip()
+        syx_file = self.replay_file_var.get().strip()
+
+        if not out_port:
+            messagebox.showerror("Input Error", "Please select an output port.")
+            return
+        if not syx_file:
+            messagebox.showerror("Input Error", "Please choose a .syx file to replay.")
+            return
+
+        try:
+            delay_ms = float(self.replay_delay_var.get().strip() or "0")
+            messages = load_syx_file(syx_file)
+            sent = replay_sysex(out_port_name=out_port, messages=messages, delay_ms=delay_ms)
+            self._log_midi(f"Replay finished: sent={sent} file={syx_file} out={out_port}")
+        except Exception as exc:  # noqa: BLE001
+            messagebox.showerror("Replay Error", str(exc))
 
     def _run_diff(self) -> None:
         file1 = self.file1_var.get().strip()
