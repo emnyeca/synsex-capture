@@ -1,0 +1,58 @@
+version: 1
+defaults:
+  velocity: 100
+
+# zero_based means track 0..6 is written as 0..6 in payload bytes.
+track_base: zero_based
+
+# Observed length table from current reverse engineering data.
+length_codes:
+  "1": "0x7F"
+  "2": "0x1E"
+  "8": "0x3E"
+  "16": "0x4E"
+
+# Pattern length code behavior from U-series observations.
+pattern_length:
+  offset: 1347
+  encoding: wrap128
+
+# IMPORTANT:
+# slots below are only sample mappings and are NOT complete.
+# Add all (step,track) pairs you want to synthesize.
+slots:
+  - step: 1
+    track: 0
+    offset_step: 21721
+    offset_track: 21720
+    offset_note: 21723
+    offset_velocity: 21724
+    offset_length: 21725
+  - step: 4
+    track: 0
+    offset_step: 21735
+    offset_track: 21734
+    offset_note: 21736
+    offset_velocity: 21737
+    offset_length: 21738
+  - step: 8
+    track: 0
+    offset_step: 21735
+    offset_track: 21734
+    offset_note: 21736
+    offset_velocity: 21737
+    offset_length: 21738
+  - step: 12
+    track: 0
+    offset_step: 21721
+    offset_track: 21720
+    offset_note: 21723
+    offset_velocity: 21724
+    offset_length: 21725
+  - step: 16
+    track: 0
+    offset_step: 21735
+    offset_track: 21734
+    offset_note: 21736
+    offset_velocity: 21737
+    offset_length: 21738

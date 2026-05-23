@@ -16,6 +16,13 @@ import yaml
 
 from .capture import SysexChunkAssembler
 from .diffing import DiffResult, diff_syx_files, format_diff
+from .events_to_syx import (
+    build_syx_from_events,
+    check_profile_coverage,
+    export_missing_slots_template,
+    resolve_profile_path,
+)
+from .events_yaml import load_event_assignment_yaml
 from .hexview import hex_dump_file
 from .metadata import write_capture_metadata
 from .midi import list_input_ports, list_output_ports
@@ -50,6 +57,10 @@ class AnalysisGui:
         self.capture_datasets_dir_var = tk.StringVar(value="datasets")
         self.replay_file_var = tk.StringVar()
         self.replay_delay_var = tk.StringVar(value="0")
+        self.events_yaml_var = tk.StringVar()
+        self.events_profile_var = tk.StringVar(value="profiles/digitone2.default.yaml")
+        self.events_template_var = tk.StringVar(value="captures/template_empty.syx")
+        self.events_output_var = tk.StringVar(value="captures/generated_from_events.syx")
 
         self._capture_thread: threading.Thread | None = None
         self._stop_capture_event = threading.Event()
@@ -65,16 +76,19 @@ class AnalysisGui:
         tab_hex = ttk.Frame(notebook)
         tab_patch = ttk.Frame(notebook)
         tab_midi = ttk.Frame(notebook)
+        tab_events = ttk.Frame(notebook)
 
         notebook.add(tab_midi, text="MIDI Capture/Replay")
         notebook.add(tab_diff, text="Diff & Mapping")
         notebook.add(tab_hex, text="Hex Viewer")
         notebook.add(tab_patch, text="Selective Patch")
+        notebook.add(tab_events, text="Events -> SYX")
 
         self._build_midi_tab(tab_midi)
         self._build_diff_tab(tab_diff)
         self._build_hex_tab(tab_hex)
         self._build_patch_tab(tab_patch)
+        self._build_events_tab(tab_events)
 
     def _build_midi_tab(self, parent: ttk.Frame) -> None:
         ports_frame = ttk.LabelFrame(parent, text="Ports")
@@ -242,6 +256,66 @@ class AnalysisGui:
         self.patch_hint.insert("1.0", hint)
         self.patch_hint.config(state=tk.DISABLED)
 
+    def _build_events_tab(self, parent: ttk.Frame) -> None:
+        top = ttk.Frame(parent)
+        top.pack(fill=tk.X, padx=8, pady=8)
+
+        ttk.Label(top, text="Events YAML").grid(row=0, column=0, sticky="w")
+        ttk.Entry(top, textvariable=self.events_yaml_var, width=90).grid(row=0, column=1, padx=6)
+        ttk.Button(
+            top,
+            text="Browse",
+            command=lambda: self._pick_file(self.events_yaml_var, [("YAML", "*.yaml *.yml"), ("All", "*.*")]),
+        ).grid(row=0, column=2)
+
+        ttk.Label(top, text="Profile YAML").grid(row=1, column=0, sticky="w")
+        ttk.Entry(top, textvariable=self.events_profile_var, width=90).grid(row=1, column=1, padx=6)
+        ttk.Button(
+            top,
+            text="Browse",
+            command=lambda: self._pick_file(self.events_profile_var, [("YAML", "*.yaml *.yml"), ("All", "*.*")]),
+        ).grid(row=1, column=2)
+
+        ttk.Label(top, text="Template .syx").grid(row=2, column=0, sticky="w")
+        ttk.Entry(top, textvariable=self.events_template_var, width=90).grid(row=2, column=1, padx=6)
+        ttk.Button(top, text="Browse", command=lambda: self._pick_file(self.events_template_var)).grid(row=2, column=2)
+
+        ttk.Label(top, text="Output .syx").grid(row=3, column=0, sticky="w")
+        ttk.Entry(top, textvariable=self.events_output_var, width=90).grid(row=3, column=1, padx=6)
+        ttk.Button(top, text="Browse", command=self._pick_events_output).grid(row=3, column=2)
+
+        btn_row = ttk.Frame(parent)
+        btn_row.pack(fill=tk.X, padx=8, pady=4)
+        ttk.Button(btn_row, text="Validate Events YAML", command=self._validate_events_yaml).pack(side=tk.LEFT)
+        ttk.Button(btn_row, text="Check Profile Coverage", command=self._check_profile_coverage).pack(
+            side=tk.LEFT, padx=6
+        )
+        ttk.Button(btn_row, text="Export Missing Slots", command=self._export_missing_slots).pack(
+            side=tk.LEFT, padx=6
+        )
+        ttk.Button(btn_row, text="Generate SYX from Events", command=self._generate_syx_from_events).pack(
+            side=tk.LEFT, padx=6
+        )
+
+        hint = (
+            "This flow needs events.yaml + template.syx (+ optional profile.yaml)\n"
+            "- events.yaml: validated against v1 schema\n"
+            "- profile.yaml: explicit (step,track)->offset mapping (blank uses default Digitone II profile)\n"
+            "- template.syx: base file to patch\n"
+            "\n"
+            "Note: checksum recomputation is not implemented yet.\n"
+            "Generated file may require checksum fixing before device accepts it."
+        )
+        self.events_hint = tk.Text(parent, height=8, wrap=tk.WORD)
+        self.events_hint.pack(fill=tk.BOTH, expand=False, padx=8, pady=8)
+        self.events_hint.insert("1.0", hint)
+        self.events_hint.config(state=tk.DISABLED)
+
+        log_frame = ttk.LabelFrame(parent, text="Events Build Log")
+        log_frame.pack(fill=tk.BOTH, expand=True, padx=8, pady=8)
+        self.events_log_text = tk.Text(log_frame, wrap=tk.NONE, height=14)
+        self.events_log_text.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
+
     def _pick_file(self, target_var: tk.StringVar, filetypes: list[tuple[str, str]] | None = None) -> None:
         path = filedialog.askopenfilename(filetypes=filetypes or [("SysEx", "*.syx"), ("All", "*.*")])
         if path:
@@ -252,6 +326,11 @@ class AnalysisGui:
         if path:
             self.output_var.set(path)
 
+    def _pick_events_output(self) -> None:
+        path = filedialog.asksaveasfilename(defaultextension=".syx", filetypes=[("SysEx", "*.syx"), ("All", "*.*")])
+        if path:
+            self.events_output_var.set(path)
+
     def _pick_directory(self, target_var: tk.StringVar) -> None:
         path = filedialog.askdirectory()
         if path:
@@ -260,6 +339,10 @@ class AnalysisGui:
     def _log_midi(self, message: str) -> None:
         self.midi_log_text.insert(tk.END, message + "\n")
         self.midi_log_text.see(tk.END)
+
+    def _log_events(self, message: str) -> None:
+        self.events_log_text.insert(tk.END, message + "\n")
+        self.events_log_text.see(tk.END)
 
     def _refresh_ports(self) -> None:
         try:
@@ -408,26 +491,25 @@ class AnalysisGui:
                         "2) SysEx send is enabled, 3) no DAW/app is holding the same MIDI port, "
                         "4) try Capture all input ports to identify actual route."
                     )
-                    return
+                else:
+                    out_dir.mkdir(parents=True, exist_ok=True)
+                    syx_path = out_dir / f"{label}.syx"
+                    save_syx_file(self._captured_packets, syx_path)
 
-                out_dir.mkdir(parents=True, exist_ok=True)
-                syx_path = out_dir / f"{label}.syx"
-                save_syx_file(self._captured_packets, syx_path)
-
-                total_bytes = sum(len(m) for m in self._captured_packets)
-                metadata_path = write_capture_metadata(
-                    datasets_dir=datasets_dir,
-                    syx_file=syx_path,
-                    label=label,
-                    message_count=len(self._captured_packets),
-                    total_bytes=total_bytes,
-                )
-                ui_log(
-                    "Capture finished: "
-                    f"messages={len(self._captured_packets)} "
-                    f"bytes={total_bytes} elapsed={elapsed:.2f}s "
-                    f"file={syx_path} metadata={metadata_path}"
-                )
+                    total_bytes = sum(len(m) for m in self._captured_packets)
+                    metadata_path = write_capture_metadata(
+                        datasets_dir=datasets_dir,
+                        syx_file=syx_path,
+                        label=label,
+                        message_count=len(self._captured_packets),
+                        total_bytes=total_bytes,
+                    )
+                    ui_log(
+                        "Capture finished: "
+                        f"messages={len(self._captured_packets)} "
+                        f"bytes={total_bytes} elapsed={elapsed:.2f}s "
+                        f"file={syx_path} metadata={metadata_path}"
+                    )
             except Exception as exc:  # noqa: BLE001
                 self.root.after(0, lambda: messagebox.showerror("Save Error", str(exc)))
             finally:
@@ -528,6 +610,120 @@ class AnalysisGui:
             messagebox.showinfo("Patch Complete", f"Patched file saved:\n{out}")
         except Exception as exc:  # noqa: BLE001
             messagebox.showerror("Patch Error", str(exc))
+
+    def _validate_events_yaml(self) -> None:
+        events_path = self.events_yaml_var.get().strip()
+        if not events_path:
+            messagebox.showerror("Input Error", "Please choose an events YAML file.")
+            return
+
+        try:
+            assignment = load_event_assignment_yaml(events_path)
+            event_count = sum(len(step.events) for step in assignment.steps)
+            self._log_events(
+                "Validation OK: "
+                f"version={assignment.version} "
+                f"length_steps={assignment.length_steps} "
+                f"steps={len(assignment.steps)} events={event_count}"
+            )
+            messagebox.showinfo("Validation OK", f"Events YAML is valid.\nEvents: {event_count}")
+        except Exception as exc:  # noqa: BLE001
+            messagebox.showerror("Validation Error", str(exc))
+
+    def _generate_syx_from_events(self) -> None:
+        events_path = self.events_yaml_var.get().strip()
+        profile_path = self.events_profile_var.get().strip()
+        template_path = self.events_template_var.get().strip()
+        output_path = self.events_output_var.get().strip()
+
+        if not events_path or not template_path or not output_path:
+            messagebox.showerror(
+                "Input Error",
+                "events YAML, template .syx, and output .syx are all required.",
+            )
+            return
+
+        try:
+            resolved_profile = resolve_profile_path(profile_path or None)
+            result = build_syx_from_events(
+                template_file=template_path,
+                events_yaml=events_path,
+                profile_yaml=resolved_profile,
+                output_file=output_path,
+            )
+            self.replay_file_var.set(str(result.output_file))
+            self._log_events(f"Profile: {resolved_profile}")
+            self._log_events(f"Build complete: output={result.output_file} events={result.written_events}")
+            for warning in result.warnings:
+                self._log_events(f"Warning: {warning}")
+
+            messagebox.showinfo(
+                "Build Complete",
+                f"Generated .syx:\n{result.output_file}\n\n"
+                "Replay file field was auto-filled in MIDI tab.",
+            )
+        except Exception as exc:  # noqa: BLE001
+            messagebox.showerror("Build Error", str(exc))
+
+    def _check_profile_coverage(self) -> None:
+        events_path = self.events_yaml_var.get().strip()
+        profile_path = self.events_profile_var.get().strip()
+
+        if not events_path:
+            messagebox.showerror("Input Error", "events YAML is required.")
+            return
+
+        try:
+            resolved_profile = resolve_profile_path(profile_path or None)
+            coverage = check_profile_coverage(events_yaml=events_path, profile_yaml=resolved_profile)
+            self._log_events(f"Profile: {resolved_profile}")
+            self._log_events(
+                "Coverage: "
+                f"required={len(coverage.required_pairs)} "
+                f"mapped={len(coverage.mapped_pairs)} "
+                f"missing={len(coverage.missing_pairs)}"
+            )
+
+            if coverage.missing_pairs:
+                for step, track in coverage.missing_pairs:
+                    self._log_events(f"Missing slot: step={step} track={track}")
+                messagebox.showwarning(
+                    "Coverage Incomplete",
+                    f"Missing slot mappings: {len(coverage.missing_pairs)}\n"
+                    "See Events Build Log for details. You can export a fill template via Export Missing Slots.",
+                )
+            else:
+                messagebox.showinfo("Coverage OK", "All required (step, track) pairs are mapped.")
+        except Exception as exc:  # noqa: BLE001
+            messagebox.showerror("Coverage Error", str(exc))
+
+    def _export_missing_slots(self) -> None:
+        events_path = self.events_yaml_var.get().strip()
+        profile_path = self.events_profile_var.get().strip()
+
+        if not events_path:
+            messagebox.showerror("Input Error", "events YAML is required.")
+            return
+
+        output = filedialog.asksaveasfilename(
+            defaultextension=".yaml",
+            filetypes=[("YAML", "*.yaml *.yml"), ("All", "*.*")],
+            initialfile="missing_slots_template.yaml",
+        )
+        if not output:
+            return
+
+        try:
+            resolved_profile = resolve_profile_path(profile_path or None)
+            out = export_missing_slots_template(
+                events_yaml=events_path,
+                profile_yaml=resolved_profile,
+                output_yaml=output,
+            )
+            self._log_events(f"Exported missing-slot template: {out}")
+            messagebox.showinfo("Export Complete", f"Wrote missing-slot template:\n{out}")
+        except Exception as exc:  # noqa: BLE001
+            messagebox.showerror("Export Error", str(exc))
 
 
 def run_gui() -> None:

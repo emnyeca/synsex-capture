@@ -11,6 +11,8 @@ Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI
 - `.syx` の Hex Viewer
 - 解析向け簡易 GUI（MIDI Capture/Replay / Diff / Hex / Selective Patch）
 - キャプチャ時の YAML メタ情報出力（`datasets/`）
+- events YAML のバリデーション
+- `events.yaml + profile.yaml + template.syx` からの `.syx` 生成（実験機能）
 
 ## Requirements
 
@@ -59,6 +61,34 @@ digitone_syx_toolkit view --file captures/A01.syx
 digitone_syx_toolkit gui
 ```
 
+```bash
+digitone_syx_toolkit validate_events --file ../harmony-cloud/examples/blue_moon.events.yaml
+```
+
+```bash
+digitone_syx_toolkit check_profile \
+  --events ../harmony-cloud/examples/blue_moon.events.yaml
+```
+
+```bash
+digitone_syx_toolkit export_missing_slots \
+  --events ../harmony-cloud/examples/blue_moon.events.yaml
+```
+
+```bash
+digitone_syx_toolkit build_from_events \
+  --events ../harmony-cloud/examples/blue_moon.events.yaml \
+  --template captures/template_empty.syx \
+  --output captures/generated_from_events.syx
+```
+
+任意で `--profile` を指定すると、別機種や別マッピングを使えます。未指定時は
+`profiles/digitone2.default.yaml` を使用します。
+
+```bash
+digitone_syx_toolkit gui
+```
+
 Windows (PowerShell) では `bash digitone_syx_toolkit gui` ではなく、次のように実行してください。
 
 ```powershell
@@ -83,6 +113,39 @@ GUIの解析手順は以下を参照:
 4. `Start Capture` を押してから Digitone II で SysEx Send
 5. 受信後 `.syx` と `datasets/*.yaml` が保存される
 6. 再送する場合は同タブで Output port と `.syx` を指定して `Send to Output Port`
+
+### GUIで events.yaml から .syx を生成する
+
+1. `digitone_syx_toolkit gui` を起動
+2. `Events -> SYX` タブを開く
+3. `Events YAML`, `Profile YAML`, `Template .syx`, `Output .syx` を設定
+4. `Validate Events YAML` で事前チェック
+5. `Check Profile Coverage` で不足する `(step, track)` を確認
+6. 不足がある場合は `Export Missing Slots` で不足テンプレート YAML を出力
+7. 出力したテンプレートの各 `offset_*` を埋める
+8. 埋めたスロットを `profiles/digitone2.default.yaml` の `slots` に追加
+9. もう一度 `Check Profile Coverage` を実行して `missing=0` を確認
+10. `Generate SYX from Events` を実行
+
+注意:
+
+- 既定プロファイル (`profiles/digitone2.default.yaml`) は Digitone II 向けです。
+- ただし現状は部分定義のため、未定義の `(step, track)` がある場合は `check_profile` で不足一覧が表示されます。
+- Digitone II のチェックサムは生成時に自動再計算されます。
+
+### events.yaml から「実機送信できる .syx」を作るための条件
+
+以下が満たされると、`events.yaml -> .syx` の成功率が上がります。
+
+1. `check_profile` が `missing=0` を返すこと
+2. `profiles/digitone2.default.yaml` の `length_codes` が利用する duration をカバーしていること
+3. テンプレートが Digitone II 形式であること（チェックサム領域を含むこと）
+
+現実的な運用:
+
+1. `Generate SYX from Events` で生成
+2. 実機送信を試す
+3. 拒否されたら、主に `profile.slots` と `length_codes` の未解決マッピングを疑って差分比較する
 
 ### Capture Metadata (YAML)
 
@@ -132,11 +195,15 @@ src/digitone_syx_toolkit/
   hexview.py         # hex dump formatting
   metadata.py        # YAML metadata output
   patcher.py         # selective byte patching from YAML
+  events_yaml.py     # events assignment YAML validation
+  events_to_syx.py   # events/profile/template based syx builder
   errors.py          # domain exceptions
   logging_utils.py   # logging setup
 tests/
   test_syx.py
   test_diff_hex.py
+  test_events_yaml.py
+  test_events_to_syx.py
 ```
 
 ## Notes
