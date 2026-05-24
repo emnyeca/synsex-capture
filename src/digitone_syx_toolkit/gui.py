@@ -52,7 +52,7 @@ class AnalysisGui:
         self.replay_out_port_var = tk.StringVar()
         self.capture_out_dir_var = tk.StringVar(value="captures")
         self.capture_label_var = tk.StringVar()
-        self.capture_max_messages_var = tk.StringVar(value="1")
+        self.capture_max_messages_var = tk.StringVar(value="")
         self.capture_duration_var = tk.StringVar(value="")
         self.capture_datasets_dir_var = tk.StringVar(value="datasets")
         self.replay_file_var = tk.StringVar()
@@ -138,7 +138,9 @@ class AnalysisGui:
             row=1, column=1, sticky="w", padx=4, pady=4
         )
 
-        ttk.Label(capture_frame, text="Max messages").grid(row=2, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(capture_frame, text="Max messages (blank=unlimited)").grid(
+            row=2, column=0, sticky="w", padx=4, pady=4
+        )
         ttk.Entry(capture_frame, textvariable=self.capture_max_messages_var, width=12).grid(
             row=2, column=1, sticky="w", padx=4, pady=4
         )
@@ -393,6 +395,8 @@ class AnalysisGui:
         max_messages: int | None = None
         if self.capture_max_messages_var.get().strip():
             max_messages = int(self.capture_max_messages_var.get().strip())
+            if max_messages <= 0:
+                raise RuntimeError("Max messages must be a positive integer or blank.")
 
         duration_seconds: float | None = None
         if self.capture_duration_var.get().strip():
@@ -400,6 +404,9 @@ class AnalysisGui:
 
         started = time.perf_counter()
         non_sysex_count = 0
+        saved_files: list[Path] = []
+        out_dir.mkdir(parents=True, exist_ok=True)
+        datasets_dir.mkdir(parents=True, exist_ok=True)
 
         def ui_log(msg: str) -> None:
             self.root.after(0, lambda: self._log_midi(msg))
@@ -442,9 +449,23 @@ class AnalysisGui:
                         if parsed_packets:
                             for packet in parsed_packets:
                                 self._captured_packets.append(packet)
+                                packet_index = len(self._captured_packets)
+                                packet_label = f"{label}_{packet_index:04d}"
+                                syx_path = out_dir / f"{packet_label}.syx"
+                                save_syx_file([packet], syx_path)
+
+                                metadata_path = write_capture_metadata(
+                                    datasets_dir=datasets_dir,
+                                    syx_file=syx_path,
+                                    label=packet_label,
+                                    message_count=1,
+                                    total_bytes=len(packet),
+                                )
+                                saved_files.append(syx_path)
                                 ui_log(
-                                    f"Captured SysEx #{len(self._captured_packets)} "
-                                    f"length={len(packet)} source={src_name}"
+                                    f"Captured SysEx #{packet_index} "
+                                    f"length={len(packet)} source={src_name} "
+                                    f"saved={syx_path} metadata={metadata_path}"
                                 )
 
                                 if max_messages is not None and len(self._captured_packets) >= max_messages:
@@ -492,23 +513,12 @@ class AnalysisGui:
                         "4) try Capture all input ports to identify actual route."
                     )
                 else:
-                    out_dir.mkdir(parents=True, exist_ok=True)
-                    syx_path = out_dir / f"{label}.syx"
-                    save_syx_file(self._captured_packets, syx_path)
-
                     total_bytes = sum(len(m) for m in self._captured_packets)
-                    metadata_path = write_capture_metadata(
-                        datasets_dir=datasets_dir,
-                        syx_file=syx_path,
-                        label=label,
-                        message_count=len(self._captured_packets),
-                        total_bytes=total_bytes,
-                    )
                     ui_log(
                         "Capture finished: "
                         f"messages={len(self._captured_packets)} "
                         f"bytes={total_bytes} elapsed={elapsed:.2f}s "
-                        f"file={syx_path} metadata={metadata_path}"
+                        f"saved_files={len(saved_files)} out_dir={out_dir}"
                     )
             except Exception as exc:  # noqa: BLE001
                 self.root.after(0, lambda: messagebox.showerror("Save Error", str(exc)))

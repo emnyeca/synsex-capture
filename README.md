@@ -98,7 +98,8 @@ digitone_syx_toolkit gui
 もしコマンドが見つからない場合:
 
 ```powershell
-python -m digitone_syx_toolkit gui
+python -m pip install -e .
+digitone_syx_toolkit gui
 ```
 
 GUIの解析手順は以下を参照:
@@ -111,8 +112,13 @@ GUIの解析手順は以下を参照:
 2. `MIDI Capture/Replay` タブで `Refresh Ports`
 3. Input port に Digitone II を選択
 4. `Start Capture` を押してから Digitone II で SysEx Send
-5. 受信後 `.syx` と `datasets/*.yaml` が保存される
+5. 受信ごとに `.syx` と `datasets/*.yaml` が連続保存される（`label_0001.syx` 形式）
 6. 再送する場合は同タブで Output port と `.syx` を指定して `Send to Output Port`
+
+補足:
+
+- GUI の `Max messages` が空欄なら自動停止しません
+- 停止は `Stop Capture`、または `Max messages` / `Duration sec` 到達時です
 
 ### GUIで events.yaml から .syx を生成する
 

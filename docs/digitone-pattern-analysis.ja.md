@@ -54,13 +54,23 @@ digitone_syx_toolkit gui
 ```
 
 ```powershell
-python -m digitone_syx_toolkit gui
+python -m pip install -e .
+digitone_syx_toolkit gui
 ```
 
 今すぐ起動するコマンド:
 
 ```powershell
 cd D:\emnye\Documents\GitHub\digitone-syx-toolkit
+.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\digitone_syx_toolkit.exe gui
+```
+
+未インストールで一時的に起動する場合:
+
+```powershell
+cd D:\emnye\Documents\GitHub\digitone-syx-toolkit
+$env:PYTHONPATH = "src"
 .\.venv\Scripts\python.exe -m digitone_syx_toolkit gui
 ```
 
@@ -71,8 +81,14 @@ cd D:\emnye\Documents\GitHub\digitone-syx-toolkit
 3. `Input port` に Digitone II を選択
 4. 必要なら `Out dir` と `Label` を設定
 5. `Start Capture` を押してから、Digitone II 側で SysEx Send を実行
-6. `MIDI Log` に `Captured SysEx` が表示され、`.syx` と `datasets/*.yaml` が保存される
+6. `MIDI Log` に `Captured SysEx` が表示され、受信ごとに `.syx` と `datasets/*.yaml` が連続保存される
 7. 再送する場合は `Output port` と `.syx file` を選び、`Send to Output Port` を実行
+
+補足:
+
+- `Max messages` が空欄のときは自動停止しません（`Stop Capture` で停止）
+- `Max messages` を設定した場合のみ、指定件数到達で停止します
+- 保存ファイル名は `label_0001.syx`, `label_0002.syx` のように連番で増えます
 
 受信できない場合:
 
