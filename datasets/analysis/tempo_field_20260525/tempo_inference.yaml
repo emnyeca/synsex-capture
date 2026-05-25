@@ -1,134 +1,40 @@
-tempo_pairs:
-- from: 1
-  to: 2
-  diff_offsets:
-  - 101504
-  - 114114
-- from: 2
-  to: 3
-  diff_offsets:
-  - 101498
-  - 101504
-  - 114114
-- from: 3
-  to: 4
-  diff_offsets:
-  - 101503
-  - 101504
-  - 114114
-- from: 4
-  to: 5
-  diff_offsets:
-  - 101498
-  - 101503
-  - 101504
-  - 114114
-- from: 5
-  to: 6
-  diff_offsets:
-  - 101503
-  - 101504
-  - 114114
-- from: 6
-  to: 7
-  diff_offsets:
-  - 101498
-  - 101503
-  - 101504
-  - 114113
-  - 114114
-- from: 7
-  to: 8
-  diff_offsets:
-  - 101498
-  - 101503
-  - 101504
-  - 114114
-common_offsets_across_all_tempo_changes:
-- 101504
-- 114114
-values_at_common_offsets:
-- index: 1
-  tempo: 120.0
-  file: captures/1_BaseTempo120.syx
-  values:
-    '101504': '0x40'
-    '114114': '0x3C'
-- index: 2
-  tempo: 120.1
-  file: captures/2_Tempo120ChangedTo120.1.syx
-  values:
-    '101504': '0x4C'
-    '114114': '0x48'
-- index: 3
-  tempo: 121.0
-  file: captures/3_Tempo120.1ChangedTo121.syx
-  values:
-    '101504': '0x38'
-    '114114': '0x36'
-- index: 4
-  tempo: 130.0
-  file: captures/4_Tempo121ChangedTo130.syx
-  values:
-    '101504': '0x70'
-    '114114': '0x72'
-- index: 5
-  tempo: 60.0
-  file: captures/5_Tempo130ChangedTto60.syx
-  values:
-    '101504': '0x20'
-    '114114': '0x00'
-- index: 6
-  tempo: 120.0
-  file: captures/6_Tempo60ChangedTo120.syx
-  values:
-    '101504': '0x40'
-    '114114': '0x3C'
-- index: 7
-  tempo: 300.0
-  file: captures/7_Tempo120ChangedTo300.syx
-  values:
-    '101504': '0x20'
-    '114114': '0x76'
-- index: 8
-  tempo: 30.0
-  file: captures/8_Tempo300ChangedTo30.syx
-  values:
+analysis_target: pattern_tempo
+status: inferred_to_confirmed_transition
+field_candidates:
+  control_offset: 101498
+  high_payload_offset: 101503
+  low_payload_offset: 101504
+  control_masks:
+    high_payload_msb: '0x04'
+    low_payload_msb: '0x02'
+formula_candidates:
+  scaled_formula: round(bpm * 120)
+  decode_formula: ((hi_unpacked << 8) | lo_unpacked) / 120
+  packing_rule: preserve unrelated bits in control offset and only toggle mask bits for target payload bytes.
+validation_points:
+- bpm: 30.0
+  packed:
+    '101498': '0x00'
+    '101503': '0x0E'
     '101504': '0x10'
-    '114114': '0x62'
-fit:
-  candidate_offset: 101504
-  tempo_x10_check: false
-  details:
-  - index: 1
-    tempo: 120.0
-    byte: 64
-    tempo_x10: 1200
-  - index: 2
-    tempo: 120.1
-    byte: 76
-    tempo_x10: 1201
-  - index: 3
-    tempo: 121.0
-    byte: 56
-    tempo_x10: 1210
-  - index: 4
-    tempo: 130.0
-    byte: 112
-    tempo_x10: 1300
-  - index: 5
-    tempo: 60.0
-    byte: 32
-    tempo_x10: 600
-  - index: 6
-    tempo: 120.0
-    byte: 64
-    tempo_x10: 1200
-  - index: 7
-    tempo: 300.0
-    byte: 32
-    tempo_x10: 3000
-  - index: 8
-    tempo: 30.0
-    byte: 16
-    tempo_x10: 300
+- bpm: 120.0
+  packed:
+    '101498': '0x00'
+    '101503': '0x38'
+    '101504': '0x40'
+- bpm: 120.4
+  packed:
+    '101498': '0x00'
+    '101503': '0x38'
+    '101504': '0x70'
+- bpm: 130.0
+  packed:
+    '101498': '0x02'
+    '101503': '0x3C'
+    '101504': '0x70'
+- bpm: 300.0
+  packed:
+    '101498': '0x06'
+    '101503': '0x0C'
+    '101504': '0x20'
+note: checkum/integrity formula is intentionally excluded here because docs/analysis treats it as unresolved.

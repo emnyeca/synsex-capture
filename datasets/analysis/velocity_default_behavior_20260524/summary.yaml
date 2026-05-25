@@ -8,52 +8,52 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_empty.syx
+  file: captures/velocity_default_behavior/1_empty.syx
   operation: empty
   step_velocity: null
   track_default_velocity: null
 - index: 2
-  file: captures/2_Step1C5Added_VelIs100.syx
+  file: captures/velocity_default_behavior/2_Step1C5Added_VelIs100.syx
   operation: add step1 C5 (track default vel=100)
   step_velocity: 100
   track_default_velocity: 100
 - index: 3
-  file: captures/3_Step1Vel100ChangedTo1.syx
+  file: captures/velocity_default_behavior/3_Step1Vel100ChangedTo1.syx
   operation: set step1 vel=1
   step_velocity: 1
   track_default_velocity: 100
 - index: 4
-  file: captures/4_Step1Vel1ChangedTo100.syx
+  file: captures/velocity_default_behavior/4_Step1Vel1ChangedTo100.syx
   operation: set step1 vel=100
   step_velocity: 100
   track_default_velocity: 100
 - index: 5
-  file: captures/5_trackVelocityChangedTo1.syx
+  file: captures/velocity_default_behavior/5_trackVelocityChangedTo1.syx
   operation: set track default vel=1
   step_velocity: 100
   track_default_velocity: 1
 - index: 6
-  file: captures/6_Step1Vel100ChangedTo1.syx
+  file: captures/velocity_default_behavior/6_Step1Vel100ChangedTo1.syx
   operation: set step1 vel=1
   step_velocity: 1
   track_default_velocity: 1
 - index: 7
-  file: captures/7_Step1Deleted.syx
+  file: captures/velocity_default_behavior/7_Step1Deleted.syx
   operation: delete step1
   step_velocity: null
   track_default_velocity: 1
 - index: 8
-  file: captures/8_Step1Added_VelIs1.syx
+  file: captures/velocity_default_behavior/8_Step1Added_VelIs1.syx
   operation: add step1 C5 (track default vel=1)
   step_velocity: 1
   track_default_velocity: 1
 - index: 9
-  file: captures/9_Step1Vel1ChangedTo100.syx
+  file: captures/velocity_default_behavior/9_Step1Vel1ChangedTo100.syx
   operation: set step1 vel=100
   step_velocity: 100
   track_default_velocity: 1
 - index: 10
-  file: captures/10_trackVelocityChangedTo100.syx
+  file: captures/velocity_default_behavior/10_trackVelocityChangedTo100.syx
   operation: set track default vel=100
   step_velocity: 100
   track_default_velocity: 100

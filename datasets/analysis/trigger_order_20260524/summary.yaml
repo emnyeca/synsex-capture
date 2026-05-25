@@ -8,28 +8,28 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_Trigger1To16Deleted.syx
+  file: captures/Trigger_Order/1_Trigger1To16Deleted.syx
   operation: Delete triggers 1..16
 - index: 2
-  file: captures/2_Trigger16Added.syx
+  file: captures/Trigger_Order/2_Trigger16Added.syx
   operation: Add trigger 16
 - index: 3
-  file: captures/3_Trigger16Removed.syx
+  file: captures/Trigger_Order/3_Trigger16Removed.syx
   operation: Remove trigger 16
 - index: 4
-  file: captures/4_Trigger1Added.syx
+  file: captures/Trigger_Order/4_Trigger1Added.syx
   operation: Add trigger 1
 - index: 5
-  file: captures/5_Trigger1Removed.syx
+  file: captures/Trigger_Order/5_Trigger1Removed.syx
   operation: Remove trigger 1
 - index: 6
-  file: captures/6_Trigger16Added.syx
+  file: captures/Trigger_Order/6_Trigger16Added.syx
   operation: Add trigger 16
 - index: 7
-  file: captures/7_Trigger1Added.syx
+  file: captures/Trigger_Order/7_Trigger1Added.syx
   operation: Add trigger 1
 - index: 8
-  file: captures/8_Trigger16&1Removed.syx
+  file: captures/Trigger_Order/8_Trigger16&1Removed.syx
   operation: Remove triggers 16 and 1
 generated:
   sequential:

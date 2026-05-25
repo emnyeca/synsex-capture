@@ -8,19 +8,19 @@ fixed_context:
   trigger_state: none (no trig)
 sequence:
 - index: 1
-  file: captures/1_BasePatternStepWide16.syx
+  file: captures/Track_Wide_Mode_Field/1_BasePatternStepWide16.syx
   operation: 'Base: PATTERN-wide mode, total steps 16'
 - index: 2
-  file: captures/2_PatternStepWideModeChangedToTrackStepWideMode.syx
+  file: captures/Track_Wide_Mode_Field/2_PatternStepWideModeChangedToTrackStepWideMode.syx
   operation: Switch to per-track mode, all tracks display 16
 - index: 3
-  file: captures/3_Track1StepWide16ChangedTo8.syx
+  file: captures/Track_Wide_Mode_Field/3_Track1StepWide16ChangedTo8.syx
   operation: Track1 total steps 16 -> 8 in per-track mode
 - index: 4
-  file: captures/4_Track2StepWide16ChangedTo4.syx
+  file: captures/Track_Wide_Mode_Field/4_Track2StepWide16ChangedTo4.syx
   operation: Track2 total steps 16 -> 4 in per-track mode
 - index: 5
-  file: captures/5_TrackStepWideModeChangedToPatternStepWideModeBase16.syx
+  file: captures/Track_Wide_Mode_Field/5_TrackStepWideModeChangedToPatternStepWideModeBase16.syx
   operation: Back to PATTERN-wide mode, total steps 16
 generated:
   sequential:

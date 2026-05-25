@@ -1,3 +1,5 @@
+analysis_target: trigger_velocity_and_track_default
+status: inferred_then_confirmed_with_default_behavior_dataset
 velocity_pair_comparisons:
 - from: 2
   to: 3
@@ -22,27 +24,30 @@ common_offsets_across_velocity_changes:
 - 114114
 velocity_values_at_common_offsets:
 - index: 2
-  velocity: 100
-  file: captures/2_Trigger1C5Vel100Added.syx
+  velocity_display: 100
+  file: captures/Velocity_Field/2_Trigger1C5Vel100Added.syx
   values:
     '21724': '0x7F'
     '114114': '0x23'
+  interpretation: new trigger stores inherit marker (decoded 0xFF), not explicit 100.
 - index: 3
   velocity: 1
-  file: captures/3_Trigger1C5Vel100ChangedTo1.syx
+  file: captures/Velocity_Field/3_Trigger1C5Vel100ChangedTo1.syx
   values:
     '21724': '0x01'
     '114114': '0x05'
 - index: 4
   velocity: 64
-  file: captures/4_Trigger1C5Vel1ChangedTo64.syx
+  file: captures/Velocity_Field/4_Trigger1C5Vel1ChangedTo64.syx
   values:
     '21724': '0x40'
     '114114': '0x44'
 - index: 5
   velocity: 127
-  file: captures/5_Trigger1C5Vel64ChangedTo127.syx
+  file: captures/Velocity_Field/5_Trigger1C5Vel64ChangedTo127.syx
   values:
     '21724': '0x7F'
     '114114': '0x03'
-suggested_velocity_offset: null
+suggested_velocity_offset: 21724
+notes:
+- Explicit velocity value mapping is finalized in velocity_default_behavior_20260524 and trigger-velocity spec.

@@ -8,87 +8,87 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_empty.syx
+  file: captures/Length_Field/1_empty.syx
   operation: empty
   step_length: null
   track_default_length: null
 - index: 2
-  file: captures/2_Step1C5Added_LengthIsDefault1.syx
+  file: captures/Length_Field/2_Step1C5Added_LengthIsDefault1.syx
   operation: add step1 C5 (default len=1)
   step_length: '1'
   track_default_length: '1'
 - index: 3
-  file: captures/3_Step1Len1ChangedTo0.125.syx
+  file: captures/Length_Field/3_Step1Len1ChangedTo0.125.syx
   operation: set step1 len=0.125
   step_length: '0.125'
   track_default_length: '1'
 - index: 4
-  file: captures/4_Step1Len0.125ChangedTo0.25.syx
+  file: captures/Length_Field/4_Step1Len0.125ChangedTo0.25.syx
   operation: set step1 len=0.25
   step_length: '0.25'
   track_default_length: '1'
 - index: 5
-  file: captures/5_Step1Len0.25ChangedTo0.5.syx
+  file: captures/Length_Field/5_Step1Len0.25ChangedTo0.5.syx
   operation: set step1 len=0.5
   step_length: '0.5'
   track_default_length: '1'
 - index: 6
-  file: captures/6_Step1Len0.5ChangedTo1.syx
+  file: captures/Length_Field/6_Step1Len0.5ChangedTo1.syx
   operation: set step1 len=1
   step_length: '1'
   track_default_length: '1'
 - index: 7
-  file: captures/7_Step1Len1ChangedTo2.syx
+  file: captures/Length_Field/7_Step1Len1ChangedTo2.syx
   operation: set step1 len=2
   step_length: '2'
   track_default_length: '1'
 - index: 8
-  file: captures/8_TrackLength1ChangedTo2.syx
+  file: captures/Length_Field/8_TrackLength1ChangedTo2.syx
   operation: set track default len=2
   step_length: '2'
   track_default_length: '2'
 - index: 9
-  file: captures/9_Step1Deleted.syx
+  file: captures/Length_Field/9_Step1Deleted.syx
   operation: delete step1
   step_length: null
   track_default_length: '2'
 - index: 10
-  file: captures/10_Step1C5Added_LengthIsDefault2.syx
+  file: captures/Length_Field/10_Step1C5Added_LengthIsDefault2.syx
   operation: add step1 C5 (default len=2)
   step_length: '2'
   track_default_length: '2'
 - index: 11
-  file: captures/11_TrackLength2ChangedTo4_Step1LenIsDefault4.syx
+  file: captures/Length_Field/11_TrackLength2ChangedTo4_Step1LenIsDefault4.syx
   operation: set track default len=4 (step1 follows)
   step_length: '4'
   track_default_length: '4'
 - index: 12
-  file: captures/12_Step1Len4ChangedTo8.syx
+  file: captures/Length_Field/12_Step1Len4ChangedTo8.syx
   operation: set step1 len=8
   step_length: '8'
   track_default_length: '4'
 - index: 13
-  file: captures/13_Step1Len8ChangedTo16.syx
+  file: captures/Length_Field/13_Step1Len8ChangedTo16.syx
   operation: set step1 len=16
   step_length: '16'
   track_default_length: '4'
 - index: 14
-  file: captures/14_Step1Len16ChangedTo32.syx
+  file: captures/Length_Field/14_Step1Len16ChangedTo32.syx
   operation: set step1 len=32
   step_length: '32'
   track_default_length: '4'
 - index: 15
-  file: captures/15_Step1Len32ChangedTo64.syx
+  file: captures/Length_Field/15_Step1Len32ChangedTo64.syx
   operation: set step1 len=64
   step_length: '64'
   track_default_length: '4'
 - index: 16
-  file: captures/16_Step1Len64ChangedTo128.syx
+  file: captures/Length_Field/16_Step1Len64ChangedTo128.syx
   operation: set step1 len=128
   step_length: '128'
   track_default_length: '4'
 - index: 17
-  file: captures/17_Step128Len8ChangedToINF.syx
+  file: captures/Length_Field/17_Step128Len8ChangedToINF.syx
   operation: set step1 len=INF
   step_length: INF
   track_default_length: '4'

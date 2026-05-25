@@ -12,7 +12,7 @@ Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI
 - 解析向け簡易 GUI（MIDI Capture/Replay / Diff / Hex / Selective Patch）
 - キャプチャ時の YAML メタ情報出力（`datasets/`）
 - events YAML のバリデーション
-- `events.yaml + profile.yaml + template.syx` からの `.syx` 生成（実験機能）
+- Digitone II 向け `.syx` 生成（内蔵空 PATTERN テンプレート方式、移行中）
 
 ## Requirements
 
@@ -66,24 +66,14 @@ digitone_syx_toolkit validate_events --file ../harmony-cloud/examples/blue_moon.
 ```
 
 ```bash
-digitone_syx_toolkit check_profile \
-  --events ../harmony-cloud/examples/blue_moon.events.yaml
-```
-
-```bash
-digitone_syx_toolkit export_missing_slots \
-  --events ../harmony-cloud/examples/blue_moon.events.yaml
-```
-
-```bash
 digitone_syx_toolkit build_from_events \
   --events ../harmony-cloud/examples/blue_moon.events.yaml \
-  --template captures/template_empty.syx \
   --output captures/generated_from_events.syx
 ```
 
-任意で `--profile` を指定すると、別機種や別マッピングを使えます。未指定時は
-`profiles/digitone2.default.yaml` を使用します。
+補足: 現行 CLI の `build_from_events` は移行途中のため、環境によっては
+`--template`/`--profile` オプションが必要な場合があります。Digitone II 専用運用では
+GUI の新フロー（後述）を推奨します。
 
 ```bash
 digitone_syx_toolkit gui
@@ -120,38 +110,92 @@ GUIの解析手順は以下を参照:
 - GUI の `Max messages` が空欄なら自動停止しません
 - 停止は `Stop Capture`、または `Max messages` / `Duration sec` 到達時です
 
-### GUIで events.yaml から .syx を生成する
+### GUIで events.yaml から Digitone II 用 .syx を生成する
+
+本機能は Digitone II 向けの内蔵空 PATTERN テンプレートを基準に、
+`events.yaml` から完成状態の `.syx` を生成する方針です。
 
 1. `digitone_syx_toolkit gui` を起動
 2. `Events -> SYX` タブを開く
-3. `Events YAML`, `Profile YAML`, `Template .syx`, `Output .syx` を設定
-4. `Validate Events YAML` で事前チェック
-5. `Check Profile Coverage` で不足する `(step, track)` を確認
-6. 不足がある場合は `Export Missing Slots` で不足テンプレート YAML を出力
-7. 出力したテンプレートの各 `offset_*` を埋める
-8. 埋めたスロットを `profiles/digitone2.default.yaml` の `slots` に追加
-9. もう一度 `Check Profile Coverage` を実行して `missing=0` を確認
-10. `Generate SYX from Events` を実行
+3. `Events YAML` と `Output .syx` を設定
+4. `Validate Events YAML` で形式と制約を確認
+5. `Generate Digitone II SYX` を実行
+6. 必要に応じて生成した `.syx` を `MIDI Capture/Replay` タブから送信
+
+生成時に自動で行う処理:
+
+- 内蔵空 PATTERN テンプレートの読み込み
+- PATTERN-wide mode の設定
+- Tempo / SPEED / total steps の設定
+- Trigger slot array への record 配置
+- Step state table の更新
+- Velocity / Length の inherit 値処理
+- 7-bit packing control の更新
+- Checksum の更新（未確定事項は下記参照）
 
 注意:
 
-- 既定プロファイル (`profiles/digitone2.default.yaml`) は Digitone II 向けです。
-- ただし現状は部分定義のため、未定義の `(step, track)` がある場合は `check_profile` で不足一覧が表示されます。
-- Digitone II のチェックサムは生成時に自動再計算されます。
+- Checksum / integrity field の完全再計算式は未確定です（`docs/analysis/README.ja.md` 参照）。
+- 現状は Digitone II 専用です。
+- 空 PATTERN からの新規生成を前提とします。
+- 同一 Track / 同一 Step への複数 Trigger は未対応です。
+- 既存 PATTERN の非破壊編集は未対応です。
 
 ### events.yaml から「実機送信できる .syx」を作るための条件
 
 以下が満たされると、`events.yaml -> .syx` の成功率が上がります。
 
-1. `check_profile` が `missing=0` を返すこと
-2. `profiles/digitone2.default.yaml` の `length_codes` が利用する duration をカバーしていること
-3. テンプレートが Digitone II 形式であること（チェックサム領域を含むこと）
+1. `events.yaml` に pattern 設定（mode/tempo/speed/total_steps）が含まれていること
+2. event ごとの velocity/length で `inherit` と明示値を区別していること
+3. 生成結果が実機受理される checksum 条件を満たしていること
 
 現実的な運用:
 
 1. `Generate SYX from Events` で生成
 2. 実機送信を試す
-3. 拒否されたら、主に `profile.slots` と `length_codes` の未解決マッピングを疑って差分比較する
+3. 拒否されたら、checksum と 7-bit packing 更新結果を差分比較する
+
+推奨 `events.yaml` 例:
+
+```yaml
+version: 1
+device: digitone2
+
+pattern:
+  mode: pattern-wide
+  tempo: 120.0
+  speed: "1/8"
+  total_steps: 64
+
+tracks:
+  - track: 1
+    default_velocity: 100
+    default_length: "1"
+
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+
+  - step: 2
+    track: 1
+    note: D5
+    velocity: inherit
+    length: "2"
+
+  - step: 8
+    track: 1
+    note: G4
+    velocity: 84
+    length: "INF"
+```
+
+補足:
+
+- `velocity: inherit` と `velocity: 100` は内部表現が異なります。
+- `length: inherit` と `length: "1"` も内部表現が異なります。
 
 ### Capture Metadata (YAML)
 
@@ -202,7 +246,7 @@ src/digitone_syx_toolkit/
   metadata.py        # YAML metadata output
   patcher.py         # selective byte patching from YAML
   events_yaml.py     # events assignment YAML validation
-  events_to_syx.py   # events/profile/template based syx builder
+  events_to_syx.py   # Digitone II 向け syx builder（内蔵テンプレート方式へ移行中）
   errors.py          # domain exceptions
   logging_utils.py   # logging setup
 tests/

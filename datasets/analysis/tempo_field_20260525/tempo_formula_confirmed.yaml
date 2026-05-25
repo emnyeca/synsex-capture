@@ -13,10 +13,7 @@ result:
     reconstruct_unpacked: 'tempo_hi_unpacked = tempo_hi_7bit + (msb_hi ? 128 : 0),
       tempo_lo_unpacked = tempo_lo_7bit + (msb_lo ? 128 : 0)'
     decode_tempo: tempo_bpm = (tempo_hi_unpacked * 256 + tempo_lo_unpacked) / 120
-  checksum_related_offsets:
-  - 114113
-  - 114114
-  status: resolved
+  status: resolved_for_tempo_payload_only
 evidence:
   '120.0':
     packed:
@@ -65,6 +62,7 @@ notes:
 - 255.0 -> 256.x boundary behaves consistently with 16-bit scaled representation;
   observed 256.1 capture stored bytes equivalent to 256.0 (device-side clamp/quantize
   likely).
+- Checksum / integrity formula is intentionally excluded here because it is not finalized.
 fixed_context:
   project_number: '002'
   project_name: NEW PROJECT

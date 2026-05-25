@@ -7,17 +7,17 @@ known_speed_offsets:
 - 114114
 sequence:
 - index: 1
-  file: captures/1_BasePatternSpeed1WithTriggerStep1.syx
+  file: captures/Pattern_Speed_Trigger_Independence/1_BasePatternSpeed1WithTriggerStep1.syx
   operation: set pattern speed 1 with step1 C5 trigger on
   pattern_speed: '1'
   trigger_state: step1_C5_on
 - index: 2
-  file: "captures/2_PatternSpeed1ChangedTo1\uFF0F8WithTriggerStep1.syx"
+  file: captures/Pattern_Speed_Trigger_Independence/2_PatternSpeed1ChangedTo1／8WithTriggerStep1.syx
   operation: set pattern speed 1/8 with step1 C5 trigger on
   pattern_speed: 1/8
   trigger_state: step1_C5_on
 - index: 3
-  file: "captures/3_PatternSpeed1\uFF0F8ChangedTo1WithTriggerStep1.syx"
+  file: captures/Pattern_Speed_Trigger_Independence/3_PatternSpeed1／8ChangedTo1WithTriggerStep1.syx
   operation: set pattern speed 1 with step1 C5 trigger on
   pattern_speed: '1'
   trigger_state: step1_C5_on

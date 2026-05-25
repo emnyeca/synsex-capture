@@ -8,27 +8,27 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_empty.syx
+  file: captures/Velocity_Field/1_empty.syx
   operation: empty
   velocity: null
 - index: 2
-  file: captures/2_Trigger1C5Vel100Added.syx
+  file: captures/Velocity_Field/2_Trigger1C5Vel100Added.syx
   operation: step1 C5 vel100
   velocity: 100
 - index: 3
-  file: captures/3_Trigger1C5Vel100ChangedTo1.syx
+  file: captures/Velocity_Field/3_Trigger1C5Vel100ChangedTo1.syx
   operation: step1 C5 vel1
   velocity: 1
 - index: 4
-  file: captures/4_Trigger1C5Vel1ChangedTo64.syx
+  file: captures/Velocity_Field/4_Trigger1C5Vel1ChangedTo64.syx
   operation: step1 C5 vel64
   velocity: 64
 - index: 5
-  file: captures/5_Trigger1C5Vel64ChangedTo127.syx
+  file: captures/Velocity_Field/5_Trigger1C5Vel64ChangedTo127.syx
   operation: step1 C5 vel127
   velocity: 127
 - index: 6
-  file: captures/6_Trigger1C5Vel127Removed.syx
+  file: captures/Velocity_Field/6_Trigger1C5Vel127Removed.syx
   operation: remove step1
   velocity: null
 generated:

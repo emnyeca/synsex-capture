@@ -8,63 +8,63 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_BaseTempo120.syx
+  file: captures/Tempo_Field/1_BaseTempo120.syx
   operation: set tempo 120.0
   tempo: 120.0
 - index: 2
-  file: captures/2_Tempo120ChangedTo120.1.syx
+  file: captures/Tempo_Field/2_Tempo120ChangedTo120.1.syx
   operation: set tempo 120.1
   tempo: 120.1
 - index: 3
-  file: captures/3_Tempo120.1ChangedTo121.syx
+  file: captures/Tempo_Field/3_Tempo120.1ChangedTo121.syx
   operation: set tempo 121.0
   tempo: 121.0
 - index: 4
-  file: captures/4_Tempo121ChangedTo130.syx
+  file: captures/Tempo_Field/4_Tempo121ChangedTo130.syx
   operation: set tempo 130.0
   tempo: 130.0
 - index: 5
-  file: captures/5_Tempo130ChangedTto60.syx
+  file: captures/Tempo_Field/5_Tempo130ChangedTto60.syx
   operation: set tempo 60.0
   tempo: 60.0
 - index: 6
-  file: captures/6_Tempo60ChangedTo120.syx
+  file: captures/Tempo_Field/6_Tempo60ChangedTo120.syx
   operation: set tempo 120.0
   tempo: 120.0
 - index: 7
-  file: captures/7_Tempo120ChangedTo300.syx
+  file: captures/Tempo_Field/7_Tempo120ChangedTo300.syx
   operation: set tempo 300.0
   tempo: 300.0
 - index: 8
-  file: captures/8_Tempo300ChangedTo30.syx
+  file: captures/Tempo_Field/8_Tempo300ChangedTo30.syx
   operation: set tempo 30.0
   tempo: 30.0
 - index: 9
-  file: captures/9_Tempo30ChangedTo120.syx
+  file: captures/Tempo_Field/9_Tempo30ChangedTo120.syx
   operation: set tempo 120.0
   tempo: 120.0
 - index: 10
-  file: captures/10_Tempo120ChangedTo120.1.syx
+  file: captures/Tempo_Field/10_Tempo120ChangedTo120.1.syx
   operation: set tempo 120.1
   tempo: 120.1
 - index: 11
-  file: captures/11_Tempo120.1ChangedTo120.2.syx
+  file: captures/Tempo_Field/11_Tempo120.1ChangedTo120.2.syx
   operation: set tempo 120.2
   tempo: 120.2
 - index: 12
-  file: captures/12_Tempo120.2ChangedTo120.3.syx
+  file: captures/Tempo_Field/12_Tempo120.2ChangedTo120.3.syx
   operation: set tempo 120.3
   tempo: 120.3
 - index: 13
-  file: captures/13_Tempo120.3ChangedTo120.4.syx
+  file: captures/Tempo_Field/13_Tempo120.3ChangedTo120.4.syx
   operation: set tempo 120.4
   tempo: 120.4
 - index: 14
-  file: captures/14_Tempo120.4ChangedTo255.syx
+  file: captures/Tempo_Field/14_Tempo120.4ChangedTo255.syx
   operation: set tempo 255.0
   tempo: 255.0
 - index: 15
-  file: captures/15_Tempo255ChangedTo256.1.syx
+  file: captures/Tempo_Field/15_Tempo255ChangedTo256.1.syx
   operation: set tempo 256.1
   tempo: 256.1
 generated:

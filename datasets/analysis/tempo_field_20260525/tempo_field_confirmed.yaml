@@ -1,55 +1,20 @@
-analysis: pattern_tempo_field_confirmed
-result:
-  tempo_related_offsets:
-  - 101498
-  - 101503
-  - 101504
-  always_changed_offset: 101504
-  sometimes_changed_offsets:
-  - 101498
-  - 101503
-  checksum_related_offsets:
-  - 114113
-  - 114114
-  behavior:
-  - Offset 101504 changes on every tempo change.
-  - Offsets 101498 and 101503 change on larger transitions/range boundaries.
-  - Tempo appears to be multi-byte encoded rather than a single direct byte.
-  - 120.0 -> 120.1 changes only 101504 among tempo bytes (0x40 -> 0x4C).
-  encoding_status: partially identified (multi-byte), exact decode formula unresolved
-    from this set alone
-observed_values:
-  '120.0':
-    '101498': '0x00'
-    '101503': '0x38'
-    '101504': '0x40'
-  '120.1':
-    '101498': '0x00'
-    '101503': '0x38'
-    '101504': '0x4C'
-  '121.0':
-    '101498': '0x02'
-    '101503': '0x38'
-    '101504': '0x38'
-  '130.0':
-    '101498': '0x02'
-    '101503': '0x3C'
-    '101504': '0x70'
-  '60.0':
-    '101498': '0x00'
-    '101503': '0x1C'
-    '101504': '0x20'
-  '300.0':
-    '101498': '0x06'
-    '101503': '0x0C'
-    '101504': '0x20'
-  '30.0':
-    '101498': '0x00'
-    '101503': '0x0E'
-    '101504': '0x10'
-fixed_context:
-  project_number: '002'
-  project_name: NEW PROJECT
-  pattern_number: A01
-  pattern_name: UNTITLED
-  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+analysis_target: pattern_tempo
+status: confirmed_for_tested_range
+field:
+  control_offset: 101498
+  high_payload_offset: 101503
+  low_payload_offset: 101504
+  control_masks:
+    high_payload_msb: '0x04'
+    low_payload_msb: '0x02'
+encoding:
+  scaled_formula: round(bpm * 120)
+  unpacked_width_bits: 16
+  decode_formula: ((hi_unpacked << 8) | lo_unpacked) / 120
+observed_range:
+  minimum_bpm: 30.0
+  maximum_bpm: 300.0
+trigger_dependency:
+  affects_known_trigger_fields: false
+  verified_transition: Step 1 / C5 present; 120.0 -> 130.0 -> 120.0
+implementation_note: Preserve unrelated bits in packing control offset 101498.

@@ -8,32 +8,32 @@ fixed_context:
   mode: PATTERN-wide
 sequence:
 - index: 1
-  file: captures/1_BaseTriggerStep1PatternStepWide16.syx
+  file: captures/Pattern_Wide_Trigger_Propagation/1_BaseTriggerStep1PatternStepWide16.syx
   operation: BASE_TRIG_STEP1 / PATTERN-wide / total steps 16
   pattern_total_steps: 16
   trigger_summary: step1_on, step16_off
 - index: 2
-  file: captures/2_TriggerStep1PatternStepWide16ChangedTo64.syx
+  file: captures/Pattern_Wide_Trigger_Propagation/2_TriggerStep1PatternStepWide16ChangedTo64.syx
   operation: Change pattern total steps 16 -> 64
   pattern_total_steps: 64
   trigger_summary: step1_on, step16_off
 - index: 3
-  file: captures/3_TriggerStep1PatternStepWide64ChangedTo16.syx
+  file: captures/Pattern_Wide_Trigger_Propagation/3_TriggerStep1PatternStepWide64ChangedTo16.syx
   operation: Change pattern total steps 64 -> 16
   pattern_total_steps: 16
   trigger_summary: step1_on, step16_off
 - index: 4
-  file: captures/4_TriggerStep16AddedPatternStepWide16.syx
+  file: captures/Pattern_Wide_Trigger_Propagation/4_TriggerStep16AddedPatternStepWide16.syx
   operation: Add trigger at step16
   pattern_total_steps: 16
   trigger_summary: step1_on, step16_on
 - index: 5
-  file: captures/5_PatternStepWide16ChangedTo15Step16Dissapeared.syx
+  file: captures/Pattern_Wide_Trigger_Propagation/5_PatternStepWide16ChangedTo15Step16Dissapeared.syx
   operation: Change pattern total steps 16 -> 15 (step16 hidden)
   pattern_total_steps: 15
   trigger_summary: step1_on, step16_hidden
 - index: 6
-  file: captures/6_PatternStepWide15ChangedTo16Step16Apeared.syx
+  file: captures/Pattern_Wide_Trigger_Propagation/6_PatternStepWide15ChangedTo16Step16Apeared.syx
   operation: Change pattern total steps 15 -> 16 (step16 reappears)
   pattern_total_steps: 16
   trigger_summary: step1_on, step16_on_reappeared

@@ -46,7 +46,7 @@ candidate_offsets_union:
 - 114114
 values_at_candidate_offsets:
 - index: 1
-  file: captures/1_empty.syx
+  file: captures/velocity_default_behavior/1_empty.syx
   step_velocity: null
   track_default_velocity: null
   values:
@@ -54,7 +54,7 @@ values_at_candidate_offsets:
     '21724': '0x7F'
     '114114': '0x26'
 - index: 2
-  file: captures/2_Step1C5Added_VelIs100.syx
+  file: captures/velocity_default_behavior/2_Step1C5Added_VelIs100.syx
   step_velocity: 100
   track_default_velocity: 100
   values:
@@ -62,7 +62,7 @@ values_at_candidate_offsets:
     '21724': '0x7F'
     '114114': '0x23'
 - index: 3
-  file: captures/3_Step1Vel100ChangedTo1.syx
+  file: captures/velocity_default_behavior/3_Step1Vel100ChangedTo1.syx
   step_velocity: 1
   track_default_velocity: 100
   values:
@@ -70,7 +70,7 @@ values_at_candidate_offsets:
     '21724': '0x01'
     '114114': '0x05'
 - index: 4
-  file: captures/4_Step1Vel1ChangedTo100.syx
+  file: captures/velocity_default_behavior/4_Step1Vel1ChangedTo100.syx
   step_velocity: 100
   track_default_velocity: 100
   values:
@@ -78,7 +78,7 @@ values_at_candidate_offsets:
     '21724': '0x64'
     '114114': '0x68'
 - index: 5
-  file: captures/5_trackVelocityChangedTo1.syx
+  file: captures/velocity_default_behavior/5_trackVelocityChangedTo1.syx
   step_velocity: 100
   track_default_velocity: 1
   values:
@@ -86,7 +86,7 @@ values_at_candidate_offsets:
     '21724': '0x64'
     '114114': '0x05'
 - index: 6
-  file: captures/6_Step1Vel100ChangedTo1.syx
+  file: captures/velocity_default_behavior/6_Step1Vel100ChangedTo1.syx
   step_velocity: 1
   track_default_velocity: 1
   values:
@@ -94,7 +94,7 @@ values_at_candidate_offsets:
     '21724': '0x01'
     '114114': '0x22'
 - index: 7
-  file: captures/7_Step1Deleted.syx
+  file: captures/velocity_default_behavior/7_Step1Deleted.syx
   step_velocity: null
   track_default_velocity: 1
   values:
@@ -102,7 +102,7 @@ values_at_candidate_offsets:
     '21724': '0x7F'
     '114114': '0x43'
 - index: 8
-  file: captures/8_Step1Added_VelIs1.syx
+  file: captures/velocity_default_behavior/8_Step1Added_VelIs1.syx
   step_velocity: 1
   track_default_velocity: 1
   values:
@@ -110,7 +110,7 @@ values_at_candidate_offsets:
     '21724': '0x7F'
     '114114': '0x40'
 - index: 9
-  file: captures/9_Step1Vel1ChangedTo100.syx
+  file: captures/velocity_default_behavior/9_Step1Vel1ChangedTo100.syx
   step_velocity: 100
   track_default_velocity: 1
   values:
@@ -118,7 +118,7 @@ values_at_candidate_offsets:
     '21724': '0x64'
     '114114': '0x05'
 - index: 10
-  file: captures/10_trackVelocityChangedTo100.syx
+  file: captures/velocity_default_behavior/10_trackVelocityChangedTo100.syx
   step_velocity: 100
   track_default_velocity: 100
   values:

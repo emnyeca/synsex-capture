@@ -8,23 +8,23 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_empty.syx
+  file: captures/Pitch_Field/1_empty.syx
   operation: empty
   note: null
 - index: 2
-  file: captures/2_Step1C5Added.syx
+  file: captures/Pitch_Field/2_Step1C5Added.syx
   operation: step1 note C5
   note: C5
 - index: 3
-  file: captures/3_Step1C5ChangedToC#5.syx
+  file: captures/Pitch_Field/3_Step1C5ChangedToC#5.syx
   operation: step1 note C#5
   note: C#5
 - index: 4
-  file: captures/4_Step1C#5ChangedToD5.syx
+  file: captures/Pitch_Field/4_Step1C#5ChangedToD5.syx
   operation: step1 note D5
   note: D5
 - index: 5
-  file: captures/5_Step1D5ChangedToC4.syx
+  file: captures/Pitch_Field/5_Step1D5ChangedToC4.syx
   operation: step1 note C4
   note: C4
 generated:

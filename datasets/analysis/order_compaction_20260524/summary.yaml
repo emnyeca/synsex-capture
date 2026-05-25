@@ -8,19 +8,19 @@ fixed_context:
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 sequence:
 - index: 1
-  file: captures/1_empty.syx
+  file: captures/order_compaction/1_empty.syx
   operation: empty
 - index: 2
-  file: captures/2_step1added.syx
+  file: captures/order_compaction/2_step1added.syx
   operation: add step1
 - index: 3
-  file: captures/3_step16added.syx
+  file: captures/order_compaction/3_step16added.syx
   operation: add step16
 - index: 4
-  file: captures/4_step1deleded.syx
+  file: captures/order_compaction/4_step1deleded.syx
   operation: delete step1 only
 - index: 5
-  file: captures/5_step1readded.syx
+  file: captures/order_compaction/5_step1readded.syx
   operation: re-add step1
 generated:
   sequential:

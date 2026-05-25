@@ -8,51 +8,51 @@ fixed_context:
   trigger_state: none (no trig)
 sequence:
 - index: 1
-  file: captures/1_PatternStepWideBase16.syx
+  file: captures/Pattern_Wide/1_PatternStepWideBase16.syx
   operation: set pattern total steps to 16
   pattern_total_steps: 16
 - index: 2
-  file: captures/2_PatternStepWideBase16ChangedTo2Minimum.syx
+  file: captures/Pattern_Wide/2_PatternStepWideBase16ChangedTo2Minimum.syx
   operation: set pattern total steps to 2
   pattern_total_steps: 2
 - index: 3
-  file: captures/3_PatternStepWideBase16ChangedTo3.syx
+  file: captures/Pattern_Wide/3_PatternStepWideBase16ChangedTo3.syx
   operation: set pattern total steps to 3
   pattern_total_steps: 3
 - index: 4
-  file: captures/4_PatternStepWideBase16ChangedTo4.syx
+  file: captures/Pattern_Wide/4_PatternStepWideBase16ChangedTo4.syx
   operation: set pattern total steps to 4
   pattern_total_steps: 4
 - index: 5
-  file: captures/5_PatternStepWideBase16ChangedTo5.syx
+  file: captures/Pattern_Wide/5_PatternStepWideBase16ChangedTo5.syx
   operation: set pattern total steps to 5
   pattern_total_steps: 5
 - index: 6
-  file: captures/6_PatternStepWideBase16ChangedTo8.syx
+  file: captures/Pattern_Wide/6_PatternStepWideBase16ChangedTo8.syx
   operation: set pattern total steps to 8
   pattern_total_steps: 8
 - index: 7
-  file: captures/7_PatternStepWideBase16ChangedTo15.syx
+  file: captures/Pattern_Wide/7_PatternStepWideBase16ChangedTo15.syx
   operation: set pattern total steps to 15
   pattern_total_steps: 15
 - index: 8
-  file: captures/8_PatternStepWideBase16ChangedTo17.syx
+  file: captures/Pattern_Wide/8_PatternStepWideBase16ChangedTo17.syx
   operation: set pattern total steps to 17
   pattern_total_steps: 17
 - index: 9
-  file: captures/9_PatternStepWideBase16ChangedTo32.syx
+  file: captures/Pattern_Wide/9_PatternStepWideBase16ChangedTo32.syx
   operation: set pattern total steps to 32
   pattern_total_steps: 32
 - index: 10
-  file: captures/10_PatternStepWideBase16ChangedTo33.syx
+  file: captures/Pattern_Wide/10_PatternStepWideBase16ChangedTo33.syx
   operation: set pattern total steps to 33
   pattern_total_steps: 33
 - index: 11
-  file: captures/11_PatternStepWideBase16ChangedTo64.syx
+  file: captures/Pattern_Wide/11_PatternStepWideBase16ChangedTo64.syx
   operation: set pattern total steps to 64
   pattern_total_steps: 64
 - index: 12
-  file: captures/12_PatternStepWideBase16ChangedTo128Max.syx
+  file: captures/Pattern_Wide/12_PatternStepWideBase16ChangedTo128Max.syx
   operation: set pattern total steps to 128
   pattern_total_steps: 128
 generated:

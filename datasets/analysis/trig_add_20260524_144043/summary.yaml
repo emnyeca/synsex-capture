@@ -7,24 +7,24 @@ fixed_context:
   pattern_name: UNTITLED
   midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
 source:
-  empty: captures/emptyData.syx
+  empty: captures/BASE_EMPTY.syx
   sequence:
-  - captures/capture_20260524_144043_0001.syx
-  - captures/capture_20260524_144043_0002.syx
-  - captures/capture_20260524_144043_0003.syx
-  - captures/capture_20260524_144043_0004.syx
-  - captures/capture_20260524_144043_0005.syx
-  - captures/capture_20260524_144043_0006.syx
-  - captures/capture_20260524_144043_0007.syx
-  - captures/capture_20260524_144043_0008.syx
-  - captures/capture_20260524_144043_0009.syx
-  - captures/capture_20260524_144043_0010.syx
-  - captures/capture_20260524_144043_0011.syx
-  - captures/capture_20260524_144043_0012.syx
-  - captures/capture_20260524_144043_0013.syx
-  - captures/capture_20260524_144043_0014.syx
-  - captures/capture_20260524_144043_0015.syx
-  - captures/capture_20260524_144043_0016.syx
+  - captures/Trigger_Add_1_to_16/1_Step1Added.syx
+  - captures/Trigger_Add_1_to_16/2_Step2Added.syx
+  - captures/Trigger_Add_1_to_16/3_Step3Added.syx
+  - captures/Trigger_Add_1_to_16/4_Step4Added.syx
+  - captures/Trigger_Add_1_to_16/5_Step5Added.syx
+  - captures/Trigger_Add_1_to_16/6_Step6Added.syx
+  - captures/Trigger_Add_1_to_16/7_Step7Added.syx
+  - captures/Trigger_Add_1_to_16/8_Step8Added.syx
+  - captures/Trigger_Add_1_to_16/9_Step9Added.syx
+  - captures/Trigger_Add_1_to_16/10_Step10Added.syx
+  - captures/Trigger_Add_1_to_16/11_Step11Added.syx
+  - captures/Trigger_Add_1_to_16/12_Step12Added.syx
+  - captures/Trigger_Add_1_to_16/13_Step13Added.syx
+  - captures/Trigger_Add_1_to_16/14_Step14Added.syx
+  - captures/Trigger_Add_1_to_16/15_Step15Added.syx
+  - captures/Trigger_Add_1_to_16/16_Step16Added.syx
 generated:
   empty_vs:
   - index: 1

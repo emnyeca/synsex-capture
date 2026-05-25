@@ -1,5 +1,19 @@
 # Digitone II Pattern SysEx 解析ガイド（必要部分のみ書き換え）
 
+## 正本（このファイルより優先）
+
+解析結果の正本は `docs/analysis/` 配下です。特に以下を優先してください。
+
+- `docs/analysis/README.ja.md`
+- `docs/analysis/*/spec.yaml`
+
+このファイルは運用ガイドとして残し、数値仕様は正本へ集約します。
+
+## Checksum / integrity field の扱い
+
+Checksum / integrity field は、追随オフセット（`114113`, `114114`）の観測までは進んでいますが、
+加算対象範囲と完全再計算式は未確定です。したがって本ガイドでは checksum 式を仕様として確定しません。
+
 この手順は「完全解析」ではなく、Harmony Cloudに必要な要素だけを安全に特定して書き換えることを目的にします。
 
 ## 目的とスコープ

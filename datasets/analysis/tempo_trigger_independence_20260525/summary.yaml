@@ -10,17 +10,17 @@ known_tempo_offsets:
 - 114114
 sequence:
 - index: 1
-  file: captures/1_BaseTempo120WithTriggerStep1.syx
+  file: captures/Tempo_Trigger_Independence/1_BaseTempo120WithTriggerStep1.syx
   operation: set tempo 120.0 with trigger at step 1
   tempo: 120.0
   trigger_state: step1_on
 - index: 2
-  file: captures/2_Tempo120ChangedTo130WithTriggerStep1.syx
+  file: captures/Tempo_Trigger_Independence/2_Tempo120ChangedTo130WithTriggerStep1.syx
   operation: set tempo 130.0 with trigger at step 1
   tempo: 130.0
   trigger_state: step1_on
 - index: 3
-  file: captures/3_Tempo130ChangedTo120WithTriggerStep1.syx
+  file: captures/Tempo_Trigger_Independence/3_Tempo130ChangedTo120WithTriggerStep1.syx
   operation: set tempo 120.0 with trigger at step 1
   tempo: 120.0
   trigger_state: step1_on

@@ -8,35 +8,35 @@ fixed_context:
   trigger_state: none (no trig)
 sequence:
 - index: 1
-  file: captures/1_BaseSpeed1.syx
+  file: captures/Pattern_Speed_Field/1_BaseSpeed1.syx
   operation: set pattern speed 1
   pattern_speed: '1'
 - index: 2
-  file: "captures/2_Speed1ChangedTo3\uFF0F4.syx"
+  file: captures/Pattern_Speed_Field/2_Speed1ChangedTo3／4.syx
   operation: set pattern speed 3/4
   pattern_speed: 3/4
 - index: 3
-  file: "captures/3_Speed3\uFF0F4ChangedTo1\uFF0F2.syx"
+  file: captures/Pattern_Speed_Field/3_Speed3／4ChangedTo1／2.syx
   operation: set pattern speed 1/2
   pattern_speed: 1/2
 - index: 4
-  file: "captures/4_Speed1\uFF0F2ChangedTo1\uFF0F4.syx"
+  file: captures/Pattern_Speed_Field/4_Speed1／2ChangedTo1／4.syx
   operation: set pattern speed 1/4
   pattern_speed: 1/4
 - index: 5
-  file: "captures/5_Speed1\uFF0F4ChangedTo1\uFF0F8.syx"
+  file: captures/Pattern_Speed_Field/5_Speed1／4ChangedTo1／8.syx
   operation: set pattern speed 1/8
   pattern_speed: 1/8
 - index: 6
-  file: "captures/6_Speed1\uFF0F8ChangedTo3\uFF0F2.syx"
+  file: captures/Pattern_Speed_Field/6_Speed1／8ChangedTo3／2.syx
   operation: set pattern speed 3/2
   pattern_speed: 3/2
 - index: 7
-  file: "captures/7_Speed3\uFF0F2ChangedTo2.syx"
+  file: captures/Pattern_Speed_Field/7_Speed3／2ChangedTo2.syx
   operation: set pattern speed 2
   pattern_speed: '2'
 - index: 8
-  file: captures/8_Speed2ChangedTo1.syx
+  file: captures/Pattern_Speed_Field/8_Speed2ChangedTo1.syx
   operation: set pattern speed 1
   pattern_speed: '1'
 generated:

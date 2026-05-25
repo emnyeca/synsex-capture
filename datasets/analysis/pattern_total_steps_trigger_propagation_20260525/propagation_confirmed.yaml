@@ -1,66 +1,30 @@
-analysis: pattern_total_steps_trigger_propagation_confirmed
-result:
-  step16_trigger_persists_across_hide_reshow: true
-  step16_trigger_offsets_unchanged_by_16_15_toggles: true
-  base_step1_state_byte_identical_after_16_64_16: false
-  base_step1_state_note: 'Not byte-identical: one-time normalization offsets remain
-    after first 16->64 operation.'
-  status: resolved_for_this_dataset
-key_offsets:
-  core_total_steps_offsets_after_normalization:
-  - 1347
-  - 2703
-  - 4060
-  - 5416
-  - 6773
-  - 8129
-  - 9486
-  - 10843
-  - 12199
-  - 13556
-  - 14912
-  - 16269
-  - 17625
-  - 18982
-  - 20339
-  - 21695
-  - 101507
-  one_time_normalization_offsets_on_first_16_to_64:
-  - 50
-  - 52
-  - 53
-  - 82
-  - 88
-  - 89
-  - 122
-  - 125
-  - 126
-  - 21722
-  - 21727
-  - 21728
-  - 21729
-  - 21730
-  - 21733
-  - 21734
-  - 21735
-  - 21736
-  - 21738
-  - 21740
-  - 21741
-  - 21742
-  - 21743
-  - 21746
-  - 21747
-  step16_trigger_add_related:
-  - 49
-  - 51
-  - 21748
-  - 21749
-  - 21750
-  - 21753
-  checksum_related:
-  - 114113
-  - 114114
+analysis_target: pattern_total_steps_trigger_propagation
+status: observed_and_scoped_out_for_generation
+shrink_behavior:
+  out_of_range_trigger_deleted: false
+  out_of_range_trigger_hidden: true
+  trigger_reappears_when_range_restored: true
+  verified_case:
+    trigger_step: 16
+    total_steps_transition: 16 -> 15 -> 16
+expand_behavior:
+  duplicates_existing_content: true
+  confirmed_principle: When current total steps is 16*n, a trigger at step a may
+    be copied to a + 16*n when extending the pattern.
+  verified_syx_case:
+    original_total_steps: 16
+    expanded_total_steps: 64
+    original_trigger: Step 1 / C5
+    additional_trigger_like_records:
+    - Step 17 / C5
+    - Step 33 / C5
+    - Step 49 / C5
+harmony_cloud_policy:
+  reproduce_hardware_incremental_expansion: false
+  set_final_total_steps_before_writing_triggers: true
+out_of_scope:
+- complete repetition rule for all extension histories
+- UI-compatible incremental length editing
 evidence:
   diff_1_to_2:
   - 50
