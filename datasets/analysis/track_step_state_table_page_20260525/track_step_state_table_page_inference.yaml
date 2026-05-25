@@ -1,0 +1,19 @@
+analysis_target: trigger_track_step_state_table_page_boundary
+status: inferred_for_value_semantics
+confirmed_core:
+  decoded_offset_formula_holds_for_positions: true
+  page_boundaries_tested: [16_to_17, 32_to_33, 48_to_49, 64_to_65, 80_to_81, 96_to_97, 112_to_113, 127_to_128]
+value_semantics_observations:
+  - Decoded second byte is not explained by a simple global odd/even rule under total_steps=128.
+  - Values observed include 0x01, 0x11, 0x81, 0x91 and one case with first byte 0x83 (track2 step127).
+  - Track2 step128 and track8 step128 differ in decoded second byte (0x11 vs 0x91).
+interpretation:
+  - Step-state value bits likely encode page/local-position context and/or additional mode flags.
+  - Positioning formula can be used safely now; value derivation needs separate targeted analysis.
+open_questions:
+  - Exact bit semantics for decoded 2-byte entry fields across pages.
+  - Whether first-byte 0x83 at step127 indicates page-end flag behavior.
+  - Interaction with condition/probability/micro-timing in steps 17..128.
+recommended_next_experiment:
+  - Keep position formula fixed; run value-focused captures varying only one step attribute.
+  - For each target step, compare note add/delete and condition toggles while keeping track and page fixed.

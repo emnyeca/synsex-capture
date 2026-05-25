@@ -1,5 +1,5 @@
 analysis_target: trigger_track_step_state_table
-status: observed_for_track2_and_track8_steps_1_2_3_16
+status: confirmed_for_limited_scope
 sequence_normalization:
   source_capture_range: captures/capture_20260525_115407_0019.syx .. captures/capture_20260525_115407_0034.syx
   excluded_duplicates:
@@ -8,13 +8,13 @@ sequence_normalization:
   canonical_sequence_count: 14
   canonical_capture_dir: captures/Track_Step_State_Table
 record_layer_confirmed:
-  slot_region_offsets:
-    - 21714
-    - 21720
-    - 21721
-    - 21722
-    - 21723
-    - 21726
+  decoded_record_size: 6
+  slot_region_offsets: [21714, 21720, 21721, 21722, 21723, 21726]
+  fields:
+    byte0_track_index: zero_based
+    byte1_step_index: zero_based
+    byte2_pitch: 0x3C_for_C5
+    byte5_normal_trigger: 0x00
   track2_values:
     step1: { track_at_21720: '0x01', step_at_21721: '0x00' }
     step2: { track_at_21720: '0x01', step_at_21721: '0x01' }
@@ -24,16 +24,28 @@ record_layer_confirmed:
     step1: { track_at_21720: '0x07', step_at_21721: '0x00' }
     step2: { track_at_21720: '0x07', step_at_21721: '0x01' }
     step16: { track_at_21720: '0x07', step_at_21721: '0x0F' }
-step_state_offsets_observed:
-  track2:
-    step1: [1370, 1372, 1373]
-    step2: [1370, 1374, 1375]
-    step3: [1370, 1376, 1377]
-    step16: [1402, 1406, 1407]
-  track8:
-    step1: [9506, 9511, 9512]
-    step2: [9513, 9514, 9515]
-    step16: [9545, 9546, 9547]
+step_state_table_confirmed:
+  representation:
+    physical_diff_note: "2 to 3 physical bytes can change due to packing control byte updates"
+    semantic_entry: 2_decoded_bytes_per_step
+  decoded_offset_formula:
+    expression: "4 + 1187 * track_index + 2 * step_index"
+    track_index: track_number_minus_1
+    step_index: step_number_minus_1
+  verified_decoded_offsets:
+    track1_step1: 4
+    track2_step1: 1191
+    track2_step2: 1193
+    track2_step3: 1195
+    track2_step16: 1221
+    track8_step1: 8313
+    track8_step2: 8315
+    track8_step16: 8343
+  observed_normal_trigger_values:
+    odd_steps: [0x03, 0x81]
+    even_steps: [0x03, 0x91]
+    verified_steps: [1, 2, 3, 16]
+    verified_tracks: [2, 8]
 base_reimport_behavior:
   empty_after_each_reimport_matches_step1_empty: true
   baseline_zero_diff_files:

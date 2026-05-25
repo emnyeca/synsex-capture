@@ -22,6 +22,7 @@
 | Trigger record / slot allocation | [analysis](trigger-record/analysis.ja.md) | [spec](trigger-record/spec.yaml) |
 | Trigger track field | [analysis](trigger-track/analysis.ja.md) | [spec](trigger-track/spec.yaml) |
 | Trigger step-state table (track-wise) | [analysis](trigger-step-state-table/analysis.ja.md) | [spec](trigger-step-state-table/spec.yaml) |
+| Trigger step-state page boundary (steps 17+) | [analysis](trigger-step-state-page/analysis.ja.md) | [spec](trigger-step-state-page/spec.yaml) |
 | Trigger pitch | [analysis](trigger-pitch/analysis.ja.md) | [spec](trigger-pitch/spec.yaml) |
 | Trigger velocity / track default | [analysis](trigger-velocity/analysis.ja.md) | [spec](trigger-velocity/spec.yaml) |
 | Trigger length / track default | [analysis](trigger-length/analysis.ja.md) | [spec](trigger-length/spec.yaml) |
@@ -72,9 +73,9 @@
 一方で、以下は未反映または部分反映です。
 
 1. Track default velocity / length は現状 Track 1 の確定offsetのみを実装。Track 2〜16 の default 更新は追加解析後に拡張する。
-2. Step state table は Track 1 / Step 1〜16 の観測offsetを中心に更新。一般式（全Track・全Step）は未確定。
+2. Step state table は 7-bit unpack 後の 2byte/step 連続テーブルとして整理し、`4 + 1187 * trackIndex + 2 * stepIndex` を実装指針として反映可能（検証範囲: Track 1/2/8、Step 1/2/3/16、通常Trigger）。
 3. Trigger record byte 0 は 0-based Track index として確定（Track 1〜8）。
-4. Trigger削除後も Step state block の初期化由来値が残る観測を反映し、`EmptyAfterTrackN` を `BASE_EMPTY` 同一視しない扱いへ更新。
+4. Step state 差分は packing control byte を含むため物理上 2〜3byte に見えることがあるが、意味上は decoded 2byte entry を更新するモデルへ統一。
 
 ## 未完了の解析
 

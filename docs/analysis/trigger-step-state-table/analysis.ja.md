@@ -2,9 +2,9 @@
 
 ## 目的
 
-Track別の Step state table について、Step番号に対する offset 変化を規則化する。
+Track別 Step state table を、物理SYX差分ではなく 7-bit unpack 後の論理payloadで規則化する。
 
-本系列では次の操作を比較した。
+## 実験系列
 
 1. BASE_EMPTY
 2. Track 2 / Step 1 / C5
@@ -21,78 +21,154 @@ Track別の Step state table について、Step番号に対する offset 変化
 13. BASE_EMPTY 再インポート
 14. Track 8 / Step 16 / C5
 
-## 重複除外
+取得レンジ `capture_20260525_115407_0019..0034` では、誤取得を次のとおり除外した。
 
-取得レンジ `capture_20260525_115407_0019..0034` には、Step1周辺で誤取得が含まれていた。
+- `0030`: `0028` と byte-identical（Track8 / Step1 の重複）
+- `0031`: 余分な BASE_EMPTY
 
-- `0030` は `0028` と byte-identical（Track8 / Step1 の重複）
-- `0031` は誤取得フロー由来の余分な BASE_EMPTY
+正規系列は `captures/Track_Step_State_Table/` に 14件として再配置した。
 
-この2件を除外し、14件の正規系列として再構成した。
+## 結論
 
-## 正規化後の系列
+Step state table は規則化できる。
 
-`captures/Track_Step_State_Table/` に次を配置した。
+- 物理SYX差分の 2〜3byte は意味上の record ではない。
+- Step state の実体は unpack 後 payload 上の 2byte/step 連続テーブル。
+- 3箇所変化に見えるのは、論理2byteに加えて packing control byte が更新されるため。
 
-- `1_Empty.syx`
-- `2_Track2Step1C5Added.syx`
-- `3_EmptyAfterTrack2Step1.syx`
-- `4_Track2Step2C5Added.syx`
-- `5_EmptyAfterTrack2Step2.syx`
-- `6_Track2Step3C5Added.syx`
-- `7_EmptyAfterTrack2Step3.syx`
-- `8_Track2Step16C5Added.syx`
-- `9_EmptyAfterTrack2Step16.syx`
-- `10_Track8Step1C5Added.syx`
-- `11_EmptyAfterTrack8Step1.syx`
-- `12_Track8Step2C5Added.syx`
-- `13_EmptyAfterTrack8Step2.syx`
-- `14_Track8Step16C5Added.syx`
+## 1. Trigger record 側（確定事項）
 
-## 確定した観測
+slot 1 の既知仕様は本系列でも維持された。
 
-### 1. Trigger record 側は既知仕様どおり
+| 内容 | Offset | Track 2 | Track 8 |
+|---|---:|---:|---:|
+| Track index | 21720 | 0x01 | 0x07 |
+| Step index | 21721 | 0x00 / 0x01 / 0x02 / 0x0F | 0x00 / 0x01 / 0x0F |
+| Pitch C5 | 21723 | 0x3C | 0x3C |
+| Record byte 5 | 21726 | 0x00 | 0x00 |
 
-- offset `21720`: 0-based track index
-- offset `21721`: 0-based step index
+Trigger record は次で扱える。
 
-Track 2 では `0x01` 固定、Track 8 では `0x07` 固定で、stepを変えると `21721` が `0x00`, `0x01`, `0x02`, `0x0F` と変化した。
+```text
+Trigger record = 6 decoded bytes
 
-### 2. Step state 側に Track別・Step別 triplet が存在
+byte 0: Track index, 0-based
+byte 1: Step index, 0-based
+byte 2: Pitch code
+byte 3: Velocity field
+byte 4: Length field
+byte 5: 通常Triggerでは 0x00（意味は未確定）
+```
 
-各 Add で、record領域に加えて Step state 側の3 offsetが変化した。
+## 2. Step state の物理差分は triplet record ではない
 
-Track 2:
+例: Track 2 / Step 1
 
-| Step | 変化offset (triplet) |
-|---:|---:|
-| 1 | 1370, 1372, 1373 |
-| 2 | 1370, 1374, 1375 |
-| 3 | 1370, 1376, 1377 |
-| 16 | 1402, 1406, 1407 |
+```yaml
+1370: 0x00 -> 0x10
+1372: 0x00 -> 0x03
+1373: 0x00 -> 0x01
+```
 
-Track 8:
+`1370` は state本体ではなく packing control byte。unpack 後の論理値は次。
 
-| Step | 変化offset (triplet) |
-|---:|---:|
-| 1 | 9506, 9511, 9512 |
-| 2 | 9513, 9514, 9515 |
-| 16 | 9545, 9546, 9547 |
+```text
+Track 2 / Step 1 step-state = [0x03, 0x81]
+```
 
-### 3. BASE_EMPTY再インポート運用では Empty差分が0
+Track 2 / Step 2 では、
 
-`vs_step1_to_03/05/07/09/11/13` はすべて `difference_count: 0`。
+```yaml
+1370: 0x00 -> 0x04
+1374: 0x00 -> 0x03
+1375: 0x10 -> 0x11
+```
 
-前回の「削除後残留値」問題を避けるため、今回の再インポート運用は有効。
+unpack 後は、
 
-## 現時点の規則化
+```text
+Track 2 / Step 2 step-state = [0x03, 0x91]
+```
 
-- Trigger record は `record[0]=track_index`, `record[1]=step_index` で確定。
-- Step state は Trackごとにブロックが分かれ、Stepに応じた triplet が更新される。
-- Step 1..3 では連続性が見えるが、Step16では非連続ジャンプが観測されるため、単純一次式のみでの一般化は未確定。
+Track 8 でも同じモデルで説明できる。
 
-## 未確定
+## 3. Unpack後は 2byte/step の連続テーブル
 
-- Track 2 / Track 8 以外で同形の triplet 規則が成り立つか。
-- Step 4..15 の完全な配置規則。
-- triplet各byteの意味（mask/control/active flag 分離）。
+Track 2 の論理entry先頭index:
+
+| Step | 論理entry先頭index | Step 1 からの差 |
+|---:|---:|---:|
+| 1 | 1191 | 0 |
+| 2 | 1193 | +2 |
+| 3 | 1195 | +4 |
+| 16 | 1221 | +30 |
+
+Track 8 の論理entry先頭index:
+
+| Step | 論理entry先頭index | Step 1 からの差 |
+|---:|---:|---:|
+| 1 | 8313 | 0 |
+| 2 | 8315 | +2 |
+| 16 | 8343 | +30 |
+
+両者は次式に一致する。
+
+```text
+trackIndex = trackNumber - 1
+stepIndex  = stepNumber - 1
+
+logical_entry_offset =
+  4
+  + 1187 * trackIndex
+  + 2 * stepIndex
+```
+
+## 4. Track block 間隔
+
+Track 2 / Step 1 = 1191、Track 8 / Step 1 = 8313 なので、
+
+```text
+8313 - 1191 = 7122
+7122 / (8 - 2) = 1187
+```
+
+Track間隔は論理payload上で 1187 byte。Track 1 base は `4` となり、既知の Track 1 / Step 1 観測とも整合する。
+
+## 5. 通常Trigger ON時の Step state 値（観測範囲）
+
+| Step | Unpack後の2byte |
+|---:|---|
+| 1 | [0x03, 0x81] |
+| 2 | [0x03, 0x91] |
+| 3 | [0x03, 0x81] |
+| 16 | [0x03, 0x91] |
+
+Track 2 / Track 8 で一致した。観測範囲では次規則に合う。
+
+```text
+odd step  -> [0x03, 0x81]
+even step -> [0x03, 0x91]
+```
+
+## 6. BASE_EMPTY 再インポート挙動
+
+`vs_step1_to_03/05/07/09/11/13` は `difference_count: 0`。本系列では empty snapshot が byte-identical に戻ることを確認した。
+
+## 7. Harmony Cloud 実装への含意
+
+Track 1〜8 / Step 1〜16 / 通常Trigger / 1step1trigger の範囲では、Step state 物理offsetの個別収集は不要。
+
+1. packed領域を unpack
+2. 論理offset式で entry 算出
+3. 通常Triggerの2byteを書込
+4. repack
+5. Trigger record slot array を書込
+6. checksum を更新
+
+## 未確定（将来拡張用）
+
+- Track 9以降（使用対象拡張時に block式確認）
+- 同一Track/同一Stepの複数音（Chord構造）
+- Trig Condition / Probability
+- Micro Timing
+- Track別 default Velocity / Length（Track 2〜8）

@@ -1,0 +1,104 @@
+analysis_target: trigger_track_step_state_table_page_boundary
+status: confirmed_for_tracks_2_and_8_steps_up_to_128
+scope:
+  tracks_tested: [2, 8]
+  steps_tested:
+    track_2: [16, 17, 32, 33, 48, 49, 64, 65, 80, 81, 96, 97, 112, 113, 127, 128]
+    track_8: [16, 17, 64, 65, 128]
+  pattern_mode: pattern_wide
+  total_steps: 128
+  note: C5
+  trigger_count: 1
+  velocity: inherit_track_default
+  length: inherit_track_default
+normalization:
+  canonical_capture_dir: captures/Track_Step_State_Table_Page
+  canonical_sequence_count: 23
+  base_pair:
+    first_empty: captures/Track_Step_State_Table_Page/01_EmptySteps128.syx
+    reimport_empty: captures/Track_Step_State_Table_Page/18_EmptySteps128Reimport.syx
+  base_pair_diff_count: 0
+trigger_record_confirmed:
+  track_offset_21720:
+    track_2: 0x01
+    track_8: 0x07
+  step_offset_21721:
+    track_2:
+      step16: 0x0F
+      step17: 0x10
+      step32: 0x1F
+      step33: 0x20
+      step64: 0x3F
+      step65: 0x40
+      step96: 0x5F
+      step97: 0x60
+      step112: 0x6F
+      step113: 0x70
+      step127: 0x7E
+      step128: 0x7F
+    track_8:
+      step16: 0x0F
+      step17: 0x10
+      step64: 0x3F
+      step65: 0x40
+      step128: 0x7F
+step_state_decoded_model:
+  storage: packed_7bit_payload
+  packed_region_start_offset: 10
+  decoded_entry_size: 2
+  decoded_offset_formula:
+    expression: "4 + 1187 * track_index + 2 * step_index"
+    track_index: track_number_minus_1
+    step_index: step_number_minus_1
+  page_boundary_result: formula_holds_across_16_step_pages
+verified_decoded_offsets:
+  track_2:
+    step16: 1221
+    step17: 1223
+    step32: 1253
+    step33: 1255
+    step48: 1285
+    step49: 1287
+    step64: 1317
+    step65: 1319
+    step80: 1349
+    step81: 1351
+    step96: 1381
+    step97: 1383
+    step112: 1413
+    step113: 1415
+    step127: 1443
+    step128: 1445
+  track_8:
+    step16: 8343
+    step17: 8345
+    step64: 8439
+    step65: 8441
+    step128: 8567
+observed_decoded_values:
+  track_2:
+    step16: [0x03, 0x11]
+    step17: [0x03, 0x01]
+    step32: [0x03, 0x11]
+    step33: [0x03, 0x81]
+    step48: [0x03, 0x11]
+    step49: [0x03, 0x01]
+    step64: [0x03, 0x11]
+    step65: [0x03, 0x01]
+    step80: [0x03, 0x11]
+    step81: [0x03, 0x01]
+    step96: [0x03, 0x91]
+    step97: [0x03, 0x01]
+    step112: [0x03, 0x11]
+    step113: [0x03, 0x01]
+    step127: [0x83, 0x01]
+    step128: [0x03, 0x11]
+  track_8:
+    step16: [0x03, 0x11]
+    step17: [0x03, 0x01]
+    step64: [0x03, 0x11]
+    step65: [0x03, 0x01]
+    step128: [0x03, 0x91]
+notes:
+  - Physical diffs around page boundaries still include control-byte movement caused by 7-bit packing.
+  - Position formula continuity is confirmed independently from decoded value semantics.

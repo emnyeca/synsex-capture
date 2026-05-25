@@ -1,8 +1,9 @@
 analysis_target: trigger_track_step_state_table
-status: observed
+status: confirmed_for_limited_scope
 scope:
-  tracks_tested: [2, 8]
+  tracks_tested: [1, 2, 8]
   steps_tested:
+    track_1: [1]
     track_2: [1, 2, 3, 16]
     track_8: [1, 2, 16]
   note: C5
@@ -31,16 +32,34 @@ trigger_record_fields:
     decoded_record_byte: 1
     encoding: zero_based_step_index
     status: confirmed
-observed_step_state_triplets:
-  track_2:
-    step_1: [1370, 1372, 1373]
-    step_2: [1370, 1374, 1375]
-    step_3: [1370, 1376, 1377]
-    step_16: [1402, 1406, 1407]
-  track_8:
-    step_1: [9506, 9511, 9512]
-    step_2: [9513, 9514, 9515]
-    step_16: [9545, 9546, 9547]
+  pitch:
+    offset: 21723
+    expected_for_c5: 0x3C
+    status: observed
+  field_5:
+    offset: 21726
+    expected_for_normal_trigger: 0x00
+    status: observed
+step_state_table:
+  storage: packed_7bit_payload
+  packed_region_start_offset: 10
+  decoded_entry_size: 2
+  decoded_offset_formula:
+    track_index_base: zero_based
+    step_index_base: zero_based
+    expression: "4 + 1187 * track_index + 2 * step_index"
+  observed_normal_trigger_values:
+    odd_steps:
+      decoded_bytes: [0x03, 0x81]
+      verified_steps: [1, 3]
+    even_steps:
+      decoded_bytes: [0x03, 0x91]
+      verified_steps: [2, 16]
+  verified_tracks: [1, 2, 8]
+  packing_note: >
+    Physical diff may include one additional control byte when either decoded
+    entry byte has its MSB set. Do not treat the raw physical diff list as a
+    three-byte semantic entry.
 baseline_behavior:
   empty_reimport_zero_diff_pairs:
     - vs_step1_to_03
@@ -50,14 +69,12 @@ baseline_behavior:
     - vs_step1_to_11
     - vs_step1_to_13
   interpretation: BASE_EMPTY reimport keeps empty snapshots byte-identical in this run
-inference:
-  per_track_step_state_blocks_exist: true
-  step_specific_triplet_updates_exist: true
-  simple_linear_formula_for_all_steps: unresolved
 unknowns:
-  - Full step-state table rule for steps 4..15 across tracks.
-  - Whether tracks 1, 3..7, and 9..16 follow the same geometry.
-  - Semantic role split of each triplet byte.
+  - Track 9+ behavior if/when used.
+  - Multi-note (chord) structure at same track/step.
+  - Trig Condition / Probability encoding impact.
+  - Micro Timing encoding location and semantics.
+  - Track defaults for velocity/length on tracks 2..8.
 references:
   dataset_summary: datasets/analysis/track_step_state_table_20260525/summary.yaml
   dataset_confirmed: datasets/analysis/track_step_state_table_20260525/track_step_state_table_confirmed.yaml

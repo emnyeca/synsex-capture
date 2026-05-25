@@ -1,0 +1,57 @@
+analysis_target: trigger_step_state_page_boundary
+status: confirmed_for_position_formula
+scope:
+  tracks_tested: [2, 8]
+  steps_tested:
+    track_2: [16, 17, 32, 33, 48, 49, 64, 65, 80, 81, 96, 97, 112, 113, 127, 128]
+    track_8: [16, 17, 64, 65, 128]
+  pattern_mode: pattern_wide
+  total_steps: 128
+  note: C5
+  trigger_count: 1
+  velocity: inherit_track_default
+  length: inherit_track_default
+trigger_record:
+  track_index:
+    offset: 21720
+    encoding: zero_based
+    status: confirmed
+  step_index:
+    offset: 21721
+    encoding: zero_based
+    status: confirmed
+step_state_table:
+  storage: packed_7bit_payload
+  packed_region_start_offset: 10
+  decoded_entry_size: 2
+  decoded_offset_formula:
+    track_index_base: zero_based
+    step_index_base: zero_based
+    expression: "4 + 1187 * track_index + 2 * step_index"
+  boundary_validation:
+    tested_boundaries:
+      - 16_to_17
+      - 32_to_33
+      - 48_to_49
+      - 64_to_65
+      - 80_to_81
+      - 96_to_97
+      - 112_to_113
+      - 127_to_128
+    result: formula_holds
+  packing_note: >
+    Physical diffs include packing-control updates; do not infer semantic entry
+    size from raw physical changed-byte count.
+baseline_behavior:
+  empty_reimport_diff_count: 0
+value_semantics:
+  status: not_finalized
+  note: decoded entry value bits vary by step/page in this 128-step dataset
+unknowns:
+  - Exact bit semantics of decoded 2-byte step-state value across pages.
+  - Relationship of 0x83 observation at track2 step127 to page-end behavior.
+  - Interaction with condition/probability/micro-timing for steps 17..128.
+references:
+  dataset_summary: datasets/analysis/track_step_state_table_page_20260525/summary.yaml
+  dataset_confirmed: datasets/analysis/track_step_state_table_page_20260525/track_step_state_table_page_confirmed.yaml
+  dataset_inference: datasets/analysis/track_step_state_table_page_20260525/track_step_state_table_page_inference.yaml

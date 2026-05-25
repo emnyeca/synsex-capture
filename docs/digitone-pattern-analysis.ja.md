@@ -9,6 +9,26 @@
 
 このファイルは運用ガイドとして残し、数値仕様は正本へ集約します。
 
+## 最新確定事項（2026-05-25）
+
+Step state table は、物理SYX差分上の「triplet」ではなく、7-bit unpack 後 payload 上の
+`2byte / step` 連続テーブルとして扱います。
+
+```text
+trackIndex = trackNumber - 1
+stepIndex  = stepNumber - 1
+
+logical_entry_offset = 4 + 1187 * trackIndex + 2 * stepIndex
+```
+
+通常Triggerの観測値（検証範囲: Track 1/2/8, Step 1/2/3/16）:
+
+- odd step: `[0x03, 0x81]`
+- even step: `[0x03, 0x91]`
+
+詳細は `docs/analysis/trigger-step-state-table/analysis.ja.md` と
+`docs/analysis/trigger-step-state-table/spec.yaml` を参照してください。
+
 ## Checksum / integrity field の扱い
 
 Checksum / integrity field は、追随オフセット（`114113`, `114114`）の観測までは進んでいますが、

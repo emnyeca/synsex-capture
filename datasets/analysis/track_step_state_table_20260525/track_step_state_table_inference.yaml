@@ -1,37 +1,25 @@
 analysis_target: trigger_track_step_state_table
-status: inferred_from_track2_track8_step_walk
-candidate_rules:
+status: inferred_for_out_of_scope_expansion
+confirmed_in_this_dataset:
   trigger_record:
     track_byte_0_at_21720: zero_based_track_index
     step_byte_1_at_21721: zero_based_step_index
-    confidence: high
   step_state_table:
-    per_track_state_blocks_exist: true
-    step_specific_triplet_offsets_exist: true
-    confidence: medium
-observed_progressions:
-  track2_step_state_triplets:
-    - step: 1
-      offsets: [1370, 1372, 1373]
-    - step: 2
-      offsets: [1370, 1374, 1375]
-    - step: 3
-      offsets: [1370, 1376, 1377]
-    - step: 16
-      offsets: [1402, 1406, 1407]
-  track8_step_state_triplets:
-    - step: 1
-      offsets: [9506, 9511, 9512]
-    - step: 2
-      offsets: [9513, 9514, 9515]
-    - step: 16
-      offsets: [9545, 9546, 9547]
-open_questions:
-  - Why the track2 and track8 step16 triplets include non-contiguous offsets versus step1..3.
-  - Whether steps 4..15 follow a linear rule or include block-boundary exceptions.
-  - Whether the same offset rule applies to tracks 1, 3..7, and 9..16.
-  - Field semantics for each triplet byte (mask/control/active flag role split).
-recommended_next_experiment:
-  - Capture full step walk (1..16) on a single track with base reimport before each add.
-  - Repeat full walk on one additional distant track to compare block geometry.
-  - Keep trigger count fixed at 1 and note fixed at C5 for isolation.
+    decoded_entry_size: 2
+    decoded_offset_formula: "4 + 1187 * track_index + 2 * step_index"
+    normal_trigger_values:
+      odd_steps: [0x03, 0x81]
+      even_steps: [0x03, 0x91]
+physical_diff_interpretation:
+  note: >
+    Raw physical diffs may appear as three-byte changes because one byte can be
+    a 7-bit packing control byte, not semantic step-state payload.
+remaining_open_questions:
+  - Track 9+ behavior if the usable track range is expanded.
+  - Multiple notes at same track/step (chord representation).
+  - Trig Condition / Probability impact on decoded 2-byte step state.
+  - Micro Timing encoding location and semantics.
+  - Track default velocity/length mapping for tracks 2..8.
+recommended_next_experiment_when_needed:
+  - Full step walk (1..16) on at least one additional track beyond 8.
+  - Controlled diffs for condition/probability and micro timing with fixed note.

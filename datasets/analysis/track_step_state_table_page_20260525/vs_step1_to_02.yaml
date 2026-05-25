@@ -1,0 +1,60 @@
+﻿analysis: track_step_state_table_page
+pair_type: baseline_vs_step1
+pair:
+  before: captures/Track_Step_State_Table_Page/01_EmptySteps128.syx
+  after: captures/Track_Step_State_Table_Page/02_Track2Step16C5.syx
+  before_operation: empty128
+  after_operation: track2 step16 C5
+  before_track: null
+  after_track: 2
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+  pattern_mode: PATTERN-wide
+  total_steps: 128
+  tempo: 120.0
+  speed: '1'
+  trigger_count: 1
+  trigger_velocity: inherit track default
+  trigger_length: inherit track default
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 11
+patches:
+- offset: 1402
+  before: '0x00'
+  value: '0x04'
+- offset: 1406
+  before: '0x00'
+  value: '0x03'
+- offset: 1407
+  before: '0x10'
+  value: '0x11'
+- offset: 21714
+  before: '0x03'
+  value: '0x00'
+- offset: 21720
+  before: '0x7F'
+  value: '0x01'
+- offset: 21721
+  before: '0x7F'
+  value: '0x0F'
+- offset: 21722
+  before: '0x7F'
+  value: '0x37'
+- offset: 21723
+  before: '0x7F'
+  value: '0x3C'
+- offset: 21726
+  before: '0x7F'
+  value: '0x00'
+- offset: 114113
+  before: '0x09'
+  value: '0x05'
+- offset: 114114
+  before: '0x6E'
+  value: '0x7B'
