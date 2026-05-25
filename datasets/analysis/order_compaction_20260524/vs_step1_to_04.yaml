@@ -1,0 +1,39 @@
+analysis: input_order_and_delete_compaction
+pair_type: baseline_step1
+pair:
+  before: captures/1_empty.syx
+  after: captures/4_step1deleded.syx
+  before_operation: empty
+  after_operation: delete step1 only
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 7
+patches:
+- offset: 51
+  before: '0x10'
+  value: '0x11'
+- offset: 21722
+  before: '0x77'
+  value: '0x70'
+- offset: 21727
+  before: '0x7F'
+  value: '0x00'
+- offset: 21728
+  before: '0x7F'
+  value: '0x0F'
+- offset: 21729
+  before: '0x7F'
+  value: '0x3C'
+- offset: 114113
+  before: '0x79'
+  value: '0x76'
+- offset: 114114
+  before: '0x26'
+  value: '0x6E'

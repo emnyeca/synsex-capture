@@ -1,0 +1,49 @@
+analysis: step_and_track_default_velocity
+pair_type: sequential_operation
+pair:
+  before: captures/6_Step1Vel100ChangedTo1.syx
+  after: captures/7_Step1Deleted.syx
+  before_operation: set step1 vel=1
+  after_operation: delete step1
+  before_step_velocity: 1
+  after_step_velocity: null
+  before_track_default_velocity: 1
+  after_track_default_velocity: 1
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 9
+patches:
+- offset: 16
+  before: '0x01'
+  value: '0x00'
+- offset: 21714
+  before: '0x00'
+  value: '0x03'
+- offset: 21720
+  before: '0x00'
+  value: '0x7F'
+- offset: 21721
+  before: '0x00'
+  value: '0x7F'
+- offset: 21722
+  before: '0x17'
+  value: '0x77'
+- offset: 21723
+  before: '0x3C'
+  value: '0x7F'
+- offset: 21724
+  before: '0x01'
+  value: '0x7F'
+- offset: 114113
+  before: '0x74'
+  value: '0x78'
+- offset: 114114
+  before: '0x22'
+  value: '0x43'

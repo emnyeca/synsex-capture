@@ -1,0 +1,28 @@
+analysis: pattern_track_mode_field_inference
+result:
+  mode_toggle_pairs:
+    1_to_2:
+    - 101511
+    - 114114
+    4_to_5:
+    - 101511
+    - 114114
+  track_edit_pairs:
+    2_to_3:
+    - 1347
+    - 114114
+    3_to_4:
+    - 2703
+    - 114114
+  mode_field_candidates:
+  - 101511
+  track_step_field_candidates:
+  - 1347
+  - 2703
+  likely_checksum_offsets:
+  - 114114
+  roundtrip_1_to_5_difference_count: 3
+notes:
+- Mode candidates are offsets that toggle with mode changes but remain stable during
+  per-track step edits.
+- Track-step candidates are offsets touched by 2->3 and/or 3->4 operations.

@@ -1,0 +1,58 @@
+analysis: pattern_speed_field_inference
+result:
+  common_changed_offsets_across_sequential:
+  - 101512
+  - 114114
+  union_changed_offsets_across_sequential:
+  - 101512
+  - 114114
+  likely_speed_field_offset: 101512
+  likely_checksum_offsets:
+  - 114114
+  roundtrip_1_to_8_difference_count: 0
+speed_code_table:
+- index: 1
+  pattern_speed: '1'
+  offset: 101512
+  value_hex: '0x02'
+  value_dec: 2
+- index: 2
+  pattern_speed: 3/4
+  offset: 101512
+  value_hex: '0x03'
+  value_dec: 3
+- index: 3
+  pattern_speed: 1/2
+  offset: 101512
+  value_hex: '0x04'
+  value_dec: 4
+- index: 4
+  pattern_speed: 1/4
+  offset: 101512
+  value_hex: '0x05'
+  value_dec: 5
+- index: 5
+  pattern_speed: 1/8
+  offset: 101512
+  value_hex: '0x06'
+  value_dec: 6
+- index: 6
+  pattern_speed: 3/2
+  offset: 101512
+  value_hex: '0x01'
+  value_dec: 1
+- index: 7
+  pattern_speed: '2'
+  offset: 101512
+  value_hex: '0x00'
+  value_dec: 0
+- index: 8
+  pattern_speed: '1'
+  offset: 101512
+  value_hex: '0x02'
+  value_dec: 2
+notes:
+- Likely speed field offset chosen by lowest common non-checksum offset across sequential
+  changes.
+- If 1->8 returns diff_count=0, speed change sequence roundtrips without residual
+  edits.

@@ -1,0 +1,138 @@
+analysis_id: trig_add_20260524_144043
+analysis: trig_add
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+source:
+  empty: captures/emptyData.syx
+  sequence:
+  - captures/capture_20260524_144043_0001.syx
+  - captures/capture_20260524_144043_0002.syx
+  - captures/capture_20260524_144043_0003.syx
+  - captures/capture_20260524_144043_0004.syx
+  - captures/capture_20260524_144043_0005.syx
+  - captures/capture_20260524_144043_0006.syx
+  - captures/capture_20260524_144043_0007.syx
+  - captures/capture_20260524_144043_0008.syx
+  - captures/capture_20260524_144043_0009.syx
+  - captures/capture_20260524_144043_0010.syx
+  - captures/capture_20260524_144043_0011.syx
+  - captures/capture_20260524_144043_0012.syx
+  - captures/capture_20260524_144043_0013.syx
+  - captures/capture_20260524_144043_0014.syx
+  - captures/capture_20260524_144043_0015.syx
+  - captures/capture_20260524_144043_0016.syx
+generated:
+  empty_vs:
+  - index: 1
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0001.yaml
+    difference_count: 31
+  - index: 2
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0002.yaml
+    difference_count: 37
+  - index: 3
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0003.yaml
+    difference_count: 43
+  - index: 4
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0004.yaml
+    difference_count: 49
+  - index: 5
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0005.yaml
+    difference_count: 54
+  - index: 6
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0006.yaml
+    difference_count: 60
+  - index: 7
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0007.yaml
+    difference_count: 66
+  - index: 8
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0008.yaml
+    difference_count: 72
+  - index: 9
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0009.yaml
+    difference_count: 78
+  - index: 10
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0010.yaml
+    difference_count: 84
+  - index: 11
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0011.yaml
+    difference_count: 90
+  - index: 12
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0012.yaml
+    difference_count: 95
+  - index: 13
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0013.yaml
+    difference_count: 101
+  - index: 14
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0014.yaml
+    difference_count: 107
+  - index: 15
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0015.yaml
+    difference_count: 113
+  - index: 16
+    output_yaml: datasets/analysis/trig_add_20260524_144043/empty_vs_0016.yaml
+    difference_count: 119
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0001_to_0002.yaml
+    difference_count: 9
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0002_to_0003.yaml
+    difference_count: 9
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0003_to_0004.yaml
+    difference_count: 9
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0004_to_0005.yaml
+    difference_count: 8
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0005_to_0006.yaml
+    difference_count: 8
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0006_to_0007.yaml
+    difference_count: 9
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0007_to_0008.yaml
+    difference_count: 9
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0008_to_0009.yaml
+    difference_count: 9
+  - from: 9
+    to: 10
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0009_to_0010.yaml
+    difference_count: 9
+  - from: 10
+    to: 11
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0010_to_0011.yaml
+    difference_count: 9
+  - from: 11
+    to: 12
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0011_to_0012.yaml
+    difference_count: 8
+  - from: 12
+    to: 13
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0012_to_0013.yaml
+    difference_count: 8
+  - from: 13
+    to: 14
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0013_to_0014.yaml
+    difference_count: 9
+  - from: 14
+    to: 15
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0014_to_0015.yaml
+    difference_count: 9
+  - from: 15
+    to: 16
+    output_yaml: datasets/analysis/trig_add_20260524_144043/seq_0015_to_0016.yaml
+    difference_count: 9

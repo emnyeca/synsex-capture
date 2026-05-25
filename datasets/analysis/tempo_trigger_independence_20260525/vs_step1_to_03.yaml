@@ -1,0 +1,19 @@
+analysis: tempo_trigger_independence
+pair_type: baseline_vs_step1
+pair:
+  before: captures/1_BaseTempo120WithTriggerStep1.syx
+  after: captures/3_Tempo130ChangedTo120WithTriggerStep1.syx
+  before_operation: set tempo 120.0 with trigger at step 1
+  after_operation: set tempo 120.0 with trigger at step 1
+  before_tempo: 120.0
+  after_tempo: 120.0
+  before_trigger_state: step1_on
+  after_trigger_state: step1_on
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 0
+  changed_offsets: []
+  non_tempo_offsets_changed: []
+  tempo_only_change: true
+patches: []

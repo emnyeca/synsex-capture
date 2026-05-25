@@ -1,0 +1,131 @@
+analysis: pattern_total_steps_trigger_propagation
+pair_type: baseline_vs_step1
+pair:
+  before: captures/1_BaseTriggerStep1PatternStepWide16.syx
+  after: captures/3_TriggerStep1PatternStepWide64ChangedTo16.syx
+  before_operation: BASE_TRIG_STEP1 / PATTERN-wide / total steps 16
+  after_operation: Change pattern total steps 64 -> 16
+  before_pattern_total_steps: 16
+  after_pattern_total_steps: 16
+  before_trigger_summary: step1_on, step16_off
+  after_trigger_summary: step1_on, step16_off
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  mode: PATTERN-wide
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 27
+  changed_offsets:
+  - 50
+  - 52
+  - 53
+  - 82
+  - 88
+  - 89
+  - 122
+  - 125
+  - 126
+  - 21722
+  - 21727
+  - 21728
+  - 21729
+  - 21730
+  - 21733
+  - 21734
+  - 21735
+  - 21736
+  - 21738
+  - 21740
+  - 21741
+  - 21742
+  - 21743
+  - 21746
+  - 21747
+  - 114113
+  - 114114
+patches:
+- offset: 50
+  before: '0x00'
+  value: '0x10'
+- offset: 52
+  before: '0x00'
+  value: '0x03'
+- offset: 53
+  before: '0x00'
+  value: '0x01'
+- offset: 82
+  before: '0x00'
+  value: '0x01'
+- offset: 88
+  before: '0x00'
+  value: '0x03'
+- offset: 89
+  before: '0x00'
+  value: '0x01'
+- offset: 122
+  before: '0x00'
+  value: '0x08'
+- offset: 125
+  before: '0x00'
+  value: '0x03'
+- offset: 126
+  before: '0x00'
+  value: '0x01'
+- offset: 21722
+  before: '0x37'
+  value: '0x30'
+- offset: 21727
+  before: '0x7F'
+  value: '0x00'
+- offset: 21728
+  before: '0x7F'
+  value: '0x10'
+- offset: 21729
+  before: '0x7F'
+  value: '0x3C'
+- offset: 21730
+  before: '0x7F'
+  value: '0x61'
+- offset: 21733
+  before: '0x7F'
+  value: '0x00'
+- offset: 21734
+  before: '0x7F'
+  value: '0x00'
+- offset: 21735
+  before: '0x7F'
+  value: '0x20'
+- offset: 21736
+  before: '0x7F'
+  value: '0x3C'
+- offset: 21738
+  before: '0x7F'
+  value: '0x43'
+- offset: 21740
+  before: '0x7F'
+  value: '0x00'
+- offset: 21741
+  before: '0x7F'
+  value: '0x00'
+- offset: 21742
+  before: '0x7F'
+  value: '0x30'
+- offset: 21743
+  before: '0x7F'
+  value: '0x3C'
+- offset: 21746
+  before: '0x7F'
+  value: '0x3F'
+- offset: 21747
+  before: '0x7F'
+  value: '0x00'
+- offset: 114113
+  before: '0x04'
+  value: '0x79'
+- offset: 114114
+  before: '0x37'
+  value: '0x5B'

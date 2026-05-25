@@ -1,0 +1,35 @@
+analysis: tempo_trigger_independence
+pair_type: sequential_tempo_change_with_fixed_trigger
+pair:
+  before: captures/1_BaseTempo120WithTriggerStep1.syx
+  after: captures/2_Tempo120ChangedTo130WithTriggerStep1.syx
+  before_operation: set tempo 120.0 with trigger at step 1
+  after_operation: set tempo 130.0 with trigger at step 1
+  before_tempo: 120.0
+  after_tempo: 130.0
+  before_trigger_state: step1_on
+  after_trigger_state: step1_on
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 4
+  changed_offsets:
+  - 101498
+  - 101503
+  - 101504
+  - 114114
+  non_tempo_offsets_changed: []
+  tempo_only_change: true
+patches:
+- offset: 101498
+  before: '0x00'
+  value: '0x02'
+- offset: 101503
+  before: '0x38'
+  value: '0x3C'
+- offset: 101504
+  before: '0x40'
+  value: '0x70'
+- offset: 114114
+  before: '0x37'
+  value: '0x6D'

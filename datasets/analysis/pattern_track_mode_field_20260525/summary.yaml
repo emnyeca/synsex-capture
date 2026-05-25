@@ -1,0 +1,87 @@
+analysis_id: pattern_track_mode_field_20260525
+analysis: pattern_track_mode_field
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+sequence:
+- index: 1
+  file: captures/1_BasePatternStepWide16.syx
+  operation: 'Base: PATTERN-wide mode, total steps 16'
+- index: 2
+  file: captures/2_PatternStepWideModeChangedToTrackStepWideMode.syx
+  operation: Switch to per-track mode, all tracks display 16
+- index: 3
+  file: captures/3_Track1StepWide16ChangedTo8.syx
+  operation: Track1 total steps 16 -> 8 in per-track mode
+- index: 4
+  file: captures/4_Track2StepWide16ChangedTo4.syx
+  operation: Track2 total steps 16 -> 4 in per-track mode
+- index: 5
+  file: captures/5_TrackStepWideModeChangedToPatternStepWideModeBase16.syx
+  operation: Back to PATTERN-wide mode, total steps 16
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/seq_01_to_02.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101511
+    - 114114
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/seq_02_to_03.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/seq_03_to_04.yaml
+    difference_count: 2
+    changed_offsets:
+    - 2703
+    - 114114
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/seq_04_to_05.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101511
+    - 114114
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/vs_step1_to_02.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101511
+    - 114114
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/vs_step1_to_03.yaml
+    difference_count: 3
+    changed_offsets:
+    - 1347
+    - 101511
+    - 114114
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/vs_step1_to_04.yaml
+    difference_count: 4
+    changed_offsets:
+    - 1347
+    - 2703
+    - 101511
+    - 114114
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/pattern_track_mode_field_20260525/vs_step1_to_05.yaml
+    difference_count: 3
+    changed_offsets:
+    - 1347
+    - 2703
+    - 114114

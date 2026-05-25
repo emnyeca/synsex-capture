@@ -1,0 +1,99 @@
+analysis: pattern_total_steps_trigger_propagation
+pair_type: sequential
+pair:
+  before: captures/2_TriggerStep1PatternStepWide16ChangedTo64.syx
+  after: captures/3_TriggerStep1PatternStepWide64ChangedTo16.syx
+  before_operation: Change pattern total steps 16 -> 64
+  after_operation: Change pattern total steps 64 -> 16
+  before_pattern_total_steps: 64
+  after_pattern_total_steps: 16
+  before_trigger_summary: step1_on, step16_off
+  after_trigger_summary: step1_on, step16_off
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  mode: PATTERN-wide
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 19
+  changed_offsets:
+  - 1347
+  - 2703
+  - 4060
+  - 5416
+  - 6773
+  - 8129
+  - 9486
+  - 10843
+  - 12199
+  - 13556
+  - 14912
+  - 16269
+  - 17625
+  - 18982
+  - 20339
+  - 21695
+  - 101507
+  - 114113
+  - 114114
+patches:
+- offset: 1347
+  before: '0x40'
+  value: '0x10'
+- offset: 2703
+  before: '0x40'
+  value: '0x10'
+- offset: 4060
+  before: '0x40'
+  value: '0x10'
+- offset: 5416
+  before: '0x40'
+  value: '0x10'
+- offset: 6773
+  before: '0x40'
+  value: '0x10'
+- offset: 8129
+  before: '0x40'
+  value: '0x10'
+- offset: 9486
+  before: '0x40'
+  value: '0x10'
+- offset: 10843
+  before: '0x40'
+  value: '0x10'
+- offset: 12199
+  before: '0x40'
+  value: '0x10'
+- offset: 13556
+  before: '0x40'
+  value: '0x10'
+- offset: 14912
+  before: '0x40'
+  value: '0x10'
+- offset: 16269
+  before: '0x40'
+  value: '0x10'
+- offset: 17625
+  before: '0x40'
+  value: '0x10'
+- offset: 18982
+  before: '0x40'
+  value: '0x10'
+- offset: 20339
+  before: '0x40'
+  value: '0x10'
+- offset: 21695
+  before: '0x40'
+  value: '0x10'
+- offset: 101507
+  before: '0x40'
+  value: '0x10'
+- offset: 114113
+  before: '0x00'
+  value: '0x79'
+- offset: 114114
+  before: '0x0B'
+  value: '0x5B'

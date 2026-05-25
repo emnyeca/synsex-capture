@@ -1,0 +1,388 @@
+analysis_id: pattern_total_steps_trigger_propagation_20260525
+analysis: pattern_total_steps_trigger_propagation
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  mode: PATTERN-wide
+sequence:
+- index: 1
+  file: captures/1_BaseTriggerStep1PatternStepWide16.syx
+  operation: BASE_TRIG_STEP1 / PATTERN-wide / total steps 16
+  pattern_total_steps: 16
+  trigger_summary: step1_on, step16_off
+- index: 2
+  file: captures/2_TriggerStep1PatternStepWide16ChangedTo64.syx
+  operation: Change pattern total steps 16 -> 64
+  pattern_total_steps: 64
+  trigger_summary: step1_on, step16_off
+- index: 3
+  file: captures/3_TriggerStep1PatternStepWide64ChangedTo16.syx
+  operation: Change pattern total steps 64 -> 16
+  pattern_total_steps: 16
+  trigger_summary: step1_on, step16_off
+- index: 4
+  file: captures/4_TriggerStep16AddedPatternStepWide16.syx
+  operation: Add trigger at step16
+  pattern_total_steps: 16
+  trigger_summary: step1_on, step16_on
+- index: 5
+  file: captures/5_PatternStepWide16ChangedTo15Step16Dissapeared.syx
+  operation: Change pattern total steps 16 -> 15 (step16 hidden)
+  pattern_total_steps: 15
+  trigger_summary: step1_on, step16_hidden
+- index: 6
+  file: captures/6_PatternStepWide15ChangedTo16Step16Apeared.syx
+  operation: Change pattern total steps 15 -> 16 (step16 reappears)
+  pattern_total_steps: 16
+  trigger_summary: step1_on, step16_on_reappeared
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/seq_01_to_02.yaml
+    difference_count: 44
+    changed_offsets:
+    - 50
+    - 52
+    - 53
+    - 82
+    - 88
+    - 89
+    - 122
+    - 125
+    - 126
+    - 1347
+    - 2703
+    - 4060
+    - 5416
+    - 6773
+    - 8129
+    - 9486
+    - 10843
+    - 12199
+    - 13556
+    - 14912
+    - 16269
+    - 17625
+    - 18982
+    - 20339
+    - 21695
+    - 21722
+    - 21727
+    - 21728
+    - 21729
+    - 21730
+    - 21733
+    - 21734
+    - 21735
+    - 21736
+    - 21738
+    - 21740
+    - 21741
+    - 21742
+    - 21743
+    - 21746
+    - 21747
+    - 101507
+    - 114113
+    - 114114
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/seq_02_to_03.yaml
+    difference_count: 19
+    changed_offsets:
+    - 1347
+    - 2703
+    - 4060
+    - 5416
+    - 6773
+    - 8129
+    - 9486
+    - 10843
+    - 12199
+    - 13556
+    - 14912
+    - 16269
+    - 17625
+    - 18982
+    - 20339
+    - 21695
+    - 101507
+    - 114113
+    - 114114
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/seq_03_to_04.yaml
+    difference_count: 10
+    changed_offsets:
+    - 49
+    - 50
+    - 51
+    - 21746
+    - 21748
+    - 21749
+    - 21750
+    - 21753
+    - 114113
+    - 114114
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/seq_04_to_05.yaml
+    difference_count: 18
+    changed_offsets:
+    - 1347
+    - 2703
+    - 4060
+    - 5416
+    - 6773
+    - 8129
+    - 9486
+    - 10843
+    - 12199
+    - 13556
+    - 14912
+    - 16269
+    - 17625
+    - 18982
+    - 20339
+    - 21695
+    - 101507
+    - 114114
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/seq_05_to_06.yaml
+    difference_count: 18
+    changed_offsets:
+    - 1347
+    - 2703
+    - 4060
+    - 5416
+    - 6773
+    - 8129
+    - 9486
+    - 10843
+    - 12199
+    - 13556
+    - 14912
+    - 16269
+    - 17625
+    - 18982
+    - 20339
+    - 21695
+    - 101507
+    - 114114
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/vs_step1_to_02.yaml
+    difference_count: 44
+    changed_offsets:
+    - 50
+    - 52
+    - 53
+    - 82
+    - 88
+    - 89
+    - 122
+    - 125
+    - 126
+    - 1347
+    - 2703
+    - 4060
+    - 5416
+    - 6773
+    - 8129
+    - 9486
+    - 10843
+    - 12199
+    - 13556
+    - 14912
+    - 16269
+    - 17625
+    - 18982
+    - 20339
+    - 21695
+    - 21722
+    - 21727
+    - 21728
+    - 21729
+    - 21730
+    - 21733
+    - 21734
+    - 21735
+    - 21736
+    - 21738
+    - 21740
+    - 21741
+    - 21742
+    - 21743
+    - 21746
+    - 21747
+    - 101507
+    - 114113
+    - 114114
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/vs_step1_to_03.yaml
+    difference_count: 27
+    changed_offsets:
+    - 50
+    - 52
+    - 53
+    - 82
+    - 88
+    - 89
+    - 122
+    - 125
+    - 126
+    - 21722
+    - 21727
+    - 21728
+    - 21729
+    - 21730
+    - 21733
+    - 21734
+    - 21735
+    - 21736
+    - 21738
+    - 21740
+    - 21741
+    - 21742
+    - 21743
+    - 21746
+    - 21747
+    - 114113
+    - 114114
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/vs_step1_to_04.yaml
+    difference_count: 33
+    changed_offsets:
+    - 49
+    - 50
+    - 51
+    - 52
+    - 53
+    - 82
+    - 88
+    - 89
+    - 122
+    - 125
+    - 126
+    - 21722
+    - 21727
+    - 21728
+    - 21729
+    - 21730
+    - 21733
+    - 21734
+    - 21735
+    - 21736
+    - 21738
+    - 21740
+    - 21741
+    - 21742
+    - 21743
+    - 21746
+    - 21747
+    - 21748
+    - 21749
+    - 21750
+    - 21753
+    - 114113
+    - 114114
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/vs_step1_to_05.yaml
+    difference_count: 50
+    changed_offsets:
+    - 49
+    - 50
+    - 51
+    - 52
+    - 53
+    - 82
+    - 88
+    - 89
+    - 122
+    - 125
+    - 126
+    - 1347
+    - 2703
+    - 4060
+    - 5416
+    - 6773
+    - 8129
+    - 9486
+    - 10843
+    - 12199
+    - 13556
+    - 14912
+    - 16269
+    - 17625
+    - 18982
+    - 20339
+    - 21695
+    - 21722
+    - 21727
+    - 21728
+    - 21729
+    - 21730
+    - 21733
+    - 21734
+    - 21735
+    - 21736
+    - 21738
+    - 21740
+    - 21741
+    - 21742
+    - 21743
+    - 21746
+    - 21747
+    - 21748
+    - 21749
+    - 21750
+    - 21753
+    - 101507
+    - 114113
+    - 114114
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/pattern_total_steps_trigger_propagation_20260525/vs_step1_to_06.yaml
+    difference_count: 33
+    changed_offsets:
+    - 49
+    - 50
+    - 51
+    - 52
+    - 53
+    - 82
+    - 88
+    - 89
+    - 122
+    - 125
+    - 126
+    - 21722
+    - 21727
+    - 21728
+    - 21729
+    - 21730
+    - 21733
+    - 21734
+    - 21735
+    - 21736
+    - 21738
+    - 21740
+    - 21741
+    - 21742
+    - 21743
+    - 21746
+    - 21747
+    - 21748
+    - 21749
+    - 21750
+    - 21753
+    - 114113
+    - 114114

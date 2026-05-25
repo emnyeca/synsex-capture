@@ -1,0 +1,92 @@
+analysis_id: trigger_order_20260524
+analysis: operation_order_effect
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+sequence:
+- index: 1
+  file: captures/1_Trigger1To16Deleted.syx
+  operation: Delete triggers 1..16
+- index: 2
+  file: captures/2_Trigger16Added.syx
+  operation: Add trigger 16
+- index: 3
+  file: captures/3_Trigger16Removed.syx
+  operation: Remove trigger 16
+- index: 4
+  file: captures/4_Trigger1Added.syx
+  operation: Add trigger 1
+- index: 5
+  file: captures/5_Trigger1Removed.syx
+  operation: Remove trigger 1
+- index: 6
+  file: captures/6_Trigger16Added.syx
+  operation: Add trigger 16
+- index: 7
+  file: captures/7_Trigger1Added.syx
+  operation: Add trigger 1
+- index: 8
+  file: captures/8_Trigger16&1Removed.syx
+  operation: Remove triggers 16 and 1
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_01_to_02.yaml
+    difference_count: 8
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_02_to_03.yaml
+    difference_count: 8
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_03_to_04.yaml
+    difference_count: 8
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_04_to_05.yaml
+    difference_count: 8
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_05_to_06.yaml
+    difference_count: 8
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_06_to_07.yaml
+    difference_count: 7
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/trigger_order_20260524/seq_07_to_08.yaml
+    difference_count: 12
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_02.yaml
+    difference_count: 8
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_03.yaml
+    difference_count: 0
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_04.yaml
+    difference_count: 8
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_05.yaml
+    difference_count: 0
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_06.yaml
+    difference_count: 8
+  - from: 1
+    to: 7
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_07.yaml
+    difference_count: 12
+  - from: 1
+    to: 8
+    output_yaml: datasets/analysis/trigger_order_20260524/vs_step1_to_08.yaml
+    difference_count: 0

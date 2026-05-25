@@ -1,0 +1,225 @@
+analysis_id: length_field_20260524
+analysis: step_and_track_default_length
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+sequence:
+- index: 1
+  file: captures/1_empty.syx
+  operation: empty
+  step_length: null
+  track_default_length: null
+- index: 2
+  file: captures/2_Step1C5Added_LengthIsDefault1.syx
+  operation: add step1 C5 (default len=1)
+  step_length: '1'
+  track_default_length: '1'
+- index: 3
+  file: captures/3_Step1Len1ChangedTo0.125.syx
+  operation: set step1 len=0.125
+  step_length: '0.125'
+  track_default_length: '1'
+- index: 4
+  file: captures/4_Step1Len0.125ChangedTo0.25.syx
+  operation: set step1 len=0.25
+  step_length: '0.25'
+  track_default_length: '1'
+- index: 5
+  file: captures/5_Step1Len0.25ChangedTo0.5.syx
+  operation: set step1 len=0.5
+  step_length: '0.5'
+  track_default_length: '1'
+- index: 6
+  file: captures/6_Step1Len0.5ChangedTo1.syx
+  operation: set step1 len=1
+  step_length: '1'
+  track_default_length: '1'
+- index: 7
+  file: captures/7_Step1Len1ChangedTo2.syx
+  operation: set step1 len=2
+  step_length: '2'
+  track_default_length: '1'
+- index: 8
+  file: captures/8_TrackLength1ChangedTo2.syx
+  operation: set track default len=2
+  step_length: '2'
+  track_default_length: '2'
+- index: 9
+  file: captures/9_Step1Deleted.syx
+  operation: delete step1
+  step_length: null
+  track_default_length: '2'
+- index: 10
+  file: captures/10_Step1C5Added_LengthIsDefault2.syx
+  operation: add step1 C5 (default len=2)
+  step_length: '2'
+  track_default_length: '2'
+- index: 11
+  file: captures/11_TrackLength2ChangedTo4_Step1LenIsDefault4.syx
+  operation: set track default len=4 (step1 follows)
+  step_length: '4'
+  track_default_length: '4'
+- index: 12
+  file: captures/12_Step1Len4ChangedTo8.syx
+  operation: set step1 len=8
+  step_length: '8'
+  track_default_length: '4'
+- index: 13
+  file: captures/13_Step1Len8ChangedTo16.syx
+  operation: set step1 len=16
+  step_length: '16'
+  track_default_length: '4'
+- index: 14
+  file: captures/14_Step1Len16ChangedTo32.syx
+  operation: set step1 len=32
+  step_length: '32'
+  track_default_length: '4'
+- index: 15
+  file: captures/15_Step1Len32ChangedTo64.syx
+  operation: set step1 len=64
+  step_length: '64'
+  track_default_length: '4'
+- index: 16
+  file: captures/16_Step1Len64ChangedTo128.syx
+  operation: set step1 len=128
+  step_length: '128'
+  track_default_length: '4'
+- index: 17
+  file: captures/17_Step128Len8ChangedToINF.syx
+  operation: set step1 len=INF
+  step_length: INF
+  track_default_length: '4'
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/length_field_20260524/seq_01_to_02.yaml
+    difference_count: 8
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/length_field_20260524/seq_02_to_03.yaml
+    difference_count: 4
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/length_field_20260524/seq_03_to_04.yaml
+    difference_count: 2
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/length_field_20260524/seq_04_to_05.yaml
+    difference_count: 2
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/length_field_20260524/seq_05_to_06.yaml
+    difference_count: 2
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/length_field_20260524/seq_06_to_07.yaml
+    difference_count: 2
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/length_field_20260524/seq_07_to_08.yaml
+    difference_count: 2
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/length_field_20260524/seq_08_to_09.yaml
+    difference_count: 8
+  - from: 9
+    to: 10
+    output_yaml: datasets/analysis/length_field_20260524/seq_09_to_10.yaml
+    difference_count: 9
+  - from: 10
+    to: 11
+    output_yaml: datasets/analysis/length_field_20260524/seq_10_to_11.yaml
+    difference_count: 2
+  - from: 11
+    to: 12
+    output_yaml: datasets/analysis/length_field_20260524/seq_11_to_12.yaml
+    difference_count: 4
+  - from: 12
+    to: 13
+    output_yaml: datasets/analysis/length_field_20260524/seq_12_to_13.yaml
+    difference_count: 3
+  - from: 13
+    to: 14
+    output_yaml: datasets/analysis/length_field_20260524/seq_13_to_14.yaml
+    difference_count: 2
+  - from: 14
+    to: 15
+    output_yaml: datasets/analysis/length_field_20260524/seq_14_to_15.yaml
+    difference_count: 2
+  - from: 15
+    to: 16
+    output_yaml: datasets/analysis/length_field_20260524/seq_15_to_16.yaml
+    difference_count: 2
+  - from: 16
+    to: 17
+    output_yaml: datasets/analysis/length_field_20260524/seq_16_to_17.yaml
+    difference_count: 2
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_02.yaml
+    difference_count: 8
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_03.yaml
+    difference_count: 9
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_04.yaml
+    difference_count: 9
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_05.yaml
+    difference_count: 9
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_06.yaml
+    difference_count: 9
+  - from: 1
+    to: 7
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_07.yaml
+    difference_count: 9
+  - from: 1
+    to: 8
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_08.yaml
+    difference_count: 10
+  - from: 1
+    to: 9
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_09.yaml
+    difference_count: 5
+  - from: 1
+    to: 10
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_10.yaml
+    difference_count: 9
+  - from: 1
+    to: 11
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_11.yaml
+    difference_count: 9
+  - from: 1
+    to: 12
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_12.yaml
+    difference_count: 10
+  - from: 1
+    to: 13
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_13.yaml
+    difference_count: 10
+  - from: 1
+    to: 14
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_14.yaml
+    difference_count: 10
+  - from: 1
+    to: 15
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_15.yaml
+    difference_count: 10
+  - from: 1
+    to: 16
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_16.yaml
+    difference_count: 10
+  - from: 1
+    to: 17
+    output_yaml: datasets/analysis/length_field_20260524/vs_step1_to_17.yaml
+    difference_count: 9

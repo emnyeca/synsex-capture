@@ -1,0 +1,27 @@
+analysis: pattern_track_mode_field
+pair_type: baseline_vs_step1
+pair:
+  before: captures/1_BasePatternStepWide16.syx
+  after: captures/2_PatternStepWideModeChangedToTrackStepWideMode.syx
+  before_operation: 'Base: PATTERN-wide mode, total steps 16'
+  after_operation: Switch to per-track mode, all tracks display 16
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 101511
+  - 114114
+patches:
+- offset: 101511
+  before: '0x00'
+  value: '0x01'
+- offset: 114114
+  before: '0x3C'
+  value: '0x3D'

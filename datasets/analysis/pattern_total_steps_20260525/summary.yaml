@@ -1,0 +1,148 @@
+analysis_id: pattern_total_steps_20260525
+analysis: pattern_total_steps
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+sequence:
+- index: 1
+  file: captures/1_PatternStepWideBase16.syx
+  operation: set pattern total steps to 16
+  pattern_total_steps: 16
+- index: 2
+  file: captures/2_PatternStepWideBase16ChangedTo2Minimum.syx
+  operation: set pattern total steps to 2
+  pattern_total_steps: 2
+- index: 3
+  file: captures/3_PatternStepWideBase16ChangedTo3.syx
+  operation: set pattern total steps to 3
+  pattern_total_steps: 3
+- index: 4
+  file: captures/4_PatternStepWideBase16ChangedTo4.syx
+  operation: set pattern total steps to 4
+  pattern_total_steps: 4
+- index: 5
+  file: captures/5_PatternStepWideBase16ChangedTo5.syx
+  operation: set pattern total steps to 5
+  pattern_total_steps: 5
+- index: 6
+  file: captures/6_PatternStepWideBase16ChangedTo8.syx
+  operation: set pattern total steps to 8
+  pattern_total_steps: 8
+- index: 7
+  file: captures/7_PatternStepWideBase16ChangedTo15.syx
+  operation: set pattern total steps to 15
+  pattern_total_steps: 15
+- index: 8
+  file: captures/8_PatternStepWideBase16ChangedTo17.syx
+  operation: set pattern total steps to 17
+  pattern_total_steps: 17
+- index: 9
+  file: captures/9_PatternStepWideBase16ChangedTo32.syx
+  operation: set pattern total steps to 32
+  pattern_total_steps: 32
+- index: 10
+  file: captures/10_PatternStepWideBase16ChangedTo33.syx
+  operation: set pattern total steps to 33
+  pattern_total_steps: 33
+- index: 11
+  file: captures/11_PatternStepWideBase16ChangedTo64.syx
+  operation: set pattern total steps to 64
+  pattern_total_steps: 64
+- index: 12
+  file: captures/12_PatternStepWideBase16ChangedTo128Max.syx
+  operation: set pattern total steps to 128
+  pattern_total_steps: 128
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_01_to_02.yaml
+    difference_count: 19
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_02_to_03.yaml
+    difference_count: 18
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_03_to_04.yaml
+    difference_count: 18
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_04_to_05.yaml
+    difference_count: 19
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_05_to_06.yaml
+    difference_count: 18
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_06_to_07.yaml
+    difference_count: 19
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_07_to_08.yaml
+    difference_count: 18
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_08_to_09.yaml
+    difference_count: 19
+  - from: 9
+    to: 10
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_09_to_10.yaml
+    difference_count: 18
+  - from: 10
+    to: 11
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_10_to_11.yaml
+    difference_count: 19
+  - from: 11
+    to: 12
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/seq_11_to_12.yaml
+    difference_count: 36
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_02.yaml
+    difference_count: 19
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_03.yaml
+    difference_count: 19
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_04.yaml
+    difference_count: 19
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_05.yaml
+    difference_count: 19
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_06.yaml
+    difference_count: 19
+  - from: 1
+    to: 7
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_07.yaml
+    difference_count: 18
+  - from: 1
+    to: 8
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_08.yaml
+    difference_count: 18
+  - from: 1
+    to: 9
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_09.yaml
+    difference_count: 19
+  - from: 1
+    to: 10
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_10.yaml
+    difference_count: 19
+  - from: 1
+    to: 11
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_11.yaml
+    difference_count: 19
+  - from: 1
+    to: 12
+    output_yaml: datasets/analysis/pattern_total_steps_20260525/vs_step1_to_12.yaml
+    difference_count: 36

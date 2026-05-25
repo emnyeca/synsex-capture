@@ -1,0 +1,26 @@
+analysis: step1_velocity_field
+pair_type: sequential_velocity_change
+pair:
+  before: captures/3_Trigger1C5Vel100ChangedTo1.syx
+  after: captures/4_Trigger1C5Vel1ChangedTo64.syx
+  before_operation: step1 C5 vel1
+  after_operation: step1 C5 vel64
+  before_velocity: 1
+  after_velocity: 64
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+patches:
+- offset: 21724
+  before: '0x01'
+  value: '0x40'
+- offset: 114114
+  before: '0x05'
+  value: '0x44'

@@ -1,0 +1,18 @@
+analysis: operation_order_effect
+pair_type: baseline_step1
+pair:
+  before: captures/1_Trigger1To16Deleted.syx
+  after: captures/8_Trigger16&1Removed.syx
+  before_operation: Delete triggers 1..16
+  after_operation: Remove triggers 16 and 1
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 0
+patches: []

@@ -1,0 +1,28 @@
+analysis: step1_pitch_field_confirmed
+result:
+  primary_pitch_offset: 21723
+  checksum_related_offset: 114114
+  note_storage_rule: stored_note = midi_note - 12
+evidence:
+  C5:
+    midi: 72
+    stored_hex: '0x3C'
+    stored_dec: 60
+  C#5:
+    midi: 73
+    stored_hex: '0x3D'
+    stored_dec: 61
+  D5:
+    midi: 74
+    stored_hex: '0x3E'
+    stored_dec: 62
+  C4:
+    midi: 60
+    stored_hex: '0x30'
+    stored_dec: 48
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'

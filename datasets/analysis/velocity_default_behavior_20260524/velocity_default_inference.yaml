@@ -1,0 +1,127 @@
+step_velocity_pairs:
+- from: 2
+  to: 3
+  diff_offsets:
+  - 21722
+  - 21724
+  - 114113
+  - 114114
+- from: 3
+  to: 4
+  diff_offsets:
+  - 21724
+  - 114114
+- from: 5
+  to: 6
+  diff_offsets:
+  - 21724
+  - 114113
+  - 114114
+- from: 8
+  to: 9
+  diff_offsets:
+  - 21722
+  - 21724
+  - 114114
+track_default_velocity_pairs:
+- from: 4
+  to: 5
+  diff_offsets:
+  - 1333
+  - 114114
+- from: 9
+  to: 10
+  diff_offsets:
+  - 1333
+  - 114114
+common_offsets_step_velocity_changes:
+- 21724
+- 114114
+common_offsets_track_default_changes:
+- 1333
+- 114114
+candidate_offsets_union:
+- 1333
+- 21724
+- 114114
+values_at_candidate_offsets:
+- index: 1
+  file: captures/1_empty.syx
+  step_velocity: null
+  track_default_velocity: null
+  values:
+    '1333': '0x64'
+    '21724': '0x7F'
+    '114114': '0x26'
+- index: 2
+  file: captures/2_Step1C5Added_VelIs100.syx
+  step_velocity: 100
+  track_default_velocity: 100
+  values:
+    '1333': '0x64'
+    '21724': '0x7F'
+    '114114': '0x23'
+- index: 3
+  file: captures/3_Step1Vel100ChangedTo1.syx
+  step_velocity: 1
+  track_default_velocity: 100
+  values:
+    '1333': '0x64'
+    '21724': '0x01'
+    '114114': '0x05'
+- index: 4
+  file: captures/4_Step1Vel1ChangedTo100.syx
+  step_velocity: 100
+  track_default_velocity: 100
+  values:
+    '1333': '0x64'
+    '21724': '0x64'
+    '114114': '0x68'
+- index: 5
+  file: captures/5_trackVelocityChangedTo1.syx
+  step_velocity: 100
+  track_default_velocity: 1
+  values:
+    '1333': '0x01'
+    '21724': '0x64'
+    '114114': '0x05'
+- index: 6
+  file: captures/6_Step1Vel100ChangedTo1.syx
+  step_velocity: 1
+  track_default_velocity: 1
+  values:
+    '1333': '0x01'
+    '21724': '0x01'
+    '114114': '0x22'
+- index: 7
+  file: captures/7_Step1Deleted.syx
+  step_velocity: null
+  track_default_velocity: 1
+  values:
+    '1333': '0x01'
+    '21724': '0x7F'
+    '114114': '0x43'
+- index: 8
+  file: captures/8_Step1Added_VelIs1.syx
+  step_velocity: 1
+  track_default_velocity: 1
+  values:
+    '1333': '0x01'
+    '21724': '0x7F'
+    '114114': '0x40'
+- index: 9
+  file: captures/9_Step1Vel1ChangedTo100.syx
+  step_velocity: 100
+  track_default_velocity: 1
+  values:
+    '1333': '0x01'
+    '21724': '0x64'
+    '114114': '0x05'
+- index: 10
+  file: captures/10_trackVelocityChangedTo100.syx
+  step_velocity: 100
+  track_default_velocity: 100
+  values:
+    '1333': '0x64'
+    '21724': '0x64'
+    '114114': '0x68'

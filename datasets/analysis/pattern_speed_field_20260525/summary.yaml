@@ -1,0 +1,100 @@
+analysis_id: pattern_speed_field_20260525
+analysis: pattern_speed_field
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+sequence:
+- index: 1
+  file: captures/1_BaseSpeed1.syx
+  operation: set pattern speed 1
+  pattern_speed: '1'
+- index: 2
+  file: "captures/2_Speed1ChangedTo3\uFF0F4.syx"
+  operation: set pattern speed 3/4
+  pattern_speed: 3/4
+- index: 3
+  file: "captures/3_Speed3\uFF0F4ChangedTo1\uFF0F2.syx"
+  operation: set pattern speed 1/2
+  pattern_speed: 1/2
+- index: 4
+  file: "captures/4_Speed1\uFF0F2ChangedTo1\uFF0F4.syx"
+  operation: set pattern speed 1/4
+  pattern_speed: 1/4
+- index: 5
+  file: "captures/5_Speed1\uFF0F4ChangedTo1\uFF0F8.syx"
+  operation: set pattern speed 1/8
+  pattern_speed: 1/8
+- index: 6
+  file: "captures/6_Speed1\uFF0F8ChangedTo3\uFF0F2.syx"
+  operation: set pattern speed 3/2
+  pattern_speed: 3/2
+- index: 7
+  file: "captures/7_Speed3\uFF0F2ChangedTo2.syx"
+  operation: set pattern speed 2
+  pattern_speed: '2'
+- index: 8
+  file: captures/8_Speed2ChangedTo1.syx
+  operation: set pattern speed 1
+  pattern_speed: '1'
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_01_to_02.yaml
+    difference_count: 2
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_02_to_03.yaml
+    difference_count: 2
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_03_to_04.yaml
+    difference_count: 2
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_04_to_05.yaml
+    difference_count: 2
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_05_to_06.yaml
+    difference_count: 2
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_06_to_07.yaml
+    difference_count: 2
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/seq_07_to_08.yaml
+    difference_count: 2
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_02.yaml
+    difference_count: 2
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_03.yaml
+    difference_count: 2
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_04.yaml
+    difference_count: 2
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_05.yaml
+    difference_count: 2
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_06.yaml
+    difference_count: 2
+  - from: 1
+    to: 7
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_07.yaml
+    difference_count: 2
+  - from: 1
+    to: 8
+    output_yaml: datasets/analysis/pattern_speed_field_20260525/vs_step1_to_08.yaml
+    difference_count: 0

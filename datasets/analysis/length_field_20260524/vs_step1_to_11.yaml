@@ -1,0 +1,49 @@
+analysis: step_and_track_default_length
+pair_type: baseline_step1
+pair:
+  before: captures/1_empty.syx
+  after: captures/11_TrackLength2ChangedTo4_Step1LenIsDefault4.syx
+  before_operation: empty
+  after_operation: set track default len=4 (step1 follows)
+  before_step_length: null
+  after_step_length: '4'
+  before_track_default_length: null
+  after_track_default_length: '4'
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 9
+patches:
+- offset: 16
+  before: '0x00'
+  value: '0x01'
+- offset: 1334
+  before: '0x0E'
+  value: '0x2E'
+- offset: 21714
+  before: '0x03'
+  value: '0x00'
+- offset: 21720
+  before: '0x7F'
+  value: '0x00'
+- offset: 21721
+  before: '0x7F'
+  value: '0x00'
+- offset: 21722
+  before: '0x77'
+  value: '0x37'
+- offset: 21723
+  before: '0x7F'
+  value: '0x3C'
+- offset: 114113
+  before: '0x79'
+  value: '0x76'
+- offset: 114114
+  before: '0x26'
+  value: '0x43'

@@ -1,0 +1,27 @@
+analysis: pattern_speed_trigger_independence
+pair_type: sequential_speed_change_with_fixed_trigger
+pair:
+  before: captures/1_BasePatternSpeed1WithTriggerStep1.syx
+  after: "captures/2_PatternSpeed1ChangedTo1\uFF0F8WithTriggerStep1.syx"
+  before_operation: set pattern speed 1 with step1 C5 trigger on
+  after_operation: set pattern speed 1/8 with step1 C5 trigger on
+  before_pattern_speed: '1'
+  after_pattern_speed: 1/8
+  before_trigger_state: step1_C5_on
+  after_trigger_state: step1_C5_on
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 101512
+  - 114114
+  non_speed_offsets_changed: []
+  speed_only_change: true
+patches:
+- offset: 101512
+  before: '0x02'
+  value: '0x06'
+- offset: 114114
+  before: '0x37'
+  value: '0x3B'

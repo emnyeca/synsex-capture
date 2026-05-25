@@ -1,0 +1,11 @@
+analysis: pattern_track_mode_field_confirmed
+result:
+  mode_field_offsets:
+  - 101511
+  track_step_related_offsets:
+  - 1347
+  - 2703
+  checksum_related_offsets:
+  - 114114
+  state_roundtrip_1_to_5_identical: false
+  status: provisionally_resolved_from_5point_set

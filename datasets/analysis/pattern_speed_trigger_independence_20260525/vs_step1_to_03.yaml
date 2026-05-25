@@ -1,0 +1,19 @@
+analysis: pattern_speed_trigger_independence
+pair_type: baseline_vs_step1
+pair:
+  before: captures/1_BasePatternSpeed1WithTriggerStep1.syx
+  after: "captures/3_PatternSpeed1\uFF0F8ChangedTo1WithTriggerStep1.syx"
+  before_operation: set pattern speed 1 with step1 C5 trigger on
+  after_operation: set pattern speed 1 with step1 C5 trigger on
+  before_pattern_speed: '1'
+  after_pattern_speed: '1'
+  before_trigger_state: step1_C5_on
+  after_trigger_state: step1_C5_on
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 0
+  changed_offsets: []
+  non_speed_offsets_changed: []
+  speed_only_change: true
+patches: []

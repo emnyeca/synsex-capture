@@ -1,0 +1,77 @@
+analysis: step_and_track_default_length_confirmed
+result:
+  track_default_length_offset: 1334
+  step_length_offset: 21725
+  checksum_related_offsets:
+  - 114113
+  - 114114
+  implicit_default_or_inf_marker: '0x7F'
+  behavior:
+  - Track default length changes are stored at offset 1334 (direct code byte).
+  - On step-add, step length at 21725 is 0x7F (implicit marker) regardless of current
+    track default length.
+  - While step length remains 0x7F, changing track default length updates effective
+    step length (observed at step 10->11).
+  - After explicit step length write, 21725 stores explicit code and no longer uses
+    implicit marker.
+  - INF is encoded as 0x7F at step length offset 21725.
+  other_related_offset: 21722
+  other_related_note: Offset 21722 changes when transitioning from implicit marker
+    to explicit length code.
+length_code_map_observed:
+  '0.125': '0x00'
+  '0.25': '0x02'
+  '0.5': '0x06'
+  '1': '0x0E'
+  '2': '0x1E'
+  '4': '0x2E'
+  '8': '0x3E'
+  '16': '0x4E'
+  '32': '0x5E'
+  '64': '0x6E'
+  '128': '0x7E'
+  INF_or_implicit: '0x7F'
+evidence:
+  track_default_changes:
+    7_to_8:
+      offset_1334:
+      - '0x0E'
+      - '0x1E'
+    10_to_11:
+      offset_1334:
+      - '0x1E'
+      - '0x2E'
+  step_add_with_defaults:
+    2_added_default1:
+      offset_21725: '0x7F'
+    10_added_default2:
+      offset_21725: '0x7F'
+  explicit_step_length_writes:
+    3_len0.125:
+      offset_21725: '0x00'
+    4_len0.25:
+      offset_21725: '0x02'
+    5_len0.5:
+      offset_21725: '0x06'
+    6_len1:
+      offset_21725: '0x0E'
+    7_len2:
+      offset_21725: '0x1E'
+    12_len8:
+      offset_21725: '0x3E'
+    13_len16:
+      offset_21725: '0x4E'
+    14_len32:
+      offset_21725: '0x5E'
+    15_len64:
+      offset_21725: '0x6E'
+    16_len128:
+      offset_21725: '0x7E'
+    17_lenINF:
+      offset_21725: '0x7F'
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'

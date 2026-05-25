@@ -12,9 +12,9 @@ venv/
 .pytest_cache/
 .mypy_cache/
 
-# Local capture outputs
-captures/
-datasets/
+# Old local capture outputs
+captures/oldData/
+datasets/oldData/
 
 # Local logs
 *.log

@@ -1,0 +1,32 @@
+analysis: pattern_tempo_field
+pair_type: sequential_tempo_change
+pair:
+  before: captures/8_Tempo300ChangedTo30.syx
+  after: captures/9_Tempo30ChangedTo120.syx
+  before_operation: set tempo 30.0
+  after_operation: set tempo 120.0
+  before_tempo: 30.0
+  after_tempo: 120.0
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 4
+patches:
+- offset: 101503
+  before: '0x0E'
+  value: '0x38'
+- offset: 101504
+  before: '0x10'
+  value: '0x40'
+- offset: 114113
+  before: '0x07'
+  value: '0x08'
+- offset: 114114
+  before: '0x62'
+  value: '0x3C'

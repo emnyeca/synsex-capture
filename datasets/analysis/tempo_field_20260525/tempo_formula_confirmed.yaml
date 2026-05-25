@@ -1,0 +1,73 @@
+analysis: pattern_tempo_formula_confirmed
+result:
+  tempo_payload_offsets_packed:
+    msb_pack_byte: 101498
+    tempo_hi_7bit: 101503
+    tempo_lo_7bit: 101504
+  formula:
+    scaled_tempo: round(tempo_bpm * 120)
+    tempo_hi_unpacked: scaled_tempo // 256
+    tempo_lo_unpacked: scaled_tempo % 256
+    packing: tempo_hi_unpacked and tempo_lo_unpacked are packed into 7-bit SysEx bytes;
+      their MSBs are moved into offset 101498 bitfield.
+    reconstruct_unpacked: 'tempo_hi_unpacked = tempo_hi_7bit + (msb_hi ? 128 : 0),
+      tempo_lo_unpacked = tempo_lo_7bit + (msb_lo ? 128 : 0)'
+    decode_tempo: tempo_bpm = (tempo_hi_unpacked * 256 + tempo_lo_unpacked) / 120
+  checksum_related_offsets:
+  - 114113
+  - 114114
+  status: resolved
+evidence:
+  '120.0':
+    packed:
+      '101498': '0x00'
+      '101503': '0x38'
+      '101504': '0x40'
+    scaled: 14400
+  '120.1':
+    packed:
+      '101498': '0x00'
+      '101503': '0x38'
+      '101504': '0x4C'
+    scaled: 14412
+  '120.2':
+    packed:
+      '101498': '0x00'
+      '101503': '0x38'
+      '101504': '0x58'
+    scaled: 14424
+  '120.3':
+    packed:
+      '101498': '0x00'
+      '101503': '0x38'
+      '101504': '0x64'
+    scaled: 14436
+  '120.4':
+    packed:
+      '101498': '0x00'
+      '101503': '0x38'
+      '101504': '0x70'
+    scaled: 14448
+  '300.0':
+    packed:
+      '101498': '0x06'
+      '101503': '0x0C'
+      '101504': '0x20'
+    scaled: 36000
+  '30.0':
+    packed:
+      '101498': '0x00'
+      '101503': '0x0E'
+      '101504': '0x10'
+    scaled: 3600
+notes:
+- 101498 uses bit flags for the MSBs of nearby payload bytes (7-bit SysEx packing).
+- 255.0 -> 256.x boundary behaves consistently with 16-bit scaled representation;
+  observed 256.1 capture stored bytes equivalent to 256.0 (device-side clamp/quantize
+  likely).
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'

@@ -1,0 +1,29 @@
+analysis: pattern_speed_field
+pair_type: sequential_speed_change
+pair:
+  before: "captures/7_Speed3\uFF0F2ChangedTo2.syx"
+  after: captures/8_Speed2ChangedTo1.syx
+  before_operation: set pattern speed 2
+  after_operation: set pattern speed 1
+  before_pattern_speed: '2'
+  after_pattern_speed: '1'
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 101512
+  - 114114
+patches:
+- offset: 101512
+  before: '0x00'
+  value: '0x02'
+- offset: 114114
+  before: '0x3A'
+  value: '0x3C'

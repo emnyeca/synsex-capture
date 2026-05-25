@@ -1,0 +1,45 @@
+note_pair_comparisons:
+- from: 2
+  to: 3
+  diff_offsets:
+  - 21723
+  - 114114
+- from: 3
+  to: 4
+  diff_offsets:
+  - 21723
+  - 114114
+- from: 4
+  to: 5
+  diff_offsets:
+  - 21723
+  - 114114
+common_offsets_across_note_changes:
+- 21723
+- 114114
+note_values_at_common_offsets:
+- index: 2
+  note: C5
+  file: captures/2_Step1C5Added.syx
+  values:
+    '21723': '0x3C'
+    '114114': '0x23'
+- index: 3
+  note: C#5
+  file: captures/3_Step1C5ChangedToC#5.syx
+  values:
+    '21723': '0x3D'
+    '114114': '0x24'
+- index: 4
+  note: D5
+  file: captures/4_Step1C#5ChangedToD5.syx
+  values:
+    '21723': '0x3E'
+    '114114': '0x25'
+- index: 5
+  note: C4
+  file: captures/5_Step1D5ChangedToC4.syx
+  values:
+    '21723': '0x30'
+    '114114': '0x17'
+suggested_pitch_offset: null

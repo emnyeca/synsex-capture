@@ -1,0 +1,59 @@
+analysis_id: order_compaction_20260524
+analysis: input_order_and_delete_compaction
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+sequence:
+- index: 1
+  file: captures/1_empty.syx
+  operation: empty
+- index: 2
+  file: captures/2_step1added.syx
+  operation: add step1
+- index: 3
+  file: captures/3_step16added.syx
+  operation: add step16
+- index: 4
+  file: captures/4_step1deleded.syx
+  operation: delete step1 only
+- index: 5
+  file: captures/5_step1readded.syx
+  operation: re-add step1
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/order_compaction_20260524/seq_01_to_02.yaml
+    difference_count: 8
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/order_compaction_20260524/seq_02_to_03.yaml
+    difference_count: 7
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/order_compaction_20260524/seq_03_to_04.yaml
+    difference_count: 8
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/order_compaction_20260524/seq_04_to_05.yaml
+    difference_count: 8
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/order_compaction_20260524/vs_step1_to_02.yaml
+    difference_count: 8
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/order_compaction_20260524/vs_step1_to_03.yaml
+    difference_count: 12
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/order_compaction_20260524/vs_step1_to_04.yaml
+    difference_count: 7
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/order_compaction_20260524/vs_step1_to_05.yaml
+    difference_count: 12

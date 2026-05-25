@@ -1,0 +1,137 @@
+analysis_id: trig_walk_20260524
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+source:
+  empty: captures/emptyData.syx
+  sequence:
+  - captures/capture_20260524_141557_0001.syx
+  - captures/capture_20260524_141557_0002.syx
+  - captures/capture_20260524_141557_0003.syx
+  - captures/capture_20260524_141557_0004.syx
+  - captures/capture_20260524_141557_0005.syx
+  - captures/capture_20260524_141557_0006.syx
+  - captures/capture_20260524_141557_0007.syx
+  - captures/capture_20260524_141557_0008.syx
+  - captures/capture_20260524_141557_0009.syx
+  - captures/capture_20260524_141557_0010.syx
+  - captures/capture_20260524_141557_0011.syx
+  - captures/capture_20260524_141557_0012.syx
+  - captures/capture_20260524_141557_0013.syx
+  - captures/capture_20260524_141557_0014.syx
+  - captures/capture_20260524_141557_0015.syx
+  - captures/capture_20260524_141557_0016.syx
+generated:
+  empty_vs:
+  - index: 1
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0001.yaml
+    difference_count: 11
+  - index: 2
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0002.yaml
+    difference_count: 13
+  - index: 3
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0003.yaml
+    difference_count: 14
+  - index: 4
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0004.yaml
+    difference_count: 15
+  - index: 5
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0005.yaml
+    difference_count: 16
+  - index: 6
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0006.yaml
+    difference_count: 18
+  - index: 7
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0007.yaml
+    difference_count: 19
+  - index: 8
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0008.yaml
+    difference_count: 20
+  - index: 9
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0009.yaml
+    difference_count: 22
+  - index: 10
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0010.yaml
+    difference_count: 23
+  - index: 11
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0011.yaml
+    difference_count: 24
+  - index: 12
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0012.yaml
+    difference_count: 25
+  - index: 13
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0013.yaml
+    difference_count: 27
+  - index: 14
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0014.yaml
+    difference_count: 28
+  - index: 15
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0015.yaml
+    difference_count: 29
+  - index: 16
+    output_yaml: datasets/analysis/trig_walk_20260524/empty_vs_0016.yaml
+    difference_count: 31
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0001_to_0002.yaml
+    difference_count: 6
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0002_to_0003.yaml
+    difference_count: 7
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0003_to_0004.yaml
+    difference_count: 6
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0004_to_0005.yaml
+    difference_count: 6
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0005_to_0006.yaml
+    difference_count: 6
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0006_to_0007.yaml
+    difference_count: 6
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0007_to_0008.yaml
+    difference_count: 6
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0008_to_0009.yaml
+    difference_count: 7
+  - from: 9
+    to: 10
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0009_to_0010.yaml
+    difference_count: 6
+  - from: 10
+    to: 11
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0010_to_0011.yaml
+    difference_count: 6
+  - from: 11
+    to: 12
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0011_to_0012.yaml
+    difference_count: 6
+  - from: 12
+    to: 13
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0012_to_0013.yaml
+    difference_count: 6
+  - from: 13
+    to: 14
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0013_to_0014.yaml
+    difference_count: 6
+  - from: 14
+    to: 15
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0014_to_0015.yaml
+    difference_count: 6
+  - from: 15
+    to: 16
+    output_yaml: datasets/analysis/trig_walk_20260524/seq_0015_to_0016.yaml
+    difference_count: 7

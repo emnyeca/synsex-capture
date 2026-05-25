@@ -1,0 +1,76 @@
+analysis_id: velocity_field_20260524
+analysis: step1_velocity_field
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+sequence:
+- index: 1
+  file: captures/1_empty.syx
+  operation: empty
+  velocity: null
+- index: 2
+  file: captures/2_Trigger1C5Vel100Added.syx
+  operation: step1 C5 vel100
+  velocity: 100
+- index: 3
+  file: captures/3_Trigger1C5Vel100ChangedTo1.syx
+  operation: step1 C5 vel1
+  velocity: 1
+- index: 4
+  file: captures/4_Trigger1C5Vel1ChangedTo64.syx
+  operation: step1 C5 vel64
+  velocity: 64
+- index: 5
+  file: captures/5_Trigger1C5Vel64ChangedTo127.syx
+  operation: step1 C5 vel127
+  velocity: 127
+- index: 6
+  file: captures/6_Trigger1C5Vel127Removed.syx
+  operation: remove step1
+  velocity: null
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/velocity_field_20260524/seq_01_to_02.yaml
+    difference_count: 8
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/velocity_field_20260524/seq_02_to_03.yaml
+    difference_count: 4
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/velocity_field_20260524/seq_03_to_04.yaml
+    difference_count: 2
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/velocity_field_20260524/seq_04_to_05.yaml
+    difference_count: 3
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/velocity_field_20260524/seq_05_to_06.yaml
+    difference_count: 8
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/velocity_field_20260524/vs_step1_to_02.yaml
+    difference_count: 8
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/velocity_field_20260524/vs_step1_to_03.yaml
+    difference_count: 9
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/velocity_field_20260524/vs_step1_to_04.yaml
+    difference_count: 9
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/velocity_field_20260524/vs_step1_to_05.yaml
+    difference_count: 8
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/velocity_field_20260524/vs_step1_to_06.yaml
+    difference_count: 0

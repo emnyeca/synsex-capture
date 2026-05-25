@@ -1,0 +1,61 @@
+analysis_id: tempo_trigger_independence_20260525
+analysis: tempo_trigger_independence
+hypothesis: Changing tempo does not alter trigger data when trigger state is held
+  constant (step1_on).
+known_tempo_offsets:
+- 101498
+- 101503
+- 101504
+- 114113
+- 114114
+sequence:
+- index: 1
+  file: captures/1_BaseTempo120WithTriggerStep1.syx
+  operation: set tempo 120.0 with trigger at step 1
+  tempo: 120.0
+  trigger_state: step1_on
+- index: 2
+  file: captures/2_Tempo120ChangedTo130WithTriggerStep1.syx
+  operation: set tempo 130.0 with trigger at step 1
+  tempo: 130.0
+  trigger_state: step1_on
+- index: 3
+  file: captures/3_Tempo130ChangedTo120WithTriggerStep1.syx
+  operation: set tempo 120.0 with trigger at step 1
+  tempo: 120.0
+  trigger_state: step1_on
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/tempo_trigger_independence_20260525/seq_01_to_02.yaml
+    difference_count: 4
+    tempo_only_change: true
+    non_tempo_offsets_changed: []
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/tempo_trigger_independence_20260525/seq_02_to_03.yaml
+    difference_count: 4
+    tempo_only_change: true
+    non_tempo_offsets_changed: []
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/tempo_trigger_independence_20260525/vs_step1_to_02.yaml
+    difference_count: 4
+    tempo_only_change: true
+    non_tempo_offsets_changed: []
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/tempo_trigger_independence_20260525/vs_step1_to_03.yaml
+    difference_count: 0
+    tempo_only_change: true
+    non_tempo_offsets_changed: []
+conclusion:
+  tempo_change_affects_only_tempo_fields: true
+  state_roundtrip_1_to_3_identical: true
+  notes:
+  - If non_tempo_offsets_changed is empty for tempo-change pairs, trigger/pattern
+    body fields are unaffected in this experiment.
+  - 1->3 difference_count=0 confirms tempo roundtrip restored full binary state under
+    fixed trigger condition.

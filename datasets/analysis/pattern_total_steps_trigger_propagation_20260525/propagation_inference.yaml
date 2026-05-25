@@ -1,0 +1,70 @@
+analysis: pattern_total_steps_trigger_propagation_inference
+result:
+  core_total_steps_offsets_after_normalization:
+  - 1347
+  - 2703
+  - 4060
+  - 5416
+  - 6773
+  - 8129
+  - 9486
+  - 10843
+  - 12199
+  - 13556
+  - 14912
+  - 16269
+  - 17625
+  - 18982
+  - 20339
+  - 21695
+  - 101507
+  one_time_normalization_offsets_on_first_16_to_64:
+  - 50
+  - 52
+  - 53
+  - 82
+  - 88
+  - 89
+  - 122
+  - 125
+  - 126
+  - 21722
+  - 21727
+  - 21728
+  - 21729
+  - 21730
+  - 21733
+  - 21734
+  - 21735
+  - 21736
+  - 21738
+  - 21740
+  - 21741
+  - 21742
+  - 21743
+  - 21746
+  - 21747
+  step16_trigger_add_offsets: &id001
+  - 49
+  - 51
+  - 21748
+  - 21749
+  - 21750
+  - 21753
+  checksum_related_offsets:
+  - 114113
+  - 114114
+  roundtrip_1_to_3_difference_count: 27
+  roundtrip_4_to_6_difference_count: 0
+  step16_trigger_offsets_changed_in_16_to_15_or_15_to_16: false
+propagation_check:
+  step16_trigger_add_offsets: *id001
+  changed_during_16_to_15: []
+  changed_during_15_to_16: []
+  changed_between_step16_visible_states_4_to_6: []
+notes:
+- Core total-steps offsets are stable across 2->3, 4->5, and 5->6 transitions.
+- A one-time normalization block appears in 1->2 and remains in 1->3, so 1->3 is not
+  byte-identical.
+- Step16 trigger-add offsets do not change during 16<->15 transitions, indicating
+  hidden-state persistence and reappearance.

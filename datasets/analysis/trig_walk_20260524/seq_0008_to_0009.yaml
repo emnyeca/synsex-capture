@@ -1,0 +1,37 @@
+analysis: trig_walk
+pair_type: sequential_capture
+pair:
+  before: captures/capture_20260524_141557_0008.syx
+  after: captures/capture_20260524_141557_0009.syx
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 7
+patches:
+- offset: 32
+  before: '0x11'
+  value: '0x10'
+- offset: 33
+  before: '0x00'
+  value: '0x03'
+- offset: 34
+  before: '0x00'
+  value: '0x40'
+- offset: 35
+  before: '0x00'
+  value: '0x01'
+- offset: 21721
+  before: '0x07'
+  value: '0x08'
+- offset: 114113
+  before: '0x05'
+  value: '0x06'
+- offset: 114114
+  before: '0x52'
+  value: '0x16'

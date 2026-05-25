@@ -1,0 +1,42 @@
+analysis: operation_order_effect
+pair_type: sequential_operation
+pair:
+  before: captures/4_Trigger1Added.syx
+  after: captures/5_Trigger1Removed.syx
+  before_operation: Add trigger 1
+  after_operation: Remove trigger 1
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 8
+patches:
+- offset: 16
+  before: '0x01'
+  value: '0x00'
+- offset: 21714
+  before: '0x00'
+  value: '0x03'
+- offset: 21720
+  before: '0x00'
+  value: '0x7F'
+- offset: 21721
+  before: '0x00'
+  value: '0x7F'
+- offset: 21722
+  before: '0x37'
+  value: '0x77'
+- offset: 21723
+  before: '0x3C'
+  value: '0x7F'
+- offset: 114113
+  before: '0x76'
+  value: '0x79'
+- offset: 114114
+  before: '0x23'
+  value: '0x26'

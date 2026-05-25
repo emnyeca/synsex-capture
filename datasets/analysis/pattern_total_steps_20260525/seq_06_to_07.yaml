@@ -1,0 +1,97 @@
+analysis: pattern_total_steps
+pair_type: sequential_total_steps_change
+pair:
+  before: captures/6_PatternStepWideBase16ChangedTo8.syx
+  after: captures/7_PatternStepWideBase16ChangedTo15.syx
+  before_operation: set pattern total steps to 8
+  after_operation: set pattern total steps to 15
+  before_pattern_total_steps: 8
+  after_pattern_total_steps: 15
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 19
+  changed_offsets:
+  - 1347
+  - 2703
+  - 4060
+  - 5416
+  - 6773
+  - 8129
+  - 9486
+  - 10843
+  - 12199
+  - 13556
+  - 14912
+  - 16269
+  - 17625
+  - 18982
+  - 20339
+  - 21695
+  - 101507
+  - 114113
+  - 114114
+patches:
+- offset: 1347
+  before: '0x08'
+  value: '0x0F'
+- offset: 2703
+  before: '0x08'
+  value: '0x0F'
+- offset: 4060
+  before: '0x08'
+  value: '0x0F'
+- offset: 5416
+  before: '0x08'
+  value: '0x0F'
+- offset: 6773
+  before: '0x08'
+  value: '0x0F'
+- offset: 8129
+  before: '0x08'
+  value: '0x0F'
+- offset: 9486
+  before: '0x08'
+  value: '0x0F'
+- offset: 10843
+  before: '0x08'
+  value: '0x0F'
+- offset: 12199
+  before: '0x08'
+  value: '0x0F'
+- offset: 13556
+  before: '0x08'
+  value: '0x0F'
+- offset: 14912
+  before: '0x08'
+  value: '0x0F'
+- offset: 16269
+  before: '0x08'
+  value: '0x0F'
+- offset: 17625
+  before: '0x08'
+  value: '0x0F'
+- offset: 18982
+  before: '0x08'
+  value: '0x0F'
+- offset: 20339
+  before: '0x08'
+  value: '0x0F'
+- offset: 21695
+  before: '0x08'
+  value: '0x0F'
+- offset: 101507
+  before: '0x08'
+  value: '0x0F'
+- offset: 114113
+  before: '0x07'
+  value: '0x08'
+- offset: 114114
+  before: '0x34'
+  value: '0x2B'

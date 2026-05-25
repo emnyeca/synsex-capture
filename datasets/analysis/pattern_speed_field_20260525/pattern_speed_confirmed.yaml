@@ -1,0 +1,20 @@
+analysis: pattern_speed_field_confirmed
+result:
+  pattern_speed_offset: 101512
+  checksum_related_offsets:
+  - 114114
+  encoding_type: enumerated code
+  status: resolved
+code_map:
+  '0x00': '2'
+  '0x01': 3/2
+  '0x02': '1'
+  '0x03': 3/4
+  '0x04': 1/2
+  '0x05': 1/4
+  '0x06': 1/8
+observations:
+- 'Every adjacent speed change modified exactly two bytes: offset 101512 and checksum
+  offset 114114.'
+- Roundtrip 1 -> ... -> 1 returned byte-identical state (step1 vs step8 difference_count=0).
+- No trigger data offsets changed in this no-trig dataset.

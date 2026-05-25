@@ -1,0 +1,212 @@
+step_length_pairs:
+- from: 3
+  to: 4
+  diff_offsets:
+  - 21725
+  - 114114
+- from: 4
+  to: 5
+  diff_offsets:
+  - 21725
+  - 114114
+- from: 5
+  to: 6
+  diff_offsets:
+  - 21725
+  - 114114
+- from: 6
+  to: 7
+  diff_offsets:
+  - 21725
+  - 114114
+- from: 12
+  to: 13
+  diff_offsets:
+  - 21725
+  - 114113
+  - 114114
+- from: 13
+  to: 14
+  diff_offsets:
+  - 21725
+  - 114114
+- from: 14
+  to: 15
+  diff_offsets:
+  - 21725
+  - 114114
+- from: 15
+  to: 16
+  diff_offsets:
+  - 21725
+  - 114114
+track_default_length_pairs:
+- from: 7
+  to: 8
+  diff_offsets:
+  - 1334
+  - 114114
+- from: 10
+  to: 11
+  diff_offsets:
+  - 1334
+  - 114114
+default_follow_pair:
+  from: 10
+  to: 11
+  diff_offsets:
+  - 1334
+  - 114114
+inf_pair:
+  from: 16
+  to: 17
+  diff_offsets:
+  - 21725
+  - 114114
+common_offsets_step_length_changes:
+- 21725
+- 114114
+common_offsets_track_default_changes:
+- 1334
+- 114114
+candidate_offsets_union:
+- 1334
+- 21725
+- 114114
+values_at_candidate_offsets:
+- index: 1
+  file: captures/1_empty.syx
+  step_length: null
+  track_default_length: null
+  values:
+    '1334': '0x0E'
+    '21725': '0x7F'
+    '114114': '0x26'
+- index: 2
+  file: captures/2_Step1C5Added_LengthIsDefault1.syx
+  step_length: '1'
+  track_default_length: '1'
+  values:
+    '1334': '0x0E'
+    '21725': '0x7F'
+    '114114': '0x23'
+- index: 3
+  file: captures/3_Step1Len1ChangedTo0.125.syx
+  step_length: '0.125'
+  track_default_length: '1'
+  values:
+    '1334': '0x0E'
+    '21725': '0x00'
+    '114114': '0x14'
+- index: 4
+  file: captures/4_Step1Len0.125ChangedTo0.25.syx
+  step_length: '0.25'
+  track_default_length: '1'
+  values:
+    '1334': '0x0E'
+    '21725': '0x02'
+    '114114': '0x16'
+- index: 5
+  file: captures/5_Step1Len0.25ChangedTo0.5.syx
+  step_length: '0.5'
+  track_default_length: '1'
+  values:
+    '1334': '0x0E'
+    '21725': '0x06'
+    '114114': '0x1A'
+- index: 6
+  file: captures/6_Step1Len0.5ChangedTo1.syx
+  step_length: '1'
+  track_default_length: '1'
+  values:
+    '1334': '0x0E'
+    '21725': '0x0E'
+    '114114': '0x22'
+- index: 7
+  file: captures/7_Step1Len1ChangedTo2.syx
+  step_length: '2'
+  track_default_length: '1'
+  values:
+    '1334': '0x0E'
+    '21725': '0x1E'
+    '114114': '0x32'
+- index: 8
+  file: captures/8_TrackLength1ChangedTo2.syx
+  step_length: '2'
+  track_default_length: '2'
+  values:
+    '1334': '0x1E'
+    '21725': '0x1E'
+    '114114': '0x42'
+- index: 9
+  file: captures/9_Step1Deleted.syx
+  step_length: null
+  track_default_length: '2'
+  values:
+    '1334': '0x1E'
+    '21725': '0x1E'
+    '114114': '0x45'
+- index: 10
+  file: captures/10_Step1C5Added_LengthIsDefault2.syx
+  step_length: '2'
+  track_default_length: '2'
+  values:
+    '1334': '0x1E'
+    '21725': '0x7F'
+    '114114': '0x33'
+- index: 11
+  file: captures/11_TrackLength2ChangedTo4_Step1LenIsDefault4.syx
+  step_length: '4'
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x7F'
+    '114114': '0x43'
+- index: 12
+  file: captures/12_Step1Len4ChangedTo8.syx
+  step_length: '8'
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x3E'
+    '114114': '0x72'
+- index: 13
+  file: captures/13_Step1Len8ChangedTo16.syx
+  step_length: '16'
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x4E'
+    '114114': '0x02'
+- index: 14
+  file: captures/14_Step1Len16ChangedTo32.syx
+  step_length: '32'
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x5E'
+    '114114': '0x12'
+- index: 15
+  file: captures/15_Step1Len32ChangedTo64.syx
+  step_length: '64'
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x6E'
+    '114114': '0x22'
+- index: 16
+  file: captures/16_Step1Len64ChangedTo128.syx
+  step_length: '128'
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x7E'
+    '114114': '0x32'
+- index: 17
+  file: captures/17_Step128Len8ChangedToINF.syx
+  step_length: INF
+  track_default_length: '4'
+  values:
+    '1334': '0x2E'
+    '21725': '0x7F'
+    '114114': '0x33'

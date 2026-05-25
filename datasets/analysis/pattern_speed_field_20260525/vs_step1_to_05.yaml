@@ -1,0 +1,29 @@
+analysis: pattern_speed_field
+pair_type: baseline_vs_step1
+pair:
+  before: captures/1_BaseSpeed1.syx
+  after: "captures/5_Speed1\uFF0F4ChangedTo1\uFF0F8.syx"
+  before_operation: set pattern speed 1
+  after_operation: set pattern speed 1/8
+  before_pattern_speed: '1'
+  after_pattern_speed: 1/8
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  trigger_state: none (no trig)
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 101512
+  - 114114
+patches:
+- offset: 101512
+  before: '0x02'
+  value: '0x06'
+- offset: 114114
+  before: '0x3C'
+  value: '0x40'

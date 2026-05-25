@@ -1,0 +1,31 @@
+analysis: step1_velocity_field_confirmed
+result:
+  primary_velocity_offset: 21724
+  checksum_related_offsets:
+  - 114113
+  - 114114
+  other_related_offset: 21722
+  velocity_storage_rule: stored_velocity appears direct 0..127 at offset 21724
+  note: Observed vel100 capture stores 0x7F (same as vel127) in this run.
+evidence:
+  vel100_capture:
+    stored_21724_hex: '0x7F'
+    stored_21724_dec: 127
+  vel1:
+    stored_21724_hex: '0x01'
+    stored_21724_dec: 1
+  vel64:
+    stored_21724_hex: '0x40'
+    stored_21724_dec: 64
+  vel127:
+    stored_21724_hex: '0x7F'
+    stored_21724_dec: 127
+  vel100_vs_vel127_diff_offsets:
+  - 21722
+  - 114114
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'

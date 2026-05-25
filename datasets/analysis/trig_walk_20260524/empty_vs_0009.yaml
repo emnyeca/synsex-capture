@@ -1,0 +1,82 @@
+analysis: trig_walk
+pair_type: empty_vs_capture
+pair:
+  before: captures/emptyData.syx
+  after: captures/capture_20260524_141557_0009.syx
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 22
+patches:
+- offset: 10
+  before: '0x00'
+  value: '0x02'
+- offset: 15
+  before: '0x00'
+  value: '0x03'
+- offset: 17
+  before: '0x00'
+  value: '0x03'
+- offset: 18
+  before: '0x00'
+  value: '0x55'
+- offset: 20
+  before: '0x00'
+  value: '0x03'
+- offset: 22
+  before: '0x00'
+  value: '0x03'
+- offset: 24
+  before: '0x00'
+  value: '0x03'
+- offset: 26
+  before: '0x00'
+  value: '0x2A'
+- offset: 27
+  before: '0x00'
+  value: '0x03'
+- offset: 29
+  before: '0x00'
+  value: '0x03'
+- offset: 31
+  before: '0x00'
+  value: '0x03'
+- offset: 33
+  before: '0x00'
+  value: '0x03'
+- offset: 34
+  before: '0x00'
+  value: '0x40'
+- offset: 35
+  before: '0x00'
+  value: '0x01'
+- offset: 21714
+  before: '0x03'
+  value: '0x00'
+- offset: 21720
+  before: '0x7F'
+  value: '0x00'
+- offset: 21721
+  before: '0x7F'
+  value: '0x08'
+- offset: 21722
+  before: '0x7F'
+  value: '0x37'
+- offset: 21723
+  before: '0x7F'
+  value: '0x3C'
+- offset: 21726
+  before: '0x7F'
+  value: '0x00'
+- offset: 114113
+  before: '0x08'
+  value: '0x06'
+- offset: 114114
+  before: '0x3C'
+  value: '0x16'

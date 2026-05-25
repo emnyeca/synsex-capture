@@ -1,0 +1,46 @@
+analysis: step_and_track_default_velocity_confirmed
+result:
+  track_default_velocity_offset: 1333
+  step_velocity_offset: 21724
+  checksum_related_offsets:
+  - 114113
+  - 114114
+  implicit_default_marker_value: '0x7F'
+  behavior:
+  - Track default velocity changes are stored at offset 1333 (direct byte value).
+  - When a step is newly added, step velocity at 21724 is 0x7F (implicit/default marker).
+  - Changing step velocity writes explicit value to 21724 (e.g. 0x01, 0x64).
+  - After explicit write, changing track default velocity does not rewrite 21724.
+  other_related_offset: 21722
+  other_related_note: Offset 21722 changes when transitioning from implicit default
+    marker to explicit velocity in this dataset.
+evidence:
+  track_default_change_pairs:
+    4_to_5:
+      offset_1333:
+      - '0x64'
+      - '0x01'
+    9_to_10:
+      offset_1333:
+      - '0x01'
+      - '0x64'
+  step_add_values:
+    step2_added_default100:
+      offset_21724: '0x7F'
+    step8_added_default1:
+      offset_21724: '0x7F'
+  step_velocity_explicit_writes:
+    3_vel1:
+      offset_21724: '0x01'
+    4_vel100:
+      offset_21724: '0x64'
+    6_vel1:
+      offset_21724: '0x01'
+    9_vel100:
+      offset_21724: '0x64'
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
