@@ -1,0 +1,66 @@
+analysis_target: trigger_track_field
+status: confirmed_for_tracks_1_to_8_step1_C5
+field:
+  decoded_record_byte: 0
+  physical_payload_offset_for_slot_1: 21720
+  encoding: zero_based_track_index
+observed_track_map:
+  track_1: '0x00'
+  track_2: '0x01'
+  track_3: '0x02'
+  track_4: '0x03'
+  track_5: '0x04'
+  track_6: '0x05'
+  track_7: '0x06'
+  track_8: '0x07'
+invariant_companion_fields:
+  step_index_offset_21721: 0x00 (step 1 fixed)
+  pitch_offset_21723: 0x3C (C5 fixed)
+  velocity_length: inherit markers kept
+paired_track_state_offsets_observed:
+  track_1:
+  - 16
+  track_2:
+  - 1370
+  - 1372
+  - 1373
+  track_3:
+  - 2722
+  - 2728
+  - 2729
+  track_4:
+  - 4082
+  - 4085
+  - 4086
+  track_5:
+  - 5441
+  - 5442
+  - 5443
+  track_6:
+  - 6794
+  - 6798
+  - 6799
+  track_7:
+  - 8154
+  - 8155
+  - 8156
+  track_8:
+  - 9506
+  - 9511
+  - 9512
+track_step1_active_flag_candidates:
+  track_1: 16
+  track_2: 1373
+  track_3: 2729
+  track_4: 4086
+  track_5: 5443
+  track_6: 6799
+  track_7: 8156
+  track_8: 9512
+empty_after_behavior:
+  trigger_present: false
+  byte_identical_to_base_empty: false
+  note: "Step state block initialization values may remain after deleting the trigger."
+notes:
+- Track add/remove operations always touched slot1 payload region around 21720..21723.
+- Checksum / integrity behavior is tracked separately and not finalized here.

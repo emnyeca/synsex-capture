@@ -1,0 +1,135 @@
+analysis_target: trigger_track_field
+status: inferred_from_track_switch_sequence
+candidate_field:
+  physical_payload_offset_for_slot_1: 21720
+  decoded_record_byte: 0
+pair_diffs_track_add:
+- from: empty
+  to: track_1_step1_C5
+  changed_offsets:
+  - 10
+  - 15
+  - 16
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 21726
+  - 114113
+  - 114114
+- from: empty_after_track_1
+  to: track_2_step1_C5
+  changed_offsets:
+  - 1370
+  - 1372
+  - 1373
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+- from: empty_after_track_2
+  to: track_3_step1_C5
+  changed_offsets:
+  - 2722
+  - 2728
+  - 2729
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+- from: empty_after_track_3
+  to: track_4_step1_C5
+  changed_offsets:
+  - 4082
+  - 4085
+  - 4086
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+- from: empty_after_track_4
+  to: track_5_step1_C5
+  changed_offsets:
+  - 5441
+  - 5442
+  - 5443
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+- from: empty_after_track_5
+  to: track_6_step1_C5
+  changed_offsets:
+  - 6794
+  - 6798
+  - 6799
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+- from: empty_after_track_6
+  to: track_7_step1_C5
+  changed_offsets:
+  - 8154
+  - 8155
+  - 8156
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+- from: empty_after_track_7
+  to: track_8_step1_C5
+  changed_offsets:
+  - 9506
+  - 9511
+  - 9512
+  - 21714
+  - 21720
+  - 21721
+  - 21722
+  - 21723
+  - 114113
+  - 114114
+track_code_progression:
+- track: 1
+  value_at_21720: '0x00'
+- track: 2
+  value_at_21720: '0x01'
+- track: 3
+  value_at_21720: '0x02'
+- track: 4
+  value_at_21720: '0x03'
+- track: 5
+  value_at_21720: '0x04'
+- track: 6
+  value_at_21720: '0x05'
+- track: 7
+  value_at_21720: '0x06'
+- track: 8
+  value_at_21720: '0x07'
+notes:
+- Observed values increment 0x00..0x07 for track 1..8 under fixed step/note/velocity/length
+  conditions.
+- Additional per-track state offsets change with add/remove; general formula remains
+  unresolved.
+- EmptyAfterTrackN captures are suitable for trigger-absence checks but are not byte-identical
+  replacements for BASE_EMPTY.

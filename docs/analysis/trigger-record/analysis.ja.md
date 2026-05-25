@@ -20,7 +20,7 @@
 7-bit unpack後のTrigger領域では、通常Triggerは6 byte固定長のrecordとして解釈できる。
 
 ```text
-record = [field_0, step_index, pitch, velocity, length, field_5]
+record = [track_index, step_index, pitch, velocity, length, field_5]
 ```
 
 今回解析した通常Triggerでは、未編集属性を継承した `Step 1 / C5` は次のrecordになる。
@@ -29,7 +29,20 @@ record = [field_0, step_index, pitch, velocity, length, field_5]
 [00, 00, 3C, FF, FF, 00]
 ```
 
-`field_0` と `field_5` の意味は未確定である。Track 1のみを用いた実験のため、`field_0` をtrack番号と断定しない。
+Track 1〜8 で `Step 1 / C5 / Velocity継承 / Length継承` を比較した結果、`field_0` は 0-based の Track index として確定した。
+
+```text
+Track 1 -> 0x00
+Track 2 -> 0x01
+Track 3 -> 0x02
+Track 4 -> 0x03
+Track 5 -> 0x04
+Track 6 -> 0x05
+Track 7 -> 0x06
+Track 8 -> 0x07
+```
+
+このため Trigger record配列は Track 共通領域であり、各recordが自身の Track/Step/Pitch/Velocity/Length を保持するモデルが成立する。`field_5` は引き続き未確定。
 
 ### 2. slotはStep位置に固定されない
 
@@ -66,7 +79,20 @@ Trigger追加時にはrecord領域に加え、ファイル前方のStep対応領
 | 13 | `44` | Trigger追加時にbit変化 |
 | 16 | `51` | Trigger追加時にbit変化 |
 
-この領域はStep state / Trigger presence領域と扱う。全Step・全Trackのマッピング式は未解析である。
+この領域は Step state / Trigger presence 領域と扱う。Track 1〜8 / Step 1 では、次の active flag 候補 offset が確認できた。
+
+| Track | active flag 候補 offset |
+|---:|---:|
+| 1 | `16` |
+| 2 | `1373` |
+| 3 | `2729` |
+| 4 | `4086` |
+| 5 | `5443` |
+| 6 | `6799` |
+| 7 | `8156` |
+| 8 | `9512` |
+
+また、追加時に変化した Step state 側 offset の一部は削除後も初期化情報として残る。したがって `EmptyAfterTrackN` は「Triggerが存在しない状態」ではあるが、`BASE_EMPTY` と完全一致ではない。
 
 ## 実装への含意
 
@@ -76,7 +102,8 @@ Trigger追加時にはrecord領域に加え、ファイル前方のStep対応領
 
 ## 未確定事項
 
-- `field_0` / `field_5` の意味
-- Track 2以降のrecordおよびStep state領域
+- `field_5` の意味
+- Track 2〜8 の Step 2以降における Step state offset 規則
+- Track 9以降の Track index / Step state 挙動
 - Step state領域の一般的なoffset計算式
 - Trigger slot領域の最大slot数

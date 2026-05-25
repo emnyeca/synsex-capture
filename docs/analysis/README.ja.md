@@ -20,6 +20,8 @@
 | 対象 | 結果 | 仕様 |
 |---|---|---|
 | Trigger record / slot allocation | [analysis](trigger-record/analysis.ja.md) | [spec](trigger-record/spec.yaml) |
+| Trigger track field | [analysis](trigger-track/analysis.ja.md) | [spec](trigger-track/spec.yaml) |
+| Trigger step-state table (track-wise) | [analysis](trigger-step-state-table/analysis.ja.md) | [spec](trigger-step-state-table/spec.yaml) |
 | Trigger pitch | [analysis](trigger-pitch/analysis.ja.md) | [spec](trigger-pitch/spec.yaml) |
 | Trigger velocity / track default | [analysis](trigger-velocity/analysis.ja.md) | [spec](trigger-velocity/spec.yaml) |
 | Trigger length / track default | [analysis](trigger-length/analysis.ja.md) | [spec](trigger-length/spec.yaml) |
@@ -46,6 +48,7 @@
 | 項目 | 確定内容 |
 |---|---|
 | Trigger record | 7-bit unpack後に6 byte固定長slotとして扱える |
+| Trigger track index | record byte `0`、0始まり（Track 1〜8で確認） |
 | Step index | record byte `1`、0始まり |
 | Pitch | record byte `2`、半音単位整数 |
 | Velocity | record byte `3`、`0xFF` はTrack既定値継承 |
@@ -57,15 +60,22 @@
 | Pattern total steps mode | offset `101511`、wide=`0x00`、per-track=`0x01` |
 | Pattern-wide total steps | offset `101507` と各Track値の同期更新 |
 
-## 既存実装への注意
+## 実装反映状況（2026-05時点）
 
-現行の `profiles/digitone2.default.yaml` と `src/digitone_syx_toolkit/events_to_syx.py` は、今回の解析結果と整合しない部分があります。実装修正は別工程としますが、少なくとも次はそのまま採用できません。
+`src/digitone_syx_toolkit/digitone2/` と `src/digitone_syx_toolkit/events_to_syx.py` への移行により、次の点は解析結果へ反映済みです。
 
-1. Trigger slot を `(step, track)` ごとの固定offsetとして扱うモデル。Trigger recordは、Step位置ではなく空きslotへ割り当てられ、削除後も後続slotは前詰めされません。
-2. `length_codes["1"] = 0x7F` という解釈。raw payload `0x7F` はpacking controlと併せて読む必要があり、継承 `0xFF` と明示 `INF` `0x7F` は別です。明示Length `1` は `0x0E` です。
-3. Pattern length をoffset `1347` のみで書くモデル。PATTERN-wide設定では、mode、pattern-wide値、Track 1〜16値、128用packing controlの取り扱いが必要です。
-4. Trigger pitchへ入力MIDI noteをそのまま書くモデル。今回の実験ではDigitone表示 `C5` が格納値 `0x3C` でした。イベント側の音名／MIDIオクターブ規約を明確にして変換する必要があります。
+1. `(step, track)` 固定offset前提の `profile.slots` 方式を廃止し、内蔵 `BASE_EMPTY.syx` を基準に Trigger slot array へ順次配置する方式へ移行。
+2. Trigger Length の扱いを更新し、`inherit=0xFF` と明示 `INF=0x7F` を分離。明示 `1` は `0x0E` として扱う実装へ変更。
+3. Pattern total steps は pattern-wide 値 (`101507`) と Track 1〜16 mirror値を同期更新し、7-bit packing control を保持しながら書き換える方式へ変更。
+4. Pitch 変換は Digitone表示基準（解析で確認した `C5 -> 0x3C`）を前提にした変換へ更新。
+
+一方で、以下は未反映または部分反映です。
+
+1. Track default velocity / length は現状 Track 1 の確定offsetのみを実装。Track 2〜16 の default 更新は追加解析後に拡張する。
+2. Step state table は Track 1 / Step 1〜16 の観測offsetを中心に更新。一般式（全Track・全Step）は未確定。
+3. Trigger record byte 0 は 0-based Track index として確定（Track 1〜8）。
+4. Trigger削除後も Step state block の初期化由来値が残る観測を反映し、`EmptyAfterTrackN` を `BASE_EMPTY` 同一視しない扱いへ更新。
 
 ## 未完了の解析
 
-Checksum / integrity field については、変更済みraw byteの加算差分が `114113–114114` に追随する観測が蓄積されていますが、加算対象範囲と完全再計算式はまだ最終確認前です。このディレクトリには確定仕様としては収録せず、Checksum解析完了後に追加します。
+Checksum / integrity field については、変更済みraw byteの加算差分が `114113–114114` に追随する観測が蓄積されています。現実装では `sum(data[10:114113]) % 16384` を用いて再計算していますが、加算対象範囲と完全再計算式の最終確定は継続課題です。Checksum解析完了後に確定仕様として追記します。

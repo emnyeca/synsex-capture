@@ -1,0 +1,210 @@
+﻿analysis_id: track_step_state_table_20260525
+analysis: track_step_state_table
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+  pattern_mode: PATTERN-wide
+  total_steps: 16
+  tempo: 120.0
+  speed: '1'
+  trigger_count: 1
+  trigger_velocity: inherit track default
+  trigger_length: inherit track default
+sequence:
+- index: 1
+  file: captures/Track_Step_State_Table/1_Empty.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 2
+  file: captures/Track_Step_State_Table/2_Track2Step1C5Added.syx
+  operation: track2 step1 C5
+  track: 2
+  step: 1
+  note: C5
+- index: 3
+  file: captures/Track_Step_State_Table/3_EmptyAfterTrack2Step1.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 4
+  file: captures/Track_Step_State_Table/4_Track2Step2C5Added.syx
+  operation: track2 step2 C5
+  track: 2
+  step: 2
+  note: C5
+- index: 5
+  file: captures/Track_Step_State_Table/5_EmptyAfterTrack2Step2.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 6
+  file: captures/Track_Step_State_Table/6_Track2Step3C5Added.syx
+  operation: track2 step3 C5
+  track: 2
+  step: 3
+  note: C5
+- index: 7
+  file: captures/Track_Step_State_Table/7_EmptyAfterTrack2Step3.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 8
+  file: captures/Track_Step_State_Table/8_Track2Step16C5Added.syx
+  operation: track2 step16 C5
+  track: 2
+  step: 16
+  note: C5
+- index: 9
+  file: captures/Track_Step_State_Table/9_EmptyAfterTrack2Step16.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 10
+  file: captures/Track_Step_State_Table/10_Track8Step1C5Added.syx
+  operation: track8 step1 C5
+  track: 8
+  step: 1
+  note: C5
+- index: 11
+  file: captures/Track_Step_State_Table/11_EmptyAfterTrack8Step1.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 12
+  file: captures/Track_Step_State_Table/12_Track8Step2C5Added.syx
+  operation: track8 step2 C5
+  track: 8
+  step: 2
+  note: C5
+- index: 13
+  file: captures/Track_Step_State_Table/13_EmptyAfterTrack8Step2.syx
+  operation: empty
+  track: null
+  step: null
+  note: null
+- index: 14
+  file: captures/Track_Step_State_Table/14_Track8Step16C5Added.syx
+  operation: track8 step16 C5
+  track: 8
+  step: 16
+  note: C5
+excluded_duplicates:
+- captures/capture_20260525_115407_0030.syx
+- captures/capture_20260525_115407_0031.syx
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_01_to_02.yaml
+    difference_count: 11
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_02_to_03.yaml
+    difference_count: 11
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_03_to_04.yaml
+    difference_count: 11
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_04_to_05.yaml
+    difference_count: 11
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_05_to_06.yaml
+    difference_count: 11
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_06_to_07.yaml
+    difference_count: 11
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_07_to_08.yaml
+    difference_count: 11
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_08_to_09.yaml
+    difference_count: 11
+  - from: 9
+    to: 10
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_09_to_10.yaml
+    difference_count: 11
+  - from: 10
+    to: 11
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_10_to_11.yaml
+    difference_count: 11
+  - from: 11
+    to: 12
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_11_to_12.yaml
+    difference_count: 11
+  - from: 12
+    to: 13
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_12_to_13.yaml
+    difference_count: 11
+  - from: 13
+    to: 14
+    output_yaml: datasets/analysis/track_step_state_table_20260525/seq_13_to_14.yaml
+    difference_count: 11
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_02.yaml
+    difference_count: 11
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_03.yaml
+    difference_count: 0
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_04.yaml
+    difference_count: 11
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_05.yaml
+    difference_count: 0
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_06.yaml
+    difference_count: 11
+  - from: 1
+    to: 7
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_07.yaml
+    difference_count: 0
+  - from: 1
+    to: 8
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_08.yaml
+    difference_count: 11
+  - from: 1
+    to: 9
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_09.yaml
+    difference_count: 0
+  - from: 1
+    to: 10
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_10.yaml
+    difference_count: 11
+  - from: 1
+    to: 11
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_11.yaml
+    difference_count: 0
+  - from: 1
+    to: 12
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_12.yaml
+    difference_count: 11
+  - from: 1
+    to: 13
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_13.yaml
+    difference_count: 0
+  - from: 1
+    to: 14
+    output_yaml: datasets/analysis/track_step_state_table_20260525/vs_step1_to_14.yaml
+    difference_count: 11

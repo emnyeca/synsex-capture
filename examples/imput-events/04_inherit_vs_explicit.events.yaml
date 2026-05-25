@@ -1,0 +1,51 @@
+version: 1
+device: digitone2
+name: inherit_vs_explicit
+pattern:
+  mode: pattern-wide
+  tempo: 110.0
+  speed: 1/4
+  total_steps: 16
+tracks:
+  - track: 1
+    default_velocity: 100
+    default_length: "1"
+  - track: 2
+    default_velocity: 64
+    default_length: "4"
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+  - step: 2
+    track: 1
+    note: D5
+    velocity: 100
+    length: "1"
+  - step: 3
+    track: 1
+    note: E5
+    velocity: 84
+    length: "INF"
+  - step: 4
+    track: 1
+    note: G5
+    velocity: inherit
+    length: "2"
+  - step: 1
+    track: 2
+    note: C4
+    velocity: inherit
+    length: inherit
+  - step: 8
+    track: 2
+    note: F4
+    velocity: 64
+    length: "4"
+  - step: 16
+    track: 2
+    note: A4
+    velocity: 40
+    length: "0.5"

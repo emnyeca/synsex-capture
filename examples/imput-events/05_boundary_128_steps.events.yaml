@@ -1,0 +1,38 @@
+version: 1
+device: digitone2
+name: boundary_128_steps
+pattern:
+  mode: pattern-wide
+  tempo: 300.0
+  speed: 2
+  total_steps: 128
+tracks:
+  - track: 1
+    default_velocity: 100
+    default_length: "1"
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+  - step: 32
+    track: 1
+    note: D5
+    velocity: 96
+    length: "2"
+  - step: 64
+    track: 1
+    note: E5
+    velocity: 92
+    length: "4"
+  - step: 96
+    track: 1
+    note: G5
+    velocity: 88
+    length: "8"
+  - step: 128
+    track: 1
+    note: A5
+    velocity: 84
+    length: "INF"

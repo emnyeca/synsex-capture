@@ -1,0 +1,84 @@
+analysis: step1_track_field
+pair_type: baseline_vs_step1
+pair:
+  before: captures/Track_Field/1_Empty.syx
+  after: captures/Track_Field/17_EmptyAfterTrack8.syx
+  before_operation: empty
+  after_operation: empty
+  before_track: null
+  after_track: null
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+  pattern_mode: PATTERN-wide
+  total_steps: 16
+  tempo: 120.0
+  speed: '1'
+  trigger_count: 1
+  trigger_velocity: inherit track default
+  trigger_length: inherit track default
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 19
+patches:
+- offset: 10
+  before: '0x00'
+  value: '0x02'
+- offset: 15
+  before: '0x00'
+  value: '0x03'
+- offset: 1370
+  before: '0x00'
+  value: '0x10'
+- offset: 1372
+  before: '0x00'
+  value: '0x03'
+- offset: 2722
+  before: '0x00'
+  value: '0x01'
+- offset: 2728
+  before: '0x00'
+  value: '0x03'
+- offset: 4082
+  before: '0x00'
+  value: '0x08'
+- offset: 4085
+  before: '0x00'
+  value: '0x03'
+- offset: 5441
+  before: '0x00'
+  value: '0x03'
+- offset: 5442
+  before: '0x00'
+  value: '0x40'
+- offset: 6794
+  before: '0x00'
+  value: '0x04'
+- offset: 6798
+  before: '0x00'
+  value: '0x03'
+- offset: 8154
+  before: '0x00'
+  value: '0x20'
+- offset: 8155
+  before: '0x00'
+  value: '0x03'
+- offset: 9506
+  before: '0x00'
+  value: '0x02'
+- offset: 9511
+  before: '0x00'
+  value: '0x03'
+- offset: 21722
+  before: '0x7F'
+  value: '0x77'
+- offset: 21726
+  before: '0x7F'
+  value: '0x00'
+- offset: 114114
+  before: '0x3C'
+  value: '0x4E'

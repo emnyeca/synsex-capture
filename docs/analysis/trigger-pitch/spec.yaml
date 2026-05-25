@@ -1,5 +1,5 @@
 analysis_target: trigger_pitch
-status: confirmed_for_tested_notes
+status: confirmed_for_tested_notes_with_track1_to_8_step1_c5_context
 field:
   decoded_record_byte: 2
   physical_offset_for_slot_1: 21723
@@ -15,4 +15,4 @@ notes:
   - "Digitone display octave convention differs from a common MIDI naming convention: displayed C5 stored as decimal 60."
 unknowns:
   - "supported lower and upper pitch range"
-  - "track 2+ location"
+  - "track 9+ location/behavior"

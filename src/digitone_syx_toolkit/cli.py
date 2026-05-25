@@ -14,9 +14,6 @@ from .diffing import diff_syx_files, format_diff
 from .errors import DigitoneToolkitError, MidiPortError, SyxFileError
 from .events_to_syx import (
     build_syx_from_events,
-    check_profile_coverage,
-    export_missing_slots_template,
-    resolve_profile_path,
 )
 from .events_yaml import load_event_assignment_yaml
 from .gui import run_gui
@@ -71,40 +68,14 @@ def _build_parser() -> argparse.ArgumentParser:
 
     build_events_p = sub.add_parser(
         "build_from_events",
-        help="Build output .syx from events YAML + profile YAML + template .syx",
+        help="Build Digitone II .syx from events YAML",
     )
     build_events_p.add_argument("--events", required=True, help="Input events YAML")
     build_events_p.add_argument(
-        "--profile",
-        help="Offset mapping profile YAML (optional; defaults to Digitone II profile)",
+        "--template",
+        help="Optional template override .syx (advanced debugging only)",
     )
-    build_events_p.add_argument("--template", required=True, help="Template .syx file")
     build_events_p.add_argument("--output", required=True, help="Output .syx file")
-
-    check_profile_p = sub.add_parser(
-        "check_profile",
-        help="Check events/profile coverage for required (step,track) slot mappings",
-    )
-    check_profile_p.add_argument("--events", required=True, help="Input events YAML")
-    check_profile_p.add_argument(
-        "--profile",
-        help="Offset mapping profile YAML (optional; defaults to Digitone II profile)",
-    )
-
-    export_missing_p = sub.add_parser(
-        "export_missing_slots",
-        help="Export missing (step,track) pairs as a YAML template to fill profile slots",
-    )
-    export_missing_p.add_argument("--events", required=True, help="Input events YAML")
-    export_missing_p.add_argument(
-        "--profile",
-        help="Offset mapping profile YAML (optional; defaults to Digitone II profile)",
-    )
-    export_missing_p.add_argument(
-        "--output",
-        default="datasets/missing_slots_template.yaml",
-        help="Output YAML path",
-    )
 
     sub.add_parser("gui", help="Launch analysis GUI (Tkinter)")
 
@@ -192,58 +163,25 @@ def _cmd_view(args: argparse.Namespace) -> int:
 
 def _cmd_validate_events(args: argparse.Namespace) -> int:
     assignment = load_event_assignment_yaml(args.file)
-    event_count = sum(len(step.events) for step in assignment.steps)
+    event_count = len(assignment.events)
     print(
         "Events YAML is valid: "
         f"version={assignment.version} "
-        f"length_steps={assignment.length_steps} "
-        f"steps={len(assignment.steps)} "
+        f"total_steps={assignment.pattern.total_steps} "
         f"events={event_count}"
     )
     return 0
 
 
 def _cmd_build_from_events(args: argparse.Namespace) -> int:
-    profile_path = resolve_profile_path(args.profile)
     result = build_syx_from_events(
-        template_file=args.template,
         events_yaml=args.events,
-        profile_yaml=profile_path,
+        template_file=args.template,
         output_file=args.output,
     )
-    LOG.info("Profile: %s", profile_path)
     LOG.info("Built .syx from events: output=%s events=%d", result.output_file, result.written_events)
     for warning in result.warnings:
         LOG.warning("%s", warning)
-    return 0
-
-
-def _cmd_check_profile(args: argparse.Namespace) -> int:
-    profile_path = resolve_profile_path(args.profile)
-    coverage = check_profile_coverage(events_yaml=args.events, profile_yaml=profile_path)
-    print(
-        "Profile coverage: "
-        f"required={len(coverage.required_pairs)} "
-        f"mapped={len(coverage.mapped_pairs)} "
-        f"missing={len(coverage.missing_pairs)}"
-    )
-    print(f"Profile file: {profile_path}")
-    if coverage.missing_pairs:
-        print("Missing (step,track) pairs:")
-        for step, track in coverage.missing_pairs:
-            print(f"  - step={step} track={track}")
-        print("Tip: run export_missing_slots to generate a fill template.")
-    return 0 if not coverage.missing_pairs else 1
-
-
-def _cmd_export_missing_slots(args: argparse.Namespace) -> int:
-    profile_path = resolve_profile_path(args.profile)
-    out = export_missing_slots_template(
-        events_yaml=args.events,
-        profile_yaml=profile_path,
-        output_yaml=args.output,
-    )
-    print(f"Wrote missing-slot template: {out}")
     return 0
 
 
@@ -272,10 +210,6 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_validate_events(args)
         if args.command == "build_from_events":
             return _cmd_build_from_events(args)
-        if args.command == "check_profile":
-            return _cmd_check_profile(args)
-        if args.command == "export_missing_slots":
-            return _cmd_export_missing_slots(args)
         if args.command == "gui":
             return _cmd_gui()
         raise DigitoneToolkitError(f"Unknown command: {args.command}")

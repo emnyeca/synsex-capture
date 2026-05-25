@@ -10,46 +10,60 @@ def test_load_event_assignment_yaml_valid(tmp_path: Path):
     yaml_path = tmp_path / "events.yaml"
     yaml_path.write_text(
         "version: 1\n"
+        "device: digitone2\n"
         "name: test\n"
         "pattern:\n"
-        "  length_steps: 16\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 126\n"
         "  speed: 1/8\n"
-        "  time_signature: 4/4\n"
-        "steps:\n"
+        "  total_steps: 16\n"
+        "tracks:\n"
+        "  - track: 1\n"
+        "    default_velocity: 100\n"
+        "    default_length: '1'\n"
+        "events:\n"
         "  - step: 1\n"
-        "    chord: Cmaj7\n"
-        "    events:\n"
-        "      - track: 0\n"
-        "        note: C4\n"
-        "        duration: 2\n"
-        "        velocity: 100\n"
-        "  - step: 16\n"
-        "    chord: Cmaj7\n"
-        "    hold: true\n",
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        "  - step: 2\n"
+        "    track: 2\n"
+        "    note: D5\n"
+        "    velocity: 88\n"
+        "    length: '2'\n",
         encoding="utf-8",
     )
 
     parsed = load_event_assignment_yaml(yaml_path)
-    assert parsed.length_steps == 16
-    assert len(parsed.steps) == 2
-    assert parsed.steps[0].events[0].note_midi == 60
-    assert parsed.steps[0].events[0].velocity == 100
-    assert parsed.steps[1].hold is True
+    assert parsed.pattern.total_steps == 16
+    assert len(parsed.events) == 2
+    assert parsed.events[0].note_midi == 60
+    assert parsed.events[0].velocity == "inherit"
+    assert parsed.events[0].length == "inherit"
 
 
-def test_load_event_assignment_yaml_rejects_hold_and_events(tmp_path: Path):
+def test_load_event_assignment_yaml_rejects_duplicate_step_track(tmp_path: Path):
     yaml_path = tmp_path / "events_bad.yaml"
     yaml_path.write_text(
         "version: 1\n"
+        "device: digitone2\n"
         "pattern:\n"
-        "  length_steps: 16\n"
-        "steps:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
         "  - step: 1\n"
-        "    hold: true\n"
-        "    events:\n"
-        "      - track: 0\n"
-        "        note: C4\n"
-        "        duration: 1\n",
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: D5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
         encoding="utf-8",
     )
 
@@ -61,17 +75,20 @@ def test_load_event_assignment_yaml_rejects_duplicate_track(tmp_path: Path):
     yaml_path = tmp_path / "events_dup.yaml"
     yaml_path.write_text(
         "version: 1\n"
+        "device: digitone2\n"
         "pattern:\n"
-        "  length_steps: 4\n"
-        "steps:\n"
-        "  - step: 1\n"
-        "    events:\n"
-        "      - track: 0\n"
-        "        note: C4\n"
-        "        duration: 1\n"
-        "      - track: 0\n"
-        "        note: E4\n"
-        "        duration: 1\n",
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 4\n"
+        "tracks:\n"
+        "  - track: 1\n"
+        "    default_velocity: 100\n"
+        "    default_length: '1'\n"
+        "  - track: 1\n"
+        "    default_velocity: 110\n"
+        "    default_length: '2'\n"
+        "events: []\n",
         encoding="utf-8",
     )
 

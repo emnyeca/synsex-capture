@@ -1,0 +1,56 @@
+analysis_target: trigger_track_field
+status: confirmed_for_tracks_1_to_8_step1_c5_single_trigger
+scope:
+  tracks_tested: [1, 2, 3, 4, 5, 6, 7, 8]
+  step: 1
+  note: C5
+  trigger_count: 1
+  velocity: inherit_track_default
+  length: inherit_track_default
+  pattern_mode: pattern_wide
+  total_steps: 16
+  tempo: 120.0
+  speed: "1"
+field:
+  decoded_record_byte: 0
+  physical_payload_offset_for_slot_1: 21720
+  encoding: zero_based_track_index
+observed_track_map:
+  1: "0x00"
+  2: "0x01"
+  3: "0x02"
+  4: "0x03"
+  5: "0x04"
+  6: "0x05"
+  7: "0x06"
+  8: "0x07"
+shared_slot_region_observed:
+  common_offsets:
+    - 21714
+    - 21720
+    - 21721
+    - 21722
+    - 21723
+    - 21726
+step_state_observations:
+  track_step1_active_flag_candidates:
+    1: 16
+    2: 1373
+    3: 2729
+    4: 4086
+    5: 5443
+    6: 6799
+    7: 8156
+    8: 9512
+  add_then_delete_behavior:
+    trigger_present_after_delete: false
+    byte_identical_to_base_empty: false
+    note: "initialization-related values may remain in track state blocks"
+inference:
+  trigger_record_array_is_track_shared: true
+  record_stores_track_and_step: true
+unknowns:
+  - "step-state offset rule for step 2+ across tracks"
+  - "track 9+ behavior"
+  - "field_5 semantics"
+  - "max trigger slot count"

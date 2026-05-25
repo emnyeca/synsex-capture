@@ -1,0 +1,23 @@
+version: 1
+device: digitone2
+name: boundary_min_tempo
+pattern:
+  mode: pattern-wide
+  tempo: 30.0
+  speed: 3/2
+  total_steps: 16
+tracks:
+  - track: 1
+    default_velocity: 1
+    default_length: "0.125"
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+  - step: 16
+    track: 1
+    note: C6
+    velocity: 127
+    length: "128"

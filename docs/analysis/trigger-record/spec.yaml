@@ -1,7 +1,7 @@
 analysis_target: trigger_record_and_slot_allocation
-status: confirmed_for_track1_normal_triggers
+status: confirmed_for_tracks_1_to_8_step1_and_track1_step_walk
 scope:
-  track: 1
+  tracks_confirmed_for_byte0: [1, 2, 3, 4, 5, 6, 7, 8]
   trigger_type: normal_trig
   tested_steps: [1, 2, 3, 4, 5, 6, 12, 13, 16]
 encoding:
@@ -11,8 +11,9 @@ encoding:
     decoded_record_size_bytes: 6
     decoded_record_layout:
       - byte: 0
-        name: field_0
-        status: unknown
+        name: track_index
+        status: confirmed
+        encoding: zero_based
       - byte: 1
         name: step_index
         status: confirmed
@@ -37,6 +38,16 @@ slot_allocation:
   insertion_behavior: "uses an available slot; observed re-add reused the lowest freed slot"
   deletion_compacts_following_slots: false
   identical_musical_state_can_have_different_slot_layout: true
+  shared_across_tracks: true
+track_index_observed_map_step1_c5:
+  1: "0x00"
+  2: "0x01"
+  3: "0x02"
+  4: "0x03"
+  5: "0x04"
+  6: "0x05"
+  7: "0x06"
+  8: "0x07"
 step_state_observations:
   description: "Trigger presence is also represented outside the record slot array. Mapping is partial."
   track_1_observed_physical_offsets:
@@ -49,8 +60,21 @@ step_state_observations:
     12: 41
     13: 44
     16: 51
+  track_1_to_8_step1_active_flag_candidates:
+    1: 16
+    2: 1373
+    3: 2729
+    4: 4086
+    5: 5443
+    6: 6799
+    7: 8156
+    8: 9512
+  add_then_delete_observation:
+    active_flag_clears: true
+    initialization_offsets_may_remain: true
+    note: "EmptyAfterTrackN differs from BASE_EMPTY although trigger is absent."
 unknowns:
-  - "field_0 semantics"
   - "field_5 semantics"
-  - "track 2+ record/state layout"
+  - "step-state offsets for track 2+ and step 2+"
   - "general formula for step state offsets"
+  - "track 9+ behavior"

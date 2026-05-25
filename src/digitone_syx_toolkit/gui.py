@@ -18,9 +18,6 @@ from .capture import SysexChunkAssembler
 from .diffing import DiffResult, diff_syx_files, format_diff
 from .events_to_syx import (
     build_syx_from_events,
-    check_profile_coverage,
-    export_missing_slots_template,
-    resolve_profile_path,
 )
 from .events_yaml import load_event_assignment_yaml
 from .hexview import hex_dump_file
@@ -58,8 +55,6 @@ class AnalysisGui:
         self.replay_file_var = tk.StringVar()
         self.replay_delay_var = tk.StringVar(value="0")
         self.events_yaml_var = tk.StringVar()
-        self.events_profile_var = tk.StringVar(value="profiles/digitone2.default.yaml")
-        self.events_template_var = tk.StringVar(value="captures/template_empty.syx")
         self.events_output_var = tk.StringVar(value="captures/generated_from_events.syx")
 
         self._capture_thread: threading.Thread | None = None
@@ -270,43 +265,26 @@ class AnalysisGui:
             command=lambda: self._pick_file(self.events_yaml_var, [("YAML", "*.yaml *.yml"), ("All", "*.*")]),
         ).grid(row=0, column=2)
 
-        ttk.Label(top, text="Profile YAML").grid(row=1, column=0, sticky="w")
-        ttk.Entry(top, textvariable=self.events_profile_var, width=90).grid(row=1, column=1, padx=6)
-        ttk.Button(
-            top,
-            text="Browse",
-            command=lambda: self._pick_file(self.events_profile_var, [("YAML", "*.yaml *.yml"), ("All", "*.*")]),
-        ).grid(row=1, column=2)
-
-        ttk.Label(top, text="Template .syx").grid(row=2, column=0, sticky="w")
-        ttk.Entry(top, textvariable=self.events_template_var, width=90).grid(row=2, column=1, padx=6)
-        ttk.Button(top, text="Browse", command=lambda: self._pick_file(self.events_template_var)).grid(row=2, column=2)
-
-        ttk.Label(top, text="Output .syx").grid(row=3, column=0, sticky="w")
-        ttk.Entry(top, textvariable=self.events_output_var, width=90).grid(row=3, column=1, padx=6)
-        ttk.Button(top, text="Browse", command=self._pick_events_output).grid(row=3, column=2)
+        ttk.Label(top, text="Output .syx").grid(row=1, column=0, sticky="w")
+        ttk.Entry(top, textvariable=self.events_output_var, width=90).grid(row=1, column=1, padx=6)
+        ttk.Button(top, text="Browse", command=self._pick_events_output).grid(row=1, column=2)
 
         btn_row = ttk.Frame(parent)
         btn_row.pack(fill=tk.X, padx=8, pady=4)
         ttk.Button(btn_row, text="Validate Events YAML", command=self._validate_events_yaml).pack(side=tk.LEFT)
-        ttk.Button(btn_row, text="Check Profile Coverage", command=self._check_profile_coverage).pack(
-            side=tk.LEFT, padx=6
-        )
-        ttk.Button(btn_row, text="Export Missing Slots", command=self._export_missing_slots).pack(
-            side=tk.LEFT, padx=6
-        )
-        ttk.Button(btn_row, text="Generate SYX from Events", command=self._generate_syx_from_events).pack(
+        ttk.Button(btn_row, text="Generate Digitone II SYX", command=self._generate_syx_from_events).pack(
             side=tk.LEFT, padx=6
         )
 
         hint = (
-            "This flow needs events.yaml + template.syx (+ optional profile.yaml)\n"
-            "- events.yaml: validated against v1 schema\n"
-            "- profile.yaml: explicit (step,track)->offset mapping (blank uses default Digitone II profile)\n"
-            "- template.syx: base file to patch\n"
+            "This flow generates a Digitone II pattern from bundled BASE_EMPTY.syx\n"
+            "- Required input: events.yaml\n"
+            "- Required output: output .syx\n"
             "\n"
-            "Note: checksum recomputation is not implemented yet.\n"
-            "Generated file may require checksum fixing before device accepts it."
+            "Current constraints:\n"
+            "- Digitone II focused implementation\n"
+            "- Deterministic slot order: track asc -> step asc\n"
+            "- Same track/step duplicate triggers are rejected"
         )
         self.events_hint = tk.Text(parent, height=8, wrap=tk.WORD)
         self.events_hint.pack(fill=tk.BOTH, expand=False, padx=8, pady=8)
@@ -629,12 +607,11 @@ class AnalysisGui:
 
         try:
             assignment = load_event_assignment_yaml(events_path)
-            event_count = sum(len(step.events) for step in assignment.steps)
+            event_count = len(assignment.events)
             self._log_events(
                 "Validation OK: "
                 f"version={assignment.version} "
-                f"length_steps={assignment.length_steps} "
-                f"steps={len(assignment.steps)} events={event_count}"
+                f"total_steps={assignment.pattern.total_steps} events={event_count}"
             )
             messagebox.showinfo("Validation OK", f"Events YAML is valid.\nEvents: {event_count}")
         except Exception as exc:  # noqa: BLE001
@@ -642,27 +619,21 @@ class AnalysisGui:
 
     def _generate_syx_from_events(self) -> None:
         events_path = self.events_yaml_var.get().strip()
-        profile_path = self.events_profile_var.get().strip()
-        template_path = self.events_template_var.get().strip()
         output_path = self.events_output_var.get().strip()
 
-        if not events_path or not template_path or not output_path:
+        if not events_path or not output_path:
             messagebox.showerror(
                 "Input Error",
-                "events YAML, template .syx, and output .syx are all required.",
+                "events YAML and output .syx are required.",
             )
             return
 
         try:
-            resolved_profile = resolve_profile_path(profile_path or None)
             result = build_syx_from_events(
-                template_file=template_path,
                 events_yaml=events_path,
-                profile_yaml=resolved_profile,
                 output_file=output_path,
             )
             self.replay_file_var.set(str(result.output_file))
-            self._log_events(f"Profile: {resolved_profile}")
             self._log_events(f"Build complete: output={result.output_file} events={result.written_events}")
             for warning in result.warnings:
                 self._log_events(f"Warning: {warning}")
@@ -674,66 +645,6 @@ class AnalysisGui:
             )
         except Exception as exc:  # noqa: BLE001
             messagebox.showerror("Build Error", str(exc))
-
-    def _check_profile_coverage(self) -> None:
-        events_path = self.events_yaml_var.get().strip()
-        profile_path = self.events_profile_var.get().strip()
-
-        if not events_path:
-            messagebox.showerror("Input Error", "events YAML is required.")
-            return
-
-        try:
-            resolved_profile = resolve_profile_path(profile_path or None)
-            coverage = check_profile_coverage(events_yaml=events_path, profile_yaml=resolved_profile)
-            self._log_events(f"Profile: {resolved_profile}")
-            self._log_events(
-                "Coverage: "
-                f"required={len(coverage.required_pairs)} "
-                f"mapped={len(coverage.mapped_pairs)} "
-                f"missing={len(coverage.missing_pairs)}"
-            )
-
-            if coverage.missing_pairs:
-                for step, track in coverage.missing_pairs:
-                    self._log_events(f"Missing slot: step={step} track={track}")
-                messagebox.showwarning(
-                    "Coverage Incomplete",
-                    f"Missing slot mappings: {len(coverage.missing_pairs)}\n"
-                    "See Events Build Log for details. You can export a fill template via Export Missing Slots.",
-                )
-            else:
-                messagebox.showinfo("Coverage OK", "All required (step, track) pairs are mapped.")
-        except Exception as exc:  # noqa: BLE001
-            messagebox.showerror("Coverage Error", str(exc))
-
-    def _export_missing_slots(self) -> None:
-        events_path = self.events_yaml_var.get().strip()
-        profile_path = self.events_profile_var.get().strip()
-
-        if not events_path:
-            messagebox.showerror("Input Error", "events YAML is required.")
-            return
-
-        output = filedialog.asksaveasfilename(
-            defaultextension=".yaml",
-            filetypes=[("YAML", "*.yaml *.yml"), ("All", "*.*")],
-            initialfile="missing_slots_template.yaml",
-        )
-        if not output:
-            return
-
-        try:
-            resolved_profile = resolve_profile_path(profile_path or None)
-            out = export_missing_slots_template(
-                events_yaml=events_path,
-                profile_yaml=resolved_profile,
-                output_yaml=output,
-            )
-            self._log_events(f"Exported missing-slot template: {out}")
-            messagebox.showinfo("Export Complete", f"Wrote missing-slot template:\n{out}")
-        except Exception as exc:  # noqa: BLE001
-            messagebox.showerror("Export Error", str(exc))
 
 
 def run_gui() -> None:

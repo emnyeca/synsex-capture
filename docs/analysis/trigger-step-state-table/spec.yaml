@@ -1,0 +1,64 @@
+analysis_target: trigger_track_step_state_table
+status: observed
+scope:
+  tracks_tested: [2, 8]
+  steps_tested:
+    track_2: [1, 2, 3, 16]
+    track_8: [1, 2, 16]
+  note: C5
+  trigger_count: 1
+  velocity: inherit_track_default
+  length: inherit_track_default
+  pattern_mode: pattern_wide
+  total_steps: 16
+  tempo: 120.0
+  speed: '1'
+normalization:
+  source_capture_range: capture_20260525_115407_0019..0034
+  excluded_duplicates:
+    - capture_20260525_115407_0030 (same as 0028)
+    - capture_20260525_115407_0031 (extra BASE_EMPTY)
+  canonical_sequence_size: 14
+  canonical_capture_dir: captures/Track_Step_State_Table
+trigger_record_fields:
+  track_index:
+    offset: 21720
+    decoded_record_byte: 0
+    encoding: zero_based_track_index
+    status: confirmed
+  step_index:
+    offset: 21721
+    decoded_record_byte: 1
+    encoding: zero_based_step_index
+    status: confirmed
+observed_step_state_triplets:
+  track_2:
+    step_1: [1370, 1372, 1373]
+    step_2: [1370, 1374, 1375]
+    step_3: [1370, 1376, 1377]
+    step_16: [1402, 1406, 1407]
+  track_8:
+    step_1: [9506, 9511, 9512]
+    step_2: [9513, 9514, 9515]
+    step_16: [9545, 9546, 9547]
+baseline_behavior:
+  empty_reimport_zero_diff_pairs:
+    - vs_step1_to_03
+    - vs_step1_to_05
+    - vs_step1_to_07
+    - vs_step1_to_09
+    - vs_step1_to_11
+    - vs_step1_to_13
+  interpretation: BASE_EMPTY reimport keeps empty snapshots byte-identical in this run
+inference:
+  per_track_step_state_blocks_exist: true
+  step_specific_triplet_updates_exist: true
+  simple_linear_formula_for_all_steps: unresolved
+unknowns:
+  - Full step-state table rule for steps 4..15 across tracks.
+  - Whether tracks 1, 3..7, and 9..16 follow the same geometry.
+  - Semantic role split of each triplet byte.
+references:
+  dataset_summary: datasets/analysis/track_step_state_table_20260525/summary.yaml
+  dataset_confirmed: datasets/analysis/track_step_state_table_20260525/track_step_state_table_confirmed.yaml
+  dataset_inference: datasets/analysis/track_step_state_table_20260525/track_step_state_table_inference.yaml

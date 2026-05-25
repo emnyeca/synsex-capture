@@ -1,4 +1,4 @@
-"""Validation and parsing for Harmony Cloud style events YAML."""
+"""Validation and parsing for Digitone II focused events YAML."""
 
 from __future__ import annotations
 
@@ -23,29 +23,37 @@ _NOTE_BASE = {
 
 @dataclass(frozen=True)
 class EventItem:
+    step: int
     track: int
     note: str
     note_midi: int
-    duration: int
-    velocity: int | None = None
+    velocity: int | str
+    length: str
 
 
 @dataclass(frozen=True)
-class StepItem:
-    step: int
-    chord: str | None
-    hold: bool
-    events: tuple[EventItem, ...]
+class PatternSettings:
+    mode: str
+    tempo: float
+    speed: str
+    total_steps: int
+
+
+@dataclass(frozen=True)
+class TrackDefaults:
+    track: int
+    default_velocity: int
+    default_length: str
 
 
 @dataclass(frozen=True)
 class EventAssignment:
     version: int
+    device: str
     name: str | None
-    length_steps: int
-    speed: str | None
-    time_signature: str | None
-    steps: tuple[StepItem, ...]
+    pattern: PatternSettings
+    tracks: tuple[TrackDefaults, ...]
+    events: tuple[EventItem, ...]
 
 
 def _parse_note_name(note_name: str) -> int:
@@ -72,7 +80,8 @@ def _parse_note_name(note_name: str) -> int:
     except ValueError as exc:
         raise SyxFileError(f"Invalid note octave: {note_name}") from exc
 
-    midi = (octave + 1) * 12 + _NOTE_BASE[root] + accidental
+    # Digitone display naming stores C5 as 60 in tested captures.
+    midi = (octave + 1) * 12 + _NOTE_BASE[root] + accidental - 12
     if midi < 0 or midi > 127:
         raise SyxFileError(f"MIDI note out of range for {note_name}: {midi}")
     return midi
@@ -97,7 +106,7 @@ def _load_yaml(path: str | Path) -> dict:
 
 
 def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
-    """Load and validate events YAML against the v1 schema."""
+    """Load and validate events YAML against the Digitone II v1 schema."""
     payload = _load_yaml(path)
 
     version = _as_int(payload.get("version", 1), "version")
@@ -108,107 +117,126 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
     if name is not None:
         name = str(name)
 
+    device = str(payload.get("device", "digitone2")).strip().lower()
+    if device not in {"digitone2", "digitone_ii"}:
+        raise SyxFileError(f"Unsupported device: {device}. Expected digitone2")
+
     pattern = payload.get("pattern")
     if not isinstance(pattern, dict):
         raise SyxFileError("'pattern' must be a mapping.")
 
-    length_steps = _as_int(pattern.get("length_steps"), "pattern.length_steps")
-    if length_steps < 1:
-        raise SyxFileError("pattern.length_steps must be >= 1")
+    mode = str(pattern.get("mode", "pattern-wide")).strip().lower()
+    if mode not in {"pattern-wide", "pattern_wide"}:
+        raise SyxFileError("pattern.mode must be 'pattern-wide'")
 
-    speed = pattern.get("speed")
-    speed = str(speed) if speed is not None else None
-    time_signature = pattern.get("time_signature")
-    time_signature = str(time_signature) if time_signature is not None else None
+    tempo = float(pattern.get("tempo", 120.0))
+    if tempo < 30.0 or tempo > 300.0:
+        raise SyxFileError("pattern.tempo must be in 30.0..300.0")
 
-    raw_steps = payload.get("steps")
-    if not isinstance(raw_steps, list):
-        raise SyxFileError("'steps' must be a list.")
+    speed = str(pattern.get("speed", "1/8")).strip()
+    if speed not in {"2", "3/2", "1", "3/4", "1/2", "1/4", "1/8"}:
+        raise SyxFileError("pattern.speed must be one of: 2, 3/2, 1, 3/4, 1/2, 1/4, 1/8")
 
-    parsed_steps: list[StepItem] = []
-    seen_step_numbers: set[int] = set()
+    total_steps = _as_int(pattern.get("total_steps"), "pattern.total_steps")
+    if total_steps < 2 or total_steps > 128:
+        raise SyxFileError("pattern.total_steps must be in 2..128")
 
-    for raw_step in raw_steps:
-        if not isinstance(raw_step, dict):
-            raise SyxFileError("Each step must be a mapping.")
+    raw_tracks = payload.get("tracks", [])
+    if not isinstance(raw_tracks, list):
+        raise SyxFileError("'tracks' must be a list")
 
-        step_number = _as_int(raw_step.get("step"), "steps[].step")
-        if step_number < 1 or step_number > length_steps:
-            raise SyxFileError(
-                f"step out of range: {step_number}. Must be between 1 and {length_steps}."
-            )
-        if step_number in seen_step_numbers:
-            raise SyxFileError(f"Duplicate step entry: {step_number}")
-        seen_step_numbers.add(step_number)
+    parsed_tracks: list[TrackDefaults] = []
+    seen_tracks: set[int] = set()
+    for item in raw_tracks:
+        if not isinstance(item, dict):
+            raise SyxFileError("tracks[] entries must be mappings")
+        track = _as_int(item.get("track"), "tracks[].track")
+        if track < 1 or track > 16:
+            raise SyxFileError(f"tracks[].track must be 1..16, got {track}")
+        if track in seen_tracks:
+            raise SyxFileError(f"Duplicate tracks[].track: {track}")
+        seen_tracks.add(track)
 
-        chord = raw_step.get("chord")
-        chord = str(chord) if chord is not None else None
+        default_velocity = _as_int(item.get("default_velocity", 100), f"tracks[{track}].default_velocity")
+        if default_velocity < 1 or default_velocity > 127:
+            raise SyxFileError(f"tracks[{track}].default_velocity must be 1..127")
 
-        hold = bool(raw_step.get("hold", False))
-        raw_events = raw_step.get("events")
+        default_length = str(item.get("default_length", "1")).strip().upper()
+        if default_length not in {"0.125", "0.25", "0.5", "1", "2", "4", "8", "16", "32", "64", "128", "INF"}:
+            raise SyxFileError(f"tracks[{track}].default_length is invalid: {default_length}")
 
-        if hold and raw_events:
-            raise SyxFileError(f"step {step_number}: hold=true cannot be combined with events")
-
-        parsed_events: list[EventItem] = []
-        track_seen: set[int] = set()
-
-        if raw_events is not None:
-            if not isinstance(raw_events, list):
-                raise SyxFileError(f"step {step_number}: events must be a list")
-
-            for raw_event in raw_events:
-                if not isinstance(raw_event, dict):
-                    raise SyxFileError(f"step {step_number}: event entries must be mappings")
-
-                track = _as_int(raw_event.get("track"), f"step {step_number} events[].track")
-                if track < 0 or track > 6:
-                    raise SyxFileError(f"step {step_number}: track must be 0..6, got {track}")
-                if track in track_seen:
-                    raise SyxFileError(f"step {step_number}: duplicate track assignment {track}")
-                track_seen.add(track)
-
-                note = str(raw_event.get("note", "")).strip()
-                if not note:
-                    raise SyxFileError(f"step {step_number} track {track}: note is required")
-                note_midi = _parse_note_name(note)
-
-                duration = _as_int(raw_event.get("duration"), f"step {step_number} track {track} duration")
-                if duration < 1:
-                    raise SyxFileError(f"step {step_number} track {track}: duration must be >= 1")
-
-                velocity: int | None = None
-                if "velocity" in raw_event and raw_event["velocity"] is not None:
-                    velocity = _as_int(raw_event["velocity"], f"step {step_number} track {track} velocity")
-                    if velocity < 1 or velocity > 127:
-                        raise SyxFileError(f"step {step_number} track {track}: velocity must be 1..127")
-
-                parsed_events.append(
-                    EventItem(
-                        track=track,
-                        note=note,
-                        note_midi=note_midi,
-                        duration=duration,
-                        velocity=velocity,
-                    )
-                )
-
-        parsed_steps.append(
-            StepItem(
-                step=step_number,
-                chord=chord,
-                hold=hold,
-                events=tuple(parsed_events),
+        parsed_tracks.append(
+            TrackDefaults(
+                track=track,
+                default_velocity=default_velocity,
+                default_length=default_length,
             )
         )
 
-    parsed_steps.sort(key=lambda x: x.step)
+    raw_events = payload.get("events")
+    if not isinstance(raw_events, list):
+        raise SyxFileError("'events' must be a list")
+
+    parsed_events: list[EventItem] = []
+    seen_pairs: set[tuple[int, int]] = set()
+    for raw_event in raw_events:
+        if not isinstance(raw_event, dict):
+            raise SyxFileError("events[] entries must be mappings")
+
+        step = _as_int(raw_event.get("step"), "events[].step")
+        if step < 1 or step > total_steps:
+            raise SyxFileError(f"events[].step out of range: {step} (1..{total_steps})")
+
+        track = _as_int(raw_event.get("track"), f"events[step={step}].track")
+        if track < 1 or track > 16:
+            raise SyxFileError(f"events step={step}: track must be 1..16")
+
+        pair = (step, track)
+        if pair in seen_pairs:
+            raise SyxFileError(f"Duplicate event for step={step}, track={track}")
+        seen_pairs.add(pair)
+
+        note = str(raw_event.get("note", "")).strip()
+        if not note:
+            raise SyxFileError(f"events step={step} track={track}: note is required")
+        note_midi = _parse_note_name(note)
+
+        velocity_raw = raw_event.get("velocity", "inherit")
+        if isinstance(velocity_raw, str) and velocity_raw.strip().lower() == "inherit":
+            velocity: int | str = "inherit"
+        else:
+            velocity = _as_int(velocity_raw, f"events step={step} track={track} velocity")
+            if velocity < 1 or velocity > 127:
+                raise SyxFileError(f"events step={step} track={track}: velocity must be 1..127 or inherit")
+
+        length = str(raw_event.get("length", "inherit")).strip().upper()
+        if length != "INHERIT" and length not in {"0.125", "0.25", "0.5", "1", "2", "4", "8", "16", "32", "64", "128", "INF"}:
+            raise SyxFileError(f"events step={step} track={track}: invalid length {length}")
+
+        parsed_events.append(
+            EventItem(
+                step=step,
+                track=track,
+                note=note,
+                note_midi=note_midi,
+                velocity=velocity,
+                length=("inherit" if length == "INHERIT" else length),
+            )
+        )
+
+    parsed_tracks.sort(key=lambda x: x.track)
+    parsed_events.sort(key=lambda x: (x.track, x.step))
 
     return EventAssignment(
         version=version,
+        device="digitone2",
         name=name,
-        length_steps=length_steps,
-        speed=speed,
-        time_signature=time_signature,
-        steps=tuple(parsed_steps),
+        pattern=PatternSettings(
+            mode="pattern-wide",
+            tempo=tempo,
+            speed=speed,
+            total_steps=total_steps,
+        ),
+        tracks=tuple(parsed_tracks),
+        events=tuple(parsed_events),
     )

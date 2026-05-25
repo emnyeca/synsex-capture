@@ -1,0 +1,13 @@
+version: 1
+device: digitone2
+name: smoke_empty_pattern
+pattern:
+  mode: pattern-wide
+  tempo: 120.0
+  speed: 1/8
+  total_steps: 16
+tracks:
+  - track: 1
+    default_velocity: 100
+    default_length: "1"
+events: []
