@@ -1,5 +1,5 @@
 analysis_target: trigger_track_step_state_table_page_boundary
-status: confirmed_for_tracks_2_and_8_steps_up_to_128
+status: confirmed_for_tracks_1_to_8_normal_trigger_steps_1_to_128_generation_scope
 scope:
   tracks_tested: [2, 8]
   steps_tested:
@@ -77,28 +77,33 @@ verified_decoded_offsets:
     step128: 8567
 observed_decoded_values:
   track_2:
-    step16: [0x03, 0x11]
-    step17: [0x03, 0x01]
-    step32: [0x03, 0x11]
+    step16: [0x03, 0x91]
+    step17: [0x03, 0x81]
+    step32: [0x03, 0x91]
     step33: [0x03, 0x81]
-    step48: [0x03, 0x11]
-    step49: [0x03, 0x01]
-    step64: [0x03, 0x11]
-    step65: [0x03, 0x01]
-    step80: [0x03, 0x11]
-    step81: [0x03, 0x01]
+    step48: [0x03, 0x91]
+    step49: [0x03, 0x81]
+    step64: [0x03, 0x91]
+    step65: [0x03, 0x81]
+    step80: [0x03, 0x91]
+    step81: [0x03, 0x81]
     step96: [0x03, 0x91]
-    step97: [0x03, 0x01]
-    step112: [0x03, 0x11]
-    step113: [0x03, 0x01]
-    step127: [0x83, 0x01]
-    step128: [0x03, 0x11]
-  track_8:
-    step16: [0x03, 0x11]
-    step17: [0x03, 0x01]
-    step64: [0x03, 0x11]
-    step65: [0x03, 0x01]
+    step97: [0x03, 0x81]
+    step112: [0x03, 0x91]
+    step113: [0x03, 0x81]
+    step127: [0x03, 0x81]
     step128: [0x03, 0x91]
+  track_8:
+    step16: [0x03, 0x91]
+    step17: [0x03, 0x81]
+    step64: [0x03, 0x91]
+    step65: [0x03, 0x81]
+    step128: [0x03, 0x91]
+normal_trigger_value_rule:
+  odd_step: [0x03, 0x81]
+  even_step: [0x03, 0x91]
+  page_boundary_additional_value_branch: not_observed
 notes:
   - Physical diffs around page boundaries still include control-byte movement caused by 7-bit packing.
-  - Position formula continuity is confirmed independently from decoded value semantics.
+  - Position formula continuity is confirmed across page boundaries.
+  - Early raw-byte reads that skipped control-byte MSB restoration produced incorrect values (0x01/0x11 and 0x83 artifacts).

@@ -64,17 +64,25 @@ logical_entry_offset = 4 + 1187 * trackIndex + 2 * stepIndex
 
 `01_EmptySteps128` と `18_EmptySteps128Reimport` は `difference_count: 0`。
 
-## 追加観測（値の意味は未確定）
+## Step state値の再解釈（修正）
 
-位置式は確定した一方、decoded 2byte 値の意味は未確定。
+初版では一部entryで 7-bit packing control byte を十分に反映できておらず、
+decoded値を `0x01/0x11/0x81/0x91` の分岐として誤記していた。
 
-- total_steps=128 の観測では second byte が `0x01/0x11/0x81/0x91` などに分岐
-- Track2 Step127 で first byte `0x83` を観測
+control byte による MSB 復元を適用すると、通常Triggerの Step state 値は
+Step 17以降を含めて次で一貫する。
 
-よって、**位置式は確定**、**値の意味は継続解析** とする。
+```text
+odd step  -> [0x03, 0x81]
+even step -> [0x03, 0x91]
+```
+
+Track 2 / Track 8 の今回確認範囲（16,17,32,33,48,49,64,65,80,81,96,97,112,113,127,128 と Track8側アンカー）で、
+page境界による追加の値分岐は観測されなかった。
 
 ## 実装への含意
 
 - Step 17以降も個別offset収集は不要
 - unpack後 payload に対して式で entry を特定して書き込み可能
+- 通常Trigger値は奇数/偶数の固定値で生成可能（odd `[0x03, 0x81]`、even `[0x03, 0x91]`）
 - 物理offset例外処理は pack/unpack 層へ集約する
