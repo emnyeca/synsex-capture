@@ -47,6 +47,54 @@ Digitone II の運用やOSバージョンによっては、Pattern単体のSysEx
 - テンプレート Pattern の SysEx を取得できる
 - このリポジトリの GUI を利用できる
 
+## 解析用キャプチャの固定条件
+
+今後の解析では、以下を固定条件として扱います。
+
+- PROJECT番号: `002`
+- PROJECT名: `NEW PROJECT`
+- PATTERN番号: `A01`
+- PATTERN名: `UNTITLED`
+- MIDI設定: `MIDI PORTS > OUTPUT TO = USB`（`MIDI+USB` から変更）
+
+この条件から外れたキャプチャは、差分比較時に別系列として管理してください。
+
+## Diff YAML 出力形式（今回の連続キャプチャ解析）
+
+`captures/emptyData.syx` と `captures/capture_20260524_141557_0001..0016.syx` から、以下を出力:
+
+- `empty_vs_XXXX.yaml`（empty と各キャプチャの差分）
+- `seq_XXXX_to_YYYY.yaml`（連番キャプチャ間の差分）
+- `summary.yaml`（差分件数と出力先一覧）
+
+出力先:
+
+- `datasets/analysis/trig_walk_20260524/`
+
+各 YAML の主要キー:
+
+```yaml
+analysis: trig_walk
+pair_type: sequential_capture # または empty_vs_capture
+pair:
+  before: captures/xxx.syx
+  after: captures/yyy.syx
+fixed_context:
+  project_number: "002"
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: "OUTPUT TO: USB (MIDI+USB to USB)"
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 6
+patches:
+  - offset: 16
+    before: "0x01"
+    value: "0x00"
+```
+
 起動コマンド:
 
 ```bash
