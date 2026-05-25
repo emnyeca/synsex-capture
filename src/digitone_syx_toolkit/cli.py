@@ -14,6 +14,7 @@ from .diffing import diff_syx_files, format_diff
 from .errors import DigitoneToolkitError, MidiPortError, SyxFileError
 from .events_to_syx import (
     build_syx_from_events,
+    default_output_file_for_events,
 )
 from .events_yaml import load_event_assignment_yaml
 from .gui import run_gui
@@ -75,7 +76,10 @@ def _build_parser() -> argparse.ArgumentParser:
         "--template",
         help="Optional template override .syx (advanced debugging only)",
     )
-    build_events_p.add_argument("--output", required=True, help="Output .syx file")
+    build_events_p.add_argument(
+        "--output",
+        help="Output .syx file (default: captures/generated/<events-base>.syx)",
+    )
 
     sub.add_parser("gui", help="Launch analysis GUI (Tkinter)")
 
@@ -174,10 +178,11 @@ def _cmd_validate_events(args: argparse.Namespace) -> int:
 
 
 def _cmd_build_from_events(args: argparse.Namespace) -> int:
+    output_file = args.output or default_output_file_for_events(args.events)
     result = build_syx_from_events(
         events_yaml=args.events,
         template_file=args.template,
-        output_file=args.output,
+        output_file=output_file,
     )
     LOG.info("Built .syx from events: output=%s events=%d", result.output_file, result.written_events)
     for warning in result.warnings:

@@ -18,6 +18,7 @@ from .capture import SysexChunkAssembler
 from .diffing import DiffResult, diff_syx_files, format_diff
 from .events_to_syx import (
     build_syx_from_events,
+    default_output_file_for_events,
 )
 from .events_yaml import load_event_assignment_yaml
 from .hexview import hex_dump_file
@@ -55,7 +56,7 @@ class AnalysisGui:
         self.replay_file_var = tk.StringVar()
         self.replay_delay_var = tk.StringVar(value="0")
         self.events_yaml_var = tk.StringVar()
-        self.events_output_var = tk.StringVar(value="captures/generated_from_events.syx")
+        self.events_output_var = tk.StringVar()
 
         self._capture_thread: threading.Thread | None = None
         self._stop_capture_event = threading.Event()
@@ -262,7 +263,7 @@ class AnalysisGui:
         ttk.Button(
             top,
             text="Browse",
-            command=lambda: self._pick_file(self.events_yaml_var, [("YAML", "*.yaml *.yml"), ("All", "*.*")]),
+            command=self._pick_events_yaml,
         ).grid(row=0, column=2)
 
         ttk.Label(top, text="Output .syx").grid(row=1, column=0, sticky="w")
@@ -307,9 +308,23 @@ class AnalysisGui:
             self.output_var.set(path)
 
     def _pick_events_output(self) -> None:
-        path = filedialog.asksaveasfilename(defaultextension=".syx", filetypes=[("SysEx", "*.syx"), ("All", "*.*")])
+        initial = self.events_output_var.get().strip()
+        default_path = initial or str(default_output_file_for_events(self.events_yaml_var.get().strip() or "events.yaml"))
+        path = filedialog.asksaveasfilename(
+            defaultextension=".syx",
+            filetypes=[("SysEx", "*.syx"), ("All", "*.*")],
+            initialfile=Path(default_path).name,
+            initialdir=str(Path(default_path).parent),
+        )
         if path:
             self.events_output_var.set(path)
+
+    def _pick_events_yaml(self) -> None:
+        path = filedialog.askopenfilename(filetypes=[("YAML", "*.yaml *.yml"), ("All", "*.*")])
+        if not path:
+            return
+        self.events_yaml_var.set(path)
+        self.events_output_var.set(str(default_output_file_for_events(path)))
 
     def _pick_directory(self, target_var: tk.StringVar) -> None:
         path = filedialog.askdirectory()
@@ -619,7 +634,8 @@ class AnalysisGui:
 
     def _generate_syx_from_events(self) -> None:
         events_path = self.events_yaml_var.get().strip()
-        output_path = self.events_output_var.get().strip()
+        output_path = self.events_output_var.get().strip() or str(default_output_file_for_events(events_path))
+        self.events_output_var.set(output_path)
 
         if not events_path or not output_path:
             messagebox.showerror(

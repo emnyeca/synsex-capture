@@ -1,0 +1,33 @@
+version: 1
+device: digitone2
+
+pattern:
+  mode: pattern-wide
+  tempo: 120
+  speed: "1"
+  total_steps: 16
+
+events:
+  - track: 1
+    step: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+
+  - track: 1
+    step: 4
+    note: D5
+    velocity: inherit
+    length: inherit
+
+  - track: 1
+    step: 8
+    note: G4
+    velocity: inherit
+    length: inherit
+
+  - track: 1
+    step: 16
+    note: C5
+    velocity: inherit
+    length: inherit

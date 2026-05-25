@@ -10,7 +10,7 @@ from digitone_syx_toolkit.digitone2.constants import (
 )
 from digitone_syx_toolkit.digitone2.packing import trigger_payload_offset_from_index
 from digitone_syx_toolkit.errors import SyxFileError
-from digitone_syx_toolkit.events_to_syx import build_syx_from_events
+from digitone_syx_toolkit.events_to_syx import build_syx_from_events, default_output_file_for_events
 
 
 def _write_events_yaml(path: Path, body: str) -> None:
@@ -28,6 +28,21 @@ def _read_trigger_slot_value(data: bytes, slot_index: int, rel: int) -> int:
     if data[control_offset] & mask:
         value |= 0x80
     return value
+
+
+@pytest.mark.parametrize(
+    ("events_name", "expected_name"),
+    [
+        ("trial.events.yaml", "trial.syx"),
+        ("trial.events.yml", "trial.syx"),
+        ("trial.yaml", "trial.syx"),
+        ("trial.yml", "trial.syx"),
+        ("trial4_multiple_track_multiple_trigger_noninherit.events.yaml", "trial4_multiple_track_multiple_trigger_noninherit.syx"),
+    ],
+)
+def test_default_output_file_for_events(events_name: str, expected_name: str):
+    result = default_output_file_for_events(events_name)
+    assert result.as_posix() == f"captures/generated/{expected_name}"
 
 
 def test_build_syx_from_events_encodes_trigger_record_fields(tmp_path: Path):

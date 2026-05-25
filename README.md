@@ -67,9 +67,11 @@ digitone_syx_toolkit validate_events --file ../harmony-cloud/examples/blue_moon.
 
 ```bash
 digitone_syx_toolkit build_from_events \
-  --events ../harmony-cloud/examples/blue_moon.events.yaml \
-  --output captures/generated_from_events.syx
+  --events ../harmony-cloud/examples/blue_moon.events.yaml
 ```
+
+`--output` を省略した場合は、`captures/generated/<eventsファイル名>.syx` に保存されます。
+`*.events.yaml` / `*.events.yml` の場合は `.events` と拡張子を除いた名前になります。
 
 補足: `--template` は解析/デバッグ用の上書き入力です。通常の生成では不要です。
 
@@ -115,7 +117,7 @@ GUIの解析手順は以下を参照:
 
 1. `digitone_syx_toolkit gui` を起動
 2. `Events -> SYX` タブを開く
-3. `Events YAML` と `Output .syx` を設定
+3. `Events YAML` を設定（`Output .syx` はデフォルトで自動入力）
 4. `Validate Events YAML` で形式と制約を確認
 5. `Generate Digitone II SYX` を実行
 6. 必要に応じて生成した `.syx` を `MIDI Capture/Replay` タブから送信
