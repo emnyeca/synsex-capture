@@ -1,0 +1,31 @@
+analysis_target: trigger_length_and_track_default
+status: confirmed_for_track1_slot1
+track_default_length:
+  physical_offset: 1334
+  observed_codes:
+    "1": "0x0E"
+    "2": "0x1E"
+    "4": "0x2E"
+trigger_length:
+  decoded_record_byte: 4
+  physical_payload_offset_for_slot_1: 21725
+  encoding:
+    inherit_track_default: "0xFF"
+    explicit_codes:
+      "0.125": "0x00"
+      "0.25": "0x02"
+      "0.5": "0x06"
+      "1": "0x0E"
+      "2": "0x1E"
+      "4": "0x2E"
+      "8": "0x3E"
+      "16": "0x4E"
+      "32": "0x5E"
+      "64": "0x6E"
+      "128": "0x7E"
+      "INF": "0x7F"
+behavior:
+  new_trigger_stores_inherit_marker: true
+  explicit_value_survives_track_default_change: true
+  deleted_slot_may_retain_attribute_payload: true
+packing_note: "Raw payload 0x7F is ambiguous until unpacked: decoded 0xFF means inherit, decoded 0x7F means explicit INF."

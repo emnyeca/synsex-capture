@@ -1,0 +1,95 @@
+analysis_target: pattern_total_steps
+status: confirmed_for_pattern_wide_edits
+range_observed:
+  min: 2
+  max: 128
+pattern_wide_value:
+  payload_offset: 101507
+  control_offset: 101506
+  msb_mask: "0x40"
+  encoding: "7-bit packed integer"
+track_mirror_targets:
+  - track: 1
+    payload_offset: 1347
+    control_offset: 1346
+    msb_mask: "0x40"
+    mapping_status: confirmed
+  - track: 2
+    payload_offset: 2703
+    control_offset: 2698
+    msb_mask: "0x04"
+    mapping_status: confirmed
+  - track: 3
+    payload_offset: 4060
+    control_offset: 4058
+    msb_mask: "0x20"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 4
+    payload_offset: 5416
+    control_offset: 5410
+    msb_mask: "0x02"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 5
+    payload_offset: 6773
+    control_offset: 6770
+    msb_mask: "0x10"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 6
+    payload_offset: 8129
+    control_offset: 8122
+    msb_mask: "0x01"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 7
+    payload_offset: 9486
+    control_offset: 9482
+    msb_mask: "0x08"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 8
+    payload_offset: 10843
+    control_offset: 10842
+    msb_mask: "0x40"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 9
+    payload_offset: 12199
+    control_offset: 12194
+    msb_mask: "0x04"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 10
+    payload_offset: 13556
+    control_offset: 13554
+    msb_mask: "0x20"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 11
+    payload_offset: 14912
+    control_offset: 14906
+    msb_mask: "0x02"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 12
+    payload_offset: 16269
+    control_offset: 16266
+    msb_mask: "0x10"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 13
+    payload_offset: 17625
+    control_offset: 17618
+    msb_mask: "0x01"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 14
+    payload_offset: 18982
+    control_offset: 18978
+    msb_mask: "0x08"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 15
+    payload_offset: 20339
+    control_offset: 20338
+    msb_mask: "0x40"
+    mapping_status: inferred_from_wide_mirroring
+  - track: 16
+    payload_offset: 21695
+    control_offset: 21690
+    msb_mask: "0x04"
+    mapping_status: inferred_from_wide_mirroring
+boundary_observations:
+  "15_to_17": "no boundary-only field observed without triggers"
+  "32_to_33": "no boundary-only field observed without triggers"
+write_rule_for_pattern_wide_generation: "Set pattern-wide value and synchronize all 16 track targets to the same total steps, preserving unrelated control bits."

@@ -1,0 +1,21 @@
+analysis_target: pattern_speed
+status: confirmed
+field:
+  physical_offset: 101512
+encoding:
+  type: enum
+  code_map:
+    "2": "0x00"
+    "3/2": "0x01"
+    "1": "0x02"
+    "3/4": "0x03"
+    "1/2": "0x04"
+    "1/4": "0x05"
+    "1/8": "0x06"
+harmony_cloud:
+  preferred_value: "1/8"
+  preferred_code: "0x06"
+  steps_per_bar_in_4_4: 2
+trigger_dependency:
+  affects_known_trigger_fields: false
+  verified_transition: "Step 1 / C5 present; 1 -> 1/8 -> 1"

@@ -1,0 +1,18 @@
+analysis_target: trigger_pitch
+status: confirmed_for_tested_notes
+field:
+  decoded_record_byte: 2
+  physical_offset_for_slot_1: 21723
+encoding:
+  type: chromatic_integer
+  semitone_increment: 1
+  observed_values:
+    C4: "0x30"
+    C5: "0x3C"
+    C#5: "0x3D"
+    D5: "0x3E"
+notes:
+  - "Digitone display octave convention differs from a common MIDI naming convention: displayed C5 stored as decimal 60."
+unknowns:
+  - "supported lower and upper pitch range"
+  - "track 2+ location"

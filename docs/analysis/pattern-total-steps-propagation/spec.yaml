@@ -1,0 +1,23 @@
+analysis_target: pattern_total_steps_trigger_propagation
+status: observed_and_scoped_out_for_generation
+shrink_behavior:
+  out_of_range_trigger_deleted: false
+  out_of_range_trigger_hidden: true
+  trigger_reappears_when_range_restored: true
+  verified_case:
+    trigger_step: 16
+    total_steps_transition: "16 -> 15 -> 16"
+expand_behavior:
+  duplicates_existing_content: true
+  confirmed_principle: "When current total steps is 16*n, a trigger at step a may be copied to a + 16*n when extending the pattern."
+  verified_syx_case:
+    original_total_steps: 16
+    expanded_total_steps: 64
+    original_trigger: "Step 1 / C5"
+    additional_trigger_like_records: ["Step 17 / C5", "Step 33 / C5", "Step 49 / C5"]
+harmony_cloud_policy:
+  reproduce_hardware_incremental_expansion: false
+  set_final_total_steps_before_writing_triggers: true
+out_of_scope:
+  - "complete repetition rule for all extension histories"
+  - "UI-compatible incremental length editing"

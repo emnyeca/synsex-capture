@@ -1,0 +1,56 @@
+analysis_target: trigger_record_and_slot_allocation
+status: confirmed_for_track1_normal_triggers
+scope:
+  track: 1
+  trigger_type: normal_trig
+  tested_steps: [1, 2, 3, 4, 5, 6, 12, 13, 16]
+encoding:
+  record_region:
+    physical_area_approx: "around offset 21714"
+    transport_encoding: "7-bit SysEx packed"
+    decoded_record_size_bytes: 6
+    decoded_record_layout:
+      - byte: 0
+        name: field_0
+        status: unknown
+      - byte: 1
+        name: step_index
+        status: confirmed
+        encoding: zero_based
+      - byte: 2
+        name: pitch
+        status: confirmed
+      - byte: 3
+        name: velocity
+        status: confirmed
+      - byte: 4
+        name: length
+        status: confirmed
+      - byte: 5
+        name: field_5
+        status: unknown
+    example:
+      description: "Step 1 / C5 / velocity inherit / length inherit"
+      decoded_bytes: ["0x00", "0x00", "0x3C", "0xFF", "0xFF", "0x00"]
+slot_allocation:
+  sorting_by_step: false
+  insertion_behavior: "uses an available slot; observed re-add reused the lowest freed slot"
+  deletion_compacts_following_slots: false
+  identical_musical_state_can_have_different_slot_layout: true
+step_state_observations:
+  description: "Trigger presence is also represented outside the record slot array. Mapping is partial."
+  track_1_observed_physical_offsets:
+    1: 16
+    2: 19
+    3: 21
+    4: 23
+    5: 25
+    6: 28
+    12: 41
+    13: 44
+    16: 51
+unknowns:
+  - "field_0 semantics"
+  - "field_5 semantics"
+  - "track 2+ record/state layout"
+  - "general formula for step state offsets"

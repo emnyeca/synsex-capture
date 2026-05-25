@@ -1,0 +1,20 @@
+analysis_target: pattern_tempo
+status: confirmed_for_tested_range
+field:
+  control_offset: 101498
+  high_payload_offset: 101503
+  low_payload_offset: 101504
+  control_masks:
+    high_payload_msb: "0x04"
+    low_payload_msb: "0x02"
+encoding:
+  scaled_formula: "round(bpm * 120)"
+  unpacked_width_bits: 16
+  decode_formula: "((hi_unpacked << 8) | lo_unpacked) / 120"
+observed_range:
+  minimum_bpm: 30.0
+  maximum_bpm: 300.0
+trigger_dependency:
+  affects_known_trigger_fields: false
+  verified_transition: "Step 1 / C5 present; 120.0 -> 130.0 -> 120.0"
+implementation_note: "Preserve unrelated bits in packing control offset 101498."

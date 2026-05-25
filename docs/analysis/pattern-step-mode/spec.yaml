@@ -1,0 +1,16 @@
+analysis_target: pattern_step_mode
+status: confirmed_for_mode_and_tracks_1_2
+mode_field:
+  physical_offset: 101511
+  values:
+    pattern_wide: "0x00"
+    per_track: "0x01"
+per_track_confirmed_fields:
+  track_1_total_steps_payload_offset: 1347
+  track_2_total_steps_payload_offset: 2703
+behavior:
+  switching_to_pattern_wide_resynchronizes_hidden_track_values: false
+  pattern_wide_edit_synchronizes_track_values: true
+harmony_cloud_write_policy:
+  mode: pattern_wide
+  normalize_track_values_to_pattern_value: true
