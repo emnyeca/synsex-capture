@@ -12,7 +12,7 @@ Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI
 - 解析向け簡易 GUI（MIDI Capture/Replay / Diff / Hex / Selective Patch）
 - キャプチャ時の YAML メタ情報出力（`datasets/`）
 - events YAML のバリデーション
-- Digitone II 向け `.syx` 生成（内蔵空 PATTERN テンプレート方式、移行中）
+- Digitone II 向け `.syx` 生成（内蔵空 PATTERN テンプレート方式）
 
 ## Requirements
 
@@ -71,9 +71,7 @@ digitone_syx_toolkit build_from_events \
   --output captures/generated_from_events.syx
 ```
 
-補足: 現行 CLI の `build_from_events` は移行途中のため、環境によっては
-`--template`/`--profile` オプションが必要な場合があります。Digitone II 専用運用では
-GUI の新フロー（後述）を推奨します。
+補足: `--template` は解析/デバッグ用の上書き入力です。通常の生成では不要です。
 
 ```bash
 digitone_syx_toolkit gui
@@ -135,10 +133,12 @@ GUIの解析手順は以下を参照:
 
 注意:
 
-- Checksum / integrity field の完全再計算式は未確定です（`docs/analysis/README.ja.md` 参照）。
 - 現状は Digitone II 専用です。
 - 空 PATTERN からの新規生成を前提とします。
-- 同一 Track / 同一 Step への複数 Trigger は未対応です。
+- PATTERN-wide のみ対応です。
+- Track 1〜8、Step 1〜128 の通常 Trigger のみ対応です。
+- 同一 Track / 同一 Step への複数 Trigger（Chord）は未対応です。
+- Track default（tracks セクション）書き換えは未対応です。
 - 既存 PATTERN の非破壊編集は未対応です。
 
 ### events.yaml から「実機送信できる .syx」を作るための条件
@@ -165,12 +165,7 @@ pattern:
   mode: pattern-wide
   tempo: 120.0
   speed: "1/8"
-  total_steps: 64
-
-tracks:
-  - track: 1
-    default_velocity: 100
-    default_length: "1"
+  total_steps: 128
 
 events:
   - step: 1
@@ -179,16 +174,16 @@ events:
     velocity: inherit
     length: inherit
 
-  - step: 2
-    track: 1
+  - step: 17
+    track: 2
     note: D5
-    velocity: inherit
+    velocity: 84
     length: "2"
 
-  - step: 8
-    track: 1
+  - step: 128
+    track: 8
     note: G4
-    velocity: 84
+    velocity: inherit
     length: "INF"
 ```
 
@@ -196,6 +191,14 @@ events:
 
 - `velocity: inherit` と `velocity: 100` は内部表現が異なります。
 - `length: inherit` と `length: "1"` も内部表現が異なります。
+- `tracks:` セクションは初期対応範囲外のため validation error になります。
+
+### 生成済み実機試験ファイル
+
+実機試験向けの最小生成サンプルは次に保存します。
+
+- `captures/generated/trial1_minimal_trigger.syx`
+- `captures/generated/trial2_page_track_cross.syx`
 
 ### Capture Metadata (YAML)
 

@@ -17,10 +17,6 @@ def test_load_event_assignment_yaml_valid(tmp_path: Path):
         "  tempo: 126\n"
         "  speed: 1/8\n"
         "  total_steps: 16\n"
-        "tracks:\n"
-        "  - track: 1\n"
-        "    default_velocity: 100\n"
-        "    default_length: '1'\n"
         "events:\n"
         "  - step: 1\n"
         "    track: 1\n"
@@ -71,8 +67,8 @@ def test_load_event_assignment_yaml_rejects_duplicate_step_track(tmp_path: Path)
         load_event_assignment_yaml(yaml_path)
 
 
-def test_load_event_assignment_yaml_rejects_duplicate_track(tmp_path: Path):
-    yaml_path = tmp_path / "events_dup.yaml"
+def test_load_event_assignment_yaml_rejects_track_defaults_section(tmp_path: Path):
+    yaml_path = tmp_path / "events_tracks.yaml"
     yaml_path.write_text(
         "version: 1\n"
         "device: digitone2\n"
@@ -85,12 +81,78 @@ def test_load_event_assignment_yaml_rejects_duplicate_track(tmp_path: Path):
         "  - track: 1\n"
         "    default_velocity: 100\n"
         "    default_length: '1'\n"
-        "  - track: 1\n"
-        "    default_velocity: 110\n"
-        "    default_length: '2'\n"
         "events: []\n",
         encoding="utf-8",
     )
 
-    with pytest.raises(SyxFileError):
+    with pytest.raises(SyxFileError, match="tracks"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_track_9(tmp_path: Path):
+    yaml_path = tmp_path / "events_track9.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 64\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 9\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="track must be 1..8"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_step_129(tmp_path: Path):
+    yaml_path = tmp_path / "events_step129.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 128\n"
+        "events:\n"
+        "  - step: 129\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="out of range"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_step_over_total_steps(tmp_path: Path):
+    yaml_path = tmp_path / "events_over_total.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 17\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="1..16"):
         load_event_assignment_yaml(yaml_path)

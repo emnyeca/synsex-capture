@@ -3,6 +3,50 @@
 from __future__ import annotations
 
 
+def unpack_7bit_region(data: bytes | bytearray, *, start: int, end_exclusive: int) -> bytearray:
+    """Unpack 7-bit SysEx region into decoded payload bytes."""
+    decoded = bytearray()
+    for offset in range(start, end_exclusive, 8):
+        control = data[offset]
+        for idx in range(7):
+            payload_offset = offset + 1 + idx
+            if payload_offset >= end_exclusive:
+                break
+            value = data[payload_offset] & 0x7F
+            if control & (0x40 >> idx):
+                value |= 0x80
+            decoded.append(value)
+    return decoded
+
+
+def repack_7bit_region(
+    data: bytearray,
+    *,
+    start: int,
+    end_exclusive: int,
+    decoded_payload: bytes | bytearray,
+) -> None:
+    """Pack decoded payload bytes back into the 7-bit SysEx region."""
+    payload_index = 0
+    for offset in range(start, end_exclusive, 8):
+        control = 0
+        for idx in range(7):
+            payload_offset = offset + 1 + idx
+            if payload_offset >= end_exclusive:
+                break
+            if payload_index >= len(decoded_payload):
+                raise ValueError("decoded payload is too short for target packed region")
+            value = decoded_payload[payload_index]
+            payload_index += 1
+            data[payload_offset] = value & 0x7F
+            if value & 0x80:
+                control |= 0x40 >> idx
+        data[offset] = control & 0x7F
+
+    if payload_index != len(decoded_payload):
+        raise ValueError("decoded payload length does not match target packed region")
+
+
 def set_packed_byte(data: bytearray, *, payload_offset: int, control_offset: int, msb_mask: int, value: int) -> None:
     if value < 0 or value > 0xFF:
         raise ValueError(f"value out of range: {value}")

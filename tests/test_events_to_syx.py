@@ -2,53 +2,127 @@ from pathlib import Path
 
 import pytest
 
+from digitone_syx_toolkit.digitone2.constants import (
+    TRIGGER_REGION_CONTROL_START,
+    TRIGGER_REGION_PAYLOAD_START,
+    TRIGGER_SLOT_SIZE,
+    TRIGGER_SLOT0_PAYLOAD_INDEX,
+)
+from digitone_syx_toolkit.digitone2.packing import trigger_payload_offset_from_index
 from digitone_syx_toolkit.errors import SyxFileError
 from digitone_syx_toolkit.events_to_syx import build_syx_from_events
 
 
-def test_build_syx_from_events_writes_expected_bytes(tmp_path: Path):
-    template = tmp_path / "template.syx"
-    template.write_bytes(Path("captures/BASE_EMPTY.syx").read_bytes())
+def _write_events_yaml(path: Path, body: str) -> None:
+    path.write_text(body, encoding="utf-8")
 
+
+def _read_trigger_slot_value(data: bytes, slot_index: int, rel: int) -> int:
+    payload_index = TRIGGER_SLOT0_PAYLOAD_INDEX + slot_index * TRIGGER_SLOT_SIZE + rel
+    payload_offset, control_offset, mask = trigger_payload_offset_from_index(
+        payload_index,
+        control_start=TRIGGER_REGION_CONTROL_START,
+        payload_start=TRIGGER_REGION_PAYLOAD_START,
+    )
+    value = data[payload_offset] & 0x7F
+    if data[control_offset] & mask:
+        value |= 0x80
+    return value
+
+
+def test_build_syx_from_events_encodes_trigger_record_fields(tmp_path: Path):
     events = tmp_path / "events.yaml"
-    events.write_text(
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 128\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        "  - step: 17\n"
+        "    track: 2\n"
+        "    note: D5\n"
+        "    velocity: 84\n"
+        "    length: '2'\n"
+        "  - step: 128\n"
+        "    track: 8\n"
+        "    note: G4\n"
+        "    velocity: inherit\n"
+        "    length: 'INF'\n",
+    )
+
+    output = tmp_path / "out.syx"
+    result = build_syx_from_events(events_yaml=events, output_file=output)
+
+    built = output.read_bytes()
+    assert result.written_events == 3
+
+    # Slot 1: Track 1 / Step 1 / C5 / inherit / inherit
+    assert [_read_trigger_slot_value(built, 0, rel) for rel in range(6)] == [0x00, 0x00, 0x3C, 0xFF, 0xFF, 0x00]
+
+    # Slot 2: Track 2 / Step 17 / D5 / velocity 84 / length 2
+    assert [_read_trigger_slot_value(built, 1, rel) for rel in range(6)] == [0x01, 0x10, 0x3E, 0x54, 0x1E, 0x00]
+
+    # Slot 3: Track 8 / Step 128 / G4 / inherit / INF
+    assert [_read_trigger_slot_value(built, 2, rel) for rel in range(6)] == [0x07, 0x7F, 0x37, 0xFF, 0x7F, 0x00]
+
+
+def test_build_syx_from_events_length_code_one_is_0x0E(tmp_path: Path):
+    events = tmp_path / "events_length_one.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 2\n"
+        "    track: 2\n"
+        "    note: D5\n"
+        "    velocity: inherit\n"
+        "    length: '1'\n",
+    )
+
+    output = tmp_path / "out_length_one.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    assert [_read_trigger_slot_value(built, 0, rel) for rel in range(6)] == [0x01, 0x01, 0x3E, 0xFF, 0x0E, 0x00]
+
+
+def test_build_syx_from_events_checksum_recompute_is_consistent(tmp_path: Path):
+    events = tmp_path / "events.yaml"
+    _write_events_yaml(
+        events,
         "version: 1\n"
         "device: digitone2\n"
         "pattern:\n"
         "  mode: pattern-wide\n"
         "  tempo: 126\n"
         "  speed: 1/8\n"
-        "  total_steps: 16\n"
-        "tracks:\n"
-        "  - track: 1\n"
-        "    default_velocity: 100\n"
-        "    default_length: '1'\n"
+        "  total_steps: 64\n"
         "events:\n"
         "  - step: 1\n"
         "    track: 1\n"
         "    note: C5\n"
-        "    velocity: 100\n"
-        "    length: '2'\n",
-        encoding="utf-8",
+        "    velocity: inherit\n"
+        "    length: inherit\n",
     )
 
     output = tmp_path / "out.syx"
-    result = build_syx_from_events(
-        events_yaml=events,
-        output_file=output,
-        template_file=template,
-    )
-
+    build_syx_from_events(events_yaml=events, output_file=output)
     built = output.read_bytes()
-    assert result.written_events == 1
-    assert built[101511] == 0x00
-    assert built[101512] == 0x06
-    assert built[1333] == 100
-    assert built[1334] == 0x0E
-    # Slot1 pitch/velocity/length for C5/100/2
-    assert built[21723] == 60
-    assert built[21724] == 100
-    assert built[21725] == 0x1E
 
     expected_cs = sum(built[10:114113]) % 16384
     assert built[114113] == ((expected_cs >> 7) & 0x7F)
@@ -56,11 +130,9 @@ def test_build_syx_from_events_writes_expected_bytes(tmp_path: Path):
 
 
 def test_build_syx_from_events_rejects_duplicate_step_track(tmp_path: Path):
-    template = tmp_path / "template.syx"
-    template.write_bytes(Path("captures/BASE_EMPTY.syx").read_bytes())
-
     events = tmp_path / "events_bad.yaml"
-    events.write_text(
+    _write_events_yaml(
+        events,
         "version: 1\n"
         "device: digitone2\n"
         "pattern:\n"
@@ -72,19 +144,38 @@ def test_build_syx_from_events_rejects_duplicate_step_track(tmp_path: Path):
         "  - step: 1\n"
         "    track: 1\n"
         "    note: C5\n"
-        "    velocity: 100\n"
-        "    length: '1'\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
         "  - step: 1\n"
         "    track: 1\n"
         "    note: D5\n"
-        "    velocity: 100\n"
-        "    length: '1'\n",
-        encoding="utf-8",
+        "    velocity: inherit\n"
+        "    length: inherit\n",
     )
 
-    with pytest.raises(SyxFileError):
-        build_syx_from_events(
-            events_yaml=events,
-            output_file=tmp_path / "out.syx",
-            template_file=template,
-        )
+    with pytest.raises(SyxFileError, match="Chord is not supported"):
+        build_syx_from_events(events_yaml=events, output_file=tmp_path / "out.syx")
+
+
+def test_checksum_reference_speed_matches_capture(tmp_path: Path):
+    events = tmp_path / "speed_patch.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events: []\n",
+    )
+
+    output = tmp_path / "speed_patched.syx"
+    build_syx_from_events(
+        events_yaml=events,
+        output_file=output,
+        template_file=Path("captures/CHECKSUM_BASE_EMPTY.syx"),
+    )
+
+    assert output.read_bytes() == Path("captures/CHECKSUM_REFERENCE_SPEED.syx").read_bytes()

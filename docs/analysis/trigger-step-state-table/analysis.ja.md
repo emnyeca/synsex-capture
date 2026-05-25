@@ -156,7 +156,7 @@ even step -> [0x03, 0x91]
 
 ## 7. Harmony Cloud 実装への含意
 
-Track 1〜8 / Step 1〜16 / 通常Trigger / 1step1trigger の範囲では、Step state 物理offsetの個別収集は不要。
+Track 1〜8 / Step 1〜128 / 通常Trigger / 1step1trigger の範囲では、Step state 物理offsetの個別収集は不要。
 
 1. packed領域を unpack
 2. 論理offset式で entry 算出
@@ -171,4 +171,4 @@ Track 1〜8 / Step 1〜16 / 通常Trigger / 1step1trigger の範囲では、Step
 - 同一Track/同一Stepの複数音（Chord構造）
 - Trig Condition / Probability
 - Micro Timing
-- Track別 default Velocity / Length（Track 2〜8）
+- Track別 default Velocity / Length 書き換え

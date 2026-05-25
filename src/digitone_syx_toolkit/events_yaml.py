@@ -40,19 +40,11 @@ class PatternSettings:
 
 
 @dataclass(frozen=True)
-class TrackDefaults:
-    track: int
-    default_velocity: int
-    default_length: str
-
-
-@dataclass(frozen=True)
 class EventAssignment:
     version: int
     device: str
     name: str | None
     pattern: PatternSettings
-    tracks: tuple[TrackDefaults, ...]
     events: tuple[EventItem, ...]
 
 
@@ -118,7 +110,7 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
         name = str(name)
 
     device = str(payload.get("device", "digitone2")).strip().lower()
-    if device not in {"digitone2", "digitone_ii"}:
+    if device != "digitone2":
         raise SyxFileError(f"Unsupported device: {device}. Expected digitone2")
 
     pattern = payload.get("pattern")
@@ -141,36 +133,10 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
     if total_steps < 2 or total_steps > 128:
         raise SyxFileError("pattern.total_steps must be in 2..128")
 
-    raw_tracks = payload.get("tracks", [])
-    if not isinstance(raw_tracks, list):
-        raise SyxFileError("'tracks' must be a list")
-
-    parsed_tracks: list[TrackDefaults] = []
-    seen_tracks: set[int] = set()
-    for item in raw_tracks:
-        if not isinstance(item, dict):
-            raise SyxFileError("tracks[] entries must be mappings")
-        track = _as_int(item.get("track"), "tracks[].track")
-        if track < 1 or track > 16:
-            raise SyxFileError(f"tracks[].track must be 1..16, got {track}")
-        if track in seen_tracks:
-            raise SyxFileError(f"Duplicate tracks[].track: {track}")
-        seen_tracks.add(track)
-
-        default_velocity = _as_int(item.get("default_velocity", 100), f"tracks[{track}].default_velocity")
-        if default_velocity < 1 or default_velocity > 127:
-            raise SyxFileError(f"tracks[{track}].default_velocity must be 1..127")
-
-        default_length = str(item.get("default_length", "1")).strip().upper()
-        if default_length not in {"0.125", "0.25", "0.5", "1", "2", "4", "8", "16", "32", "64", "128", "INF"}:
-            raise SyxFileError(f"tracks[{track}].default_length is invalid: {default_length}")
-
-        parsed_tracks.append(
-            TrackDefaults(
-                track=track,
-                default_velocity=default_velocity,
-                default_length=default_length,
-            )
+    raw_tracks = payload.get("tracks")
+    if raw_tracks not in (None, []):
+        raise SyxFileError(
+            "'tracks' defaults rewrite is not supported in the current Digitone II encoder scope"
         )
 
     raw_events = payload.get("events")
@@ -188,12 +154,14 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             raise SyxFileError(f"events[].step out of range: {step} (1..{total_steps})")
 
         track = _as_int(raw_event.get("track"), f"events[step={step}].track")
-        if track < 1 or track > 16:
-            raise SyxFileError(f"events step={step}: track must be 1..16")
+        if track < 1 or track > 8:
+            raise SyxFileError(f"events step={step}: track must be 1..8")
 
         pair = (step, track)
         if pair in seen_pairs:
-            raise SyxFileError(f"Duplicate event for step={step}, track={track}")
+            raise SyxFileError(
+                f"Chord is not supported yet: duplicate event for step={step}, track={track}"
+            )
         seen_pairs.add(pair)
 
         note = str(raw_event.get("note", "")).strip()
@@ -224,7 +192,6 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             )
         )
 
-    parsed_tracks.sort(key=lambda x: x.track)
     parsed_events.sort(key=lambda x: (x.track, x.step))
 
     return EventAssignment(
@@ -237,6 +204,5 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             speed=speed,
             total_steps=total_steps,
         ),
-        tracks=tuple(parsed_tracks),
         events=tuple(parsed_events),
     )

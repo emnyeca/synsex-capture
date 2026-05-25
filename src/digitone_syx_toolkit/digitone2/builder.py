@@ -9,6 +9,8 @@ from ..errors import SyxFileError
 from ..events_yaml import EventAssignment
 from .checksum import recompute_checksum
 from .constants import (
+    CHECKSUM_SUM_END,
+    CHECKSUM_SUM_START,
     LENGTH_CODE_MAP,
     PATTERN_MODE_OFFSET,
     PATTERN_MODE_PATTERN_WIDE,
@@ -22,17 +24,17 @@ from .constants import (
     PATTERN_TOTAL_STEPS_MSB_MASK,
     PATTERN_TOTAL_STEPS_PAYLOAD_OFFSET,
     SPEED_CODE_MAP,
-    STEP_STATE_TRACK1_OFFSETS,
+    SUPPORTED_TRACK_MAX,
+    SUPPORTED_TRACK_MIN,
     TRACK_TOTAL_STEPS_TARGETS,
-    TRACK1_DEFAULT_LENGTH_OFFSET,
-    TRACK1_DEFAULT_VELOCITY_OFFSET,
     TRIGGER_MAX_SLOTS,
     TRIGGER_REGION_CONTROL_START,
     TRIGGER_REGION_PAYLOAD_START,
     TRIGGER_SLOT_SIZE,
     TRIGGER_SLOT0_PAYLOAD_INDEX,
 )
-from .packing import set_packed_byte, set_trigger_packed_byte
+from .packing import repack_7bit_region, set_packed_byte, set_trigger_packed_byte, unpack_7bit_region
+from .step_state import write_events_step_state
 from .template import load_base_empty_template
 
 
@@ -96,26 +98,19 @@ def _set_pattern_fields(data: bytearray, assignment: EventAssignment) -> None:
         )
 
 
-def _set_track_defaults(data: bytearray, assignment: EventAssignment, warnings: list[str]) -> None:
-    for track in assignment.tracks:
-        if track.track != 1:
-            warnings.append(
-                f"track default for track={track.track} is not mapped yet; only track=1 defaults are applied"
-            )
-            continue
-        data[TRACK1_DEFAULT_VELOCITY_OFFSET] = track.default_velocity
-        data[TRACK1_DEFAULT_LENGTH_OFFSET] = _length_to_code(track.default_length)
-
-
-def _set_step_state_table(data: bytearray, assignment: EventAssignment, warnings: list[str]) -> None:
-    present_steps = {event.step for event in assignment.events}
-    for step in range(1, assignment.pattern.total_steps + 1):
-        offset = STEP_STATE_TRACK1_OFFSETS.get(step)
-        if offset is None:
-            if step in present_steps:
-                warnings.append(f"step state mapping for step={step} is unknown; trigger may be hidden on device")
-            continue
-        data[offset] = 0x01 if step in present_steps else 0x00
+def _set_step_state_table(data: bytearray, assignment: EventAssignment) -> None:
+    decoded_payload = unpack_7bit_region(
+        data,
+        start=CHECKSUM_SUM_START,
+        end_exclusive=CHECKSUM_SUM_END,
+    )
+    write_events_step_state(decoded_payload, assignment.events)
+    repack_7bit_region(
+        data,
+        start=CHECKSUM_SUM_START,
+        end_exclusive=CHECKSUM_SUM_END,
+        decoded_payload=decoded_payload,
+    )
 
 
 def _clear_trigger_slots(data: bytearray) -> None:
@@ -141,6 +136,11 @@ def _write_trigger_slots(data: bytearray, assignment: EventAssignment) -> int:
     written = 0
     for slot_index, event in enumerate(assignment.events):
         base = TRIGGER_SLOT0_PAYLOAD_INDEX + (slot_index * TRIGGER_SLOT_SIZE)
+
+        if event.track < SUPPORTED_TRACK_MIN or event.track > SUPPORTED_TRACK_MAX:
+            raise SyxFileError(
+                f"events track out of supported range: {event.track} ({SUPPORTED_TRACK_MIN}..{SUPPORTED_TRACK_MAX})"
+            )
 
         field0_track = event.track - 1
         step_index = event.step - 1
@@ -174,10 +174,9 @@ def build_digitone2_syx(
 
     warnings: list[str] = []
     _set_pattern_fields(data, assignment)
-    _set_track_defaults(data, assignment, warnings)
     _clear_trigger_slots(data)
     written_events = _write_trigger_slots(data, assignment)
-    _set_step_state_table(data, assignment, warnings)
+    _set_step_state_table(data, assignment)
     recompute_checksum(data)
 
     out_path = Path(output_file)

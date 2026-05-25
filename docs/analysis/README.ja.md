@@ -72,8 +72,8 @@
 
 一方で、以下は未反映または部分反映です。
 
-1. Track default velocity / length は現状 Track 1 の確定offsetのみを実装。Track 2〜16 の default 更新は追加解析後に拡張する。
-2. Step state table は 7-bit unpack 後の 2byte/step 連続テーブルとして整理し、`4 + 1187 * trackIndex + 2 * stepIndex` を実装指針として反映可能（検証範囲: Track 1/2/8、Step 1/2/3/16、通常Trigger）。
+1. Track default velocity / length の書き換えは初期実装スコープ外として停止し、内蔵 `BASE_EMPTY.syx` の既定値維持を前提にする。
+2. Step state table は 7-bit unpack 後の 2byte/step 連続テーブルとして整理し、`4 + 1187 * trackIndex + 2 * stepIndex` を実装へ反映。通常Trigger値は確認範囲で `odd=[0x03,0x81]`, `even=[0x03,0x91]` に一致し、page境界による追加分岐は未観測。
 3. Trigger record byte 0 は 0-based Track index として確定（Track 1〜8）。
 4. Step state 差分は packing control byte を含むため物理上 2〜3byte に見えることがあるが、意味上は decoded 2byte entry を更新するモデルへ統一。
 
