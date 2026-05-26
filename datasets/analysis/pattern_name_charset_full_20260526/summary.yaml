@@ -3,24 +3,35 @@ analysis: pattern_name_charset_full
 experiment: pattern_name_charset_full
 base_file: captures/Pattern_Name_Charset_Full/000_BASE_16A.syx
 fixed_offsets:
-  primary_first_char_decoded_offset: 88788
-  shadow_first_char_decoded_offset: 89096
-  primary_first_char_packed_payload_offset: 101483
-  shadow_first_char_packed_payload_offset: 101835
+  decoded_fields:
+    primary:
+      offset_start: 88788
+      offset_end: 88803
+    shadow:
+      offset_start: 89096
+      offset_end: 89111
+  first_char_packed_offsets:
+    primary_control: 101482
+    primary_payload: 101483
+    shadow_control: 101834
+    shadow_payload: 101835
   checksum_offsets:
   - 114113
   - 114114
 expectation:
   allowed_changed_offsets_vs_base:
+  - 101482
   - 101483
+  - 101834
   - 101835
   - 114113
   - 114114
-  rule: Only primary-first, shadow-first, checksum may differ versus base.
+  rule: Primary/shadow first-char payload + their 7-bit control bytes + checksum may
+    differ versus base.
 result:
   total_characters: 60
-  unexpected_change_count: 9
-  all_passed_expected_offset_rule: false
+  unexpected_change_count: 0
+  all_passed_expected_offset_rule: true
 records:
 - index: 1
   selector_order: 1
@@ -718,8 +729,8 @@ records:
     - 114114
 - index: 27
   selector_order: 27
-  display_seen_on_device: Â
-  intended_name: ÂAAAAAAAAAAAAAAA
+  display_seen_on_device: Å
+  intended_name: ÅAAAAAAAAAAAAAAA
   file: captures/Pattern_Name_Charset_Full/027_CHAR_27.syx
   diff_summary:
     difference_count_vs_base: 6
@@ -730,10 +741,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -762,10 +771,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -794,10 +801,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -826,10 +831,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -858,10 +861,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -890,10 +891,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -910,8 +909,8 @@ records:
     - 114114
 - index: 33
   selector_order: 33
-  display_seen_on_device: Φ
-  intended_name: ΦAAAAAAAAAAAAAAA
+  display_seen_on_device: Ø
+  intended_name: ØAAAAAAAAAAAAAAA
   file: captures/Pattern_Name_Charset_Full/033_CHAR_33.syx
   diff_summary:
     difference_count_vs_base: 6
@@ -922,10 +921,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -954,10 +951,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788
@@ -986,10 +981,8 @@ records:
     - 101835
     - 114113
     - 114114
-    unexpected_offsets_vs_base:
-    - 101482
-    - 101834
-    only_expected_offsets_changed: false
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
   decoded_values:
     primary_first_char:
       offset: 88788

@@ -6,9 +6,15 @@ analysis_folder: datasets/analysis/pattern_name_charset_full_20260526
 checks:
   primary_first_char_offset: 88788
   shadow_first_char_offset: 89096
+  first_char_control_offsets:
+  - 101482
+  - 101834
+  first_char_payload_offsets:
+  - 101483
+  - 101835
   checksum_offsets:
   - 114113
   - 114114
-  unexpected_offset_violations: 9
+  unexpected_offset_violations: 0
 conclusion:
-  only_expected_offsets_changed_for_all: false
+  only_expected_offsets_changed_for_all: true

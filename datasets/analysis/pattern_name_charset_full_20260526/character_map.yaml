@@ -26,13 +26,13 @@ character_map:
   X: '0x58'
   Y: '0x59'
   Z: '0x5A'
-  Â: '0xC5'
+  Å: '0xC5'
   Ä: '0xC4'
   Ö: '0xD6'
   Ü: '0xDC'
   ß: '0xDF'
   Æ: '0xC6'
-  Φ: '0xD8'
+  Ø: '0xD8'
   Ç: '0xC7'
   Ñ: '0xD1'
   '0': '0x30'
@@ -60,6 +60,8 @@ character_map:
   '-': '0x2D'
   '=': '0x3D'
   <space>: '0x20'
+supported_device_entry_characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÜßÆØÇÑ0123456789~!@#$%^&()_+-= '
 notes:
 - Value is decoded primary-field first-character byte in hex.
 - Key <space> denotes the leading space character.
+- Extended characters follow Latin-1 byte values in this dataset.

@@ -1,0 +1,29 @@
+pattern_name:
+  length: 16
+  storage:
+    encoding: single-byte Latin-1 compatible subset
+    packed_7bit: true
+  decoded_fields:
+    primary:
+      offset_start: 88788
+      offset_end: 88803
+    shadow:
+      offset_start: 89096
+      offset_end: 89111
+  supported_device_entry_characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖÜßÆØÇÑ0123456789~!@#$%^&()_+-= '
+  confirmed_character_encoding:
+    ASCII_range: ASCII byte value
+    extended:
+      Å: '0xC5'
+      Ä: '0xC4'
+      Ö: '0xD6'
+      Ü: '0xDC'
+      ß: '0xDF'
+      Æ: '0xC6'
+      Ø: '0xD8'
+      Ç: '0xC7'
+      Ñ: '0xD1'
+  checksum:
+    update_required: true
+  history_behavior:
+    edit_residue_after_return_to_same_name: false

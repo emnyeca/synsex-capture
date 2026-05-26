@@ -134,8 +134,8 @@ characters:
 - index: 27
   file: 027_CHAR_27.syx
   selector_order: 27
-  display_seen_on_device: Â
-  intended_name: ÂAAAAAAAAAAAAAAA
+  display_seen_on_device: Å
+  intended_name: ÅAAAAAAAAAAAAAAA
 - index: 28
   file: 028_CHAR_28.syx
   selector_order: 28
@@ -164,8 +164,8 @@ characters:
 - index: 33
   file: 033_CHAR_33.syx
   selector_order: 33
-  display_seen_on_device: Φ
-  intended_name: ΦAAAAAAAAAAAAAAA
+  display_seen_on_device: Ø
+  intended_name: ØAAAAAAAAAAAAAAA
 - index: 34
   file: 034_CHAR_34.syx
   selector_order: 34
