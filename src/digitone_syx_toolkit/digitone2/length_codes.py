@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from fractions import Fraction
+
 EXPLICIT_LENGTH_CODE_TO_DISPLAY = {
     0x00: ".125",
     0x01: ".188",
@@ -167,3 +169,35 @@ def parse_length_code(value: int | str) -> int:
     if code < 0x00 or code > 0x7F:
         raise ValueError(f"length code out of range: {code} (expected 0x00..0x7F)")
     return code
+
+
+def explicit_length_code_to_sixteenth_units(code: int) -> Fraction:
+    """Convert explicit length code to exact length in sixteenth-note units."""
+    if code < 0x00 or code > 0x7F:
+        raise ValueError(f"length code out of range: {code} (expected 0x00..0x7F)")
+
+    if code == 0x7F:
+        raise ValueError("INF (0x7F) does not map to finite sixteenth units")
+
+    if code <= 0x1E:
+        return Fraction(1, 8) + Fraction(code, 16)
+    if code <= 0x2E:
+        return Fraction(17, 8) + Fraction(code - 0x1F, 8)
+    if code <= 0x3E:
+        return Fraction(17, 4) + Fraction(code - 0x2F, 4)
+    if code <= 0x4E:
+        return Fraction(17, 2) + Fraction(code - 0x3F, 2)
+    if code <= 0x5E:
+        return Fraction(17, 1) + Fraction(code - 0x4F, 1)
+    if code <= 0x6E:
+        return Fraction(34, 1) + Fraction((code - 0x5F) * 2, 1)
+    return Fraction(68, 1) + Fraction((code - 0x6F) * 4, 1)
+
+
+def find_exact_length_code_for_sixteenth_units(units: Fraction) -> int | None:
+    """Find exact explicit finite code for a sixteenth-unit length, else None."""
+    target = Fraction(units)
+    for code in range(0x00, 0x7F):
+        if explicit_length_code_to_sixteenth_units(code) == target:
+            return code
+    return None
