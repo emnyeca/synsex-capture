@@ -40,9 +40,8 @@ def test_validate_accepts_supported_names(name: str):
     validate_pattern_name(name)
 
 
-def test_validate_rejects_too_long_name():
-    with pytest.raises(ValueError, match="exceeds 16"):
-        validate_pattern_name("ABCDEFGHIJKLMNOPQ")
+def test_validate_accepts_over_16_if_characters_supported():
+    validate_pattern_name("BLUE MOON SOLO LONG")
 
 
 @pytest.mark.parametrize("name", ["THEME/A", "THEME.A"])
@@ -56,6 +55,16 @@ def test_encode_uses_confirmed_null_padding():
     assert len(encoded) == PATTERN_NAME_MAX_CHARS
     assert encoded[:5] == b"INTRO"
     assert encoded[5:] == b"\x00" * 11
+
+
+def test_encode_truncates_over_16_chars_without_ellipsis():
+    encoded = encode_pattern_name_decoded_bytes("BLUE MOON SOLO LONG")
+    assert encoded == b"BLUE MOON SOLO L"
+
+
+def test_encode_rejects_unsupported_character_even_after_16th_position():
+    with pytest.raises(ValueError, match="Unsupported pattern name character"):
+        encode_pattern_name_decoded_bytes("ABCDEFGHIJKLMNOP/")
 
 
 def test_encode_extended_character_sequence():

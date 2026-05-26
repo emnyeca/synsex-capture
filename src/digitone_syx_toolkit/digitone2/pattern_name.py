@@ -30,11 +30,6 @@ def normalize_pattern_name(name: str) -> str:
 
 def validate_pattern_name(name: str) -> None:
     """Validate normalized pattern name against confirmed hardware constraints."""
-    if len(name) > PATTERN_NAME_MAX_CHARS:
-        raise ValueError(
-            f"Pattern name exceeds {PATTERN_NAME_MAX_CHARS} characters after normalization: {name!r}"
-        )
-
     for ch in name:
         if ch not in ALLOWED_PATTERN_NAME_CHARS:
             raise ValueError(f"Unsupported pattern name character: {ch!r} in {name!r}")
@@ -44,6 +39,8 @@ def encode_pattern_name_decoded_bytes(name: str) -> bytes:
     """Encode to exactly 16 decoded bytes using confirmed null-padding behavior."""
     normalized = normalize_pattern_name(name)
     validate_pattern_name(normalized)
+    if len(normalized) > PATTERN_NAME_MAX_CHARS:
+        normalized = normalized[:PATTERN_NAME_MAX_CHARS]
     encoded = normalized.encode("latin-1")
     if len(encoded) < PATTERN_NAME_MAX_CHARS:
         encoded += b"\x00" * (PATTERN_NAME_MAX_CHARS - len(encoded))

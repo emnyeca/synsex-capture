@@ -302,7 +302,7 @@ def test_load_event_assignment_yaml_keeps_beta_sharp_character(tmp_path: Path):
     assert parsed.name == "ß"
 
 
-def test_load_event_assignment_yaml_rejects_pattern_name_over_16_chars(tmp_path: Path):
+def test_load_event_assignment_yaml_truncates_pattern_name_over_16_chars(tmp_path: Path):
     yaml_path = tmp_path / "events_name_too_long.yaml"
     yaml_path.write_text(
         "version: 1\n"
@@ -317,7 +317,26 @@ def test_load_event_assignment_yaml_rejects_pattern_name_over_16_chars(tmp_path:
         encoding="utf-8",
     )
 
-    with pytest.raises(SyxFileError, match="exceeds 16"):
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.name == "BLUE MOON SOLO F"
+
+
+def test_load_event_assignment_yaml_rejects_unsupported_char_after_16th(tmp_path: Path):
+    yaml_path = tmp_path / "events_name_bad_after_16.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "name: ABCDEFGHIJKLMNOP/\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="Unsupported pattern name character"):
         load_event_assignment_yaml(yaml_path)
 
 

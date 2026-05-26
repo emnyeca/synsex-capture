@@ -9,7 +9,7 @@ import yaml
 
 from .digitone2.constants import DISPLAY_TO_EXPLICIT_LENGTH_CODE, LENGTH_CODE_MAP
 from .digitone2.length_codes import parse_length_code
-from .digitone2.pattern_name import normalize_pattern_name, validate_pattern_name
+from .digitone2.pattern_name import PATTERN_NAME_MAX_CHARS, normalize_pattern_name, validate_pattern_name
 from .errors import SyxFileError
 
 
@@ -123,6 +123,8 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             validate_pattern_name(name)
         except ValueError as exc:
             raise SyxFileError(str(exc)) from exc
+        if len(name) > PATTERN_NAME_MAX_CHARS:
+            name = name[:PATTERN_NAME_MAX_CHARS]
 
     device = str(payload.get("device", "digitone2")).strip().lower()
     if device != "digitone2":

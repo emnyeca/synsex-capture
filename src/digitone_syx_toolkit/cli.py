@@ -21,7 +21,7 @@ from .gui import run_gui
 from .hexview import hex_dump_file
 from .logging_utils import configure_logging
 from .midi import list_input_ports, list_output_ports, resolve_port_name
-from .replay import replay_sysex
+from .replay import replay_sysex, replay_sysex_bundle, replay_sysex_files
 from .syx import load_syx_file, save_syx_file
 
 LOG = logging.getLogger("digitone_syx_toolkit")
@@ -45,7 +45,10 @@ def _build_parser() -> argparse.ArgumentParser:
 
     replay_p = sub.add_parser("replay", help="Replay .syx file to an output port")
     replay_p.add_argument("--out-port", required=True, help="Output port name or 1-based index")
-    replay_p.add_argument("--file", required=True, help="Input .syx file")
+    replay_group = replay_p.add_mutually_exclusive_group(required=True)
+    replay_group.add_argument("--file", help="Input .syx file (single or concatenated bundle)")
+    replay_group.add_argument("--bundle", help="Input concatenated bundle .syx file")
+    replay_group.add_argument("--files", nargs="+", help="Ordered list of .syx files to send")
     replay_p.add_argument("--delay-ms", type=float, default=0.0, help="Inter-message delay (ms)")
 
     diff_p = sub.add_parser("diff", help="Compare two .syx files")
@@ -125,6 +128,26 @@ def _cmd_capture(args: argparse.Namespace) -> int:
 
 def _cmd_replay(args: argparse.Namespace) -> int:
     out_port = resolve_port_name(list_output_ports(), args.out_port)
+    if args.files:
+        sent = replay_sysex_files(
+            out_port_name=out_port,
+            syx_files=args.files,
+            delay_ms=args.delay_ms,
+            logger=LOG,
+        )
+        LOG.info("Replay batch finished: sent=%d files=%d", sent, len(args.files))
+        return 0
+
+    if args.bundle:
+        sent = replay_sysex_bundle(
+            out_port_name=out_port,
+            bundle_syx_file=args.bundle,
+            delay_ms=args.delay_ms,
+            logger=LOG,
+        )
+        LOG.info("Replay bundle finished: sent=%d bundle=%s", sent, args.bundle)
+        return 0
+
     messages = load_syx_file(args.file)
     sent = replay_sysex(out_port_name=out_port, messages=messages, delay_ms=args.delay_ms, logger=LOG)
     LOG.info("Replay finished: sent=%d file=%s", sent, args.file)
