@@ -34,6 +34,7 @@ from .constants import (
     TRIGGER_SLOT0_PAYLOAD_INDEX,
 )
 from .packing import repack_7bit_region, set_packed_byte, set_trigger_packed_byte, unpack_7bit_region
+from .pattern_name import write_pattern_name
 from .step_state import write_events_step_state
 from .template import load_base_empty_template
 
@@ -110,6 +111,8 @@ def _set_step_state_table(data: bytearray, assignment: EventAssignment) -> None:
         start=CHECKSUM_SUM_START,
         end_exclusive=CHECKSUM_SUM_END,
     )
+    if assignment.name is not None:
+        write_pattern_name(decoded_payload, assignment.name)
     write_events_step_state(decoded_payload, assignment.events)
     repack_7bit_region(
         data,

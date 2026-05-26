@@ -29,6 +29,7 @@
 | Pattern tempo | [analysis](pattern-tempo/analysis.ja.md) | [spec](pattern-tempo/spec.yaml) |
 | Pattern speed | [analysis](pattern-speed/analysis.ja.md) | [spec](pattern-speed/spec.yaml) |
 | Pattern total steps | [analysis](pattern-total-steps/analysis.ja.md) | [spec](pattern-total-steps/spec.yaml) |
+| Pattern name | [analysis](pattern-name/analysis.ja.md) | [spec](pattern-name/spec.yaml) |
 | Pattern-wide / per-track mode | [analysis](pattern-step-mode/analysis.ja.md) | [spec](pattern-step-mode/spec.yaml) |
 | Total steps expansion / hide-reshow behavior | [analysis](pattern-total-steps-propagation/analysis.ja.md) | [spec](pattern-total-steps-propagation/spec.yaml) |
 

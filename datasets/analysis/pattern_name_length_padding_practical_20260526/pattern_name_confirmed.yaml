@@ -1,0 +1,18 @@
+analysis_id: pattern_name_length_padding_practical_20260526
+status: confirmed
+confirmed:
+  - id: decoded_offsets
+    value:
+      primary_start: 88788
+      primary_end: 88803
+      shadow_start: 89096
+      shadow_end: 89111
+  - id: mirror_behavior
+    value: primary_and_shadow_always_equal
+    coverage_cases: 28
+  - id: short_name_padding
+    value: null_padding_0x00
+    examples: [2, 3, 4, 5, 28]
+  - id: extended_sequence
+    value: "C5 C4 D6 DC DF C6 D8 C7 D1"
+    case: 24

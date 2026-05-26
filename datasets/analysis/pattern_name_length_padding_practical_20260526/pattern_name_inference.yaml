@@ -1,0 +1,12 @@
+analysis_id: pattern_name_length_padding_practical_20260526
+status: inferred
+inference:
+  - id: toolkit_normalization_policy
+    statement: ASCII lowercase should be normalized to uppercase before validation/write.
+    rationale: Device-facing names are observed as uppercase-centered; practical naming requires tolerant input.
+  - id: allowed_charset_boundary
+    statement: Reject characters outside confirmed set instead of lossy substitution.
+    rationale: Avoid writing unverified byte patterns into packed name region.
+  - id: omitted_name_policy
+    statement: If name is omitted, keep template name bytes unchanged.
+    rationale: Preserve existing behavior for trigger-only patch workflows.

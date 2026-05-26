@@ -124,6 +124,7 @@ GUIの解析手順は以下を参照:
 生成時に自動で行う処理:
 
 - 内蔵空 PATTERN テンプレートの読み込み
+- top-level `name` があれば Pattern Name を正規化/検証して primary/shadow へ書き込み（未指定時はテンプレート名を維持）
 - PATTERN-wide mode の設定
 - Tempo / SPEED / total steps の設定
 - Trigger slot array への record 配置
@@ -161,6 +162,7 @@ GUIの解析手順は以下を参照:
 ```yaml
 version: 1
 device: digitone2
+name: "Blue Moon A"
 
 pattern:
   mode: pattern-wide

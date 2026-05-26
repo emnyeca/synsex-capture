@@ -1,0 +1,52 @@
+pattern_name:
+  status: confirmed
+  max_characters: 16
+
+  decoded_fields:
+    primary:
+      start: 88788
+      length: 16
+    shadow:
+      start: 89096
+      length: 16
+
+  encoding:
+    type: latin_1_single_byte_subset
+    allowed_user_entry_characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ\u00c5\u00c4\u00d6\u00dc\u00df\u00c6\u00d8\u00c7\u00d10123456789~!@#$%^&()_+-= "
+    extended_character_codes:
+      "\u00c5": 0xC5
+      "\u00c4": 0xC4
+      "\u00d6": 0xD6
+      "\u00dc": 0xDC
+      "\u00df": 0xDF
+      "\u00c6": 0xC6
+      "\u00d8": 0xD8
+      "\u00c7": 0xC7
+      "\u00d1": 0xD1
+
+  padding:
+    behavior: null_padding
+    decoded_byte: 0x00
+
+  spaces:
+    internal_preserved: true
+    leading_preserved: true
+    trailing_preserved: true
+    evidence_note: "Hardware UI observation confirmed; decode cases 008/009/010 are explicitly included in analysis.ja.md."
+
+  packing:
+    packed_7bit: true
+    msb_control_changes_for_extended_characters: true
+
+  checksum:
+    update_required: true
+
+  history:
+    edit_residue_observed: false
+
+future_import_behavior:
+  - Multiple Pattern SYX messages can be received consecutively.
+  - Patterns are placed sequentially from the destination start slot selected on the device.
+  - Export source slot information does not determine import destination.
+  - Receiving into the same destination slot overwrites it.
+  - Future Pattern Bundle generation does not require embedding destination slot data.

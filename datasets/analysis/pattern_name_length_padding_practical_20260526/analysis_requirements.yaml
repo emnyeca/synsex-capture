@@ -26,11 +26,11 @@ validation_requirements:
     case: "A"
     primary_decoded_bytes:
     - "0x41"
-    - "0x20"
+    - "0x00"
     shadow_decoded_bytes:
     - "0x41"
-    - "0x20"
-    decoded_text_latin1: "A               "
+    - "0x00"
+    decoded_text_latin1: "A\\x00..."
 
 - id: primary_shadow_mirror
   requirement: primary 16 decoded bytes must equal shadow 16 decoded bytes in every case.
@@ -52,7 +52,7 @@ validation_requirements:
 
 implementation_decision_table:
 - observed: space padding
-  encoder_rule: name.ljust(16, " ")
+  encoder_rule: rejected
 - observed: null padding
   encoder_rule: name + b"\x00" * remaining
 - observed: separate length field

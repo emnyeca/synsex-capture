@@ -32,6 +32,7 @@ def test_load_event_assignment_yaml_valid(tmp_path: Path):
     )
 
     parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.name == "TEST"
     assert parsed.pattern.total_steps == 16
     assert len(parsed.events) == 2
     assert parsed.events[0].note_midi == 60
@@ -261,3 +262,79 @@ def test_load_event_assignment_yaml_accepts_all_explicit_length_codes(tmp_path: 
         )
         parsed = load_event_assignment_yaml(yaml_path)
         assert parsed.events[0].length_code == code
+
+
+def test_load_event_assignment_yaml_normalizes_pattern_name_ascii_case(tmp_path: Path):
+    yaml_path = tmp_path / "events_name_normalized.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "name: Blue Moon A\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.name == "BLUE MOON A"
+
+
+def test_load_event_assignment_yaml_keeps_beta_sharp_character(tmp_path: Path):
+    yaml_path = tmp_path / "events_name_beta.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "name: ß\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.name == "ß"
+
+
+def test_load_event_assignment_yaml_rejects_pattern_name_over_16_chars(tmp_path: Path):
+    yaml_path = tmp_path / "events_name_too_long.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "name: BLUE MOON SOLO FORM\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="exceeds 16"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_pattern_name_unsupported_char(tmp_path: Path):
+    yaml_path = tmp_path / "events_name_bad_char.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "name: THEME/A\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="Unsupported pattern name character"):
+        load_event_assignment_yaml(yaml_path)
