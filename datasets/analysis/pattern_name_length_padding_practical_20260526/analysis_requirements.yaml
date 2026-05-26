@@ -1,0 +1,61 @@
+analysis_id: pattern_name_length_padding_practical_20260526
+analysis: pattern_name_length_padding_practical
+fixed_context:
+  project_number: "002"
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: "1"
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none
+  midi_ports_output_to: USB
+
+name_field_offsets_decoded:
+  primary:
+    offset_start: 88788
+    offset_end: 88803
+  shadow:
+    offset_start: 89096
+    offset_end: 89111
+
+validation_requirements:
+- id: padding_behavior
+  requirement: For short names, print full decoded 16-byte arrays for both primary and shadow.
+  expected_output_shape:
+    case: "A"
+    primary_decoded_bytes:
+    - "0x41"
+    - "0x20"
+    shadow_decoded_bytes:
+    - "0x41"
+    - "0x20"
+    decoded_text_latin1: "A               "
+
+- id: primary_shadow_mirror
+  requirement: primary 16 decoded bytes must equal shadow 16 decoded bytes in every case.
+
+- id: allowed_diff_scope
+  requirement: No changes outside Name-related packed data and checksum fields.
+  allowed_categories:
+  - primary name-region packed payload bytes
+  - primary name-region packed control bytes
+  - shadow name-region packed payload bytes
+  - shadow name-region packed control bytes
+  - checksum field bytes
+  notes:
+  - Control-byte deltas are expected whenever any decoded name byte in a packed group has bit7 set.
+  - Extended chars (0x80+) therefore legitimately change control bytes in both primary and shadow groups.
+
+- id: extended_sequence
+  requirement: Case 024 must decode to C5 C4 D6 DC DF C6 D8 C7 D1 in both primary and shadow.
+
+implementation_decision_table:
+- observed: space padding
+  encoder_rule: name.ljust(16, " ")
+- observed: null padding
+  encoder_rule: name + b"\x00" * remaining
+- observed: separate length field
+  encoder_rule: add dedicated length-field handling
+- observed: trim only
+  encoder_rule: normalize input/output behavior on EUB Changes side

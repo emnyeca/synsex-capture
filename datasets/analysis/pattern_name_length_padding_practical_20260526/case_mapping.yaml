@@ -1,0 +1,175 @@
+experiment: pattern_name_length_padding_practical_20260526
+base_file: captures/Pattern_Name_Length_Padding_Practical/001_CASE_001.syx
+notes:
+- File names are canonicalized by case number only.
+- pattern_name_entered is the intended on-device name.
+- pattern_name_entered_hex_16_bytes is the exact 16-byte Latin-1 sequence used for unambiguous whitespace handling.
+
+cases:
+- index: 1
+  file: 001_CASE_001.syx
+  pattern_name_entered: "AAAAAAAAAAAAAAAA"
+  pattern_name_entered_hex_16_bytes: "41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41"
+  purpose: 16-character baseline
+
+- index: 2
+  file: 002_CASE_002.syx
+  pattern_name_entered: "A"
+  pattern_name_entered_hex_16_bytes: "41"
+  purpose: padding after one character
+
+- index: 3
+  file: 003_CASE_003.syx
+  pattern_name_entered: "AB"
+  pattern_name_entered_hex_16_bytes: "41 42"
+  purpose: padding after two characters
+
+- index: 4
+  file: 004_CASE_004.syx
+  pattern_name_entered: "ABC"
+  pattern_name_entered_hex_16_bytes: "41 42 43"
+  purpose: padding after three characters
+
+- index: 5
+  file: 005_CASE_005.syx
+  pattern_name_entered: "AAAAAAAAAAAAAAA"
+  pattern_name_entered_hex_16_bytes: "41 41 41 41 41 41 41 41 41 41 41 41 41 41 41"
+  purpose: 15-character tail-byte behavior
+
+- index: 6
+  file: 006_CASE_006.syx
+  pattern_name_entered: "A B"
+  pattern_name_entered_hex_16_bytes: "41 20 42"
+  purpose: preserve inner space
+
+- index: 7
+  file: 007_CASE_007.syx
+  pattern_name_entered: "AB CD"
+  pattern_name_entered_hex_16_bytes: "41 42 20 43 44"
+  purpose: multi-word spacing
+
+- index: 8
+  file: 008_CASE_008.syx
+  pattern_name_entered: "               A"
+  pattern_name_entered_hex_16_bytes: "20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 41"
+  purpose: leading-space fill
+
+- index: 9
+  file: 009_CASE_009.syx
+  pattern_name_entered: "A               "
+  pattern_name_entered_hex_16_bytes: "41 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20"
+  purpose: trailing-space fill
+
+- index: 10
+  file: 010_CASE_010.syx
+  pattern_name_entered: "       A        "
+  pattern_name_entered_hex_16_bytes: "20 20 20 20 20 20 20 41 20 20 20 20 20 20 20 20"
+  purpose: both-side space fill
+
+- index: 11
+  file: 011_CASE_011.syx
+  pattern_name_entered: "INTRO"
+  pattern_name_entered_hex_16_bytes: "49 4E 54 52 4F"
+  purpose: practical bundle label
+
+- index: 12
+  file: 012_CASE_012.syx
+  pattern_name_entered: "THEME"
+  pattern_name_entered_hex_16_bytes: "54 48 45 4D 45"
+  purpose: practical bundle label
+
+- index: 13
+  file: 013_CASE_013.syx
+  pattern_name_entered: "THEME A"
+  pattern_name_entered_hex_16_bytes: "54 48 45 4D 45 20 41"
+  purpose: practical bundle label
+
+- index: 14
+  file: 014_CASE_014.syx
+  pattern_name_entered: "THEME B"
+  pattern_name_entered_hex_16_bytes: "54 48 45 4D 45 20 42"
+  purpose: practical bundle label
+
+- index: 15
+  file: 015_CASE_015.syx
+  pattern_name_entered: "BRIDGE"
+  pattern_name_entered_hex_16_bytes: "42 52 49 44 47 45"
+  purpose: practical bundle label
+
+- index: 16
+  file: 016_CASE_016.syx
+  pattern_name_entered: "SOLO"
+  pattern_name_entered_hex_16_bytes: "53 4F 4C 4F"
+  purpose: practical bundle label
+
+- index: 17
+  file: 017_CASE_017.syx
+  pattern_name_entered: "SOLO 1"
+  pattern_name_entered_hex_16_bytes: "53 4F 4C 4F 20 31"
+  purpose: practical bundle label
+
+- index: 18
+  file: 018_CASE_018.syx
+  pattern_name_entered: "ENDING"
+  pattern_name_entered_hex_16_bytes: "45 4E 44 49 4E 47"
+  purpose: practical bundle label
+
+- index: 19
+  file: 019_CASE_019.syx
+  pattern_name_entered: "BLUE MOON"
+  pattern_name_entered_hex_16_bytes: "42 4C 55 45 20 4D 4F 4F 4E"
+  purpose: song title
+
+- index: 20
+  file: 020_CASE_020.syx
+  pattern_name_entered: "BLUE MOON A"
+  pattern_name_entered_hex_16_bytes: "42 4C 55 45 20 4D 4F 4F 4E 20 41"
+  purpose: song title plus section
+
+- index: 21
+  file: 021_CASE_021.syx
+  pattern_name_entered: "BLUE MOON SOLO"
+  pattern_name_entered_hex_16_bytes: "42 4C 55 45 20 4D 4F 4F 4E 20 53 4F 4C 4F"
+  purpose: around 14 chars readability check
+
+- index: 22
+  file: 022_CASE_022.syx
+  pattern_name_entered: "1234567890123456"
+  pattern_name_entered_hex_16_bytes: "31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36"
+  purpose: 16-char numeric upper bound
+
+- index: 23
+  file: 023_CASE_023.syx
+  pattern_name_entered: "ABCDEFGHIJKLMNOP"
+  pattern_name_entered_hex_16_bytes: "41 42 43 44 45 46 47 48 49 4A 4B 4C 4D 4E 4F 50"
+  purpose: 16-char alphabetic upper bound
+
+- index: 24
+  file: 024_CASE_024.syx
+  pattern_name_entered: "ÅÄÖÜßÆØÇÑ"
+  pattern_name_entered_hex_16_bytes: "C5 C4 D6 DC DF C6 D8 C7 D1"
+  purpose: contiguous extended-character storage
+
+- index: 25
+  file: 025_CASE_025.syx
+  pattern_name_entered: "ÅNGSTRÖM"
+  pattern_name_entered_hex_16_bytes: "C5 4E 47 53 54 52 D6 4D"
+  purpose: practical mixed extended plus ASCII
+
+- index: 26
+  file: 026_CASE_026.syx
+  pattern_name_entered: "THEME_A-01"
+  pattern_name_entered_hex_16_bytes: "54 48 45 4D 45 5F 41 2D 30 31"
+  purpose: practical symbol-containing candidate
+
+- index: 27
+  file: 027_CASE_027.syx
+  pattern_name_entered: "SOLO+ENDING"
+  pattern_name_entered_hex_16_bytes: "53 4F 4C 4F 2B 45 4E 44 49 4E 47"
+  purpose: practical symbol-containing candidate
+
+- index: 28
+  file: 028_CASE_028.syx
+  pattern_name_entered: "A"
+  pattern_name_entered_hex_16_bytes: "41"
+  purpose: return to short name for residue re-check
