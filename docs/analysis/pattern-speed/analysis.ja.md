@@ -1,8 +1,8 @@
-# PATTERN SPEED 解析結果
+﻿# PATTERN SPEED 解析結果
 
 ## 目的
 
-PATTERN SPEEDの保存fieldと列挙コードを特定し、Harmony Cloudが使用する `1/8` の書き込み値、およびTriggerへの波及を確認する。
+PATTERN SPEEDの保存fieldと列挙コードを特定し、EUB Changesが使用する `1/8` の書き込み値、およびTriggerへの波及を確認する。
 
 ## 実験系列
 
@@ -28,9 +28,9 @@ PATTERN SPEEDはphysical offset `101512` の列挙コードである。
 
 `3/4` と `3/2` は付点ではなく、基準 `1` に対する倍率から三連系のステップ幅として解釈するのが整合する。
 
-## Harmony Cloudでの利用値
+## EUB Changesでの利用値
 
-Harmony Cloudでは、全体Step数節約のため基本的に `SPEED = 1/8` を使用する。書き込み値は `0x06` である。
+EUB Changesでは、全体Step数節約のため基本的に `SPEED = 1/8` を使用する。書き込み値は `0x06` である。
 
 4/4拍子の場合、`SPEED = 1/8` では1小節が2 stepsになる。
 
@@ -44,3 +44,4 @@ Harmony Cloudでは、全体Step数節約のため基本的に `SPEED = 1/8` を
 ## Triggerへの波及
 
 Step 1 / C5 Triggerありで `1 → 1/8 → 1` を行った比較では、SPEED fieldとintegrity候補以外は変化しなかった。通常Trigger recordとStep state領域は不変である。
+

@@ -1,8 +1,8 @@
-# Digitone II Pattern SysEx 解析結果 — 対象別ドキュメント
+﻿# Digitone II Pattern SysEx 解析結果 — 対象別ドキュメント
 
 ## このディレクトリの位置づけ
 
-このディレクトリは、Harmony Cloud が Digitone II 向け Pattern SysEx を生成するために必要な範囲の解析結果を、解析対象ごとに整理したものです。
+このディレクトリは、EUB Changes が Digitone II 向け Pattern SysEx を生成するために必要な範囲の解析結果を、解析対象ごとに整理したものです。
 
 解析の正本は、実機から取得した `.syx` と、そのバイナリ比較結果です。`datasets/analysis/` に含まれる `summary.yaml`、`*_confirmed.yaml`、`*_inference.yaml` は解析補助として参照しますが、それ自体を仕様の根拠とはしません。本文および `spec.yaml` では、制御された比較実験で確認できた事項と、まだ仮説に留まる事項を区別しています。
 
@@ -13,7 +13,7 @@
 | `confirmed` | 制御実験の差分で特定済み |
 | `observed` | 該当実験で観測済みだが一般化は限定的 |
 | `inferred` | 観測から有力だが追加確認余地あり |
-| `out_of_scope` | Harmony Cloud の現在用途では追跡しない |
+| `out_of_scope` | EUB Changes の現在用途では追跡しない |
 
 ## 解析対象一覧
 
@@ -44,7 +44,7 @@
 | PATTERN名 | `UNTITLED` |
 | MIDI PORTS / OUTPUT TO | `USB` |
 
-## Harmony Cloud に必要な確定事項の要約
+## EUB Changes に必要な確定事項の要約
 
 | 項目 | 確定内容 |
 |---|---|
@@ -60,6 +60,12 @@
 | Pattern speed | offset `101512`、列挙コード |
 | Pattern total steps mode | offset `101511`、wide=`0x00`、per-track=`0x01` |
 | Pattern-wide total steps | offset `101507` と各Track値の同期更新 |
+
+補足（Length full sweep 2026-05-26）:
+`0x00..0x7E` の実機表示読み取りは127件を確認し、全域対応表を確定。
+不足していた `1.88` を補完後、重複なし・順序整合・既知アンカー整合を確認済み。
+確定データセットは `datasets/analysis/length_field_20260526/` に集約し、
+EUB Changes 側の duration->Digitone Length 変換で利用可能。
 
 ## 実装反映状況（2026-05時点）
 
@@ -80,3 +86,4 @@
 ## 未完了の解析
 
 Checksum / integrity field については、変更済みraw byteの加算差分が `114113–114114` に追随する観測が蓄積されています。現実装では `sum(data[10:114113]) % 16384` を用いて再計算していますが、加算対象範囲と完全再計算式の最終確定は継続課題です。Checksum解析完了後に確定仕様として追記します。
+

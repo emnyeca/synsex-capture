@@ -2,6 +2,12 @@
 
 from __future__ import annotations
 
+from .length_codes import (
+    DISPLAY_TO_EXPLICIT_LENGTH_CODE,
+    EXPLICIT_LENGTH_CODE_TO_DISPLAY,
+    LEGACY_LENGTH_ALIAS_TO_CODE,
+)
+
 SPEED_CODE_MAP = {
     "2": 0x00,
     "3/2": 0x01,
@@ -12,20 +18,8 @@ SPEED_CODE_MAP = {
     "1/8": 0x06,
 }
 
-LENGTH_CODE_MAP = {
-    "0.125": 0x00,
-    "0.25": 0x02,
-    "0.5": 0x06,
-    "1": 0x0E,
-    "2": 0x1E,
-    "4": 0x2E,
-    "8": 0x3E,
-    "16": 0x4E,
-    "32": 0x5E,
-    "64": 0x6E,
-    "128": 0x7E,
-    "INF": 0x7F,
-}
+# Backward-compatibility alias name used by existing builder code/tests.
+LENGTH_CODE_MAP = LEGACY_LENGTH_ALIAS_TO_CODE
 
 SUPPORTED_TRACK_MIN = 1
 SUPPORTED_TRACK_MAX = 8

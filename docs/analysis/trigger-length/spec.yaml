@@ -1,5 +1,5 @@
 analysis_target: trigger_length_and_track_default
-status: confirmed_for_track1_slot1
+status: confirmed_for_full_code_range_0x00_to_0x7E
 track_default_length:
   physical_offset: 1334
   observed_codes:
@@ -9,6 +9,10 @@ track_default_length:
 trigger_length:
   decoded_record_byte: 4
   physical_payload_offset_for_slot_1: 21725
+  decoded_semantics:
+    inherit_track_default: "0xFF"
+    explicit_inf: "0x7F"
+    explicit_finite_range: "0x00..0x7E"
   encoding:
     inherit_track_default: "0xFF"
     explicit_codes:
@@ -29,3 +33,12 @@ behavior:
   explicit_value_survives_track_default_change: true
   deleted_slot_may_retain_attribute_payload: true
 packing_note: "Raw payload 0x7F is ambiguous until unpacked: decoded 0xFF means inherit, decoded 0x7F means explicit INF."
+full_sweep_observation_20260526:
+  target_code_range: "0x00..0x7E"
+  observed_entries: 127
+  expected_entries: 127
+  duplicate_entries: 0
+  monotonic_order: true
+  dataset: "datasets/analysis/length_field_20260526/length_display_sweep_confirmed_20260526.yaml"
+  observed_dataset_initial_transcription: "datasets/analysis/length_field_20260526/length_display_sweep_observed_20260526.yaml"
+  conclusion: "full code->display mapping confirmed after adding 1.88 between 1.81 and 1.94; prior sparse map is superseded"

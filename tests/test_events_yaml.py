@@ -156,3 +156,108 @@ def test_load_event_assignment_yaml_rejects_step_over_total_steps(tmp_path: Path
 
     with pytest.raises(SyxFileError, match="1..16"):
         load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_accepts_length_code_hex(tmp_path: Path):
+    yaml_path = tmp_path / "events_length_code.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length_code: \"0x26\"\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.events[0].length_code == 0x26
+
+
+def test_load_event_assignment_yaml_accepts_length_mapping_code(tmp_path: Path):
+    yaml_path = tmp_path / "events_length_mapping.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length:\n"
+        "      code: \"0x7F\"\n"
+        "      display: \"INF\"\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.events[0].length_code == 0x7F
+
+
+def test_load_event_assignment_yaml_rejects_length_code_over_0x7f(tmp_path: Path):
+    yaml_path = tmp_path / "events_length_code_bad.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length_code: \"0x80\"\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="out of range"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_accepts_all_explicit_length_codes(tmp_path: Path):
+    events = "".join(
+        (
+            "  - step: 1\n"
+            "    track: 1\n"
+            "    note: C5\n"
+            "    velocity: inherit\n"
+            f"    length_code: \"0x{code:02X}\"\n"
+        )
+        for code in range(0x80)
+    )
+    # only one event per file due duplicate-step-track constraint
+    for code in range(0x80):
+        yaml_path = tmp_path / f"events_code_{code:02X}.yaml"
+        yaml_path.write_text(
+            "version: 1\n"
+            "device: digitone2\n"
+            "pattern:\n"
+            "  mode: pattern-wide\n"
+            "  tempo: 120\n"
+            "  speed: 1/8\n"
+            "  total_steps: 16\n"
+            "events:\n"
+            "  - step: 1\n"
+            "    track: 1\n"
+            "    note: C5\n"
+            "    velocity: inherit\n"
+            f"    length_code: \"0x{code:02X}\"\n",
+            encoding="utf-8",
+        )
+        parsed = load_event_assignment_yaml(yaml_path)
+        assert parsed.events[0].length_code == code

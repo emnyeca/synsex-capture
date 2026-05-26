@@ -1,4 +1,4 @@
-# Trigger Track別 Step state table 解析結果
+﻿# Trigger Track別 Step state table 解析結果
 
 ## 目的
 
@@ -154,7 +154,7 @@ even step -> [0x03, 0x91]
 
 `vs_step1_to_03/05/07/09/11/13` は `difference_count: 0`。本系列では empty snapshot が byte-identical に戻ることを確認した。
 
-## 7. Harmony Cloud 実装への含意
+## 7. EUB Changes 実装への含意
 
 Track 1〜8 / Step 1〜128 / 通常Trigger / 1step1trigger の範囲では、Step state 物理offsetの個別収集は不要。
 
@@ -172,3 +172,4 @@ Track 1〜8 / Step 1〜128 / 通常Trigger / 1step1trigger の範囲では、Ste
 - Trig Condition / Probability
 - Micro Timing
 - Track別 default Velocity / Length 書き換え
+

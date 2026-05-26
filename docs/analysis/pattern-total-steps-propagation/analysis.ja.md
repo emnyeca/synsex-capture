@@ -1,8 +1,8 @@
-# PATTERN総STEP変更とTrigger表示・拡張複製の観測
+﻿# PATTERN総STEP変更とTrigger表示・拡張複製の観測
 
 ## 位置づけ
 
-本項目は、実機UI上で既存Triggerを含むPATTERNの総STEPを変更したときの挙動を記録する。Harmony Cloudは完成状態のSYXを一括生成するため、この操作履歴互換を生成ロジックの要件とはしない。
+本項目は、実機UI上で既存Triggerを含むPATTERNの総STEPを変更したときの挙動を記録する。EUB Changesは完成状態のSYXを一括生成するため、この操作履歴互換を生成ロジックの要件とはしない。
 
 ## 実験系列
 
@@ -34,11 +34,11 @@ Step 1 / C5のみを持つ総STEP16の状態から総STEP64へ拡張した比較
 
 実機上の追加確認により、総ステップが `16 * n` のとき、step `a` に書き込まれたTriggerは、総ステップ延長時に少なくとも `a + 16 * n` の位置へ拡張複製される挙動が確認された。
 
-操作順や延長幅による詳細な反復規則は、Harmony Cloud用途では追跡しない。
+操作順や延長幅による詳細な反復規則は、EUB Changes用途では追跡しない。
 
-## Harmony Cloudへの結論
+## EUB Changesへの結論
 
-Harmony Cloudでは、総STEP変更を実機の逐次編集操作として模倣しない。生成順は次で固定する。
+EUB Changesでは、総STEP変更を実機の逐次編集操作として模倣しない。生成順は次で固定する。
 
 ```text
 1. PATTERN-wide modeを設定
@@ -49,3 +49,4 @@ Harmony Cloudでは、総STEP変更を実機の逐次編集操作として模倣
 ```
 
 既存Triggerを書き込んだ後で総STEPを拡張する生成処理は避ける。
+

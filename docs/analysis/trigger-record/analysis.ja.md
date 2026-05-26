@@ -1,4 +1,4 @@
-# Trigger record / slot allocation 解析結果
+﻿# Trigger record / slot allocation 解析結果
 
 ## 目的
 
@@ -98,7 +98,7 @@ Trigger追加時にはrecord領域に加え、ファイル前方のStep対応領
 
 新規生成では、完成状態のTrigger群を決定的な任意順序で空きslotへ配置できる可能性が高い。ただし、既存SYXを編集して実機の編集履歴互換を保つ場合は、削除時に前詰めせず、最若空きslotを再利用する挙動を再現する必要がある。
 
-現在のHarmony Cloud用途では、空テンプレートからの一括生成を前提とし、アプリ側で配置順を固定する設計が扱いやすい。
+現在のEUB Changes用途では、空テンプレートからの一括生成を前提とし、アプリ側で配置順を固定する設計が扱いやすい。
 
 ## 未確定事項
 
@@ -107,3 +107,4 @@ Trigger追加時にはrecord領域に加え、ファイル前方のStep対応領
 - Track 9以降の Track index / Step state 挙動
 - Step state領域の一般的なoffset計算式
 - Trigger slot領域の最大slot数
+

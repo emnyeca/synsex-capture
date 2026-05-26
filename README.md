@@ -1,4 +1,4 @@
-# digitone-syx-toolkit
+﻿# digitone-syx-toolkit
 
 Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI 経由の SysEx を扱う CLI デバッグツールです。
 
@@ -62,12 +62,12 @@ digitone_syx_toolkit gui
 ```
 
 ```bash
-digitone_syx_toolkit validate_events --file ../harmony-cloud/examples/blue_moon.events.yaml
+digitone_syx_toolkit validate_events --file ../eub-changes/examples/blue_moon.events.yaml
 ```
 
 ```bash
 digitone_syx_toolkit build_from_events \
-  --events ../harmony-cloud/examples/blue_moon.events.yaml
+  --events ../eub-changes/examples/blue_moon.events.yaml
 ```
 
 `--output` を省略した場合は、`captures/generated/<eventsファイル名>.syx` に保存されます。
@@ -193,7 +193,40 @@ events:
 
 - `velocity: inherit` と `velocity: 100` は内部表現が異なります。
 - `length: inherit` と `length: "1"` も内部表現が異なります。
+- canonical な low-level 指定として `length_code` も使用できます（`0x00..0x7F`）。
 - `tracks:` セクションは初期対応範囲外のため validation error になります。
+
+Length canonical 指定例:
+
+```yaml
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length_code: "0x26"
+```
+
+または:
+
+```yaml
+events:
+  - step: 2
+    track: 1
+    note: C5
+    velocity: inherit
+    length:
+      code: "0x7F"
+      display: "INF"
+```
+
+Lengthのdecoded semantics:
+
+- `inherit = 0xFF`
+- `explicit INF = 0x7F`
+- `explicit finite = 0x00..0x7E`
+
+注意: `length: "1"` など既存aliasは後方互換のため維持しています（意味変更なし）。
 
 ### 生成済み実機試験ファイル
 
@@ -201,6 +234,32 @@ events:
 
 - `captures/generated/trial1_minimal_trigger.syx`
 - `captures/generated/trial2_page_track_cross.syx`
+- `captures/generated/trial3_same_track_multiple_trigger.syx`
+- `captures/generated/trial4_multiple_track_multiple_trigger_noninherit.syx`
+
+### Hardware-Validated Scope
+
+確認済み:
+
+- Device: Digitone II
+- Pattern mode: PATTERN-wide
+- Tracks: 1..8
+- Steps: 1..128
+- Normal trigger
+- Multiple tracks / multiple trigger slots
+- Pitch
+- Velocity: inherit / explicit
+- Length: inherit / explicit / INF
+- Tempo / Speed / Total steps
+- Page boundary and maximum step
+- SysEx generation and hardware import/send
+
+対象外:
+
+- Chord（同一track + 同一stepの複数note）
+- Track default value rewriting
+- Condition / Probability / Micro Timing / Retrig
+- Existing pattern non-destructive editing
 
 ### Capture Metadata (YAML)
 
@@ -265,3 +324,4 @@ tests/
 
 - 将来 GUI (Tkinter など) へ移行しやすいよう、CLI とロジックを分離しています。
 - MVP 優先で `list_ports`/`capture`/`replay` を先に成立させ、`diff`/`view`/YAML 出力を続けて実装しています。
+

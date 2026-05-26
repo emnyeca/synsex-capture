@@ -1,0 +1,643 @@
+version: 1
+device: digitone2
+pattern:
+  mode: pattern-wide
+  tempo: 120
+  speed: "1"
+  total_steps: 128
+events:
+  - track: 1
+    step: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 2
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 3
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 4
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 5
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 6
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 7
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 8
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 9
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 10
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 11
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 12
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 13
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 14
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 15
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 16
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 17
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 18
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 19
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 20
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 21
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 22
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 23
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 24
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 25
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 26
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 27
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 28
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 29
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 30
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 31
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 32
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 33
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 34
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 35
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 36
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 37
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 38
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 39
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 40
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 41
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 42
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 43
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 44
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 45
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 46
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 47
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 48
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 49
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 50
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 51
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 52
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 53
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 54
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 55
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 56
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 57
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 58
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 59
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 60
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 61
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 62
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 63
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 64
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 65
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 66
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 67
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 68
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 69
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 70
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 71
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 72
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 73
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 74
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 75
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 76
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 77
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 78
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 79
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 80
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 81
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 82
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 83
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 84
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 85
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 86
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 87
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 88
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 89
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 90
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 91
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 92
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 93
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 94
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 95
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 96
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 97
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 98
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 99
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 100
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 101
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 102
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 103
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 104
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 105
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 106
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 107
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 108
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 109
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 110
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 111
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 112
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 113
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 114
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 115
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 116
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 117
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 118
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 119
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 120
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 121
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 122
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 123
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 124
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 125
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 126
+    note: C5
+    velocity: inherit
+    length: inherit
+  - track: 1
+    step: 127
+    note: C5
+    velocity: inherit
+    length: inherit

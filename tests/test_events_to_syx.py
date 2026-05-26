@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from digitone_syx_toolkit.digitone2.constants import (
+    EXPLICIT_LENGTH_CODE_TO_DISPLAY,
     TRIGGER_REGION_CONTROL_START,
     TRIGGER_REGION_PAYLOAD_START,
     TRIGGER_SLOT_SIZE,
@@ -194,3 +195,108 @@ def test_checksum_reference_speed_matches_capture(tmp_path: Path):
     )
 
     assert output.read_bytes() == Path("captures/CHECKSUM_REFERENCE_SPEED.syx").read_bytes()
+
+
+def test_length_display_map_full_and_known_anchors():
+    assert len(EXPLICIT_LENGTH_CODE_TO_DISPLAY) == 0x80
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x00] == ".125"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x02] == "1/64"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x06] == "1/32"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x0E] == "1/16"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x1E] == "1/8"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x2E] == "1/4"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x3E] == "1/2"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x4E] == "16.0"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x7E] == "128"
+    assert EXPLICIT_LENGTH_CODE_TO_DISPLAY[0x7F] == "INF"
+
+
+def test_inherit_and_explicit_inf_are_distinct_decoded_values(tmp_path: Path):
+    events = tmp_path / "events_inf_vs_inherit.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        "  - step: 2\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length:\n"
+        "      code: \"0x7F\"\n"
+        "      display: \"INF\"\n",
+    )
+
+    output = tmp_path / "inf_vs_inherit.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    slot1 = _read_trigger_slot_value(built, 0, 4)
+    slot2 = _read_trigger_slot_value(built, 1, 4)
+    assert slot1 == 0xFF
+    assert slot2 == 0x7F
+
+
+def test_explicit_length_code_input_writes_expected_decoded_value(tmp_path: Path):
+    events = tmp_path / "events_length_code_26.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length_code: \"0x26\"\n",
+    )
+
+    output = tmp_path / "length_code_26.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+    assert _read_trigger_slot_value(built, 0, 4) == 0x26
+
+
+def test_hardware_validated_trials_1_to_4_regression(tmp_path: Path):
+    fixtures = [
+        (
+            Path("captures/generated/events/trial1_minimal_trigger.events.yaml"),
+            Path("captures/generated/trial1_minimal_trigger.syx"),
+            Path("captures/BASE_EMPTY.syx"),
+        ),
+        (
+            Path("captures/generated/events/trial2_page_track_cross.events.yaml"),
+            Path("captures/generated/trial2_page_track_cross.syx"),
+            Path("captures/BASE_EMPTY_STEPS128.syx"),
+        ),
+        (
+            Path("captures/generated/events/trial3_same_track_multiple_trigger.events.yaml"),
+            Path("captures/generated/trial3_same_track_multiple_trigger.syx"),
+            Path("captures/BASE_EMPTY_STEPS128.syx"),
+        ),
+        (
+            Path("captures/generated/events/trial4_multiple_track_multiple_trigger_noninherit.events.yaml"),
+            Path("captures/generated/trial4_multiple_track_multiple_trigger_noninherit.syx"),
+            Path("captures/BASE_EMPTY_STEPS128.syx"),
+        ),
+    ]
+
+    for idx, (events_yaml, expected_syx, template_syx) in enumerate(fixtures, start=1):
+        out = tmp_path / f"trial_{idx}.syx"
+        build_syx_from_events(events_yaml=events_yaml, output_file=out, template_file=template_syx)
+        assert out.read_bytes() == expected_syx.read_bytes()

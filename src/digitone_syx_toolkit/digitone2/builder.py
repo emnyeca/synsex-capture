@@ -54,6 +54,12 @@ def _length_to_code(length: str) -> int:
     return LENGTH_CODE_MAP[key]
 
 
+def _event_length_to_code(length: str, length_code: int | None) -> int:
+    if length_code is not None:
+        return length_code
+    return _length_to_code(length)
+
+
 def _set_pattern_fields(data: bytearray, assignment: EventAssignment) -> None:
     data[PATTERN_MODE_OFFSET] = PATTERN_MODE_PATTERN_WIDE
 
@@ -146,7 +152,7 @@ def _write_trigger_slots(data: bytearray, assignment: EventAssignment) -> int:
         step_index = event.step - 1
         pitch = event.note_midi
         velocity = 0xFF if event.velocity == "inherit" else int(event.velocity)
-        length = _length_to_code(event.length)
+        length = _event_length_to_code(event.length, event.length_code)
 
         values = (field0_track, step_index, pitch, velocity, length, 0x00)
         for rel, value in enumerate(values):

@@ -7,6 +7,8 @@ from pathlib import Path
 
 import yaml
 
+from .digitone2.constants import DISPLAY_TO_EXPLICIT_LENGTH_CODE, LENGTH_CODE_MAP
+from .digitone2.length_codes import parse_length_code
 from .errors import SyxFileError
 
 
@@ -29,6 +31,7 @@ class EventItem:
     note_midi: int
     velocity: int | str
     length: str
+    length_code: int | None = None
 
 
 @dataclass(frozen=True)
@@ -84,6 +87,13 @@ def _as_int(value: object, field: str) -> int:
         return int(value)
     except (TypeError, ValueError) as exc:
         raise SyxFileError(f"{field} must be an integer: {value}") from exc
+
+
+def _parse_length_code_or_error(raw: object, field: str) -> int:
+    try:
+        return parse_length_code(raw)  # type: ignore[arg-type]
+    except ValueError as exc:
+        raise SyxFileError(f"{field}: {exc}") from exc
 
 
 def _load_yaml(path: str | Path) -> dict:
@@ -177,9 +187,50 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             if velocity < 1 or velocity > 127:
                 raise SyxFileError(f"events step={step} track={track}: velocity must be 1..127 or inherit")
 
-        length = str(raw_event.get("length", "inherit")).strip().upper()
-        if length != "INHERIT" and length not in {"0.125", "0.25", "0.5", "1", "2", "4", "8", "16", "32", "64", "128", "INF"}:
-            raise SyxFileError(f"events step={step} track={track}: invalid length {length}")
+        length_code: int | None = None
+        raw_length_code = raw_event.get("length_code")
+        has_explicit_length_field = "length" in raw_event
+        raw_length = raw_event.get("length", "inherit")
+
+        if raw_length_code is not None:
+            length_code = _parse_length_code_or_error(
+                raw_length_code,
+                f"events step={step} track={track} length_code",
+            )
+
+        if isinstance(raw_length, dict):
+            if length_code is not None:
+                raise SyxFileError(
+                    f"events step={step} track={track}: do not set both length mapping and length_code"
+                )
+            if "code" not in raw_length:
+                raise SyxFileError(
+                    f"events step={step} track={track}: length mapping requires 'code'"
+                )
+            length_code = _parse_length_code_or_error(
+                raw_length["code"],
+                f"events step={step} track={track} length.code",
+            )
+            raw_display = raw_length.get("display")
+            if raw_display is not None:
+                display = str(raw_display).strip()
+                expected = DISPLAY_TO_EXPLICIT_LENGTH_CODE.get(display.upper())
+                if expected is not None and expected != length_code:
+                    raise SyxFileError(
+                        f"events step={step} track={track}: length.display={display} does not match code"
+                    )
+            length = "code"
+        else:
+            length = str(raw_length).strip().upper()
+            if length == "INHERIT":
+                if length_code is not None:
+                    if has_explicit_length_field:
+                        raise SyxFileError(
+                            f"events step={step} track={track}: length_code cannot be combined with length=inherit"
+                        )
+                    length = "CODE"
+            elif length not in LENGTH_CODE_MAP:
+                raise SyxFileError(f"events step={step} track={track}: invalid length {length}")
 
         parsed_events.append(
             EventItem(
@@ -189,6 +240,7 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
                 note_midi=note_midi,
                 velocity=velocity,
                 length=("inherit" if length == "INHERIT" else length),
+                length_code=length_code,
             )
         )
 

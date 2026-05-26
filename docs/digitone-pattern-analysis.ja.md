@@ -1,4 +1,4 @@
-# Digitone II Pattern SysEx 解析ガイド（必要部分のみ書き換え）
+﻿# Digitone II Pattern SysEx 解析ガイド（必要部分のみ書き換え）
 
 ## 正本（このファイルより優先）
 
@@ -34,7 +34,7 @@ logical_entry_offset = 4 + 1187 * trackIndex + 2 * stepIndex
 Checksum / integrity field は、追随オフセット（`114113`, `114114`）の観測までは進んでいますが、
 加算対象範囲と完全再計算式は未確定です。したがって本ガイドでは checksum 式を仕様として確定しません。
 
-この手順は「完全解析」ではなく、Harmony Cloudに必要な要素だけを安全に特定して書き換えることを目的にします。
+この手順は「完全解析」ではなく、EUB Changesに必要な要素だけを安全に特定して書き換えることを目的にします。
 
 ## 目的とスコープ
 
@@ -77,7 +77,7 @@ Digitone II の運用やOSバージョンによっては、Pattern単体のSysEx
 
 ## 前提
 
-- Digitone II 上に、Harmony Cloud用音色を配置したテンプレート Pattern を作成済み
+- Digitone II 上に、EUB Changes用音色を配置したテンプレート Pattern を作成済み
 - テンプレート Pattern の SysEx を取得できる
 - このリポジトリの GUI を利用できる
 
@@ -279,3 +279,4 @@ notes: "offset 1234 がノート値本体の可能性"
 - 本方式は「必要バイトのみ編集」前提です。全パラメータの完全逆コンパイルは目的外です。
 - 同時に複数項目を変更すると、差分対応付けが困難になります。
 - `before` 値付きのパッチを使うと、誤ったテンプレートへの適用を検知できます。
+

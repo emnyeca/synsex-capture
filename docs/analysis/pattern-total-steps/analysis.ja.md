@@ -1,4 +1,4 @@
-# PATTERN総STEP 解析結果
+﻿# PATTERN総STEP 解析結果
 
 ## 目的
 
@@ -65,6 +65,7 @@ Triggerなし比較では、`15 → 17` および `32 → 33` の変化は総STE
 
 `128 = 0x80` のため、17個のpayloadはlow7 `0x00` となり、各payloadに対応するpacking control bitを立てる必要がある。対応表は `spec.yaml` に記載する。
 
-## Harmony Cloudでの書き込み規則
+## EUB Changesでの書き込み規則
 
 PATTERN-wideの完成状態を生成する場合、modeをwideに設定した上で、`101507` とTrack 1〜16の総STEP値を同一値へ同期して書き込む。128では各control maskも更新する。
+
