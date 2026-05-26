@@ -163,7 +163,7 @@ $env:PYTHONPATH = "src"
 3. `Input port` に Digitone II を選択
 4. 必要なら `Out dir` と `Label` を設定
 5. `Start Capture` を押してから、Digitone II 側で SysEx Send を実行
-6. `MIDI Log` に `Captured SysEx` が表示され、受信ごとに `.syx` と `datasets/*.yaml` が連続保存される
+6. `MIDI Log` に `Captured SysEx` が表示され、受信ごとに `.syx` が連続保存される
 7. 再送する場合は `Output port` と `.syx file` を選び、`Send to Output Port` を実行
 
 補足:

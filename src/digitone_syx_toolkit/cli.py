@@ -20,7 +20,6 @@ from .events_yaml import load_event_assignment_yaml
 from .gui import run_gui
 from .hexview import hex_dump_file
 from .logging_utils import configure_logging
-from .metadata import write_capture_metadata
 from .midi import list_input_ports, list_output_ports, resolve_port_name
 from .replay import replay_sysex
 from .syx import load_syx_file, save_syx_file
@@ -43,13 +42,6 @@ def _build_parser() -> argparse.ArgumentParser:
     capture_p.add_argument("--label", help="Label used for output filename")
     capture_p.add_argument("--max-messages", type=int, help="Stop after this many SysEx packets")
     capture_p.add_argument("--duration", type=float, help="Stop after this many seconds")
-    capture_p.add_argument("--datasets-dir", default="datasets", help="Directory for YAML metadata")
-    capture_p.add_argument("--track", help="Track metadata field")
-    capture_p.add_argument("--step", help="Step metadata field")
-    capture_p.add_argument("--note", help="Note metadata field")
-    capture_p.add_argument("--len-display", help="LEN display metadata field")
-    capture_p.add_argument("--velocity", type=int, help="Velocity metadata field")
-    capture_p.add_argument("--remarks", help="Remarks metadata field")
 
     replay_p = sub.add_parser("replay", help="Replay .syx file to an output port")
     replay_p.add_argument("--out-port", required=True, help="Output port name or 1-based index")
@@ -128,21 +120,6 @@ def _cmd_capture(args: argparse.Namespace) -> int:
         result.elapsed_seconds,
         syx_path,
     )
-
-    metadata_path = write_capture_metadata(
-        datasets_dir=args.datasets_dir,
-        syx_file=syx_path,
-        label=label,
-        message_count=len(result.messages),
-        total_bytes=total_bytes,
-        track=args.track,
-        step=args.step,
-        note=args.note,
-        len_display=args.len_display,
-        velocity=args.velocity,
-        remarks=args.remarks,
-    )
-    LOG.info("Wrote metadata YAML: %s", metadata_path)
     return 0
 
 

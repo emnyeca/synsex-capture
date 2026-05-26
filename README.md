@@ -10,7 +10,6 @@ Digitone II などのハードウェアシンセサイザー向けに、USB/MIDI
 - `.syx` 同士のバイナリ差分表示
 - `.syx` の Hex Viewer
 - 解析向け簡易 GUI（MIDI Capture/Replay / Diff / Hex / Selective Patch）
-- キャプチャ時の YAML メタ情報出力（`datasets/`）
 - events YAML のバリデーション
 - Digitone II 向け `.syx` 生成（内蔵空 PATTERN テンプレート方式）
 
@@ -102,7 +101,7 @@ GUIの解析手順は以下を参照:
 2. `MIDI Capture/Replay` タブで `Refresh Ports`
 3. Input port に Digitone II を選択
 4. `Start Capture` を押してから Digitone II で SysEx Send
-5. 受信ごとに `.syx` と `datasets/*.yaml` が連続保存される（`label_0001.syx` 形式）
+5. 受信ごとに `.syx` が連続保存される（`label_0001.syx` 形式）
 6. 再送する場合は同タブで Output port と `.syx` を指定して `Send to Output Port`
 
 補足:
@@ -261,33 +260,6 @@ Lengthのdecoded semantics:
 - Condition / Probability / Micro Timing / Retrig
 - Existing pattern non-destructive editing
 
-### Capture Metadata (YAML)
-
-`capture` 実行時に `datasets/{label}.yaml` を出力します。例:
-
-```yaml
-file: captures/A01.syx
-label: A01
-captured_at: 2026-05-23T10:00:00+00:00
-message_count: 4
-total_bytes: 732
-track: 1
-step: 09
-note: C4
-len_display: 1/8
-velocity: 96
-remarks: digitone pattern test
-```
-
-追加メタ情報オプション:
-
-- `--track`
-- `--step`
-- `--note`
-- `--len-display`
-- `--velocity`
-- `--remarks`
-
 ## Error Handling / Logging
 
 - MIDI ポート未検出、インデックス範囲外、ファイル読み込み失敗などは終了コード 1 で扱います。
@@ -307,7 +279,6 @@ src/digitone_syx_toolkit/
   syx.py             # .syx read/write and packet parsing
   diffing.py         # byte-level diff rendering
   hexview.py         # hex dump formatting
-  metadata.py        # YAML metadata output
   patcher.py         # selective byte patching from YAML
   events_yaml.py     # events assignment YAML validation
   events_to_syx.py   # Digitone II 向け syx builder（内蔵テンプレート方式へ移行中）

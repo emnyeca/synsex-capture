@@ -22,7 +22,6 @@ from .events_to_syx import (
 )
 from .events_yaml import load_event_assignment_yaml
 from .hexview import hex_dump_file
-from .metadata import write_capture_metadata
 from .midi import list_input_ports, list_output_ports
 from .patcher import patch_syx_file
 from .replay import replay_sysex
@@ -52,7 +51,6 @@ class AnalysisGui:
         self.capture_label_var = tk.StringVar()
         self.capture_max_messages_var = tk.StringVar(value="")
         self.capture_duration_var = tk.StringVar(value="")
-        self.capture_datasets_dir_var = tk.StringVar(value="datasets")
         self.replay_file_var = tk.StringVar()
         self.replay_delay_var = tk.StringVar(value="0")
         self.events_yaml_var = tk.StringVar()
@@ -146,13 +144,8 @@ class AnalysisGui:
             row=3, column=1, sticky="w", padx=4, pady=4
         )
 
-        ttk.Label(capture_frame, text="datasets dir").grid(row=4, column=0, sticky="w", padx=4, pady=4)
-        ttk.Entry(capture_frame, textvariable=self.capture_datasets_dir_var, width=60).grid(
-            row=4, column=1, padx=4, pady=4
-        )
-
         capture_btn_row = ttk.Frame(capture_frame)
-        capture_btn_row.grid(row=5, column=0, columnspan=3, sticky="w", padx=4, pady=6)
+        capture_btn_row.grid(row=4, column=0, columnspan=3, sticky="w", padx=4, pady=6)
         self.capture_start_btn = ttk.Button(capture_btn_row, text="Start Capture", command=self._start_capture)
         self.capture_start_btn.pack(side=tk.LEFT)
         self.capture_stop_btn = ttk.Button(
@@ -382,7 +375,6 @@ class AnalysisGui:
         capture_all = self.capture_all_inputs_var.get()
         log_all_messages = self.capture_log_all_var.get()
         out_dir = Path(self.capture_out_dir_var.get().strip() or "captures")
-        datasets_dir = Path(self.capture_datasets_dir_var.get().strip() or "datasets")
         label = self.capture_label_var.get().strip() or datetime.now().strftime("capture_%Y%m%d_%H%M%S")
 
         max_messages: int | None = None
@@ -399,7 +391,6 @@ class AnalysisGui:
         non_sysex_count = 0
         saved_files: list[Path] = []
         out_dir.mkdir(parents=True, exist_ok=True)
-        datasets_dir.mkdir(parents=True, exist_ok=True)
 
         def ui_log(msg: str) -> None:
             self.root.after(0, lambda: self._log_midi(msg))
@@ -446,19 +437,11 @@ class AnalysisGui:
                                 packet_label = f"{label}_{packet_index:04d}"
                                 syx_path = out_dir / f"{packet_label}.syx"
                                 save_syx_file([packet], syx_path)
-
-                                metadata_path = write_capture_metadata(
-                                    datasets_dir=datasets_dir,
-                                    syx_file=syx_path,
-                                    label=packet_label,
-                                    message_count=1,
-                                    total_bytes=len(packet),
-                                )
                                 saved_files.append(syx_path)
                                 ui_log(
                                     f"Captured SysEx #{packet_index} "
                                     f"length={len(packet)} source={src_name} "
-                                    f"saved={syx_path} metadata={metadata_path}"
+                                    f"saved={syx_path}"
                                 )
 
                                 if max_messages is not None and len(self._captured_packets) >= max_messages:
