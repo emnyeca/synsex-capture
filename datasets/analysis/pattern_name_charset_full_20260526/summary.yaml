@@ -1,0 +1,1662 @@
+analysis_id: pattern_name_charset_full_20260526
+analysis: pattern_name_charset_full
+experiment: pattern_name_charset_full
+base_file: captures/Pattern_Name_Charset_Full/000_BASE_16A.syx
+fixed_offsets:
+  primary_first_char_decoded_offset: 88788
+  shadow_first_char_decoded_offset: 89096
+  primary_first_char_packed_payload_offset: 101483
+  shadow_first_char_packed_payload_offset: 101835
+  checksum_offsets:
+  - 114113
+  - 114114
+expectation:
+  allowed_changed_offsets_vs_base:
+  - 101483
+  - 101835
+  - 114113
+  - 114114
+  rule: Only primary-first, shadow-first, checksum may differ versus base.
+result:
+  total_characters: 60
+  unexpected_change_count: 9
+  all_passed_expected_offset_rule: false
+records:
+- index: 1
+  selector_order: 1
+  display_seen_on_device: A
+  intended_name: AAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/001_CHAR_01.syx
+  diff_summary:
+    difference_count_vs_base: 0
+    changed_offsets_vs_base: []
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x41'
+      after_dec: 65
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x41'
+      after_dec: 65
+    checksum_changed_offsets: []
+- index: 2
+  selector_order: 2
+  display_seen_on_device: B
+  intended_name: BAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/002_CHAR_02.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x42'
+      after_dec: 66
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x42'
+      after_dec: 66
+    checksum_changed_offsets:
+    - 114114
+- index: 3
+  selector_order: 3
+  display_seen_on_device: C
+  intended_name: CAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/003_CHAR_03.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x43'
+      after_dec: 67
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x43'
+      after_dec: 67
+    checksum_changed_offsets:
+    - 114114
+- index: 4
+  selector_order: 4
+  display_seen_on_device: D
+  intended_name: DAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/004_CHAR_04.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x44'
+      after_dec: 68
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x44'
+      after_dec: 68
+    checksum_changed_offsets:
+    - 114114
+- index: 5
+  selector_order: 5
+  display_seen_on_device: E
+  intended_name: EAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/005_CHAR_05.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x45'
+      after_dec: 69
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x45'
+      after_dec: 69
+    checksum_changed_offsets:
+    - 114114
+- index: 6
+  selector_order: 6
+  display_seen_on_device: F
+  intended_name: FAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/006_CHAR_06.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x46'
+      after_dec: 70
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x46'
+      after_dec: 70
+    checksum_changed_offsets:
+    - 114114
+- index: 7
+  selector_order: 7
+  display_seen_on_device: G
+  intended_name: GAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/007_CHAR_07.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x47'
+      after_dec: 71
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x47'
+      after_dec: 71
+    checksum_changed_offsets:
+    - 114114
+- index: 8
+  selector_order: 8
+  display_seen_on_device: H
+  intended_name: HAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/008_CHAR_08.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x48'
+      after_dec: 72
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x48'
+      after_dec: 72
+    checksum_changed_offsets:
+    - 114114
+- index: 9
+  selector_order: 9
+  display_seen_on_device: I
+  intended_name: IAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/009_CHAR_09.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x49'
+      after_dec: 73
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x49'
+      after_dec: 73
+    checksum_changed_offsets:
+    - 114114
+- index: 10
+  selector_order: 10
+  display_seen_on_device: J
+  intended_name: JAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/010_CHAR_10.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x4A'
+      after_dec: 74
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x4A'
+      after_dec: 74
+    checksum_changed_offsets:
+    - 114114
+- index: 11
+  selector_order: 11
+  display_seen_on_device: K
+  intended_name: KAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/011_CHAR_11.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x4B'
+      after_dec: 75
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x4B'
+      after_dec: 75
+    checksum_changed_offsets:
+    - 114114
+- index: 12
+  selector_order: 12
+  display_seen_on_device: L
+  intended_name: LAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/012_CHAR_12.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x4C'
+      after_dec: 76
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x4C'
+      after_dec: 76
+    checksum_changed_offsets:
+    - 114114
+- index: 13
+  selector_order: 13
+  display_seen_on_device: M
+  intended_name: MAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/013_CHAR_13.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x4D'
+      after_dec: 77
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x4D'
+      after_dec: 77
+    checksum_changed_offsets:
+    - 114114
+- index: 14
+  selector_order: 14
+  display_seen_on_device: N
+  intended_name: NAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/014_CHAR_14.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x4E'
+      after_dec: 78
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x4E'
+      after_dec: 78
+    checksum_changed_offsets:
+    - 114114
+- index: 15
+  selector_order: 15
+  display_seen_on_device: O
+  intended_name: OAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/015_CHAR_15.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x4F'
+      after_dec: 79
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x4F'
+      after_dec: 79
+    checksum_changed_offsets:
+    - 114114
+- index: 16
+  selector_order: 16
+  display_seen_on_device: P
+  intended_name: PAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/016_CHAR_16.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x50'
+      after_dec: 80
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x50'
+      after_dec: 80
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 17
+  selector_order: 17
+  display_seen_on_device: Q
+  intended_name: QAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/017_CHAR_17.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x51'
+      after_dec: 81
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x51'
+      after_dec: 81
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 18
+  selector_order: 18
+  display_seen_on_device: R
+  intended_name: RAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/018_CHAR_18.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x52'
+      after_dec: 82
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x52'
+      after_dec: 82
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 19
+  selector_order: 19
+  display_seen_on_device: S
+  intended_name: SAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/019_CHAR_19.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x53'
+      after_dec: 83
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x53'
+      after_dec: 83
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 20
+  selector_order: 20
+  display_seen_on_device: T
+  intended_name: TAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/020_CHAR_20.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x54'
+      after_dec: 84
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x54'
+      after_dec: 84
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 21
+  selector_order: 21
+  display_seen_on_device: U
+  intended_name: UAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/021_CHAR_21.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x55'
+      after_dec: 85
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x55'
+      after_dec: 85
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 22
+  selector_order: 22
+  display_seen_on_device: V
+  intended_name: VAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/022_CHAR_22.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x56'
+      after_dec: 86
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x56'
+      after_dec: 86
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 23
+  selector_order: 23
+  display_seen_on_device: W
+  intended_name: WAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/023_CHAR_23.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x57'
+      after_dec: 87
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x57'
+      after_dec: 87
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 24
+  selector_order: 24
+  display_seen_on_device: X
+  intended_name: XAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/024_CHAR_24.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x58'
+      after_dec: 88
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x58'
+      after_dec: 88
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 25
+  selector_order: 25
+  display_seen_on_device: Y
+  intended_name: YAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/025_CHAR_25.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x59'
+      after_dec: 89
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x59'
+      after_dec: 89
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 26
+  selector_order: 26
+  display_seen_on_device: Z
+  intended_name: ZAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/026_CHAR_26.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x5A'
+      after_dec: 90
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x5A'
+      after_dec: 90
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 27
+  selector_order: 27
+  display_seen_on_device: Â
+  intended_name: ÂAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/027_CHAR_27.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xC5'
+      after_dec: 197
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xC5'
+      after_dec: 197
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 28
+  selector_order: 28
+  display_seen_on_device: Ä
+  intended_name: ÄAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/028_CHAR_28.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xC4'
+      after_dec: 196
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xC4'
+      after_dec: 196
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 29
+  selector_order: 29
+  display_seen_on_device: Ö
+  intended_name: ÖAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/029_CHAR_29.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xD6'
+      after_dec: 214
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xD6'
+      after_dec: 214
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 30
+  selector_order: 30
+  display_seen_on_device: Ü
+  intended_name: ÜAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/030_CHAR_30.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xDC'
+      after_dec: 220
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xDC'
+      after_dec: 220
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 31
+  selector_order: 31
+  display_seen_on_device: ß
+  intended_name: ßAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/031_CHAR_31.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xDF'
+      after_dec: 223
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xDF'
+      after_dec: 223
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 32
+  selector_order: 32
+  display_seen_on_device: Æ
+  intended_name: ÆAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/032_CHAR_32.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xC6'
+      after_dec: 198
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xC6'
+      after_dec: 198
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 33
+  selector_order: 33
+  display_seen_on_device: Φ
+  intended_name: ΦAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/033_CHAR_33.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xD8'
+      after_dec: 216
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xD8'
+      after_dec: 216
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 34
+  selector_order: 34
+  display_seen_on_device: Ç
+  intended_name: ÇAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/034_CHAR_34.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xC7'
+      after_dec: 199
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xC7'
+      after_dec: 199
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 35
+  selector_order: 35
+  display_seen_on_device: Ñ
+  intended_name: ÑAAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/035_CHAR_35.syx
+  diff_summary:
+    difference_count_vs_base: 6
+    changed_offsets_vs_base:
+    - 101482
+    - 101483
+    - 101834
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base:
+    - 101482
+    - 101834
+    only_expected_offsets_changed: false
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0xD1'
+      after_dec: 209
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0xD1'
+      after_dec: 209
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 36
+  selector_order: 36
+  display_seen_on_device: '0'
+  intended_name: 0AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/036_CHAR_36.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x30'
+      after_dec: 48
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x30'
+      after_dec: 48
+    checksum_changed_offsets:
+    - 114114
+- index: 37
+  selector_order: 37
+  display_seen_on_device: '1'
+  intended_name: 1AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/037_CHAR_37.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x31'
+      after_dec: 49
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x31'
+      after_dec: 49
+    checksum_changed_offsets:
+    - 114114
+- index: 38
+  selector_order: 38
+  display_seen_on_device: '2'
+  intended_name: 2AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/038_CHAR_38.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x32'
+      after_dec: 50
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x32'
+      after_dec: 50
+    checksum_changed_offsets:
+    - 114114
+- index: 39
+  selector_order: 39
+  display_seen_on_device: '3'
+  intended_name: 3AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/039_CHAR_39.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x33'
+      after_dec: 51
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x33'
+      after_dec: 51
+    checksum_changed_offsets:
+    - 114114
+- index: 40
+  selector_order: 40
+  display_seen_on_device: '4'
+  intended_name: 4AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/040_CHAR_40.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x34'
+      after_dec: 52
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x34'
+      after_dec: 52
+    checksum_changed_offsets:
+    - 114114
+- index: 41
+  selector_order: 41
+  display_seen_on_device: '5'
+  intended_name: 5AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/041_CHAR_41.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x35'
+      after_dec: 53
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x35'
+      after_dec: 53
+    checksum_changed_offsets:
+    - 114114
+- index: 42
+  selector_order: 42
+  display_seen_on_device: '6'
+  intended_name: 6AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/042_CHAR_42.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x36'
+      after_dec: 54
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x36'
+      after_dec: 54
+    checksum_changed_offsets:
+    - 114114
+- index: 43
+  selector_order: 43
+  display_seen_on_device: '7'
+  intended_name: 7AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/043_CHAR_43.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x37'
+      after_dec: 55
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x37'
+      after_dec: 55
+    checksum_changed_offsets:
+    - 114114
+- index: 44
+  selector_order: 44
+  display_seen_on_device: '8'
+  intended_name: 8AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/044_CHAR_44.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x38'
+      after_dec: 56
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x38'
+      after_dec: 56
+    checksum_changed_offsets:
+    - 114114
+- index: 45
+  selector_order: 45
+  display_seen_on_device: '9'
+  intended_name: 9AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/045_CHAR_45.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x39'
+      after_dec: 57
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x39'
+      after_dec: 57
+    checksum_changed_offsets:
+    - 114114
+- index: 46
+  selector_order: 46
+  display_seen_on_device: '~'
+  intended_name: ~AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/046_CHAR_46.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x7E'
+      after_dec: 126
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x7E'
+      after_dec: 126
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 47
+  selector_order: 47
+  display_seen_on_device: '!'
+  intended_name: '!AAAAAAAAAAAAAAA'
+  file: captures/Pattern_Name_Charset_Full/047_CHAR_47.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x21'
+      after_dec: 33
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x21'
+      after_dec: 33
+    checksum_changed_offsets:
+    - 114114
+- index: 48
+  selector_order: 48
+  display_seen_on_device: '@'
+  intended_name: '@AAAAAAAAAAAAAAA'
+  file: captures/Pattern_Name_Charset_Full/048_CHAR_48.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x40'
+      after_dec: 64
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x40'
+      after_dec: 64
+    checksum_changed_offsets:
+    - 114114
+- index: 49
+  selector_order: 49
+  display_seen_on_device: '#'
+  intended_name: '#AAAAAAAAAAAAAAA'
+  file: captures/Pattern_Name_Charset_Full/049_CHAR_49.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x23'
+      after_dec: 35
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x23'
+      after_dec: 35
+    checksum_changed_offsets:
+    - 114114
+- index: 50
+  selector_order: 50
+  display_seen_on_device: $
+  intended_name: $AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/050_CHAR_50.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x24'
+      after_dec: 36
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x24'
+      after_dec: 36
+    checksum_changed_offsets:
+    - 114114
+- index: 51
+  selector_order: 51
+  display_seen_on_device: '%'
+  intended_name: '%AAAAAAAAAAAAAAA'
+  file: captures/Pattern_Name_Charset_Full/051_CHAR_51.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x25'
+      after_dec: 37
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x25'
+      after_dec: 37
+    checksum_changed_offsets:
+    - 114114
+- index: 52
+  selector_order: 52
+  display_seen_on_device: ^
+  intended_name: ^AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/052_CHAR_52.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x5E'
+      after_dec: 94
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x5E'
+      after_dec: 94
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 53
+  selector_order: 53
+  display_seen_on_device: '&'
+  intended_name: '&AAAAAAAAAAAAAAA'
+  file: captures/Pattern_Name_Charset_Full/053_CHAR_53.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x26'
+      after_dec: 38
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x26'
+      after_dec: 38
+    checksum_changed_offsets:
+    - 114114
+- index: 54
+  selector_order: 54
+  display_seen_on_device: (
+  intended_name: (AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/054_CHAR_54.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x28'
+      after_dec: 40
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x28'
+      after_dec: 40
+    checksum_changed_offsets:
+    - 114114
+- index: 55
+  selector_order: 55
+  display_seen_on_device: )
+  intended_name: )AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/055_CHAR_55.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x29'
+      after_dec: 41
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x29'
+      after_dec: 41
+    checksum_changed_offsets:
+    - 114114
+- index: 56
+  selector_order: 56
+  display_seen_on_device: _
+  intended_name: _AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/056_CHAR_56.syx
+  diff_summary:
+    difference_count_vs_base: 4
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114113
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x5F'
+      after_dec: 95
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x5F'
+      after_dec: 95
+    checksum_changed_offsets:
+    - 114113
+    - 114114
+- index: 57
+  selector_order: 57
+  display_seen_on_device: +
+  intended_name: +AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/057_CHAR_57.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x2B'
+      after_dec: 43
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x2B'
+      after_dec: 43
+    checksum_changed_offsets:
+    - 114114
+- index: 58
+  selector_order: 58
+  display_seen_on_device: '-'
+  intended_name: -AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/058_CHAR_58.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x2D'
+      after_dec: 45
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x2D'
+      after_dec: 45
+    checksum_changed_offsets:
+    - 114114
+- index: 59
+  selector_order: 59
+  display_seen_on_device: '='
+  intended_name: =AAAAAAAAAAAAAAA
+  file: captures/Pattern_Name_Charset_Full/059_CHAR_59.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x3D'
+      after_dec: 61
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x3D'
+      after_dec: 61
+    checksum_changed_offsets:
+    - 114114
+- index: 60
+  selector_order: 60
+  display_seen_on_device: ' '
+  intended_name: ' AAAAAAAAAAAAAAA'
+  file: captures/Pattern_Name_Charset_Full/060_CHAR_60.syx
+  diff_summary:
+    difference_count_vs_base: 3
+    changed_offsets_vs_base:
+    - 101483
+    - 101835
+    - 114114
+    unexpected_offsets_vs_base: []
+    only_expected_offsets_changed: true
+  decoded_values:
+    primary_first_char:
+      offset: 88788
+      before_hex: '0x41'
+      after_hex: '0x20'
+      after_dec: 32
+    shadow_first_char:
+      offset: 89096
+      before_hex: '0x41'
+      after_hex: '0x20'
+      after_dec: 32
+    checksum_changed_offsets:
+    - 114114

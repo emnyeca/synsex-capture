@@ -1,0 +1,54 @@
+analysis: pattern_name_charset_full_inference
+result:
+  all_60_captures_checked: true
+  all_passed_expected_offset_rule: false
+  unexpected_change_count: 9
+violations:
+- index: 27
+  file: 027_CHAR_27.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 28
+  file: 028_CHAR_28.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 29
+  file: 029_CHAR_29.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 30
+  file: 030_CHAR_30.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 31
+  file: 031_CHAR_31.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 32
+  file: 032_CHAR_32.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 33
+  file: 033_CHAR_33.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 34
+  file: 034_CHAR_34.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+- index: 35
+  file: 035_CHAR_35.syx
+  unexpected_offsets:
+  - 101482
+  - 101834
+notes:
+- Per capture, compared byte-for-byte against 000_BASE_16A.syx.
+- Decoded primary/shadow first-character bytes were extracted from known decoded offsets.

@@ -1,0 +1,14 @@
+analysis_target: pattern_name_charset_full
+status: confirmed
+base_file: captures/Pattern_Name_Charset_Full/000_BASE_16A.syx
+capture_folder: captures/Pattern_Name_Charset_Full
+analysis_folder: datasets/analysis/pattern_name_charset_full_20260526
+checks:
+  primary_first_char_offset: 88788
+  shadow_first_char_offset: 89096
+  checksum_offsets:
+  - 114113
+  - 114114
+  unexpected_offset_violations: 9
+conclusion:
+  only_expected_offsets_changed_for_all: false
