@@ -1,0 +1,80 @@
+analysis_id: pattern_name_field_20260526
+analysis: pattern_name_field
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: '1'
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none (no trig)
+  midi_ports_output_to: USB
+sequence:
+- index: 1
+  file: captures/00_BASE_NAME_16A.syx
+  operation: base pattern name set to AAAAAAAAAAAAAAAA
+  pattern_name: AAAAAAAAAAAAAAAA
+- index: 2
+  file: captures/01_NAME_POS01_B.syx
+  operation: set position 1 from A to B
+  pattern_name: BAAAAAAAAAAAAAAA
+- index: 3
+  file: captures/02_NAME_POS02_B.syx
+  operation: set position 2 from A to B
+  pattern_name: ABAAAAAAAAAAAAAA
+- index: 4
+  file: captures/03_NAME_POS08_B.syx
+  operation: set position 8 from A to B
+  pattern_name: AAAAAAABAAAAAAAA
+- index: 5
+  file: captures/04_NAME_POS15_B.syx
+  operation: set position 15 from A to B
+  pattern_name: AAAAAAAAAAAAAABA
+- index: 6
+  file: captures/05_NAME_POS16_B.syx
+  operation: set position 16 from A to B
+  pattern_name: AAAAAAAAAAAAAAAB
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_name_20260526/seq_01_to_02.yaml
+    difference_count: 3
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/pattern_name_20260526/seq_02_to_03.yaml
+    difference_count: 4
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/pattern_name_20260526/seq_03_to_04.yaml
+    difference_count: 4
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/pattern_name_20260526/seq_04_to_05.yaml
+    difference_count: 4
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/pattern_name_20260526/seq_05_to_06.yaml
+    difference_count: 4
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_name_20260526/vs_step1_to_02.yaml
+    difference_count: 3
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/pattern_name_20260526/vs_step1_to_03.yaml
+    difference_count: 3
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/pattern_name_20260526/vs_step1_to_04.yaml
+    difference_count: 3
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/pattern_name_20260526/vs_step1_to_05.yaml
+    difference_count: 3
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/pattern_name_20260526/vs_step1_to_06.yaml
+    difference_count: 3

@@ -1,0 +1,37 @@
+analysis: pattern_name_field
+pair_type: baseline_vs_step1
+pair:
+  before: captures/00_BASE_NAME_16A.syx
+  after: captures/03_NAME_POS08_B.syx
+  before_operation: base pattern name set to AAAAAAAAAAAAAAAA
+  after_operation: set position 8 from A to B
+  before_pattern_name: AAAAAAAAAAAAAAAA
+  after_pattern_name: AAAAAAABAAAAAAAA
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: '1'
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none (no trig)
+  midi_ports_output_to: USB
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 3
+  changed_offsets:
+  - 101491
+  - 101843
+  - 114114
+patches:
+- offset: 101491
+  before: '0x41'
+  value: '0x42'
+- offset: 101843
+  before: '0x41'
+  value: '0x42'
+- offset: 114114
+  before: '0x63'
+  value: '0x65'

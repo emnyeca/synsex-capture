@@ -1,0 +1,18 @@
+analysis_target: pattern_name_history_a2
+status: confirmed
+roundtrip_checks:
+- pair: 1_vs_3
+  base_file: captures/Pattern_Name_History/01_BASE_16A.syx
+  target_file: captures/Pattern_Name_History/03_RETURN_TO_16A_AFTER_POS01.syx
+  difference_count: 0
+  changed_offsets: []
+  history_residue_detected: false
+- pair: 1_vs_5
+  base_file: captures/Pattern_Name_History/01_BASE_16A.syx
+  target_file: captures/Pattern_Name_History/05_RETURN_TO_16A_AFTER_POS02.syx
+  difference_count: 0
+  changed_offsets: []
+  history_residue_detected: false
+conclusion:
+  edit_history_residue_observed: false
+  byte_identical_after_returns: true

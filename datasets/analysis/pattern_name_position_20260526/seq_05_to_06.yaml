@@ -1,0 +1,41 @@
+analysis: pattern_name_field
+pair_type: sequential_name_change
+pair:
+  before: captures/04_NAME_POS15_B.syx
+  after: captures/05_NAME_POS16_B.syx
+  before_operation: set position 15 from A to B
+  after_operation: set position 16 from A to B
+  before_pattern_name: AAAAAAAAAAAAAABA
+  after_pattern_name: AAAAAAAAAAAAAAAB
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: '1'
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none (no trig)
+  midi_ports_output_to: USB
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 4
+  changed_offsets:
+  - 101499
+  - 101500
+  - 101851
+  - 101852
+patches:
+- offset: 101499
+  before: '0x42'
+  value: '0x41'
+- offset: 101500
+  before: '0x41'
+  value: '0x42'
+- offset: 101851
+  before: '0x42'
+  value: '0x41'
+- offset: 101852
+  before: '0x41'
+  value: '0x42'

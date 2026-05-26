@@ -1,0 +1,26 @@
+analysis: pattern_name_history_a2
+pair_type: baseline_vs_step1
+pair:
+  before: captures/Pattern_Name_History/01_BASE_16A.syx
+  after: captures/Pattern_Name_History/05_RETURN_TO_16A_AFTER_POS02.syx
+  before_operation: baseline export
+  after_operation: return to 16A after pos2 edit and export
+  before_pattern_name: AAAAAAAAAAAAAAAA
+  after_pattern_name: AAAAAAAAAAAAAAAA
+fixed_context:
+  experiment: A2 pattern name history residue check
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: '1'
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none (no trig)
+  midi_ports_output_to: USB
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 0
+  changed_offsets: []
+patches: []

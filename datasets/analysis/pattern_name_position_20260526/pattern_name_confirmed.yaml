@@ -1,0 +1,26 @@
+analysis_target: pattern_name
+status: confirmed
+fields:
+  primary:
+    decoded_offset_start: 88788
+    decoded_offset_end: 88803
+    length: 16
+  shadow:
+    decoded_offset_start: 89096
+    decoded_offset_end: 89111
+    length: 16
+encoding:
+  type: byte-per-char in decoded payload with 7-bit packed transport
+  a_to_b_probe:
+    before: '0x41'
+    after: '0x42'
+    delta: 1
+checksum:
+  known_offsets:
+  - 114113
+  - 114114
+  observed_changed_offsets_in_dataset:
+  - 114114
+  updated_when_name_changes: true
+safety:
+  name_change_affects_trigger_fields_in_this_dataset: false

@@ -1,0 +1,83 @@
+analysis_id: pattern_name_history_a2_20260526
+analysis: pattern_name_history_a2
+goal: verify whether edits leave residue after returning name to AAAAAAAAAAAAAAAA
+fixed_context:
+  experiment: A2 pattern name history residue check
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: '1'
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none (no trig)
+  midi_ports_output_to: USB
+sequence:
+- index: 1
+  file: captures/Pattern_Name_History/01_BASE_16A.syx
+  operation: baseline export
+  pattern_name: AAAAAAAAAAAAAAAA
+- index: 2
+  file: captures/Pattern_Name_History/02_POS01_B.syx
+  operation: set position 1 to B and export
+  pattern_name: BAAAAAAAAAAAAAAA
+- index: 3
+  file: captures/Pattern_Name_History/03_RETURN_TO_16A_AFTER_POS01.syx
+  operation: return to 16A after pos1 edit and export
+  pattern_name: AAAAAAAAAAAAAAAA
+- index: 4
+  file: captures/Pattern_Name_History/04_POS02_B.syx
+  operation: set position 2 to B and export
+  pattern_name: ABAAAAAAAAAAAAAA
+- index: 5
+  file: captures/Pattern_Name_History/05_RETURN_TO_16A_AFTER_POS02.syx
+  operation: return to 16A after pos2 edit and export
+  pattern_name: AAAAAAAAAAAAAAAA
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/seq_01_to_02.yaml
+    difference_count: 3
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/seq_02_to_03.yaml
+    difference_count: 3
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/seq_03_to_04.yaml
+    difference_count: 3
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/seq_04_to_05.yaml
+    difference_count: 3
+  vs_step1:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/vs_step1_to_02.yaml
+    difference_count: 3
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/vs_step1_to_03.yaml
+    difference_count: 0
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/vs_step1_to_04.yaml
+    difference_count: 3
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/pattern_name_history_a2_20260526/vs_step1_to_05.yaml
+    difference_count: 0
+residue_checks:
+- pair: 1_vs_3
+  base_file: captures/Pattern_Name_History/01_BASE_16A.syx
+  target_file: captures/Pattern_Name_History/03_RETURN_TO_16A_AFTER_POS01.syx
+  difference_count: 0
+  changed_offsets: []
+  history_residue_detected: false
+- pair: 1_vs_5
+  base_file: captures/Pattern_Name_History/01_BASE_16A.syx
+  target_file: captures/Pattern_Name_History/05_RETURN_TO_16A_AFTER_POS02.syx
+  difference_count: 0
+  changed_offsets: []
+  history_residue_detected: false

@@ -1,0 +1,38 @@
+analysis: pattern_name_history_a2
+pair_type: sequential_operation
+pair:
+  before: captures/Pattern_Name_History/03_RETURN_TO_16A_AFTER_POS01.syx
+  after: captures/Pattern_Name_History/04_POS02_B.syx
+  before_operation: return to 16A after pos1 edit and export
+  after_operation: set position 2 to B and export
+  before_pattern_name: AAAAAAAAAAAAAAAA
+  after_pattern_name: ABAAAAAAAAAAAAAA
+fixed_context:
+  experiment: A2 pattern name history residue check
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  tempo: 120.0
+  speed: '1'
+  total_steps: 16
+  pattern_mode: PATTERN-wide
+  trigger_state: none (no trig)
+  midi_ports_output_to: USB
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 3
+  changed_offsets:
+  - 101484
+  - 101836
+  - 114114
+patches:
+- offset: 101484
+  before: '0x41'
+  value: '0x42'
+- offset: 101836
+  before: '0x41'
+  value: '0x42'
+- offset: 114114
+  before: '0x63'
+  value: '0x65'

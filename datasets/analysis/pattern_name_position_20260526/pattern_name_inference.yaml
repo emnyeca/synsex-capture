@@ -1,0 +1,83 @@
+analysis: pattern_name_field_inference
+result:
+  common_changed_offsets_across_sequential: []
+  union_changed_offsets_across_sequential:
+  - 101483
+  - 101484
+  - 101491
+  - 101499
+  - 101500
+  - 101835
+  - 101836
+  - 101843
+  - 101851
+  - 101852
+  - 114114
+  likely_checksum_offsets:
+  - 114114
+  name_field_count: 2
+  name_fields:
+  - field: primary
+    decoded_start: 88788
+    decoded_end: 88803
+    length: 16
+    packed_payload_offsets:
+    - 101483
+    - 101484
+    - 101485
+    - 101486
+    - 101487
+    - 101488
+    - 101489
+    - 101491
+    - 101492
+    - 101493
+    - 101494
+    - 101495
+    - 101496
+    - 101497
+    - 101499
+    - 101500
+    packed_control_offsets:
+    - 101482
+    - 101490
+    - 101498
+  - field: shadow
+    decoded_start: 89096
+    decoded_end: 89111
+    length: 16
+    packed_payload_offsets:
+    - 101835
+    - 101836
+    - 101837
+    - 101838
+    - 101839
+    - 101840
+    - 101841
+    - 101843
+    - 101844
+    - 101845
+    - 101846
+    - 101847
+    - 101848
+    - 101849
+    - 101851
+    - 101852
+    packed_control_offsets:
+    - 101834
+    - 101842
+    - 101850
+  ascii_probe:
+    before_char: A
+    after_char: B
+    before_hex: '0x41'
+    after_hex: '0x42'
+    delta: 1
+notes:
+- Pattern Name mutation writes two mirrored 16-byte fields (primary/shadow).
+- Packed payload offsets are non-contiguous due to 7-bit packing groups.
+- In this dataset, checksum low byte (114114) changed; checksum high byte (114113)
+  did not change.
+- This dataset proves A/B behavior only; full 60-char table inference requires additional
+  probes.
+- Short-name padding behavior is not proven in this all-16-char dataset.

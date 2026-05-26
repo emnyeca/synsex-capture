@@ -1,0 +1,14 @@
+analysis: pattern_name_history_a2_inference
+result:
+  residue_clean_after_pos1_roundtrip: true
+  residue_clean_after_pos2_roundtrip: true
+  all_roundtrips_clean: true
+  changed_offsets_when_editing_pos1: 3
+  changed_offsets_when_returning_after_pos1: 3
+  changed_offsets_when_editing_pos2: 3
+  changed_offsets_when_returning_after_pos2: 3
+notes:
+- Round-trip cleanliness is judged by byte-for-byte equality against step1 baseline.
+- If 1_vs_3 or 1_vs_5 has any diff, a persistent edit-history residue exists in exported
+  SysEx.
+- If both are zero-diff, no residue was observed in this capture set.
