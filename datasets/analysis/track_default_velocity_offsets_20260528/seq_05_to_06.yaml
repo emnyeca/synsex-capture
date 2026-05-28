@@ -1,0 +1,18 @@
+analysis: track_default_velocity_offsets
+pair_type: sequential_track_switch
+pair:
+  before: captures/track_default_velocity_offsets_20260528/05_T4_VEL001_EMPTY.syx
+  after: captures/track_default_velocity_offsets_20260528/06_T5_VEL001_EMPTY.syx
+  before_track: 4
+  after_track: 5
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+patches:
+- offset: 5403
+  before: '0x01'
+  value: '0x64'
+- offset: 6759
+  before: '0x64'
+  value: '0x01'

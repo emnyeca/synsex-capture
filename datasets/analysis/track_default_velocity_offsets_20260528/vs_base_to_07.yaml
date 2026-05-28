@@ -1,0 +1,23 @@
+analysis: track_default_velocity_offsets
+pair_type: baseline_track_default_velocity
+pair:
+  before: captures/track_default_velocity_offsets_20260528/01_BASE_ALL_TRACK_VEL100_EMPTY.syx
+  after: captures/track_default_velocity_offsets_20260528/07_T6_VEL001_EMPTY.syx
+  before_operation: all tracks vel=100
+  after_operation: set Track 6 default velocity 100->1
+  track: 6
+fixed_context:
+  pattern_condition: empty pattern (no triggers)
+  track_default_velocity_before: all tracks = 100
+  changed_parameter: only one track default velocity per file
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+patches:
+- offset: 8116
+  before: '0x64'
+  value: '0x01'
+- offset: 114114
+  before: '0x7F'
+  value: '0x1C'

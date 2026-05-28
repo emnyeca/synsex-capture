@@ -1,0 +1,100 @@
+analysis_id: track_default_velocity_offsets_20260528
+analysis: track_default_velocity_offset_mapping_empty_pattern
+fixed_context:
+  baseline_file: captures/track_default_velocity_offsets_20260528/01_BASE_ALL_TRACK_VEL100_EMPTY.syx
+  baseline_condition:
+  - empty pattern
+  - no triggers
+  - Track1-8 default velocity=100
+  - other parameters fixed
+sequence:
+- index: 1
+  file: captures/track_default_velocity_offsets_20260528/01_BASE_ALL_TRACK_VEL100_EMPTY.syx
+  operation: baseline all tracks vel=100
+- index: 2
+  file: captures/track_default_velocity_offsets_20260528/02_T1_VEL001_EMPTY.syx
+  operation: set Track 1 default velocity 100->1
+- index: 3
+  file: captures/track_default_velocity_offsets_20260528/03_T2_VEL001_EMPTY.syx
+  operation: set Track 2 default velocity 100->1
+- index: 4
+  file: captures/track_default_velocity_offsets_20260528/04_T3_VEL001_EMPTY.syx
+  operation: set Track 3 default velocity 100->1
+- index: 5
+  file: captures/track_default_velocity_offsets_20260528/05_T4_VEL001_EMPTY.syx
+  operation: set Track 4 default velocity 100->1
+- index: 6
+  file: captures/track_default_velocity_offsets_20260528/06_T5_VEL001_EMPTY.syx
+  operation: set Track 5 default velocity 100->1
+- index: 7
+  file: captures/track_default_velocity_offsets_20260528/07_T6_VEL001_EMPTY.syx
+  operation: set Track 6 default velocity 100->1
+- index: 8
+  file: captures/track_default_velocity_offsets_20260528/08_T7_VEL001_EMPTY.syx
+  operation: set Track 7 default velocity 100->1
+- index: 9
+  file: captures/track_default_velocity_offsets_20260528/09_T8_VEL001_EMPTY.syx
+  operation: set Track 8 default velocity 100->1
+generated:
+  baseline_diffs:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_02.yaml
+    difference_count: 2
+  - from: 1
+    to: 3
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_03.yaml
+    difference_count: 2
+  - from: 1
+    to: 4
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_04.yaml
+    difference_count: 2
+  - from: 1
+    to: 5
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_05.yaml
+    difference_count: 2
+  - from: 1
+    to: 6
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_06.yaml
+    difference_count: 2
+  - from: 1
+    to: 7
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_07.yaml
+    difference_count: 2
+  - from: 1
+    to: 8
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_08.yaml
+    difference_count: 2
+  - from: 1
+    to: 9
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/vs_base_to_09.yaml
+    difference_count: 2
+  sequential_diffs:
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_02_to_03.yaml
+    difference_count: 2
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_03_to_04.yaml
+    difference_count: 2
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_04_to_05.yaml
+    difference_count: 2
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_05_to_06.yaml
+    difference_count: 2
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_06_to_07.yaml
+    difference_count: 2
+  - from: 7
+    to: 8
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_07_to_08.yaml
+    difference_count: 2
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/track_default_velocity_offsets_20260528/seq_08_to_09.yaml
+    difference_count: 2

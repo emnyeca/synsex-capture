@@ -1,0 +1,26 @@
+analysis: track_default_velocity_offsets_confirmed
+result:
+  track_default_velocity_offsets:
+    T1: 1333
+    T2: 2689
+    T3: 4046
+    T4: 5403
+    T5: 6759
+    T6: 8116
+    T7: 9472
+    T8: 10829
+  track1_known_offset_reconfirmed: 1333
+  checksum_related_offsets:
+  - 114114
+  encoding: direct-value byte
+  confirmed_from_capture_pairs:
+  - 'BASE vs T1..T8 (100->1) all show exactly 2-byte diff: track offset and checksum
+    offset'
+  - Track-specific changed byte is always 0x64->0x01 at each mapped offset
+  planned_values_support:
+    '50': '0x32'
+    '70': '0x46'
+    '100': '0x64'
+notes:
+- No trigger records were introduced in this dataset.
+- Pattern content/tempo/name remained fixed across captures by design.

@@ -1,0 +1,64 @@
+analysis: track_default_velocity_offset_inference
+baseline_to_track_change_offsets:
+  T1:
+    offset: 1333
+    before: '0x64'
+    after: '0x01'
+  T2:
+    offset: 2689
+    before: '0x64'
+    after: '0x01'
+  T3:
+    offset: 4046
+    before: '0x64'
+    after: '0x01'
+  T4:
+    offset: 5403
+    before: '0x64'
+    after: '0x01'
+  T5:
+    offset: 6759
+    before: '0x64'
+    after: '0x01'
+  T6:
+    offset: 8116
+    before: '0x64'
+    after: '0x01'
+  T7:
+    offset: 9472
+    before: '0x64'
+    after: '0x01'
+  T8:
+    offset: 10829
+    before: '0x64'
+    after: '0x01'
+common_checksum_related_offset:
+- 114114
+track_offsets_ordered:
+- 1333
+- 2689
+- 4046
+- 5403
+- 6759
+- 8116
+- 9472
+- 10829
+track_offset_strides:
+- 1356
+- 1357
+- 1357
+- 1356
+- 1357
+- 1356
+- 1357
+encoding_inference:
+  observed_mapping:
+  - 100 -> 0x64
+  - 1 -> 0x01
+  inferred_storage: direct single-byte value (no LUT/scale observed in captured range)
+  planned_values_hex:
+    '50': '0x32'
+    '70': '0x46'
+    '100': '0x64'
+  safety_note: Write path must recompute/checksum bytes consistently; checksum offset
+    changes in every diff.
