@@ -23,11 +23,24 @@ Trigger個別Velocityのfieldを特定し、新規TriggerがTrack既定値を継
 
 ### Track既定Velocity
 
-Track 1の既定Velocityはphysical offset `1333` に実値で格納される。
+Track 1〜8の既定Velocityは、各Trackの専用physical offsetに実値で格納される。
 
-| Track既定Velocity | `1333` |
+| Track | Offset |
+|---:|---:|
+| 1 | `1333` |
+| 2 | `2689` |
+| 3 | `4046` |
+| 4 | `5403` |
+| 5 | `6759` |
+| 6 | `8116` |
+| 7 | `9472` |
+| 8 | `10829` |
+
+| Track既定Velocity | Byte値 |
 |---:|---:|
 | 1 | `0x01` |
+| 50 | `0x32` |
+| 70 | `0x46` |
 | 100 | `0x64` |
 
 ### Trigger個別Velocity
@@ -51,3 +64,7 @@ Track既定Velocityが100のとき、新規Triggerは実効Velocity 100で鳴る
 ## Packing上の注意
 
 継承値 `0xFF` はraw SYX上ではpayload `0x7F` とcontrol byte側のMSBで表現される。raw payload `0x7F` だけを見て、明示Velocity 127と継承を同一視してはならない。
+
+## Checksumに関する観測
+
+Checksum下位byteは physical offset `114114`。Track既定Velocityのみを変更した差分でもこのbyteが追随して変化するため、Track既定Velocity書き換え後はchecksum再計算が必須。

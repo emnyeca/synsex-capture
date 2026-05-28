@@ -55,7 +55,7 @@
 | Pitch | record byte `2`、半音単位整数 |
 | Velocity | record byte `3`、`0xFF` はTrack既定値継承 |
 | Length | record byte `4`、`0xFF` はTrack既定値継承、`0x7F` は明示 `INF` |
-| Track default velocity | physical offset `1333` |
+| Track default velocity | Track 1..8 offsets `1333`, `2689`, `4046`, `5403`, `6759`, `8116`, `9472`, `10829` |
 | Track default length | physical offset `1334` |
 | Pattern tempo | offsets `101498`, `101503`, `101504`、`round(BPM * 120)` |
 | Pattern speed | offset `101512`、列挙コード |
@@ -86,5 +86,5 @@ EUB Changes 側の duration->Digitone Length 変換で利用可能。
 
 ## 未完了の解析
 
-Checksum / integrity field については、変更済みraw byteの加算差分が `114113–114114` に追随する観測が蓄積されています。現実装では `sum(data[10:114113]) % 16384` を用いて再計算していますが、加算対象範囲と完全再計算式の最終確定は継続課題です。Checksum解析完了後に確定仕様として追記します。
+Checksum / integrity field については、変更済みraw byteの加算差分が `114113–114114` に追随する観測が蓄積されています。Track default velocity変更時も `114114` (checksum low byte) が追随することを確認済みです。現実装では `sum(data[10:114113]) % 16384` を用いて再計算していますが、加算対象範囲と完全再計算式の最終確定は継続課題です。Checksum解析完了後に確定仕様として追記します。
 

@@ -1,10 +1,20 @@
 analysis_target: trigger_velocity_and_track_default
-status: confirmed_for_track1_slot1
+status: confirmed_for_track1_to_track8_and_slot1
 track_default_velocity:
-  physical_offset: 1333
+  physical_offsets:
+    1: 1333
+    2: 2689
+    3: 4046
+    4: 5403
+    5: 6759
+    6: 8116
+    7: 9472
+    8: 10829
   encoding: direct_value
   observed_values:
     1: "0x01"
+    50: "0x32"
+    70: "0x46"
     100: "0x64"
 trigger_velocity:
   decoded_record_byte: 3
@@ -21,3 +31,6 @@ trigger_velocity:
     new_trigger_stores_inherit_marker: true
     explicit_value_survives_track_default_change: true
 packing_note: "Decoded 0xFF may appear as raw payload 0x7F with its MSB stored in the 7-bit packing control byte."
+checksum:
+  low_byte_physical_offset: 114114
+  note: "Track default velocity changes affect checksum; recomputation is required after writing defaults."

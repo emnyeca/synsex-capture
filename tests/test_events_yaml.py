@@ -90,6 +90,49 @@ def test_load_event_assignment_yaml_rejects_track_defaults_section(tmp_path: Pat
         load_event_assignment_yaml(yaml_path)
 
 
+def test_load_event_assignment_yaml_accepts_track_default_velocity_map(tmp_path: Path):
+    yaml_path = tmp_path / "events_track_defaults.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "track_defaults:\n"
+        "  velocity:\n"
+        "    1: 50\n"
+        "    3: 70\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.track_default_velocity == {1: 50, 3: 70}
+
+
+def test_load_event_assignment_yaml_rejects_track_default_velocity_out_of_range(tmp_path: Path):
+    yaml_path = tmp_path / "events_track_defaults_bad.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "track_defaults:\n"
+        "  velocity:\n"
+        "    1: 0\n"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="1..127"):
+        load_event_assignment_yaml(yaml_path)
+
+
 def test_load_event_assignment_yaml_rejects_track_9(tmp_path: Path):
     yaml_path = tmp_path / "events_track9.yaml"
     yaml_path.write_text(

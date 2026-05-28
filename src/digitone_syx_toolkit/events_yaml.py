@@ -49,6 +49,7 @@ class EventAssignment:
     device: str
     name: str | None
     pattern: PatternSettings
+    track_default_velocity: dict[int, int]
     events: tuple[EventItem, ...]
 
 
@@ -155,6 +156,26 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
         raise SyxFileError(
             "'tracks' defaults rewrite is not supported in the current Digitone II encoder scope"
         )
+
+    track_default_velocity: dict[int, int] = {}
+    raw_track_defaults = payload.get("track_defaults")
+    if raw_track_defaults is not None:
+        if not isinstance(raw_track_defaults, dict):
+            raise SyxFileError("'track_defaults' must be a mapping")
+        raw_velocity_map = raw_track_defaults.get("velocity")
+        if raw_velocity_map is None:
+            raise SyxFileError("'track_defaults.velocity' is required when track_defaults is provided")
+        if not isinstance(raw_velocity_map, dict):
+            raise SyxFileError("'track_defaults.velocity' must be a mapping")
+
+        for raw_track, raw_velocity in raw_velocity_map.items():
+            track = _as_int(raw_track, "track_defaults.velocity track")
+            if track < 1 or track > 8:
+                raise SyxFileError(f"track_defaults.velocity track must be 1..8: {track}")
+            velocity = _as_int(raw_velocity, f"track_defaults.velocity[{track}]")
+            if velocity < 1 or velocity > 127:
+                raise SyxFileError(f"track_defaults.velocity[{track}] must be 1..127")
+            track_default_velocity[track] = velocity
 
     raw_events = payload.get("events")
     if not isinstance(raw_events, list):
@@ -263,5 +284,6 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             speed=speed,
             total_steps=total_steps,
         ),
+        track_default_velocity=track_default_velocity,
         events=tuple(parsed_events),
     )

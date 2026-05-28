@@ -6,6 +6,7 @@ from digitone_syx_toolkit.digitone2.constants import (
     CHECKSUM_SUM_END,
     CHECKSUM_SUM_START,
     EXPLICIT_LENGTH_CODE_TO_DISPLAY,
+    TRACK_DEFAULT_VELOCITY_OFFSETS,
     TRIGGER_REGION_CONTROL_START,
     TRIGGER_REGION_PAYLOAD_START,
     TRIGGER_SLOT_SIZE,
@@ -204,6 +205,118 @@ def test_build_syx_from_events_checksum_recompute_is_consistent(tmp_path: Path):
     expected_cs = sum(built[10:114113]) % 16384
     assert built[114113] == ((expected_cs >> 7) & 0x7F)
     assert built[114114] == (expected_cs & 0x7F)
+
+
+def test_build_syx_from_events_writes_track_default_velocity_for_multiple_tracks(tmp_path: Path):
+    events = tmp_path / "track_defaults.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "track_defaults:\n"
+        "  velocity:\n"
+        "    1: 50\n"
+        "    3: 70\n"
+        "events: []\n",
+    )
+
+    output = tmp_path / "track_defaults.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    assert built[TRACK_DEFAULT_VELOCITY_OFFSETS[1]] == 50
+    assert built[TRACK_DEFAULT_VELOCITY_OFFSETS[3]] == 70
+
+
+def test_build_syx_from_events_keeps_unspecified_track_default_velocity(tmp_path: Path):
+    events = tmp_path / "track_defaults_partial.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "track_defaults:\n"
+        "  velocity:\n"
+        "    2: 55\n"
+        "events: []\n",
+    )
+
+    template = Path("captures/BASE_EMPTY.syx").read_bytes()
+    output = tmp_path / "track_defaults_partial.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    assert built[TRACK_DEFAULT_VELOCITY_OFFSETS[2]] == 55
+    assert built[TRACK_DEFAULT_VELOCITY_OFFSETS[1]] == template[TRACK_DEFAULT_VELOCITY_OFFSETS[1]]
+
+
+def test_track_default_velocity_write_preserves_inherit_trigger_velocity(tmp_path: Path):
+    events = tmp_path / "track_default_and_inherit_trigger.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "track_defaults:\n"
+        "  velocity:\n"
+        "    1: 70\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+    )
+
+    output = tmp_path / "track_default_and_inherit_trigger.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    assert built[TRACK_DEFAULT_VELOCITY_OFFSETS[1]] == 70
+    assert _read_trigger_slot_value(built, 0, 3) == 0xFF
+
+
+def test_trigger_explicit_velocity_stays_explicit_with_track_default_velocity(tmp_path: Path):
+    events = tmp_path / "track_default_and_explicit_trigger.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "track_defaults:\n"
+        "  velocity:\n"
+        "    1: 100\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: 70\n"
+        "    length: inherit\n",
+    )
+
+    output = tmp_path / "track_default_and_explicit_trigger.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    assert built[TRACK_DEFAULT_VELOCITY_OFFSETS[1]] == 100
+    assert _read_trigger_slot_value(built, 0, 3) == 70
 
 
 def test_build_syx_from_events_rejects_duplicate_step_track(tmp_path: Path):

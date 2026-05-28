@@ -26,6 +26,7 @@ from .constants import (
     SPEED_CODE_MAP,
     SUPPORTED_TRACK_MAX,
     SUPPORTED_TRACK_MIN,
+    TRACK_DEFAULT_VELOCITY_OFFSETS,
     TRACK_TOTAL_STEPS_TARGETS,
     TRIGGER_MAX_SLOTS,
     TRIGGER_REGION_CONTROL_START,
@@ -122,6 +123,16 @@ def _set_step_state_table(data: bytearray, assignment: EventAssignment) -> None:
     )
 
 
+def _set_track_default_velocity(data: bytearray, assignment: EventAssignment) -> None:
+    for track, velocity in assignment.track_default_velocity.items():
+        offset = TRACK_DEFAULT_VELOCITY_OFFSETS.get(track)
+        if offset is None:
+            raise SyxFileError(f"Unsupported track for default velocity: {track}")
+        if velocity < 1 or velocity > 127:
+            raise SyxFileError(f"track_default_velocity[{track}] must be 1..127")
+        data[offset] = int(velocity)
+
+
 def _clear_trigger_slots(data: bytearray) -> None:
     for slot_index in range(TRIGGER_MAX_SLOTS):
         base = TRIGGER_SLOT0_PAYLOAD_INDEX + (slot_index * TRIGGER_SLOT_SIZE)
@@ -183,6 +194,7 @@ def build_digitone2_syx(
 
     warnings: list[str] = []
     _set_pattern_fields(data, assignment)
+    _set_track_default_velocity(data, assignment)
     _clear_trigger_slots(data)
     written_events = _write_trigger_slots(data, assignment)
     _set_step_state_table(data, assignment)

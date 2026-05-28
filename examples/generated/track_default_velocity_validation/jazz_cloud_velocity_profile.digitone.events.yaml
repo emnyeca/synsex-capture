@@ -1,0 +1,38 @@
+version: 1
+device: digitone2
+name: JAZZ CLOUD VEL
+pattern:
+  mode: pattern-wide
+  tempo: 120
+  speed: 1/8
+  total_steps: 16
+track_defaults:
+  velocity:
+    1: 70
+    2: 70
+    3: 70
+    4: 50
+    5: 70
+    6: 50
+    7: 100
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+  - step: 1
+    track: 2
+    note: E5
+    velocity: inherit
+    length: inherit
+  - step: 1
+    track: 3
+    note: G5
+    velocity: inherit
+    length: inherit
+  - step: 1
+    track: 7
+    note: C3
+    velocity: inherit
+    length: inherit
