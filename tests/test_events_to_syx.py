@@ -123,7 +123,7 @@ def test_build_syx_from_events_encodes_trigger_record_fields(tmp_path: Path):
     assert [_read_trigger_slot_value(built, 2, rel) for rel in range(6)] == [0x07, 0x7F, 0x37, 0xFF, 0x7F, 0x00]
 
 
-def test_build_syx_from_events_preserves_track8_chord_note_order_and_micro_timing(tmp_path: Path):
+def test_build_syx_preserves_track8_chord_note_order_and_micro_timing(tmp_path: Path):
     events = tmp_path / "track8_chord_order.yaml"
     _write_events_yaml(
         events,
