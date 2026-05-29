@@ -33,6 +33,15 @@
 | Pattern-wide / per-track mode | [analysis](pattern-step-mode/analysis.ja.md) | [spec](pattern-step-mode/spec.yaml) |
 | Total steps expansion / hide-reshow behavior | [analysis](pattern-total-steps-propagation/analysis.ja.md) | [spec](pattern-total-steps-propagation/spec.yaml) |
 
+## 解析準備中の観測トピック
+
+### Chord Trigger UI Behavior
+
+- Status: hardware UI observation complete enough for Phase 1 SysEx capture planning
+- Scope: Track 8 multi-note trigger behavior; binary storage not yet analyzed
+- Document: [observations](chord-trigger-ui-behavior/observations.ja.md)
+- Companion notes: [observations.yaml](chord-trigger-ui-behavior/observations.yaml)
+
 ## 共通固定条件
 
 以下の条件を固定した差分系列を主に使用しています。

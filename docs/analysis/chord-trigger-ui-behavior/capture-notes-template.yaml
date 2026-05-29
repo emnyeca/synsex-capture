@@ -1,0 +1,22 @@
+device: Digitone II
+analysis_topic: track8_chord_trigger_notes
+track: 8
+purpose: Raw SysEx diff alone cannot recover all UI-observed representative state, so each capture must be accompanied by a manual UI observation record.
+
+capture:
+  filename: ""
+  step: 1
+  creation_order: []
+  ui_representative_note: ""
+  trigger_display:
+    note: ""
+    time: 0
+    len: ""
+    vel: ""
+  notes:
+    - insertion_index: 1
+      note: ""
+      time: 0
+      len: ""
+      vel: ""
+  observation_notes: ""

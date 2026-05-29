@@ -1,0 +1,75 @@
+analysis_topic: chord_trigger_ui_behavior
+status: hardware_ui_observation_complete_enough_for_phase1_capture_planning
+device: Digitone II
+target_track: 8
+stage: pre_sysex_field_analysis
+reference_documents:
+  ordinary_trigger_analysis: docs/analysis/trigger-record/analysis.ja.md
+scope:
+  purpose: use one trigger containing multiple notes as a chord-progression track for EUB Changes
+  note: covers hardware-observed multi-note UI behavior only; chord-note SysEx storage is unresolved
+hardware_observations:
+  multi_note_capacity:
+    max_notes_per_step: 16
+    per_note_editing: true
+  per_note_parameters:
+    note_range: C0 to G10
+    time:
+      meaning: micro_timing
+      range: -23..23
+      default: 0
+    len_range: .125 to 128, INF
+    vel_range: 1..127
+  representative_note:
+    definition: note currently exposed by trigger-level parameter display
+    equal_time_initial_rule_observed: first-added note is displayed
+    earlier_time_can_take_over: true
+    return_to_equal_time_does_not_auto_revert: true
+    deletion_behavior_observed: deleting representative moves display to another valid remaining representative
+working_interpretation:
+  representative_note_is_ui_stateful_or_update_triggered: true
+  fixed_sysex_storage_model_confirmed: false
+eub_changes_v1_policy:
+  target_track: 8
+  max_generated_notes_per_trigger: 6
+  time_policy: all_notes_time_0
+  emission_order: ascending_pitch
+  representative_expectation: lowest_note_typically_displayed_when_time_equal
+  len_policy: explicit_and_identical_for_all_notes
+  vel_policy:
+    explicit_per_note: true
+    initial_candidate_profile_low_to_high:
+    - 70
+    - 70
+    - 70
+    - 50
+    - 70
+    - 50
+unresolved_questions:
+  - chord-note SysEx representation
+  - representative note stored explicitly or derived
+  - full representative state-transition rule
+  - inherit markers versus shared state for LEN and VEL
+  - binary fields for per-note NOTE/TIME/LEN/VEL
+  - whether saturation/backtracking exists in saved SysEx or live UI only
+planned_capture_sequence:
+  raw_capture_folder: captures/Track08_Chord_Trigger_Notes_20260529/
+  future_analysis_folder: datasets/analysis/track08_chord_trigger_notes_20260529/
+  files:
+    - 01_EMPTY_PATTERN.syx
+    - 02_T08_S01_C5_SINGLE_NOTE.syx
+    - 03_T08_S01_CHORD_02_C5_E5.syx
+    - 04_T08_S01_CHORD_03_C5_E5_G5.syx
+    - 05_T08_S01_CHORD_04_C5_E5_G5_B5.syx
+    - 06_T08_S01_CHORD_05_C5_E5_G5_B5_D6.syx
+    - 07_T08_S01_CHORD_06_C5_E5_G5_B5_D6_A6.syx
+    - 08_DIRECT_D5_FS5_A5.syx
+    - 09_TRANSPOSED_C5_E5_G5_TO_D5_FS5_A5.syx
+    - 10_ORDER_C5_THEN_E5_TIME0.syx
+    - 11_ORDER_E5_THEN_C5_TIME0.syx
+    - 12_REPRESENTATIVE_C5_E5_TIME0.syx
+    - 13_REPRESENTATIVE_E5_TIME_MINUS1.syx
+    - 14_REPRESENTATIVE_E5_RETURN_TIME0_REMAINS_REPRESENTATIVE.syx
+    - 15_TWO_CHORDS_S01_THEN_S05.syx
+    - 16_TWO_CHORDS_S05_THEN_S01.syx
+    - 17_T08_S01_CHORD_16_NOTES.syx
