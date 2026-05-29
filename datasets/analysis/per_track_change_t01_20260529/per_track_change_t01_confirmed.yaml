@@ -1,6 +1,13 @@
 analysis_target: per_track_change_t01
 status: confirmed_off_vs_non_off
 field:
+  summary:
+    off_output_encoding_confirmed_for_current_requirement: true
+    off_low_value: '0x01'
+    numeric_2_to_17_observed_as_direct_low_values: true
+    introduces_extended_field_activity_at_1024:
+    - 101508
+    full_numeric_encoding_intentionally_deferred: true
   physical_offsets:
   - 101509
   non_off_examples:
@@ -38,3 +45,7 @@ notes:
 - Baseline file is 02_EMPTY_PER_TRACK_DEFAULT.syx and its Track 1 CHANGE display state
   is OFF.
 - This analysis prioritizes distinguishing OFF from non-OFF values, per request.
+- Offset 101509 is the confirmed low-value location for the current OFF vs non-OFF
+  requirement, but the full numeric field encoding is intentionally not claimed yet.
+- Value 1024 activates additional storage at offset 101508, so this confirmed file
+  should not be read as a complete description of every numeric CHANGE value.

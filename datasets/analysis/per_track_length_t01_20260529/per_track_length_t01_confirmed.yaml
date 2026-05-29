@@ -4,6 +4,11 @@ result:
     msb_pack_byte: 1346
     track_1_length_low7: 1347
     msb_mask: '0x40'
+  summary:
+    low7_offset: 1347
+    msb_pack_byte_offset: 1346
+    msb_mask: '0x40'
+    tested_range_includes: 128
   checksum_related_offsets:
   - 114114
   encoding: 7-bit packed integer (MSB in pack byte + low7 byte)

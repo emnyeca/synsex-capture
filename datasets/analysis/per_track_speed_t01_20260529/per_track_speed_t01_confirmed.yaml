@@ -2,6 +2,9 @@ analysis_target: per_track_speed_t01
 status: confirmed
 field:
   physical_offset: 1349
+  summary:
+    offset: 1349
+    all_enum_values_confirmed: true
   encoding:
     1/8: '0x06'
     1/4: '0x05'

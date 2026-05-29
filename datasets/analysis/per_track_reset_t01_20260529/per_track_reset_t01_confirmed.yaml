@@ -1,6 +1,17 @@
 analysis_target: per_track_reset_t01
 status: confirmed_inf_vs_non_inf
 field:
+  summary:
+    inf_output_encoding_confirmed_for_current_requirement: true
+    default_display_value: 16
+    default_low_value: '0x10'
+    inf_low_value: '0x01'
+    numeric_2_to_17_observed_as_direct_low_values: true
+    introduces_extended_field_activity_at_1024:
+    - 101505
+    full_numeric_encoding_intentionally_deferred: true
+    overlap_note: offset 101507 is mode-dependent and overlaps pattern-wide total steps
+      storage
   primary_offsets:
   - 101507
   extended_offsets:
@@ -91,3 +102,7 @@ notes:
   smaller values.
 - Baseline file is 02_EMPTY_PER_TRACK_DEFAULT.syx and its Track 1 RESET display state
   is 16.
+- INF output is confirmed for the current requirement, but complete numeric RESET
+  field coverage remains intentionally deferred.
+- Offset 101507 is mode-dependent and overlaps pattern-wide total steps storage,
+  so it should not be documented as a globally unique RESET-only field.
