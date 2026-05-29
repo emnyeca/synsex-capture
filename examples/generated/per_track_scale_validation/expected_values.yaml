@@ -1,0 +1,32 @@
+mode:
+  offset: 101511
+  value: '0x01'
+pattern_change:
+  output: OFF
+  extended_offset: 101508
+  clear_mask: '0x04'
+  low_offset: 101509
+  low_value: '0x01'
+pattern_reset:
+  output: INF
+  extended_offset: 101505
+  clear_mask: '0x04'
+  low_offset: 101507
+  low_value: '0x01'
+tracks:
+  1: {length: 16, speed: '1'}
+  2: {length: 17, speed: '1/2'}
+  3: {length: 18, speed: '1'}
+  4: {length: 19, speed: '1/2'}
+  5: {length: 20, speed: '1'}
+  6: {length: 21, speed: '1/2'}
+  7: {length: 22, speed: '1'}
+  8: {length: 23, speed: '1/2'}
+  9: {length: 24, speed: '1'}
+  10: {length: 25, speed: '1/2'}
+  11: {length: 26, speed: '1'}
+  12: {length: 27, speed: '1/2'}
+  13: {length: 28, speed: '1'}
+  14: {length: 29, speed: '1/2'}
+  15: {length: 30, speed: '1'}
+  16: {length: 128, speed: '1/2'}

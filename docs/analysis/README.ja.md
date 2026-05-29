@@ -77,8 +77,9 @@ EUB Changes 側の duration->Digitone Length 変換で利用可能。
 
 1. `(step, track)` 固定offset前提の `profile.slots` 方式を廃止し、内蔵 `BASE_EMPTY.syx` を基準に Trigger slot array へ順次配置する方式へ移行。
 2. Trigger Length の扱いを更新し、`inherit=0xFF` と明示 `INF=0x7F` を分離。明示 `1` は `0x0E` として扱う実装へ変更。
-3. Pattern total steps の pattern-wide 書き込み規則は保持しているが、現行仕様では per-track 出力時に `101507` を total steps として書かない分岐が必要。
+3. Pattern total steps の pattern-wide 書き込み規則は保持しつつ、per-track 出力では `101507` を total steps として書かず、RESET low field として扱う実装へ更新。
 4. Pitch 変換は Digitone表示基準（解析で確認した `C5 -> 0x3C`）を前提にした変換へ更新。
+5. Per Track Mode 出力を実装し、Track 1〜16 の LENGTH / SPEED、pattern-shared CHANGE=OFF、RESET=INF を書き込めるようにした。
 
 一方で、以下は未反映または部分反映です。
 
@@ -86,7 +87,7 @@ EUB Changes 側の duration->Digitone Length 変換で利用可能。
 2. Step state table は 7-bit unpack 後の 2byte/step 連続テーブルとして整理し、`4 + 1187 * trackIndex + 2 * stepIndex` を実装へ反映。通常Trigger値は確認範囲で `odd=[0x03,0x81]`, `even=[0x03,0x91]` に一致し、page境界による追加分岐は未観測。
 3. Trigger record byte 0 は 0-based Track index として確定（Track 1〜8）。
 4. Step state 差分は packing control byte を含むため物理上 2〜3byte に見えることがあるが、意味上は decoded 2byte entry を更新するモデルへ統一。
-5. Pattern control write policy は per-track 生成へ更新が必要である。Track 1〜16 の LENGTH / SPEED mapping と、pattern-shared CHANGE / RESET、および mode-dependent offset `101507` を実装へ反映する。
+5. Track default velocity / trigger / pattern name 以外の追加ハードウェア検証は継続中であり、per-track scale mode の実機確認は別途 hardware validation チェックで追跡する。
 
 ## 未完了の解析
 

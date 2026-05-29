@@ -250,7 +250,7 @@ def test_build_syx_from_events_keeps_unspecified_track_default_velocity(tmp_path
         "events: []\n",
     )
 
-    template = Path("captures/BASE_EMPTY.syx").read_bytes()
+    template = Path("captures/BASE/BASE_EMPTY.syx").read_bytes()
     output = tmp_path / "track_defaults_partial.syx"
     build_syx_from_events(events_yaml=events, output_file=output)
     built = output.read_bytes()
@@ -365,10 +365,10 @@ def test_checksum_reference_speed_matches_capture(tmp_path: Path):
     build_syx_from_events(
         events_yaml=events,
         output_file=output,
-        template_file=Path("captures/CHECKSUM_BASE_EMPTY.syx"),
+        template_file=Path("captures/BASE/CHECKSUM_BASE_EMPTY.syx"),
     )
 
-    assert output.read_bytes() == Path("captures/CHECKSUM_REFERENCE_SPEED.syx").read_bytes()
+    assert output.read_bytes() == Path("captures/BASE/CHECKSUM_REFERENCE_SPEED.syx").read_bytes()
 
 
 def test_length_display_map_full_and_known_anchors():
@@ -451,22 +451,22 @@ def test_hardware_validated_trials_1_to_4_regression(tmp_path: Path):
         (
             Path("captures/generated/events/trial1_minimal_trigger.events.yaml"),
             Path("captures/generated/trial1_minimal_trigger.syx"),
-            Path("captures/BASE_EMPTY.syx"),
+            Path("captures/BASE/BASE_EMPTY.syx"),
         ),
         (
             Path("captures/generated/events/trial2_page_track_cross.events.yaml"),
             Path("captures/generated/trial2_page_track_cross.syx"),
-            Path("captures/BASE_EMPTY_STEPS128.syx"),
+                Path("captures/BASE/BASE_EMPTY_STEPS128.syx"),
         ),
         (
             Path("captures/generated/events/trial3_same_track_multiple_trigger.events.yaml"),
             Path("captures/generated/trial3_same_track_multiple_trigger.syx"),
-            Path("captures/BASE_EMPTY_STEPS128.syx"),
+                Path("captures/BASE/BASE_EMPTY_STEPS128.syx"),
         ),
         (
             Path("captures/generated/events/trial4_multiple_track_multiple_trigger_noninherit.events.yaml"),
             Path("captures/generated/trial4_multiple_track_multiple_trigger_noninherit.syx"),
-            Path("captures/BASE_EMPTY_STEPS128.syx"),
+                Path("captures/BASE/BASE_EMPTY_STEPS128.syx"),
         ),
     ]
 

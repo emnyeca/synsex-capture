@@ -1,10 +1,126 @@
 analysis_target: pattern_step_mode
 status: confirmed_for_per_track_generation
+authoritative_mapping_dataset: datasets/analysis/per_track_field_mapping_t01_t16_20260529/summary.yaml
 mode_field:
   physical_offset: 101511
   values:
     pattern_wide: '0x00'
     per_track: '0x01'
+per_track_scale_output:
+  mode:
+    offset: 101511
+    value: '0x01'
+  track_length:
+    valid_range: 2..128
+    targets:
+    - track: 1
+      control_offset: 1346
+      payload_offset: 1347
+      msb_mask: '0x40'
+    - track: 2
+      control_offset: 2698
+      payload_offset: 2703
+      msb_mask: '0x04'
+    - track: 3
+      control_offset: 4058
+      payload_offset: 4060
+      msb_mask: '0x20'
+    - track: 4
+      control_offset: 5410
+      payload_offset: 5416
+      msb_mask: '0x02'
+    - track: 5
+      control_offset: 6770
+      payload_offset: 6773
+      msb_mask: '0x10'
+    - track: 6
+      control_offset: 8122
+      payload_offset: 8129
+      msb_mask: '0x01'
+    - track: 7
+      control_offset: 9482
+      payload_offset: 9486
+      msb_mask: '0x08'
+    - track: 8
+      control_offset: 10842
+      payload_offset: 10843
+      msb_mask: '0x40'
+    - track: 9
+      control_offset: 12194
+      payload_offset: 12199
+      msb_mask: '0x04'
+    - track: 10
+      control_offset: 13554
+      payload_offset: 13556
+      msb_mask: '0x20'
+    - track: 11
+      control_offset: 14906
+      payload_offset: 14912
+      msb_mask: '0x02'
+    - track: 12
+      control_offset: 16266
+      payload_offset: 16269
+      msb_mask: '0x10'
+    - track: 13
+      control_offset: 17618
+      payload_offset: 17625
+      msb_mask: '0x01'
+    - track: 14
+      control_offset: 18978
+      payload_offset: 18982
+      msb_mask: '0x08'
+    - track: 15
+      control_offset: 20338
+      payload_offset: 20339
+      msb_mask: '0x40'
+    - track: 16
+      control_offset: 21690
+      payload_offset: 21695
+      msb_mask: '0x04'
+  track_speed:
+    enum:
+      '2': '0x00'
+      '3/2': '0x01'
+      '1': '0x02'
+      '3/4': '0x03'
+      '1/2': '0x04'
+      '1/4': '0x05'
+      '1/8': '0x06'
+    offsets:
+      1: 1349
+      2: 2705
+      3: 4062
+      4: 5419
+      5: 6775
+      6: 8132
+      7: 9488
+      8: 10845
+      9: 12201
+      10: 13558
+      11: 14915
+      12: 16271
+      13: 17628
+      14: 18984
+      15: 20341
+      16: 21697
+  pattern_change:
+    scope: pattern_shared
+    fixed_output: OFF
+    extended_offset: 101508
+    clear_mask: '0x04'
+    low_offset: 101509
+    low_value: '0x01'
+  pattern_reset:
+    scope: pattern_shared
+    fixed_output: INF
+    extended_offset: 101505
+    clear_mask: '0x04'
+    low_offset: 101507
+    low_value: '0x01'
+  mode_dependent_offsets:
+    101507:
+      pattern_wide: total_steps_payload
+      per_track: reset_low_field
 behavior:
   switching_to_pattern_wide_resynchronizes_hidden_track_values: false
   pattern_wide_edit_synchronizes_track_values: true

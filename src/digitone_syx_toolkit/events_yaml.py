@@ -39,8 +39,16 @@ class EventItem:
 class PatternSettings:
     mode: str
     tempo: float
+    speed: str | None = None
+    total_steps: int | None = None
+    change: str | None = None
+    reset: str | None = None
+
+
+@dataclass(frozen=True)
+class TrackScaleSettings:
+    length: int
     speed: str
-    total_steps: int
 
 
 @dataclass(frozen=True)
@@ -50,6 +58,7 @@ class EventAssignment:
     name: str | None
     pattern: PatternSettings
     track_default_velocity: dict[int, int]
+    track_scale: dict[int, TrackScaleSettings]
     events: tuple[EventItem, ...]
 
 
@@ -98,6 +107,23 @@ def _parse_length_code_or_error(raw: object, field: str) -> int:
         raise SyxFileError(f"{field}: {exc}") from exc
 
 
+def _parse_speed(raw: object, field: str) -> str:
+    speed = str(raw).strip()
+    if speed not in {"2", "3/2", "1", "3/4", "1/2", "1/4", "1/8"}:
+        raise SyxFileError(f"{field} must be one of: 2, 3/2, 1, 3/4, 1/2, 1/4, 1/8")
+    return speed
+
+
+def _parse_symbolic_text(raw: object, field: str) -> str:
+    if isinstance(raw, bool):
+        value = "ON" if raw else "OFF"
+    else:
+        value = str(raw).strip()
+    if not value:
+        raise SyxFileError(f"{field} is required")
+    return value.upper()
+
+
 def _load_yaml(path: str | Path) -> dict:
     src = Path(path)
     if not src.exists():
@@ -136,20 +162,63 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
         raise SyxFileError("'pattern' must be a mapping.")
 
     mode = str(pattern.get("mode", "pattern-wide")).strip().lower()
-    if mode not in {"pattern-wide", "pattern_wide"}:
-        raise SyxFileError("pattern.mode must be 'pattern-wide'")
+    if mode in {"pattern-wide", "pattern_wide"}:
+        canonical_mode = "pattern-wide"
+    elif mode in {"per-track", "per_track"}:
+        canonical_mode = "per-track"
+    else:
+        raise SyxFileError("pattern.mode must be 'pattern-wide' or 'per-track'")
 
     tempo = float(pattern.get("tempo", 120.0))
     if tempo < 30.0 or tempo > 300.0:
         raise SyxFileError("pattern.tempo must be in 30.0..300.0")
 
-    speed = str(pattern.get("speed", "1/8")).strip()
-    if speed not in {"2", "3/2", "1", "3/4", "1/2", "1/4", "1/8"}:
-        raise SyxFileError("pattern.speed must be one of: 2, 3/2, 1, 3/4, 1/2, 1/4, 1/8")
+    speed: str | None = None
+    total_steps: int | None = None
+    change: str | None = None
+    reset: str | None = None
+    track_scale: dict[int, TrackScaleSettings] = {}
 
-    total_steps = _as_int(pattern.get("total_steps"), "pattern.total_steps")
-    if total_steps < 2 or total_steps > 128:
-        raise SyxFileError("pattern.total_steps must be in 2..128")
+    if canonical_mode == "pattern-wide":
+        speed = _parse_speed(pattern.get("speed", "1/8"), "pattern.speed")
+        total_steps = _as_int(pattern.get("total_steps"), "pattern.total_steps")
+        if total_steps < 2 or total_steps > 128:
+            raise SyxFileError("pattern.total_steps must be in 2..128")
+    else:
+        change = _parse_symbolic_text(pattern.get("change", ""), "pattern.change")
+        if change != "OFF":
+            raise SyxFileError("pattern.change must be OFF in per-track mode")
+        reset = _parse_symbolic_text(pattern.get("reset", ""), "pattern.reset")
+        if reset != "INF":
+            raise SyxFileError("pattern.reset must be INF in per-track mode")
+
+        raw_track_scale = payload.get("track_scale")
+        if not isinstance(raw_track_scale, dict):
+            raise SyxFileError("'track_scale' must be a mapping in per-track mode")
+
+        for raw_track, raw_settings in raw_track_scale.items():
+            track = _as_int(raw_track, "track_scale track")
+            if track < 1 or track > 16:
+                raise SyxFileError(f"track_scale track must be 1..16: {track}")
+            if not isinstance(raw_settings, dict):
+                raise SyxFileError(f"track_scale[{track}] must be a mapping")
+            length = _as_int(raw_settings.get("length"), f"track_scale[{track}].length")
+            if length < 2 or length > 128:
+                raise SyxFileError(f"track_scale[{track}].length must be in 2..128")
+            track_speed = _parse_speed(raw_settings.get("speed"), f"track_scale[{track}].speed")
+            track_scale[track] = TrackScaleSettings(length=length, speed=track_speed)
+
+        expected_tracks = set(range(1, 17))
+        actual_tracks = set(track_scale)
+        if actual_tracks != expected_tracks:
+            missing = sorted(expected_tracks - actual_tracks)
+            extra = sorted(actual_tracks - expected_tracks)
+            details: list[str] = []
+            if missing:
+                details.append(f"missing tracks {missing}")
+            if extra:
+                details.append(f"unexpected tracks {extra}")
+            raise SyxFileError("track_scale must contain exactly tracks 1..16: " + ", ".join(details))
 
     raw_tracks = payload.get("tracks")
     if raw_tracks not in (None, []):
@@ -188,12 +257,13 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             raise SyxFileError("events[] entries must be mappings")
 
         step = _as_int(raw_event.get("step"), "events[].step")
-        if step < 1 or step > total_steps:
-            raise SyxFileError(f"events[].step out of range: {step} (1..{total_steps})")
-
         track = _as_int(raw_event.get("track"), f"events[step={step}].track")
         if track < 1 or track > 8:
             raise SyxFileError(f"events step={step}: track must be 1..8")
+
+        max_step = total_steps if canonical_mode == "pattern-wide" else track_scale[track].length
+        if step < 1 or step > max_step:
+            raise SyxFileError(f"events[].step out of range: {step} (1..{max_step})")
 
         pair = (step, track)
         if pair in seen_pairs:
@@ -279,11 +349,14 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
         device="digitone2",
         name=name,
         pattern=PatternSettings(
-            mode="pattern-wide",
+            mode=canonical_mode,
             tempo=tempo,
             speed=speed,
             total_steps=total_steps,
+            change=change,
+            reset=reset,
         ),
         track_default_velocity=track_default_velocity,
+        track_scale=track_scale,
         events=tuple(parsed_events),
     )

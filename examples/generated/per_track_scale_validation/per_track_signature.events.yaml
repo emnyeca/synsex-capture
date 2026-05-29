@@ -1,0 +1,46 @@
+version: 1
+device: digitone2
+name: PER TRACK SCALE
+pattern:
+  mode: per-track
+  tempo: 120
+  change: 'OFF'
+  reset: INF
+track_scale:
+  1: {length: 16, speed: '1'}
+  2: {length: 17, speed: '1/2'}
+  3: {length: 18, speed: '1'}
+  4: {length: 19, speed: '1/2'}
+  5: {length: 20, speed: '1'}
+  6: {length: 21, speed: '1/2'}
+  7: {length: 22, speed: '1'}
+  8: {length: 23, speed: '1/2'}
+  9: {length: 24, speed: '1'}
+  10: {length: 25, speed: '1/2'}
+  11: {length: 26, speed: '1'}
+  12: {length: 27, speed: '1/2'}
+  13: {length: 28, speed: '1'}
+  14: {length: 29, speed: '1/2'}
+  15: {length: 30, speed: '1'}
+  16: {length: 128, speed: '1/2'}
+events:
+  - step: 1
+    track: 1
+    note: C5
+    velocity: inherit
+    length: inherit
+  - step: 2
+    track: 2
+    note: D5
+    velocity: inherit
+    length: inherit
+  - step: 3
+    track: 3
+    note: E5
+    velocity: inherit
+    length: inherit
+  - step: 4
+    track: 4
+    note: G5
+    velocity: inherit
+    length: inherit

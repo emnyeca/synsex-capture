@@ -52,3 +52,12 @@ EUB Changes の現在方針は per-track 生成である。したがって、出
 
 Track 1〜16 の LENGTH / SPEED 配置、および pattern-shared CHANGE / RESET の確定表は `datasets/analysis/per_track_field_mapping_t01_t16_20260529/per_track_length_speed_pattern_controls_confirmed.yaml` を参照する。
 
+## 実装状況（2026-05-29）
+
+`digitone-syx-toolkit` は現在、Pattern-wide 互換入力を維持したまま per-track 出力を実装済みである。
+
+1. Pattern-wide mode は後方互換のため継続対応する。
+2. Per Track Mode では Track 1〜16 に個別 LENGTH / SPEED を書き込む。
+3. CHANGE は pattern-shared `OFF`、RESET は pattern-shared `INF` を固定出力する。
+4. `101507` は per-track mode で RESET low field として扱い、pattern-wide total steps payload としては書き込まない。
+

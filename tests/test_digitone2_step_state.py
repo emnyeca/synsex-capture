@@ -25,7 +25,7 @@ def test_normal_trigger_step_state_odd_even():
 
 
 def test_pack_unpack_round_trip_for_base_empty():
-    raw = bytearray(Path("captures/BASE_EMPTY.syx").read_bytes())
+    raw = bytearray(Path("captures/BASE/BASE_EMPTY.syx").read_bytes())
     original = bytes(raw)
     decoded = unpack_7bit_region(raw, start=CHECKSUM_SUM_START, end_exclusive=CHECKSUM_SUM_END)
     repack_7bit_region(
@@ -38,7 +38,7 @@ def test_pack_unpack_round_trip_for_base_empty():
 
 
 def test_write_step_state_sets_expected_decoded_values_for_boundaries():
-    raw = bytearray(Path("captures/BASE_EMPTY_STEPS128.syx").read_bytes())
+    raw = bytearray(Path("captures/BASE/BASE_EMPTY_STEPS128.syx").read_bytes())
     decoded = unpack_7bit_region(raw, start=CHECKSUM_SUM_START, end_exclusive=CHECKSUM_SUM_END)
 
     for step in (16, 17, 127, 128):
@@ -72,10 +72,10 @@ def test_step_state_boundary_changes_include_expected_control_offsets(tmp_path: 
             encoding="utf-8",
         )
         out = tmp_path / f"step_{step}.syx"
-        build_syx_from_events(events_yaml=events_yaml, output_file=out, template_file=Path("captures/BASE_EMPTY_STEPS128.syx"))
+        build_syx_from_events(events_yaml=events_yaml, output_file=out, template_file=Path("captures/BASE/BASE_EMPTY_STEPS128.syx"))
         return out.read_bytes()
 
-    base = Path("captures/BASE_EMPTY_STEPS128.syx").read_bytes()
+    base = Path("captures/BASE/BASE_EMPTY_STEPS128.syx").read_bytes()
 
     changed_16 = _changed_offsets(base, build_for_step(16))
     changed_17 = _changed_offsets(base, build_for_step(17))

@@ -12,8 +12,17 @@ from .constants import (
     CHECKSUM_SUM_END,
     CHECKSUM_SUM_START,
     LENGTH_CODE_MAP,
+    PATTERN_CHANGE_EXTENDED_MASK,
+    PATTERN_CHANGE_EXTENDED_OFFSET,
+    PATTERN_CHANGE_LOW_OFFSET,
+    PATTERN_CHANGE_OFF_LOW_VALUE,
     PATTERN_MODE_OFFSET,
+    PATTERN_MODE_PER_TRACK,
     PATTERN_MODE_PATTERN_WIDE,
+    PATTERN_RESET_EXTENDED_MASK,
+    PATTERN_RESET_EXTENDED_OFFSET,
+    PATTERN_RESET_INF_LOW_VALUE,
+    PATTERN_RESET_LOW_OFFSET,
     PATTERN_SPEED_OFFSET,
     PATTERN_TEMPO_CONTROL_OFFSET,
     PATTERN_TEMPO_HI_MSB_MASK,
@@ -26,6 +35,8 @@ from .constants import (
     SPEED_CODE_MAP,
     SUPPORTED_TRACK_MAX,
     SUPPORTED_TRACK_MIN,
+    TRACK_LENGTH_TARGETS,
+    TRACK_SPEED_OFFSETS,
     TRACK_DEFAULT_VELOCITY_OFFSETS,
     TRACK_TOTAL_STEPS_TARGETS,
     TRIGGER_MAX_SLOTS,
@@ -62,15 +73,8 @@ def _event_length_to_code(length: str, length_code: int | None) -> int:
     return _length_to_code(length)
 
 
-def _set_pattern_fields(data: bytearray, assignment: EventAssignment) -> None:
-    data[PATTERN_MODE_OFFSET] = PATTERN_MODE_PATTERN_WIDE
-
-    speed = assignment.pattern.speed
-    if speed not in SPEED_CODE_MAP:
-        raise SyxFileError(f"Unsupported pattern.speed: {speed}")
-    data[PATTERN_SPEED_OFFSET] = SPEED_CODE_MAP[speed]
-
-    scaled_tempo = round(assignment.pattern.tempo * 120)
+def _set_tempo(data: bytearray, tempo: float) -> None:
+    scaled_tempo = round(tempo * 120)
     tempo_hi = (scaled_tempo >> 8) & 0xFF
     tempo_lo = scaled_tempo & 0xFF
     set_packed_byte(
@@ -88,7 +92,18 @@ def _set_pattern_fields(data: bytearray, assignment: EventAssignment) -> None:
         value=tempo_lo,
     )
 
+
+def _set_pattern_wide_scale(data: bytearray, assignment: EventAssignment) -> None:
+    data[PATTERN_MODE_OFFSET] = PATTERN_MODE_PATTERN_WIDE
+
+    speed = assignment.pattern.speed
+    if speed not in SPEED_CODE_MAP:
+        raise SyxFileError(f"Unsupported pattern.speed: {speed}")
+    data[PATTERN_SPEED_OFFSET] = SPEED_CODE_MAP[speed]
+
     total_steps = assignment.pattern.total_steps
+    if total_steps is None:
+        raise SyxFileError("pattern-wide mode requires pattern.total_steps")
     set_packed_byte(
         data,
         payload_offset=PATTERN_TOTAL_STEPS_PAYLOAD_OFFSET,
@@ -104,6 +119,38 @@ def _set_pattern_fields(data: bytearray, assignment: EventAssignment) -> None:
             msb_mask=msb_mask,
             value=total_steps,
         )
+
+
+def _set_per_track_scale(data: bytearray, assignment: EventAssignment) -> None:
+    data[PATTERN_MODE_OFFSET] = PATTERN_MODE_PER_TRACK
+
+    for track, control_offset, payload_offset, msb_mask in TRACK_LENGTH_TARGETS:
+        scale = assignment.track_scale.get(track)
+        if scale is None:
+            raise SyxFileError(f"Missing track_scale for track {track}")
+        set_packed_byte(
+            data,
+            payload_offset=payload_offset,
+            control_offset=control_offset,
+            msb_mask=msb_mask,
+            value=scale.length,
+        )
+
+        speed_code = SPEED_CODE_MAP.get(scale.speed)
+        if speed_code is None:
+            raise SyxFileError(f"Unsupported track_scale[{track}].speed: {scale.speed}")
+        data[TRACK_SPEED_OFFSETS[track]] = speed_code
+
+    if assignment.pattern.change != "OFF":
+        raise SyxFileError("per-track mode currently requires pattern.change=OFF")
+    if assignment.pattern.reset != "INF":
+        raise SyxFileError("per-track mode currently requires pattern.reset=INF")
+
+    data[PATTERN_CHANGE_EXTENDED_OFFSET] &= ~PATTERN_CHANGE_EXTENDED_MASK
+    data[PATTERN_CHANGE_LOW_OFFSET] = PATTERN_CHANGE_OFF_LOW_VALUE
+
+    data[PATTERN_RESET_EXTENDED_OFFSET] &= ~PATTERN_RESET_EXTENDED_MASK
+    data[PATTERN_RESET_LOW_OFFSET] = PATTERN_RESET_INF_LOW_VALUE
 
 
 def _set_step_state_table(data: bytearray, assignment: EventAssignment) -> None:
@@ -193,7 +240,13 @@ def build_digitone2_syx(
     data = bytearray(template_bytes)
 
     warnings: list[str] = []
-    _set_pattern_fields(data, assignment)
+    _set_tempo(data, assignment.pattern.tempo)
+    if assignment.pattern.mode == "pattern-wide":
+        _set_pattern_wide_scale(data, assignment)
+    elif assignment.pattern.mode == "per-track":
+        _set_per_track_scale(data, assignment)
+    else:
+        raise SyxFileError(f"Unsupported pattern.mode: {assignment.pattern.mode}")
     _set_track_default_velocity(data, assignment)
     _clear_trigger_slots(data)
     written_events = _write_trigger_slots(data, assignment)

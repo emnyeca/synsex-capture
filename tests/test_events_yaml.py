@@ -400,3 +400,210 @@ def test_load_event_assignment_yaml_rejects_pattern_name_unsupported_char(tmp_pa
 
     with pytest.raises(SyxFileError, match="Unsupported pattern name character"):
         load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_accepts_per_track_mode(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: 32, speed: '1/8'}}\n" for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.pattern.mode == "per-track"
+    assert parsed.pattern.change == "OFF"
+    assert parsed.pattern.reset == "INF"
+    assert len(parsed.track_scale) == 16
+    assert parsed.track_scale[16].length == 32
+    assert parsed.track_scale[16].speed == "1/8"
+
+
+def test_load_event_assignment_yaml_rejects_per_track_missing_track16(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track_missing.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: 32, speed: '1/8'}}\n" for track in range(1, 16)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="exactly tracks 1..16"):
+        load_event_assignment_yaml(yaml_path)
+
+
+@pytest.mark.parametrize("length", [1, 129])
+def test_load_event_assignment_yaml_rejects_per_track_length_out_of_range(tmp_path: Path, length: int):
+    yaml_path = tmp_path / "events_per_track_length_bad.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: {length if track == 16 else 32}, speed: '1/8'}}\n" for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="track_scale\[16\].length must be in 2..128"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_per_track_invalid_speed(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track_speed_bad.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: 32, speed: {'3' if track == 16 else "'1/8'"}}}\n" for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="track_scale\[16\].speed"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_per_track_change_other_than_off(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track_change_bad.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: 32, speed: '1/8'}}\n" for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: 2\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="pattern.change must be OFF"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_per_track_reset_other_than_inf(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track_reset_bad.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: 32, speed: '1/8'}}\n" for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: 16\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events: []\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="pattern.reset must be INF"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_rejects_per_track_event_past_own_track_length(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track_step_bad.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: {4 if track == 1 else 32}, speed: '1/8'}}\n" for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events:\n"
+        "  - step: 5\n"
+        "    track: 1\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="1..4"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_accepts_per_track_entries_for_tracks_9_to_16(tmp_path: Path):
+    yaml_path = tmp_path / "events_per_track_upper_tracks.yaml"
+    track_scale = "".join(
+        f"  {track}: {{length: {48 if track == 16 else 32}, speed: {'"1/2"' if track >= 9 else '"1/8"'}}}\n"
+        for track in range(1, 17)
+    )
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: per-track\n"
+        "  tempo: 120\n"
+        "  change: OFF\n"
+        "  reset: INF\n"
+        "track_scale:\n"
+        f"{track_scale}"
+        "events:\n"
+        "  - step: 32\n"
+        "    track: 8\n"
+        "    note: C5\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert parsed.track_scale[9].speed == "1/2"
+    assert parsed.track_scale[16].length == 48
