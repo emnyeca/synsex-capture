@@ -9,8 +9,8 @@ result:
     - velocity_or_inherit
     - length_or_inherit
     - field5
-    note: Chord triggers on Track 8 most likely reuse the existing trigger-slot array
-      instead of introducing a separate chord-note table.
+    note: Chord triggers on Track 8 reuse the existing trigger-slot array instead
+      of a separate chord-note table in all tested fixtures through 27.
   binding_model:
     likely_rule: Each chord note is bound to a step by repeating the same track and
       step fields in multiple slot records.
@@ -19,6 +19,16 @@ result:
     - 03->04
     - 15->16
     - '17'
+    - '20'
+    - '27'
+  per_note_velocity_model:
+    status: supported_for_tested_values
+    note: Chord-note explicit velocity reuses the existing trigger velocity field;
+      70->0x46 and 50->0x32 in the tested fixtures.
+  per_note_length_model:
+    status: supported_for_tested_values
+    note: Chord-note explicit length reuses the existing trigger length field; tested
+      values include 1/16->0x0E and 1/8->0x1E with inherit remaining 0xFF when untouched.
   representative_note_storage:
     status: unresolved
     reason: Capture 14 is byte-identical to capture 11 at the saved-data level, while
@@ -26,18 +36,23 @@ result:
     implication: Representative-note UI state is either not persisted in the tested
       save path or is encoded outside the currently isolated fields.
   field5_hypothesis:
-    status: unresolved
-    observed_values:
-    - '0x00'
-    - '0xFF'
-    observed_transition: The note moved earlier by TIME=-1 uses field5=0xFF in capture
-      13 and returns to 0x00 in capture 14.
-    likely_role: micro-timing-related or per-note auxiliary state
+    status: supported_for_tested_values
+    encoding: signed direct 8-bit value in field5
+    tested_values:
+      '+1': '0x01'
+      '+22': '0x16'
+      '+23': '0x17'
+      '-1': '0xFF'
+      '-22': '0xEA'
+      '-23': '0xE9'
+    note: Trigger-level and note-level TIME edits both map onto the same field5 storage
+      model in the tested fixtures.
   step_state_hypothesis:
-    status: partially_supported
+    status: supported_for_tested_values
     likely_role: step occupied / trigger-present marker
-    note: The Track 8 step-state bytes change when a step gains or loses any trigger,
-      but the tested values do not encode the number of chord notes.
+    note: The Track 8 step-state bytes stay at 0x03 0x81 across all tested active-step
+      fixtures and do not encode chord-note count, explicit LEN, explicit VEL, or
+      TIME value.
   transpose_hypothesis:
     status: supported_for_tested_case
     note: In the tested triad, saving after transpose leaves no extra byte-level residue
@@ -45,5 +60,5 @@ result:
 notes:
 - This dataset intentionally separates hardware-observed UI behavior from saved SysEx
   bytes.
-- Further phase work should target TIME, LEN, VEL, deletion, and over-capacity behavior
-  with the same folder and dataset structure.
+- The next useful validation slice is deletion and mixed explicit/inherit combinations
+  after editing one note inside a larger chord.

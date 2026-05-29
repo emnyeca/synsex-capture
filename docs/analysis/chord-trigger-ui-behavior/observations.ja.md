@@ -471,6 +471,73 @@ capture log に残すべき UI補足:
 
 - Create Step 5 chord first, then Step 1 chord.
 
+### 5.6 Explicit LEN / VEL fixture set
+
+```text
+18_T08_S01_CHORD_02_EXPLICIT_VEL_LEN_INHERIT.syx
+19_T08_S01_CHORD_02_EXPLICIT_LEN_VEL_INHERIT.syx
+20_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_VEL_LEN_INHERIT.syx
+27_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_LEN_VEL.syx
+```
+
+内容:
+
+`18`
+
+- Step 1 chord: C5 E5
+- TIME = 0 for both notes.
+- LEN remains inherit for both notes.
+- VEL = 70 for C5, 50 for E5.
+
+`19`
+
+- Step 1 chord: C5 E5
+- TIME = 0 for both notes.
+- LEN = 1/16 for C5, 1/8 for E5.
+- VEL remains inherit for both notes.
+
+`20`
+
+- Step 1 chord cloud: C5 E5 G5 A5 B5 D6
+- TIME = 0 for all notes.
+- LEN remains inherit for all notes.
+- VEL profile = 70, 70, 70, 50, 70, 50.
+
+`27`
+
+- Same 6-note cloud as `20`.
+- LEN = 1/8 explicit for all notes.
+- VEL profile remains 70, 70, 70, 50, 70, 50.
+
+目的:
+
+- Determine whether per-note explicit VEL is stored in the ordinary trigger record velocity field.
+- Determine whether per-note explicit LEN is stored in the ordinary trigger record length field.
+- Determine whether the same record model scales to the intended 6-note Changes cloud fixture.
+
+### 5.7 TIME direct-value validation set
+
+```text
+21_T08_S01_C5_TIME_PLUS1_TRG.syx
+22_T08_S01_C5_TIME_MINUS23_TRG.syx
+23_T08_S01_C5_TIME_PLUS23_TRG.syx
+24_T08_S01_C5_TIME_MINUS1_NOTE.syx
+25_T08_S01_C5_TIME_MINUS22_NOTE.syx
+26_T08_S01_C5_TIME_PLUS22_NOTE.syx
+```
+
+内容:
+
+- `21` to `23`: trigger-level TIME edits on a single-note step.
+- `24` to `26`: note-level TIME edits on a single-note step.
+
+目的:
+
+- Strengthen the hypothesis that trigger record field5 stores signed direct TIME values.
+- Compare trigger-level and note-level TIME edits against the same ordinary trigger record model.
+
+- Create Step 5 chord first, then Step 1 chord.
+
 目的:
 
 - Determine whether chord-note extension data follows ordinary trigger slot creation order or is stored by Track/Step location.

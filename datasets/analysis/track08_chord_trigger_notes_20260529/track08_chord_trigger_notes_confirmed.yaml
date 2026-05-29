@@ -179,13 +179,132 @@ result:
       - '0x00'
     confirmed_behavior: The tested 16-note chord occupies 16 contiguous trigger-slot
       records.
+  explicit_velocity_field:
+    captures:
+    - 18_T08_S01_CHORD_02_EXPLICIT_VEL_LEN_INHERIT.syx
+    - 20_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_VEL_LEN_INHERIT.syx
+    two_note_fixture:
+    - pitch_name: C5
+      velocity: '0x46'
+      length: '0xFF'
+    - pitch_name: E5
+      velocity: '0x32'
+      length: '0xFF'
+    six_note_fixture:
+    - pitch_name: C5
+      velocity: '0x46'
+      length: '0xFF'
+    - pitch_name: E5
+      velocity: '0x46'
+      length: '0xFF'
+    - pitch_name: G5
+      velocity: '0x46'
+      length: '0xFF'
+    - pitch_name: A5
+      velocity: '0x32'
+      length: '0xFF'
+    - pitch_name: B5
+      velocity: '0x46'
+      length: '0xFF'
+    - pitch_name: D6
+      velocity: '0x32'
+      length: '0xFF'
+    velocity_map_tested:
+      '70': '0x46'
+      '50': '0x32'
+      inherit: '0xFF'
+    confirmed_behavior:
+    - Per-note explicit velocity is stored in the ordinary trigger record velocity
+      field (byte3 of each 6-byte record).
+    - Length stays at the inherit marker 0xFF when only velocity is edited.
+    - The same per-note velocity field works unchanged for the tested 6-note cloud
+      fixture.
+  explicit_length_field:
+    captures:
+    - 19_T08_S01_CHORD_02_EXPLICIT_LEN_VEL_INHERIT.syx
+    - 27_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_LEN_VEL.syx
+    two_note_fixture:
+    - pitch_name: C5
+      velocity: '0xFF'
+      length: '0x0E'
+    - pitch_name: E5
+      velocity: '0xFF'
+      length: '0x1E'
+    six_note_fixture:
+    - pitch_name: C5
+      velocity: '0x46'
+      length: '0x1E'
+    - pitch_name: E5
+      velocity: '0x46'
+      length: '0x1E'
+    - pitch_name: G5
+      velocity: '0x46'
+      length: '0x1E'
+    - pitch_name: A5
+      velocity: '0x32'
+      length: '0x1E'
+    - pitch_name: B5
+      velocity: '0x46'
+      length: '0x1E'
+    - pitch_name: D6
+      velocity: '0x32'
+      length: '0x1E'
+    length_map_tested:
+      1/16: '0x0E'
+      1/8: '0x1E'
+      inherit: '0xFF'
+    confirmed_behavior:
+    - Per-note explicit length is stored in the ordinary trigger record length field
+      (byte4 of each 6-byte record).
+    - Velocity stays at the inherit marker 0xFF when only length is edited in fixture
+      19.
+    - The tested 6-note cloud stores explicit 1/8 on all six notes while preserving
+      the intended velocity profile.
+  time_field_signed_direct_values:
+    captures:
+    - 21_T08_S01_C5_TIME_PLUS1_TRG.syx
+    - 22_T08_S01_C5_TIME_MINUS23_TRG.syx
+    - 23_T08_S01_C5_TIME_PLUS23_TRG.syx
+    - 24_T08_S01_C5_TIME_MINUS1_NOTE.syx
+    - 25_T08_S01_C5_TIME_MINUS22_NOTE.syx
+    - 26_T08_S01_C5_TIME_PLUS22_NOTE.syx
+    tested_value_map:
+      +1_trigger: '0x01'
+      -23_trigger: '0xE9'
+      +23_trigger: '0x17'
+      -1_note: '0xFF'
+      -22_note: '0xEA'
+      +22_note: '0x16'
+    changed_offset_examples:
+      plus1_trigger:
+      - 21726
+      minus23_trigger:
+      - 21722
+      - 21726
+      minus1_note:
+      - 21722
+      - 21726
+      plus22_note:
+      - 21726
+    confirmed_behavior:
+    - TIME edits write into the same per-record field5 byte used by chord-note records.
+    - The tested values match signed direct 8-bit encoding in field5 for both trigger-level
+      and note-level edits.
+    - Negative TIME values also toggle the packed control byte when the field5 MSB
+      is set, while step-state bytes remain unchanged.
   track8_step_state_table:
     observed_step1_states:
-      '1':
-      - '0x00'
-      - '0x00'
       '2': *id001
       '3':
+      - '0x03'
+      - '0x81'
+      '4':
+      - '0x03'
+      - '0x81'
+      '5':
+      - '0x03'
+      - '0x81'
+      '6':
       - '0x03'
       - '0x81'
       '7':
@@ -195,6 +314,12 @@ result:
       - '0x03'
       - '0x81'
       '9':
+      - '0x03'
+      - '0x81'
+      '10':
+      - '0x03'
+      - '0x81'
+      '11':
       - '0x03'
       - '0x81'
       '12':
@@ -209,6 +334,36 @@ result:
       '17':
       - '0x03'
       - '0x81'
+      '18':
+      - '0x03'
+      - '0x81'
+      '19':
+      - '0x03'
+      - '0x81'
+      '20':
+      - '0x03'
+      - '0x81'
+      '21':
+      - '0x03'
+      - '0x81'
+      '22':
+      - '0x03'
+      - '0x81'
+      '23':
+      - '0x03'
+      - '0x81'
+      '24':
+      - '0x03'
+      - '0x81'
+      '25':
+      - '0x03'
+      - '0x81'
+      '26':
+      - '0x03'
+      - '0x81'
+      '27':
+      - '0x03'
+      - '0x81'
     observed_step5_states:
       '1':
       - '0x00'
@@ -219,10 +374,10 @@ result:
       '16':
       - '0x03'
       - '0x81'
-    confirmed_behavior: The Track 8 step-state bytes indicate trigger presence at
-      the step, but the tested values do not scale with chord-note count.
+    confirmed_behavior: The Track 8 step-state bytes remain 0x03 0x81 across the tested
+      active-step fixtures, regardless of per-note LEN, VEL, or TIME edits.
 notes:
 - All file-path references in this dataset use the dedicated captures/Track08_Chord_Trigger_Notes_20260529/
   folder.
-- The earlier temporary JSON summaries were replaced by these canonical dataset YAML
-  files.
+- This dataset uses the repo's Digitone-style pitch naming, where MIDI 60 is written
+  as C5.

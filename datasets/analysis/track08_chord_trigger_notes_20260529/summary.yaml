@@ -11,7 +11,8 @@ fixed_context:
   tempo: 120.0
   speed: '1'
   target_track: 8
-  analysis_scope: 'Phase 1: additional note storage structure and binding model'
+  analysis_scope: Phase 1 plus explicit LEN/VEL and TIME validation for Track 8 chord-trigger
+    output
 sequence:
 - index: 1
   file: captures/Track08_Chord_Trigger_Notes_20260529/01_EMPTY_PATTERN.syx
@@ -123,6 +124,68 @@ sequence:
   operation: track8 step1 16-note chord
   notes:
   - 16 notes
+- index: 18
+  file: captures/Track08_Chord_Trigger_Notes_20260529/18_T08_S01_CHORD_02_EXPLICIT_VEL_LEN_INHERIT.syx
+  operation: track8 step1 C5/E5 with explicit velocity and inherit length
+  notes:
+  - C5 vel70 len_inherit
+  - E5 vel50 len_inherit
+- index: 19
+  file: captures/Track08_Chord_Trigger_Notes_20260529/19_T08_S01_CHORD_02_EXPLICIT_LEN_VEL_INHERIT.syx
+  operation: track8 step1 C5/E5 with explicit length and inherit velocity
+  notes:
+  - C5 len1/16 vel_inherit
+  - E5 len1/8 vel_inherit
+- index: 20
+  file: captures/Track08_Chord_Trigger_Notes_20260529/20_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_VEL_LEN_INHERIT.syx
+  operation: track8 step1 6-note cloud with explicit velocity and inherit length
+  notes:
+  - C5
+  - E5
+  - G5
+  - A5
+  - B5
+  - D6
+- index: 21
+  file: captures/Track08_Chord_Trigger_Notes_20260529/21_T08_S01_C5_TIME_PLUS1_TRG.syx
+  operation: track8 step1 single note trigger TIME +1
+  notes:
+  - C5 time +1 trigger
+- index: 22
+  file: captures/Track08_Chord_Trigger_Notes_20260529/22_T08_S01_C5_TIME_MINUS23_TRG.syx
+  operation: track8 step1 single note trigger TIME -23
+  notes:
+  - C5 time -23 trigger
+- index: 23
+  file: captures/Track08_Chord_Trigger_Notes_20260529/23_T08_S01_C5_TIME_PLUS23_TRG.syx
+  operation: track8 step1 single note trigger TIME +23
+  notes:
+  - C5 time +23 trigger
+- index: 24
+  file: captures/Track08_Chord_Trigger_Notes_20260529/24_T08_S01_C5_TIME_MINUS1_NOTE.syx
+  operation: track8 step1 single note note TIME -1
+  notes:
+  - C5 time -1 note
+- index: 25
+  file: captures/Track08_Chord_Trigger_Notes_20260529/25_T08_S01_C5_TIME_MINUS22_NOTE.syx
+  operation: track8 step1 single note note TIME -22
+  notes:
+  - C5 time -22 note
+- index: 26
+  file: captures/Track08_Chord_Trigger_Notes_20260529/26_T08_S01_C5_TIME_PLUS22_NOTE.syx
+  operation: track8 step1 single note note TIME +22
+  notes:
+  - C5 time +22 note
+- index: 27
+  file: captures/Track08_Chord_Trigger_Notes_20260529/27_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_LEN_VEL.syx
+  operation: track8 step1 6-note cloud with explicit length and explicit velocity
+  notes:
+  - C5
+  - E5
+  - G5
+  - A5
+  - B5
+  - D6
 generated:
   sequential:
   - from: 1
@@ -204,6 +267,46 @@ generated:
     to: 17
     output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_capacity_07_to_17.yaml
     difference_count: 57
+  explicit_velocity_checks:
+  - from: 3
+    to: 18
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_03_to_18.yaml
+    difference_count: 6
+  explicit_length_checks:
+  - from: 3
+    to: 19
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_03_to_19.yaml
+    difference_count: 6
+  - from: 20
+    to: 27
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_20_to_27.yaml
+    difference_count: 13
+  time_trigger_checks:
+  - from: 2
+    to: 21
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_21.yaml
+    difference_count: 2
+  - from: 2
+    to: 22
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_22.yaml
+    difference_count: 4
+  - from: 2
+    to: 23
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_23.yaml
+    difference_count: 2
+  time_note_checks:
+  - from: 2
+    to: 24
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_24.yaml
+    difference_count: 4
+  - from: 2
+    to: 25
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_25.yaml
+    difference_count: 4
+  - from: 2
+    to: 26
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_26.yaml
+    difference_count: 2
 capture_slot_counts:
 - index: 1
   file: 01_EMPTY_PATTERN.syx
@@ -352,6 +455,96 @@ capture_slot_counts:
 - index: 17
   file: 17_T08_S01_CHORD_16_NOTES.syx
   slot_count: 16
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 18
+  file: 18_T08_S01_CHORD_02_EXPLICIT_VEL_LEN_INHERIT.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 19
+  file: 19_T08_S01_CHORD_02_EXPLICIT_LEN_VEL_INHERIT.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 20
+  file: 20_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_VEL_LEN_INHERIT.syx
+  slot_count: 6
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 21
+  file: 21_T08_S01_C5_TIME_PLUS1_TRG.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 22
+  file: 22_T08_S01_C5_TIME_MINUS23_TRG.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 23
+  file: 23_T08_S01_C5_TIME_PLUS23_TRG.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 24
+  file: 24_T08_S01_C5_TIME_MINUS1_NOTE.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 25
+  file: 25_T08_S01_C5_TIME_MINUS22_NOTE.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 26
+  file: 26_T08_S01_C5_TIME_PLUS22_NOTE.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 27
+  file: 27_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_LEN_VEL.syx
+  slot_count: 6
   track8_step1_state:
   - '0x03'
   - '0x81'
