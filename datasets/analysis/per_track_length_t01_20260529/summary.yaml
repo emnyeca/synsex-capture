@@ -1,0 +1,159 @@
+analysis_id: per_track_length_t01_20260529
+analysis: per_track_length_t01
+fixed_context:
+  pattern_state: empty pattern
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  allowed_controls_touched:
+  - length
+  - speed
+  - change
+  - reset
+sequence:
+- index: 1
+  file: captures/Per_Track_Length_T01/01_EMPTY_PATTERN_MODE_L16_S1X.syx
+  operation: Pattern mode = pattern-wide, track 1 length display 16, speed 1x, other
+    defaults
+  track_1_length: 16
+- index: 2
+  file: captures/Per_Track_Length_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  operation: Switch to per-track mode only; all tracks remain at default length 16
+  track_1_length: 16
+- index: 3
+  file: captures/Per_Track_Length_T01/03_EMPTY_PER_TRACK_DEFAULT_REPEAT.syx
+  operation: Repeat dump with no state change after per-track default
+  track_1_length: 16
+- index: 4
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_002.syx
+  operation: Set Track 1 length to 2 in per-track mode
+  track_1_length: 2
+- index: 5
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_003.syx
+  operation: Set Track 1 length to 3 in per-track mode
+  track_1_length: 3
+- index: 6
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_004.syx
+  operation: Set Track 1 length to 4 in per-track mode
+  track_1_length: 4
+- index: 7
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_008.syx
+  operation: Set Track 1 length to 8 in per-track mode
+  track_1_length: 8
+- index: 8
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_015.syx
+  operation: Set Track 1 length to 15 in per-track mode
+  track_1_length: 15
+- index: 9
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_017.syx
+  operation: Set Track 1 length to 17 in per-track mode
+  track_1_length: 17
+- index: 10
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_032.syx
+  operation: Set Track 1 length to 32 in per-track mode
+  track_1_length: 32
+- index: 11
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_033.syx
+  operation: Set Track 1 length to 33 in per-track mode
+  track_1_length: 33
+- index: 12
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_064.syx
+  operation: Set Track 1 length to 64 in per-track mode
+  track_1_length: 64
+- index: 13
+  file: captures/Per_Track_Length_T01/L_VALUE_T01_128.syx
+  operation: Set Track 1 length to 128 in per-track mode
+  track_1_length: 128
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/seq_01_to_02.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101511
+    - 114114
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/seq_02_to_03.yaml
+    difference_count: 0
+    changed_offsets: []
+  vs_default:
+  - from: 2
+    to: 4
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_04.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 5
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_05.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 6
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_06.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 7
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_07.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 8
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_08.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 9
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_09.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 10
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_10.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 11
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_11.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 12
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_12.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1347
+    - 114114
+  - from: 2
+    to: 13
+    output_yaml: datasets/analysis/per_track_length_t01_20260529/vs_default_to_13.yaml
+    difference_count: 3
+    changed_offsets:
+    - 1346
+    - 1347
+    - 114114

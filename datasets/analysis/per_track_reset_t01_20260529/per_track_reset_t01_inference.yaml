@@ -1,0 +1,65 @@
+analysis: per_track_reset_t01_inference
+result:
+  common_changed_offsets_across_changed_non_inf_vs_default: &id001
+  - 101507
+  union_changed_offsets_across_changed_non_inf_vs_default: &id002
+  - 101505
+  - 101507
+  likely_track_1_reset_primary_offsets: *id001
+  likely_track_1_reset_extended_offsets: *id002
+  baseline_equivalent_values:
+  - 16
+  inf_transition_changed_offsets:
+  - 101505
+  - 101507
+  - 114114
+  likely_checksum_offsets:
+  - 114114
+  baseline_reference: All requested RESET diffs are computed against 02_EMPTY_PER_TRACK_DEFAULT.syx.
+value_table:
+- index: 28
+  track_1_reset: 2
+  offset: 101507
+  before_hex: '0x10'
+  value_hex: '0x02'
+  value_dec: 2
+- index: 29
+  track_1_reset: 3
+  offset: 101507
+  before_hex: '0x10'
+  value_hex: '0x03'
+  value_dec: 3
+- index: 30
+  track_1_reset: 4
+  offset: 101507
+  before_hex: '0x10'
+  value_hex: '0x04'
+  value_dec: 4
+- index: 31
+  track_1_reset: 12
+  offset: 101507
+  before_hex: '0x10'
+  value_hex: '0x0C'
+  value_dec: 12
+- index: 33
+  track_1_reset: 17
+  offset: 101507
+  before_hex: '0x10'
+  value_hex: '0x11'
+  value_dec: 17
+- index: 34
+  track_1_reset: 1024
+  offset: 101505
+  before_hex: '0x00'
+  value_hex: '0x04'
+  value_dec: 4
+- index: 34
+  track_1_reset: 1024
+  offset: 101507
+  before_hex: '0x10'
+  value_hex: '0x00'
+  value_dec: 0
+notes:
+- Baseline-equivalent values produce no diff and are excluded from the common-offset
+  intersection.
+- INF is verified by the dedicated 1024 -> INF capture.

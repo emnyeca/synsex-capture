@@ -1,0 +1,41 @@
+analysis: per_track_reset_t01
+pair_type: baseline_vs_per_track_default
+pair:
+  before: captures/Per_Track_Reset_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  after: captures/Per_Track_Reset_T01/R_VALUE_T01_0012.syx
+  before_operation: Per-track mode default; Track 1 RESET 16
+  after_operation: Set Track 1 RESET to 12 in per-track mode
+  before_track_1_reset: 16
+  after_track_1_reset: 12
+fixed_context:
+  pattern_state: empty pattern
+  mode_state: per-track
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  - length
+  - speed
+  - change
+  allowed_controls_touched:
+  - reset
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 101507
+  - 114114
+patches:
+- offset: 101507
+  before: '0x10'
+  value: '0x0C'
+- offset: 114114
+  before: '0x3D'
+  value: '0x39'

@@ -1,0 +1,40 @@
+analysis_target: per_track_change_t01
+status: confirmed_off_vs_non_off
+field:
+  physical_offsets:
+  - 101509
+  non_off_examples:
+    '2':
+      offset: 101509
+      value_hex: '0x02'
+    '3':
+      offset: 101509
+      value_hex: '0x03'
+    '4':
+      offset: 101509
+      value_hex: '0x04'
+    '12':
+      offset: 101509
+      value_hex: '0x0C'
+    '16':
+      offset: 101509
+      value_hex: '0x10'
+    '17':
+      offset: 101509
+      value_hex: '0x11'
+    '1024':
+      offset: 101509
+      value_hex: '0x00'
+  off_transition:
+    from: 1024
+    to: 'OFF'
+    changed_offsets:
+    - 101508
+    - 101509
+    - 114114
+checksum_related_offsets:
+- 114114
+notes:
+- Baseline file is 02_EMPTY_PER_TRACK_DEFAULT.syx and its Track 1 CHANGE display state
+  is OFF.
+- This analysis prioritizes distinguishing OFF from non-OFF values, per request.

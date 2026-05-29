@@ -1,0 +1,42 @@
+analysis: per_track_length_t01
+pair_type: sequential_mode_change
+pair:
+  before: captures/Per_Track_Length_T01/01_EMPTY_PATTERN_MODE_L16_S1X.syx
+  after: captures/Per_Track_Length_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  before_operation: Pattern mode = pattern-wide, track 1 length display 16, speed
+    1x, other defaults
+  after_operation: Switch to per-track mode only; all tracks remain at default length
+    16
+  before_track_1_length: 16
+  after_track_1_length: 16
+fixed_context:
+  pattern_state: empty pattern
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  allowed_controls_touched:
+  - length
+  - speed
+  - change
+  - reset
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 101511
+  - 114114
+patches:
+- offset: 101511
+  before: '0x00'
+  value: '0x01'
+- offset: 114114
+  before: '0x3C'
+  value: '0x3D'

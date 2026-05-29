@@ -1,0 +1,60 @@
+analysis: per_track_change_t01_inference
+result:
+  common_changed_offsets_across_non_off_vs_default: &id001
+  - 101509
+  union_changed_offsets_across_non_off_vs_default:
+  - 101508
+  - 101509
+  likely_track_1_change_offsets: *id001
+  off_transition_changed_offsets:
+  - 101508
+  - 101509
+  - 114114
+  likely_checksum_offsets:
+  - 114114
+  baseline_reference: All requested CHANGE diffs are computed against 02_EMPTY_PER_TRACK_DEFAULT.syx.
+value_table:
+- index: 20
+  track_1_change: 2
+  offset: 101509
+  value_hex: '0x02'
+  value_dec: 2
+- index: 21
+  track_1_change: 3
+  offset: 101509
+  value_hex: '0x03'
+  value_dec: 3
+- index: 22
+  track_1_change: 4
+  offset: 101509
+  value_hex: '0x04'
+  value_dec: 4
+- index: 23
+  track_1_change: 12
+  offset: 101509
+  value_hex: '0x0C'
+  value_dec: 12
+- index: 24
+  track_1_change: 16
+  offset: 101509
+  value_hex: '0x10'
+  value_dec: 16
+- index: 25
+  track_1_change: 17
+  offset: 101509
+  value_hex: '0x11'
+  value_dec: 17
+- index: 26
+  track_1_change: 1024
+  offset: 101508
+  value_hex: '0x04'
+  value_dec: 4
+- index: 26
+  track_1_change: 1024
+  offset: 101509
+  value_hex: '0x00'
+  value_dec: 0
+notes:
+- Common non-checksum offsets across all non-OFF values are the strongest candidates
+  for Track 1 CHANGE storage.
+- OFF is verified by the dedicated 1024 -> OFF capture.

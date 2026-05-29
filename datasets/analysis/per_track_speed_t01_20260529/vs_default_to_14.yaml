@@ -1,0 +1,41 @@
+analysis: per_track_speed_t01
+pair_type: baseline_vs_per_track_default
+pair:
+  before: captures/Per_Track_Speed_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  after: captures/Per_Track_Speed_T01/S_VALUE_T01_1-8X.syx
+  before_operation: Per-track mode default; Track 1 speed 1x
+  after_operation: Set Track 1 speed to 1/8x in per-track mode
+  before_track_1_speed: '1'
+  after_track_1_speed: 1/8
+fixed_context:
+  pattern_state: empty pattern
+  mode_state: per-track
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  - length
+  - change
+  - reset
+  allowed_controls_touched:
+  - speed
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 2
+  changed_offsets:
+  - 1349
+  - 114114
+patches:
+- offset: 1349
+  before: '0x02'
+  value: '0x06'
+- offset: 114114
+  before: '0x3D'
+  value: '0x41'

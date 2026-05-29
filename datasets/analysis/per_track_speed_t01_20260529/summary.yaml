@@ -1,0 +1,93 @@
+analysis_id: per_track_speed_t01_20260529
+analysis: per_track_speed_t01
+fixed_context:
+  pattern_state: empty pattern
+  mode_state: per-track
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  - length
+  - change
+  - reset
+  allowed_controls_touched:
+  - speed
+sequence:
+- index: 2
+  file: captures/Per_Track_Speed_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  operation: Per-track mode default; Track 1 speed 1x
+  track_1_speed: '1'
+- index: 14
+  file: captures/Per_Track_Speed_T01/S_VALUE_T01_1-8X.syx
+  operation: Set Track 1 speed to 1/8x in per-track mode
+  track_1_speed: 1/8
+- index: 15
+  file: captures/Per_Track_Speed_T01/S_VALUE_T01_1-4X.syx
+  operation: Set Track 1 speed to 1/4x in per-track mode
+  track_1_speed: 1/4
+- index: 16
+  file: captures/Per_Track_Speed_T01/S_VALUE_T01_1-2X.syx
+  operation: Set Track 1 speed to 1/2x in per-track mode
+  track_1_speed: 1/2
+- index: 17
+  file: captures/Per_Track_Speed_T01/S_VALUE_T01_3-4X.syx
+  operation: Set Track 1 speed to 3/4x in per-track mode
+  track_1_speed: 3/4
+- index: 18
+  file: captures/Per_Track_Speed_T01/S_VALUE_T01_3-2X.syx
+  operation: Set Track 1 speed to 3/2x in per-track mode
+  track_1_speed: 3/2
+- index: 19
+  file: captures/Per_Track_Speed_T01/S_VALUE_T01_2X.syx
+  operation: Set Track 1 speed to 2x in per-track mode
+  track_1_speed: '2'
+generated:
+  vs_default:
+  - from: 2
+    to: 14
+    output_yaml: datasets/analysis/per_track_speed_t01_20260529/vs_default_to_14.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1349
+    - 114114
+  - from: 2
+    to: 15
+    output_yaml: datasets/analysis/per_track_speed_t01_20260529/vs_default_to_15.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1349
+    - 114114
+  - from: 2
+    to: 16
+    output_yaml: datasets/analysis/per_track_speed_t01_20260529/vs_default_to_16.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1349
+    - 114114
+  - from: 2
+    to: 17
+    output_yaml: datasets/analysis/per_track_speed_t01_20260529/vs_default_to_17.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1349
+    - 114114
+  - from: 2
+    to: 18
+    output_yaml: datasets/analysis/per_track_speed_t01_20260529/vs_default_to_18.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1349
+    - 114114
+  - from: 2
+    to: 19
+    output_yaml: datasets/analysis/per_track_speed_t01_20260529/vs_default_to_19.yaml
+    difference_count: 2
+    changed_offsets:
+    - 1349
+    - 114114

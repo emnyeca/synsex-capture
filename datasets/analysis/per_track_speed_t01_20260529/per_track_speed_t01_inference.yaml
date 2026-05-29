@@ -1,0 +1,52 @@
+analysis: per_track_speed_t01_inference
+result:
+  common_changed_offsets_across_vs_default:
+  - 1349
+  - 114114
+  union_changed_offsets_across_vs_default:
+  - 1349
+  - 114114
+  likely_track_1_speed_offset: 1349
+  likely_checksum_offsets:
+  - 114114
+  baseline_reference: All requested speed diffs are computed against 02_EMPTY_PER_TRACK_DEFAULT.syx.
+speed_code_table:
+- index: 14
+  track_1_speed: 1/8
+  offset: 1349
+  value_hex: '0x06'
+  value_dec: 6
+- index: 15
+  track_1_speed: 1/4
+  offset: 1349
+  value_hex: '0x05'
+  value_dec: 5
+- index: 16
+  track_1_speed: 1/2
+  offset: 1349
+  value_hex: '0x04'
+  value_dec: 4
+- index: 17
+  track_1_speed: 3/4
+  offset: 1349
+  value_hex: '0x03'
+  value_dec: 3
+- index: 2
+  track_1_speed: '1'
+  offset: 1349
+  value_hex: '0x02'
+  value_dec: 2
+- index: 18
+  track_1_speed: 3/2
+  offset: 1349
+  value_hex: '0x01'
+  value_dec: 1
+- index: 19
+  track_1_speed: '2'
+  offset: 1349
+  value_hex: '0x00'
+  value_dec: 0
+notes:
+- Likely Track 1 speed field is chosen from the common non-checksum offsets across
+  all baseline comparisons.
+- The baseline file is copied into this capture set for local completeness.

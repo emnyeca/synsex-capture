@@ -1,0 +1,45 @@
+analysis: per_track_reset_t01
+pair_type: sequential
+pair:
+  before: captures/Per_Track_Reset_T01/R_VALUE_T01_1024.syx
+  after: captures/Per_Track_Reset_T01/R_VALUE_T01_INF.syx
+  before_operation: Set Track 1 RESET to 1024 in per-track mode
+  after_operation: Set Track 1 RESET to INF in per-track mode
+  before_track_1_reset: 1024
+  after_track_1_reset: INF
+fixed_context:
+  pattern_state: empty pattern
+  mode_state: per-track
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  - length
+  - speed
+  - change
+  allowed_controls_touched:
+  - reset
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 3
+  changed_offsets:
+  - 101505
+  - 101507
+  - 114114
+patches:
+- offset: 101505
+  before: '0x04'
+  value: '0x00'
+- offset: 101507
+  before: '0x00'
+  value: '0x01'
+- offset: 114114
+  before: '0x31'
+  value: '0x2E'

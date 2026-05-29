@@ -1,0 +1,17 @@
+analysis_target: per_track_speed_t01
+status: confirmed
+field:
+  physical_offset: 1349
+  encoding:
+    1/8: '0x06'
+    1/4: '0x05'
+    1/2: '0x04'
+    3/4: '0x03'
+    '1': '0x02'
+    3/2: '0x01'
+    '2': '0x00'
+checksum_related_offsets:
+- 114114
+notes:
+- Baseline file is 02_EMPTY_PER_TRACK_DEFAULT.syx (Track 1 speed 1x).
+- Each comparison isolates a Track 1 speed change in per-track mode.

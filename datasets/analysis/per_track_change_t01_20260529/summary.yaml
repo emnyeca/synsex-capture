@@ -1,0 +1,118 @@
+analysis_id: per_track_change_t01_20260529
+analysis: per_track_change_t01
+fixed_context:
+  pattern_state: empty pattern
+  mode_state: per-track
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  - length
+  - speed
+  - reset
+  allowed_controls_touched:
+  - change
+sequence:
+- index: 2
+  file: captures/Per_Track_Change_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  operation: Per-track mode default; Track 1 CHANGE OFF
+  track_1_change: 'OFF'
+- index: 20
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_0002.syx
+  operation: Set Track 1 CHANGE to 2 in per-track mode
+  track_1_change: 2
+- index: 21
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_0003.syx
+  operation: Set Track 1 CHANGE to 3 in per-track mode
+  track_1_change: 3
+- index: 22
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_0004.syx
+  operation: Set Track 1 CHANGE to 4 in per-track mode
+  track_1_change: 4
+- index: 23
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_0012.syx
+  operation: Set Track 1 CHANGE to 12 in per-track mode
+  track_1_change: 12
+- index: 24
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_0016.syx
+  operation: Set Track 1 CHANGE to 16 in per-track mode
+  track_1_change: 16
+- index: 25
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_0017.syx
+  operation: Set Track 1 CHANGE to 17 in per-track mode
+  track_1_change: 17
+- index: 26
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_1024.syx
+  operation: Set Track 1 CHANGE to 1024 in per-track mode
+  track_1_change: 1024
+- index: 27
+  file: captures/Per_Track_Change_T01/C_VALUE_T01_OFF.syx
+  operation: Switch Track 1 CHANGE from 1024 back to OFF in per-track mode
+  track_1_change: 'OFF'
+generated:
+  vs_default:
+  - from: 2
+    to: 20
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_20.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101509
+    - 114114
+  - from: 2
+    to: 21
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_21.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101509
+    - 114114
+  - from: 2
+    to: 22
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_22.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101509
+    - 114114
+  - from: 2
+    to: 23
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_23.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101509
+    - 114114
+  - from: 2
+    to: 24
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_24.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101509
+    - 114114
+  - from: 2
+    to: 25
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_25.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101509
+    - 114114
+  - from: 2
+    to: 26
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/vs_default_to_26.yaml
+    difference_count: 3
+    changed_offsets:
+    - 101508
+    - 101509
+    - 114114
+  sequential:
+  - from: 26
+    to: 27
+    output_yaml: datasets/analysis/per_track_change_t01_20260529/seq_26_to_27.yaml
+    difference_count: 3
+    changed_offsets:
+    - 101508
+    - 101509
+    - 114114

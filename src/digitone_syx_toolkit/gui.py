@@ -28,6 +28,17 @@ from .replay import replay_sysex
 from .syx import load_syx_file, save_syx_file
 
 
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_CAPTURES_DIR = PACKAGE_ROOT / "captures"
+
+
+def _resolve_capture_output_dir(raw_path: str) -> Path:
+    path = Path(raw_path.strip()) if raw_path.strip() else DEFAULT_CAPTURES_DIR
+    if path.is_absolute():
+        return path
+    return PACKAGE_ROOT / path
+
+
 class AnalysisGui:
     """A small GUI to support offset discovery and selective byte patching."""
 
@@ -47,7 +58,7 @@ class AnalysisGui:
         self.capture_all_inputs_var = tk.BooleanVar(value=False)
         self.capture_log_all_var = tk.BooleanVar(value=False)
         self.replay_out_port_var = tk.StringVar()
-        self.capture_out_dir_var = tk.StringVar(value="captures")
+        self.capture_out_dir_var = tk.StringVar(value=str(DEFAULT_CAPTURES_DIR))
         self.capture_label_var = tk.StringVar()
         self.capture_max_messages_var = tk.StringVar(value="")
         self.capture_duration_var = tk.StringVar(value="")
@@ -374,7 +385,7 @@ class AnalysisGui:
         in_port = self.capture_in_port_var.get().strip()
         capture_all = self.capture_all_inputs_var.get()
         log_all_messages = self.capture_log_all_var.get()
-        out_dir = Path(self.capture_out_dir_var.get().strip() or "captures")
+        out_dir = _resolve_capture_output_dir(self.capture_out_dir_var.get())
         label = self.capture_label_var.get().strip() or datetime.now().strftime("capture_%Y%m%d_%H%M%S")
 
         max_messages: int | None = None

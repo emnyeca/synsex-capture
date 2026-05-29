@@ -1,0 +1,93 @@
+analysis_target: per_track_reset_t01
+status: confirmed_inf_vs_non_inf
+field:
+  primary_offsets:
+  - 101507
+  extended_offsets:
+  - 101505
+  - 101507
+  baseline_value: 16
+  baseline_equivalent_values:
+  - 16
+  primary_non_inf_examples:
+    '2':
+      offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x02'
+      value_dec: 2
+    '3':
+      offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x03'
+      value_dec: 3
+    '4':
+      offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x04'
+      value_dec: 4
+    '12':
+      offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x0C'
+      value_dec: 12
+    '17':
+      offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x11'
+      value_dec: 17
+    '1024':
+      offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x00'
+      value_dec: 0
+  extended_non_inf_examples:
+    '2':
+    - offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x02'
+      value_dec: 2
+    '3':
+    - offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x03'
+      value_dec: 3
+    '4':
+    - offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x04'
+      value_dec: 4
+    '12':
+    - offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x0C'
+      value_dec: 12
+    '17':
+    - offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x11'
+      value_dec: 17
+    '1024':
+    - offset: 101505
+      before_hex: '0x00'
+      value_hex: '0x04'
+      value_dec: 4
+    - offset: 101507
+      before_hex: '0x10'
+      value_hex: '0x00'
+      value_dec: 0
+  inf_transition:
+    from: 1024
+    to: INF
+    changed_offsets:
+    - 101505
+    - 101507
+    - 114114
+checksum_related_offsets:
+- 114114
+notes:
+- Track 1 RESET uses offset 101507 as the primary low-byte field across changed non-INF
+  values.
+- Value 1024 additionally uses offset 101505, indicating a wider encoding than the
+  smaller values.
+- Baseline file is 02_EMPTY_PER_TRACK_DEFAULT.syx and its Track 1 RESET display state
+  is 16.

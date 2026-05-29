@@ -1,0 +1,116 @@
+analysis_id: per_track_reset_t01_20260529
+analysis: per_track_reset_t01
+fixed_context:
+  pattern_state: empty pattern
+  mode_state: per-track
+  trigger_state: none (no trig)
+  parameter_lock_state: none
+  pattern_name_changed: false
+  tempo_changed: false
+  unchanged_sections:
+  - sound
+  - machine
+  - level
+  - mute
+  - track_routing
+  - length
+  - speed
+  - change
+  allowed_controls_touched:
+  - reset
+sequence:
+- index: 2
+  file: captures/Per_Track_Reset_T01/02_EMPTY_PER_TRACK_DEFAULT.syx
+  operation: Per-track mode default; Track 1 RESET 16
+  track_1_reset: 16
+- index: 28
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_0002.syx
+  operation: Set Track 1 RESET to 2 in per-track mode
+  track_1_reset: 2
+- index: 29
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_0003.syx
+  operation: Set Track 1 RESET to 3 in per-track mode
+  track_1_reset: 3
+- index: 30
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_0004.syx
+  operation: Set Track 1 RESET to 4 in per-track mode
+  track_1_reset: 4
+- index: 31
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_0012.syx
+  operation: Set Track 1 RESET to 12 in per-track mode
+  track_1_reset: 12
+- index: 32
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_0016.syx
+  operation: Set Track 1 RESET to 16 in per-track mode
+  track_1_reset: 16
+- index: 33
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_0017.syx
+  operation: Set Track 1 RESET to 17 in per-track mode
+  track_1_reset: 17
+- index: 34
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_1024.syx
+  operation: Set Track 1 RESET to 1024 in per-track mode
+  track_1_reset: 1024
+- index: 35
+  file: captures/Per_Track_Reset_T01/R_VALUE_T01_INF.syx
+  operation: Set Track 1 RESET to INF in per-track mode
+  track_1_reset: INF
+generated:
+  vs_default:
+  - from: 2
+    to: 28
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_28.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101507
+    - 114114
+  - from: 2
+    to: 29
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_29.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101507
+    - 114114
+  - from: 2
+    to: 30
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_30.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101507
+    - 114114
+  - from: 2
+    to: 31
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_31.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101507
+    - 114114
+  - from: 2
+    to: 32
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_32.yaml
+    difference_count: 0
+    changed_offsets: []
+  - from: 2
+    to: 33
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_33.yaml
+    difference_count: 2
+    changed_offsets:
+    - 101507
+    - 114114
+  - from: 2
+    to: 34
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/vs_default_to_34.yaml
+    difference_count: 3
+    changed_offsets:
+    - 101505
+    - 101507
+    - 114114
+  sequential:
+  - from: 34
+    to: 35
+    output_yaml: datasets/analysis/per_track_reset_t01_20260529/seq_34_to_35.yaml
+    difference_count: 3
+    changed_offsets:
+    - 101505
+    - 101507
+    - 114114

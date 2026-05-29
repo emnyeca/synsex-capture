@@ -1,0 +1,166 @@
+analysis: per_track_length_t01_confirmed
+result:
+  track_1_length_offsets_packed:
+    msb_pack_byte: 1346
+    track_1_length_low7: 1347
+    msb_mask: '0x40'
+  checksum_related_offsets:
+  - 114114
+  encoding: 7-bit packed integer (MSB in pack byte + low7 byte)
+  decode_formula: track_1_length = track_1_length_low7 + (128 if (msb_pack_byte &
+    0x40) else 0)
+  status: resolved_for_tested_values
+  mode_transition:
+    pattern_wide_to_per_track_default_changes_only_mode_and_checksum: true
+    per_track_default_repeat_is_identical: true
+tested_values:
+- index: 2
+  track_1_length: 16
+  offset: 1347
+  value_hex: '0x10'
+  value_dec: 16
+- index: 4
+  track_1_length: 2
+  offset: 1347
+  value_hex: '0x02'
+  value_dec: 2
+- index: 5
+  track_1_length: 3
+  offset: 1347
+  value_hex: '0x03'
+  value_dec: 3
+- index: 6
+  track_1_length: 4
+  offset: 1347
+  value_hex: '0x04'
+  value_dec: 4
+- index: 7
+  track_1_length: 8
+  offset: 1347
+  value_hex: '0x08'
+  value_dec: 8
+- index: 8
+  track_1_length: 15
+  offset: 1347
+  value_hex: '0x0F'
+  value_dec: 15
+- index: 9
+  track_1_length: 17
+  offset: 1347
+  value_hex: '0x11'
+  value_dec: 17
+- index: 10
+  track_1_length: 32
+  offset: 1347
+  value_hex: '0x20'
+  value_dec: 32
+- index: 11
+  track_1_length: 33
+  offset: 1347
+  value_hex: '0x21'
+  value_dec: 33
+- index: 12
+  track_1_length: 64
+  offset: 1347
+  value_hex: '0x40'
+  value_dec: 64
+- index: 13
+  track_1_length: 128
+  offset: 1347
+  value_hex: '0x00'
+  value_dec: 0
+tested_values_packed:
+- index: 2
+  track_1_length: 16
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x10'
+  decoded_track_1_length: 16
+  decode_matches_display: true
+- index: 4
+  track_1_length: 2
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x02'
+  decoded_track_1_length: 2
+  decode_matches_display: true
+- index: 5
+  track_1_length: 3
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x03'
+  decoded_track_1_length: 3
+  decode_matches_display: true
+- index: 6
+  track_1_length: 4
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x04'
+  decoded_track_1_length: 4
+  decode_matches_display: true
+- index: 7
+  track_1_length: 8
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x08'
+  decoded_track_1_length: 8
+  decode_matches_display: true
+- index: 8
+  track_1_length: 15
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x0F'
+  decoded_track_1_length: 15
+  decode_matches_display: true
+- index: 9
+  track_1_length: 17
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x11'
+  decoded_track_1_length: 17
+  decode_matches_display: true
+- index: 10
+  track_1_length: 32
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x20'
+  decoded_track_1_length: 32
+  decode_matches_display: true
+- index: 11
+  track_1_length: 33
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x21'
+  decoded_track_1_length: 33
+  decode_matches_display: true
+- index: 12
+  track_1_length: 64
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x02'
+  value_hex: '0x40'
+  decoded_track_1_length: 64
+  decode_matches_display: true
+- index: 13
+  track_1_length: 128
+  pack_offset: 1346
+  value_offset: 1347
+  pack_hex: '0x42'
+  value_hex: '0x00'
+  decoded_track_1_length: 128
+  decode_matches_display: true
+notes:
+- 01 -> 02 changes only the mode field and checksum; Track 1 stored value remains
+  at 16.
+- 02 -> 03 has difference_count=0, confirming stable repeat export in per-track default
+  state.
+- 128 is encoded as low7=0x00 with pack byte bit 0x40 set.
