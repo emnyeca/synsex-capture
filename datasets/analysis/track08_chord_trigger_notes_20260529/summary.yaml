@@ -140,12 +140,12 @@ sequence:
   file: captures/Track08_Chord_Trigger_Notes_20260529/20_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_VEL_LEN_INHERIT.syx
   operation: track8 step1 6-note cloud with explicit velocity and inherit length
   notes:
-  - C5
-  - E5
-  - G5
-  - A5
-  - B5
-  - D6
+  - C4
+  - E4
+  - G4
+  - A4
+  - B4
+  - D5
 - index: 21
   file: captures/Track08_Chord_Trigger_Notes_20260529/21_T08_S01_C5_TIME_PLUS1_TRG.syx
   operation: track8 step1 single note trigger TIME +1
@@ -180,12 +180,12 @@ sequence:
   file: captures/Track08_Chord_Trigger_Notes_20260529/27_T08_S01_CMAJ7_CLOUD_6NOTE_EXPLICIT_LEN_VEL.syx
   operation: track8 step1 6-note cloud with explicit length and explicit velocity
   notes:
-  - C5
-  - E5
-  - G5
-  - A5
-  - B5
-  - D6
+  - C4
+  - E4
+  - G4
+  - A4
+  - B4
+  - D5
 generated:
   sequential:
   - from: 1

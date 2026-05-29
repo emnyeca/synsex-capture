@@ -191,22 +191,22 @@ result:
       velocity: '0x32'
       length: '0xFF'
     six_note_fixture:
-    - pitch_name: C5
+    - pitch_name: C4
       velocity: '0x46'
       length: '0xFF'
-    - pitch_name: E5
+    - pitch_name: E4
       velocity: '0x46'
       length: '0xFF'
-    - pitch_name: G5
+    - pitch_name: G4
       velocity: '0x46'
       length: '0xFF'
-    - pitch_name: A5
+    - pitch_name: A4
       velocity: '0x32'
       length: '0xFF'
-    - pitch_name: B5
+    - pitch_name: B4
       velocity: '0x46'
       length: '0xFF'
-    - pitch_name: D6
+    - pitch_name: D5
       velocity: '0x32'
       length: '0xFF'
     velocity_map_tested:
@@ -231,22 +231,22 @@ result:
       velocity: '0xFF'
       length: '0x1E'
     six_note_fixture:
-    - pitch_name: C5
+    - pitch_name: C4
       velocity: '0x46'
       length: '0x1E'
-    - pitch_name: E5
+    - pitch_name: E4
       velocity: '0x46'
       length: '0x1E'
-    - pitch_name: G5
+    - pitch_name: G4
       velocity: '0x46'
       length: '0x1E'
-    - pitch_name: A5
+    - pitch_name: A4
       velocity: '0x32'
       length: '0x1E'
-    - pitch_name: B5
+    - pitch_name: B4
       velocity: '0x46'
       length: '0x1E'
-    - pitch_name: D6
+    - pitch_name: D5
       velocity: '0x32'
       length: '0x1E'
     length_map_tested:

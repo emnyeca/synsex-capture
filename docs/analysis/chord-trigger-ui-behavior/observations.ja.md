@@ -498,7 +498,7 @@ capture log に残すべき UI補足:
 
 `20`
 
-- Step 1 chord cloud: C5 E5 G5 A5 B5 D6
+- Step 1 chord cloud: C4 E4 G4 A4 B4 D5
 - TIME = 0 for all notes.
 - LEN remains inherit for all notes.
 - VEL profile = 70, 70, 70, 50, 70, 50.

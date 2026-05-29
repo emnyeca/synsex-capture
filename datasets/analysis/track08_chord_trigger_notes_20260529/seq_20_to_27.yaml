@@ -43,15 +43,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 60
-    pitch_name: C5
+    pitch_midi: 48
+    pitch_name: C4
     velocity: '0x46'
     length: '0xFF'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x3C'
+    - '0x30'
     - '0x46'
     - '0xFF'
     - '0x00'
@@ -60,15 +60,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 64
-    pitch_name: E5
+    pitch_midi: 52
+    pitch_name: E4
     velocity: '0x46'
     length: '0xFF'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x40'
+    - '0x34'
     - '0x46'
     - '0xFF'
     - '0x00'
@@ -77,15 +77,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 67
-    pitch_name: G5
+    pitch_midi: 55
+    pitch_name: G4
     velocity: '0x46'
     length: '0xFF'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x43'
+    - '0x37'
     - '0x46'
     - '0xFF'
     - '0x00'
@@ -94,15 +94,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 69
-    pitch_name: A5
+    pitch_midi: 57
+    pitch_name: A4
     velocity: '0x32'
     length: '0xFF'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x45'
+    - '0x39'
     - '0x32'
     - '0xFF'
     - '0x00'
@@ -111,15 +111,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 71
-    pitch_name: B5
+    pitch_midi: 59
+    pitch_name: B4
     velocity: '0x46'
     length: '0xFF'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x47'
+    - '0x3B'
     - '0x46'
     - '0xFF'
     - '0x00'
@@ -128,15 +128,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 74
-    pitch_name: D6
+    pitch_midi: 62
+    pitch_name: D5
     velocity: '0x32'
     length: '0xFF'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x4A'
+    - '0x3E'
     - '0x32'
     - '0xFF'
     - '0x00'
@@ -146,15 +146,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 60
-    pitch_name: C5
+    pitch_midi: 48
+    pitch_name: C4
     velocity: '0x46'
     length: '0x1E'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x3C'
+    - '0x30'
     - '0x46'
     - '0x1E'
     - '0x00'
@@ -163,15 +163,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 64
-    pitch_name: E5
+    pitch_midi: 52
+    pitch_name: E4
     velocity: '0x46'
     length: '0x1E'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x40'
+    - '0x34'
     - '0x46'
     - '0x1E'
     - '0x00'
@@ -180,15 +180,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 67
-    pitch_name: G5
+    pitch_midi: 55
+    pitch_name: G4
     velocity: '0x46'
     length: '0x1E'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x43'
+    - '0x37'
     - '0x46'
     - '0x1E'
     - '0x00'
@@ -197,15 +197,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 69
-    pitch_name: A5
+    pitch_midi: 57
+    pitch_name: A4
     velocity: '0x32'
     length: '0x1E'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x45'
+    - '0x39'
     - '0x32'
     - '0x1E'
     - '0x00'
@@ -214,15 +214,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 71
-    pitch_name: B5
+    pitch_midi: 59
+    pitch_name: B4
     velocity: '0x46'
     length: '0x1E'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x47'
+    - '0x3B'
     - '0x46'
     - '0x1E'
     - '0x00'
@@ -231,15 +231,15 @@ derived_observations:
     track: 8
     step_index_0based: 0
     step: 1
-    pitch_midi: 74
-    pitch_name: D6
+    pitch_midi: 62
+    pitch_name: D5
     velocity: '0x32'
     length: '0x1E'
     field5: '0x00'
     record_hex:
     - '0x07'
     - '0x00'
-    - '0x4A'
+    - '0x3E'
     - '0x32'
     - '0x1E'
     - '0x00'
@@ -290,8 +290,8 @@ patches:
   before: '0x7F'
   value: '0x1E'
 - offset: 114113
-  before: '0x6D'
+  before: '0x6C'
   value: '0x67'
 - offset: 114114
-  before: '0x16'
-  value: '0x59'
+  before: '0x4D'
+  value: '0x10'
