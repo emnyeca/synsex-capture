@@ -1,0 +1,124 @@
+analysis: track08_chord_trigger_notes_phase1
+pair_type: additional_note_growth
+pair:
+  before: captures/Track08_Chord_Trigger_Notes_20260529/02_T08_S01_C5_SINGLE_NOTE.syx
+  after: captures/Track08_Chord_Trigger_Notes_20260529/03_T08_S01_CHORD_02_C5_E5.syx
+  before_operation: track8 step1 single note C5
+  after_operation: track8 step1 add E5 to C5
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+  pattern_mode: PATTERN-wide
+  total_steps: 16
+  tempo: 120.0
+  speed: '1'
+  target_track: 8
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 8
+  changed_offsets:
+  - 21722
+  - 21727
+  - 21728
+  - 21729
+  - 21730
+  - 21733
+  - 114113
+  - 114114
+derived_observations:
+  slot_count_before: 1
+  slot_count_after: 2
+  slots_before:
+  - slot: 1
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 60
+    pitch_name: C5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x3C'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  slots_after:
+  - slot: 1
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 60
+    pitch_name: C5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x3C'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  - slot: 2
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 64
+    pitch_name: E5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x40'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  track8_step1_state_before:
+  - '0x03'
+  - '0x81'
+  track8_step1_state_after:
+  - '0x03'
+  - '0x81'
+  track8_step5_state_before:
+  - '0x00'
+  - '0x00'
+  track8_step5_state_after:
+  - '0x00'
+  - '0x00'
+patches:
+- offset: 21722
+  before: '0x37'
+  value: '0x30'
+- offset: 21727
+  before: '0x7F'
+  value: '0x07'
+- offset: 21728
+  before: '0x7F'
+  value: '0x00'
+- offset: 21729
+  before: '0x7F'
+  value: '0x40'
+- offset: 21730
+  before: '0x7F'
+  value: '0x6F'
+- offset: 21733
+  before: '0x7F'
+  value: '0x00'
+- offset: 114113
+  before: '0x04'
+  value: '0x00'
+- offset: 114114
+  before: '0x3E'
+  value: '0x72'

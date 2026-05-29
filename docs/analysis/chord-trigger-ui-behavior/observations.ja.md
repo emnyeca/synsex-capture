@@ -86,11 +86,11 @@ Edit D5 TIME to -1
 → Representative = D5
 ```
 
-#### 1.4.3 Representative does not automatically revert when timing becomes equal again
+#### 1.4.3 Representative can revert when timing becomes equal again in the observed test
 
 観測事実:
 
-- After D5 becomes representative by being moved earlier, restoring D5 TIME from -1 back to 0 does not return the representative to the originally earlier-added C5.
+- In the observed test case, after D5 becomes representative by being moved earlier, restoring D5 TIME from -1 back to 0 returns the representative to the originally earlier-added C5.
 
 例:
 
@@ -103,16 +103,10 @@ D5 TIME: 0 -> -1
 → Representative = D5
 
 D5 TIME: -1 -> 0
-→ Representative remains D5
+→ Representative = C5
 ```
 
-この観測は、次のような単純な常時再評価規則を否定する。
-
-```text
-"the representative is always the earliest note, with insertion order as a tie-break."
-```
-
-したがって、代表 NOTE の選択は stateful であるか、または update-triggered な規則を含む。厳密な内部規則は、今後の UI追加実験と SysEx解析が終わるまで未確定と扱う。
+この時点で確定できるのは、代表 NOTE の選択規則が TIME 編集で変化し得ることと、その完全な状態遷移規則がまだ未確定であることだけである。厳密な内部規則は、今後の UI追加実験と SysEx解析が終わるまで未確定と扱う。
 
 #### 1.4.4 Representative deletion
 
@@ -436,7 +430,7 @@ datasets/analysis/track08_chord_trigger_notes_20260529/
 ```text
 12_REPRESENTATIVE_C5_E5_TIME0.syx
 13_REPRESENTATIVE_E5_TIME_MINUS1.syx
-14_REPRESENTATIVE_E5_RETURN_TIME0_REMAINS_REPRESENTATIVE.syx
+14_REPRESENTATIVE_E5_RETURN_TIME0.syx
 ```
 
 capture log に残すべき UI補足:
@@ -455,7 +449,7 @@ capture log に残すべき UI補足:
 `14`
 
 - Edit E5 TIME back to 0.
-- UI representative remains E5.
+- UI representative = C5.
 
 ### 5.5 Multiple chord triggers / binding behavior
 

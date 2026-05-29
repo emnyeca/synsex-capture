@@ -24,7 +24,7 @@ hardware_observations:
     definition: note currently exposed by trigger-level parameter display
     equal_time_initial_rule_observed: first-added note is displayed
     earlier_time_can_take_over: true
-    return_to_equal_time_does_not_auto_revert: true
+    return_to_equal_time_reverts_in_current_test: true
     deletion_behavior_observed: deleting representative moves display to another valid remaining representative
 working_interpretation:
   representative_note_is_ui_stateful_or_update_triggered: true
@@ -69,7 +69,7 @@ planned_capture_sequence:
     - 11_ORDER_E5_THEN_C5_TIME0.syx
     - 12_REPRESENTATIVE_C5_E5_TIME0.syx
     - 13_REPRESENTATIVE_E5_TIME_MINUS1.syx
-    - 14_REPRESENTATIVE_E5_RETURN_TIME0_REMAINS_REPRESENTATIVE.syx
+    - 14_REPRESENTATIVE_E5_RETURN_TIME0.syx
     - 15_TWO_CHORDS_S01_THEN_S05.syx
     - 16_TWO_CHORDS_S05_THEN_S01.syx
     - 17_T08_S01_CHORD_16_NOTES.syx

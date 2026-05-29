@@ -1,0 +1,49 @@
+analysis: track08_chord_trigger_notes_phase1_inference
+result:
+  likely_storage_model:
+    base_unit: ordinary trigger-style 6-byte slot record
+    working_shape:
+    - track_index_0based
+    - step_index_0based
+    - pitch_midi
+    - velocity_or_inherit
+    - length_or_inherit
+    - field5
+    note: Chord triggers on Track 8 most likely reuse the existing trigger-slot array
+      instead of introducing a separate chord-note table.
+  binding_model:
+    likely_rule: Each chord note is bound to a step by repeating the same track and
+      step fields in multiple slot records.
+    supporting_pairs:
+    - 02->03
+    - 03->04
+    - 15->16
+    - '17'
+  representative_note_storage:
+    status: unresolved
+    reason: Capture 14 is byte-identical to capture 11 at the saved-data level, while
+      the UI observation log distinguishes their edit history.
+    implication: Representative-note UI state is either not persisted in the tested
+      save path or is encoded outside the currently isolated fields.
+  field5_hypothesis:
+    status: unresolved
+    observed_values:
+    - '0x00'
+    - '0xFF'
+    observed_transition: The note moved earlier by TIME=-1 uses field5=0xFF in capture
+      13 and returns to 0x00 in capture 14.
+    likely_role: micro-timing-related or per-note auxiliary state
+  step_state_hypothesis:
+    status: partially_supported
+    likely_role: step occupied / trigger-present marker
+    note: The Track 8 step-state bytes change when a step gains or loses any trigger,
+      but the tested values do not encode the number of chord notes.
+  transpose_hypothesis:
+    status: supported_for_tested_case
+    note: In the tested triad, saving after transpose leaves no extra byte-level residue
+      compared with direct entry of the final pitches.
+notes:
+- This dataset intentionally separates hardware-observed UI behavior from saved SysEx
+  bytes.
+- Further phase work should target TIME, LEN, VEL, deletion, and over-capacity behavior
+  with the same folder and dataset structure.

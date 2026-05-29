@@ -1,0 +1,360 @@
+analysis_id: track08_chord_trigger_notes_20260529
+analysis: track08_chord_trigger_notes_phase1
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+  pattern_mode: PATTERN-wide
+  total_steps: 16
+  tempo: 120.0
+  speed: '1'
+  target_track: 8
+  analysis_scope: 'Phase 1: additional note storage structure and binding model'
+sequence:
+- index: 1
+  file: captures/Track08_Chord_Trigger_Notes_20260529/01_EMPTY_PATTERN.syx
+  operation: empty pattern
+  notes: []
+- index: 2
+  file: captures/Track08_Chord_Trigger_Notes_20260529/02_T08_S01_C5_SINGLE_NOTE.syx
+  operation: track8 step1 single note C5
+  notes:
+  - C5
+- index: 3
+  file: captures/Track08_Chord_Trigger_Notes_20260529/03_T08_S01_CHORD_02_C5_E5.syx
+  operation: track8 step1 add E5 to C5
+  notes:
+  - C5
+  - E5
+- index: 4
+  file: captures/Track08_Chord_Trigger_Notes_20260529/04_T08_S01_CHORD_03_C5_E5_G5.syx
+  operation: track8 step1 add G5
+  notes:
+  - C5
+  - E5
+  - G5
+- index: 5
+  file: captures/Track08_Chord_Trigger_Notes_20260529/05_T08_S01_CHORD_04_C5_E5_G5_B5.syx
+  operation: track8 step1 add B5
+  notes:
+  - C5
+  - E5
+  - G5
+  - B5
+- index: 6
+  file: captures/Track08_Chord_Trigger_Notes_20260529/06_T08_S01_CHORD_05_C5_E5_G5_B5_D6.syx
+  operation: track8 step1 add D6
+  notes:
+  - C5
+  - E5
+  - G5
+  - B5
+  - D6
+- index: 7
+  file: captures/Track08_Chord_Trigger_Notes_20260529/07_T08_S01_CHORD_06_C5_E5_G5_B5_D6_A6.syx
+  operation: track8 step1 add A6
+  notes:
+  - C5
+  - E5
+  - G5
+  - B5
+  - D6
+  - A6
+- index: 8
+  file: captures/Track08_Chord_Trigger_Notes_20260529/08_DIRECT_D5_FS5_A5.syx
+  operation: track8 step1 direct D5 F#5 A5
+  notes:
+  - D5
+  - F#5
+  - A5
+- index: 9
+  file: captures/Track08_Chord_Trigger_Notes_20260529/09_TRANSPOSED_C5_E5_G5_TO_D5_FS5_A5.syx
+  operation: track8 step1 transpose C5 E5 G5 to D5 F#5 A5
+  notes:
+  - D5
+  - F#5
+  - A5
+- index: 10
+  file: captures/Track08_Chord_Trigger_Notes_20260529/10_ORDER_C5_THEN_E5_TIME0.syx
+  operation: track8 step1 order C5 then E5 at TIME 0
+  notes:
+  - C5
+  - E5
+- index: 11
+  file: captures/Track08_Chord_Trigger_Notes_20260529/11_ORDER_E5_THEN_C5_TIME0.syx
+  operation: track8 step1 order E5 then C5 at TIME 0
+  notes:
+  - E5
+  - C5
+- index: 12
+  file: captures/Track08_Chord_Trigger_Notes_20260529/12_REPRESENTATIVE_C5_E5_TIME0.syx
+  operation: track8 step1 baseline representative capture C5 then E5 at TIME 0
+  notes:
+  - C5
+  - E5
+- index: 13
+  file: captures/Track08_Chord_Trigger_Notes_20260529/13_REPRESENTATIVE_E5_TIME_MINUS1.syx
+  operation: track8 step1 move E5 TIME to -1
+  notes:
+  - C5
+  - E5
+- index: 14
+  file: captures/Track08_Chord_Trigger_Notes_20260529/14_REPRESENTATIVE_E5_RETURN_TIME0.syx
+  operation: track8 step1 return E5 TIME to 0
+  notes:
+  - C5
+  - E5
+- index: 15
+  file: captures/Track08_Chord_Trigger_Notes_20260529/15_TWO_CHORDS_S01_THEN_S05.syx
+  operation: create step1 chord then step5 chord
+  notes:
+  - S01:C5,E5,G5
+  - S05:D5,F#5,A5
+- index: 16
+  file: captures/Track08_Chord_Trigger_Notes_20260529/16_TWO_CHORDS_S05_THEN_S01.syx
+  operation: create step5 chord then step1 chord
+  notes:
+  - S05:D5,F#5,A5
+  - S01:C5,E5,G5
+- index: 17
+  file: captures/Track08_Chord_Trigger_Notes_20260529/17_T08_S01_CHORD_16_NOTES.syx
+  operation: track8 step1 16-note chord
+  notes:
+  - 16 notes
+generated:
+  sequential:
+  - from: 1
+    to: 2
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_01_to_02.yaml
+    difference_count: 11
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_02_to_03.yaml
+    difference_count: 8
+  - from: 3
+    to: 4
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_03_to_04.yaml
+    difference_count: 8
+  - from: 4
+    to: 5
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_04_to_05.yaml
+    difference_count: 8
+  - from: 5
+    to: 6
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_05_to_06.yaml
+    difference_count: 8
+  - from: 6
+    to: 7
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_06_to_07.yaml
+    difference_count: 7
+  - from: 8
+    to: 9
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_08_to_09.yaml
+    difference_count: 0
+  - from: 10
+    to: 11
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_10_to_11.yaml
+    difference_count: 2
+  - from: 12
+    to: 13
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_12_to_13.yaml
+    difference_count: 6
+  - from: 13
+    to: 14
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_13_to_14.yaml
+    difference_count: 4
+  - from: 15
+    to: 16
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/seq_15_to_16.yaml
+    difference_count: 12
+  vs_single_note:
+  - from: 2
+    to: 3
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_single_note_to_03.yaml
+    difference_count: 8
+  - from: 2
+    to: 4
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_single_note_to_04.yaml
+    difference_count: 13
+  - from: 2
+    to: 5
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_single_note_to_05.yaml
+    difference_count: 18
+  - from: 2
+    to: 6
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_single_note_to_06.yaml
+    difference_count: 23
+  - from: 2
+    to: 7
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_single_note_to_07.yaml
+    difference_count: 28
+  equivalence_checks:
+  - from: 11
+    to: 14
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_order_11_to_14.yaml
+    difference_count: 0
+  - from: 12
+    to: 14
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_rep_12_to_14.yaml
+    difference_count: 2
+  capacity_checks:
+  - from: 7
+    to: 17
+    output_yaml: datasets/analysis/track08_chord_trigger_notes_20260529/vs_capacity_07_to_17.yaml
+    difference_count: 57
+capture_slot_counts:
+- index: 1
+  file: 01_EMPTY_PATTERN.syx
+  slot_count: 0
+  track8_step1_state:
+  - '0x00'
+  - '0x00'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 2
+  file: 02_T08_S01_C5_SINGLE_NOTE.syx
+  slot_count: 1
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 3
+  file: 03_T08_S01_CHORD_02_C5_E5.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 4
+  file: 04_T08_S01_CHORD_03_C5_E5_G5.syx
+  slot_count: 3
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 5
+  file: 05_T08_S01_CHORD_04_C5_E5_G5_B5.syx
+  slot_count: 4
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 6
+  file: 06_T08_S01_CHORD_05_C5_E5_G5_B5_D6.syx
+  slot_count: 5
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 7
+  file: 07_T08_S01_CHORD_06_C5_E5_G5_B5_D6_A6.syx
+  slot_count: 6
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 8
+  file: 08_DIRECT_D5_FS5_A5.syx
+  slot_count: 3
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 9
+  file: 09_TRANSPOSED_C5_E5_G5_TO_D5_FS5_A5.syx
+  slot_count: 3
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 10
+  file: 10_ORDER_C5_THEN_E5_TIME0.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 11
+  file: 11_ORDER_E5_THEN_C5_TIME0.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 12
+  file: 12_REPRESENTATIVE_C5_E5_TIME0.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 13
+  file: 13_REPRESENTATIVE_E5_TIME_MINUS1.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 14
+  file: 14_REPRESENTATIVE_E5_RETURN_TIME0.syx
+  slot_count: 2
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'
+- index: 15
+  file: 15_TWO_CHORDS_S01_THEN_S05.syx
+  slot_count: 6
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x03'
+  - '0x81'
+- index: 16
+  file: 16_TWO_CHORDS_S05_THEN_S01.syx
+  slot_count: 6
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x03'
+  - '0x81'
+- index: 17
+  file: 17_T08_S01_CHORD_16_NOTES.syx
+  slot_count: 16
+  track8_step1_state:
+  - '0x03'
+  - '0x81'
+  track8_step5_state:
+  - '0x00'
+  - '0x00'

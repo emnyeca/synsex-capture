@@ -1,0 +1,192 @@
+analysis: track08_chord_trigger_notes_phase1
+pair_type: additional_note_growth
+pair:
+  before: captures/Track08_Chord_Trigger_Notes_20260529/04_T08_S01_CHORD_03_C5_E5_G5.syx
+  after: captures/Track08_Chord_Trigger_Notes_20260529/05_T08_S01_CHORD_04_C5_E5_G5_B5.syx
+  before_operation: track8 step1 add G5
+  after_operation: track8 step1 add B5
+fixed_context:
+  project_number: '002'
+  project_name: NEW PROJECT
+  pattern_number: A01
+  pattern_name: UNTITLED
+  midi_ports_setting: 'OUTPUT TO: USB (MIDI+USB to USB)'
+  pattern_mode: PATTERN-wide
+  total_steps: 16
+  tempo: 120.0
+  speed: '1'
+  target_track: 8
+diff_summary:
+  len_before: 114118
+  len_after: 114118
+  difference_count: 8
+  changed_offsets:
+  - 21738
+  - 21741
+  - 21742
+  - 21743
+  - 21746
+  - 21747
+  - 114113
+  - 114114
+derived_observations:
+  slot_count_before: 3
+  slot_count_after: 4
+  slots_before:
+  - slot: 1
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 60
+    pitch_name: C5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x3C'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  - slot: 2
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 64
+    pitch_name: E5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x40'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  - slot: 3
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 67
+    pitch_name: G5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x43'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  slots_after:
+  - slot: 1
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 60
+    pitch_name: C5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x3C'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  - slot: 2
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 64
+    pitch_name: E5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x40'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  - slot: 3
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 67
+    pitch_name: G5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x43'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  - slot: 4
+    track_index_0based: 7
+    track: 8
+    step_index_0based: 0
+    step: 1
+    pitch_midi: 71
+    pitch_name: B5
+    velocity: '0xFF'
+    length: '0xFF'
+    field5: '0x00'
+    record_hex:
+    - '0x07'
+    - '0x00'
+    - '0x47'
+    - '0xFF'
+    - '0xFF'
+    - '0x00'
+  track8_step1_state_before:
+  - '0x03'
+  - '0x81'
+  track8_step1_state_after:
+  - '0x03'
+  - '0x81'
+  track8_step5_state_before:
+  - '0x00'
+  - '0x00'
+  track8_step5_state_after:
+  - '0x00'
+  - '0x00'
+patches:
+- offset: 21738
+  before: '0x5F'
+  value: '0x43'
+- offset: 21741
+  before: '0x7F'
+  value: '0x07'
+- offset: 21742
+  before: '0x7F'
+  value: '0x00'
+- offset: 21743
+  before: '0x7F'
+  value: '0x47'
+- offset: 21746
+  before: '0x7F'
+  value: '0x3F'
+- offset: 21747
+  before: '0x7F'
+  value: '0x00'
+- offset: 114113
+  before: '0x7D'
+  value: '0x79'
+- offset: 114114
+  before: '0x12'
+  value: '0x08'
