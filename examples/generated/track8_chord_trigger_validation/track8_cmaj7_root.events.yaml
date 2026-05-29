@@ -1,0 +1,45 @@
+﻿version: 1
+device: digitone2
+name: T8 Cmaj7 Root
+pattern:
+  mode: pattern-wide
+  tempo: 120
+  speed: 1/8
+  total_steps: 16
+events:
+  - step: 1
+    track: 8
+    note: C4
+    velocity: 70
+    length_code: "0x1E"
+    time: 0
+  - step: 1
+    track: 8
+    note: E4
+    velocity: 70
+    length_code: "0x1E"
+    time: 0
+  - step: 1
+    track: 8
+    note: G4
+    velocity: 70
+    length_code: "0x1E"
+    time: 0
+  - step: 1
+    track: 8
+    note: B4
+    velocity: 50
+    length_code: "0x1E"
+    time: 0
+  - step: 1
+    track: 8
+    note: D5
+    velocity: 70
+    length_code: "0x1E"
+    time: 0
+  - step: 1
+    track: 8
+    note: A5
+    velocity: 50
+    length_code: "0x1E"
+    time: 0

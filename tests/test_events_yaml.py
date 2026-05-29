@@ -38,6 +38,7 @@ def test_load_event_assignment_yaml_valid(tmp_path: Path):
     assert parsed.events[0].note_midi == 60
     assert parsed.events[0].velocity == "inherit"
     assert parsed.events[0].length == "inherit"
+    assert parsed.events[0].time == 0
 
 
 def test_load_event_assignment_yaml_rejects_duplicate_step_track(tmp_path: Path):
@@ -64,7 +65,91 @@ def test_load_event_assignment_yaml_rejects_duplicate_step_track(tmp_path: Path)
         encoding="utf-8",
     )
 
-    with pytest.raises(SyxFileError):
+    with pytest.raises(SyxFileError, match="only supported on track 8"):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_accepts_track8_chord_group_with_distinct_notes_and_time(tmp_path: Path):
+    yaml_path = tmp_path / "events_track8_chord.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: C4\n"
+        "    velocity: 70\n"
+        "    length: '1'\n"
+        "    time: -23\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: E4\n"
+        "    velocity: 50\n"
+        "    length: '2'\n"
+        "    time: 23\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+    assert [event.note_midi for event in parsed.events] == [48, 52]
+    assert [event.time for event in parsed.events] == [-23, 23]
+
+
+def test_load_event_assignment_yaml_rejects_duplicate_track8_note(tmp_path: Path):
+    yaml_path = tmp_path / "events_track8_dup_note.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: C4\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: C4\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="duplicate note"):
+        load_event_assignment_yaml(yaml_path)
+
+
+@pytest.mark.parametrize("time_value", [-24, 24])
+def test_load_event_assignment_yaml_rejects_time_out_of_range(tmp_path: Path, time_value: int):
+    yaml_path = tmp_path / f"events_time_{time_value}.yaml"
+    yaml_path.write_text(
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: C4\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        f"    time: {time_value}\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SyxFileError, match="micro_timing must be in -23..23"):
         load_event_assignment_yaml(yaml_path)
 
 

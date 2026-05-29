@@ -343,8 +343,63 @@ def test_build_syx_from_events_rejects_duplicate_step_track(tmp_path: Path):
         "    length: inherit\n",
     )
 
-    with pytest.raises(SyxFileError, match="Chord is not supported"):
+    with pytest.raises(SyxFileError, match="only supported on track 8"):
         build_syx_from_events(events_yaml=events, output_file=tmp_path / "out.syx")
+
+
+def test_build_syx_from_events_encodes_track8_chord_group_velocity_length_and_time(tmp_path: Path):
+    events = tmp_path / "track8_chord.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: C4\n"
+        "    velocity: 70\n"
+        "    length: '1'\n"
+        "    time: -23\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: E4\n"
+        "    velocity: 50\n"
+        "    length: '2'\n"
+        "    time: -1\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: G4\n"
+        "    velocity: inherit\n"
+        "    length: inherit\n"
+        "    time: 0\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: B4\n"
+        "    velocity: 70\n"
+        "    length: '1'\n"
+        "    time: 1\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: D5\n"
+        "    velocity: 50\n"
+        "    length: '2'\n"
+        "    time: 23\n",
+    )
+
+    output = tmp_path / "track8_chord.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    assert [_read_trigger_slot_value(built, 0, rel) for rel in range(6)] == [0x07, 0x00, 0x30, 0x46, 0x0E, 0xE9]
+    assert [_read_trigger_slot_value(built, 1, rel) for rel in range(6)] == [0x07, 0x00, 0x34, 0x32, 0x1E, 0xFF]
+    assert [_read_trigger_slot_value(built, 2, rel) for rel in range(6)] == [0x07, 0x00, 0x37, 0xFF, 0xFF, 0x00]
+    assert [_read_trigger_slot_value(built, 3, rel) for rel in range(6)] == [0x07, 0x00, 0x3B, 0x46, 0x0E, 0x01]
+    assert [_read_trigger_slot_value(built, 4, rel) for rel in range(6)] == [0x07, 0x00, 0x3E, 0x32, 0x1E, 0x17]
 
 
 def test_checksum_reference_speed_matches_capture(tmp_path: Path):

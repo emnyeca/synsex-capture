@@ -45,6 +45,7 @@ from .constants import (
     TRIGGER_SLOT_SIZE,
     TRIGGER_SLOT0_PAYLOAD_INDEX,
 )
+from .micro_timing import encode_micro_timing
 from .packing import repack_7bit_region, set_packed_byte, set_trigger_packed_byte, unpack_7bit_region
 from .pattern_name import write_pattern_name
 from .step_state import write_events_step_state
@@ -215,7 +216,7 @@ def _write_trigger_slots(data: bytearray, assignment: EventAssignment) -> int:
         velocity = 0xFF if event.velocity == "inherit" else int(event.velocity)
         length = _event_length_to_code(event.length, event.length_code)
 
-        values = (field0_track, step_index, pitch, velocity, length, 0x00)
+        values = (field0_track, step_index, pitch, velocity, length, encode_micro_timing(event.time))
         for rel, value in enumerate(values):
             set_trigger_packed_byte(
                 data,

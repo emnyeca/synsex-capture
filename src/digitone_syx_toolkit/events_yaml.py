@@ -9,6 +9,7 @@ import yaml
 
 from .digitone2.constants import DISPLAY_TO_EXPLICIT_LENGTH_CODE, LENGTH_CODE_MAP
 from .digitone2.length_codes import parse_length_code
+from .digitone2.micro_timing import encode_micro_timing
 from .digitone2.pattern_name import PATTERN_NAME_MAX_CHARS, normalize_pattern_name, validate_pattern_name
 from .errors import SyxFileError
 
@@ -33,6 +34,7 @@ class EventItem:
     velocity: int | str
     length: str
     length_code: int | None = None
+    time: int = 0
 
 
 @dataclass(frozen=True)
@@ -122,6 +124,12 @@ def _parse_symbolic_text(raw: object, field: str) -> str:
     if not value:
         raise SyxFileError(f"{field} is required")
     return value.upper()
+
+
+def _parse_micro_timing(raw: object, field: str) -> int:
+    value = _as_int(raw, field)
+    encode_micro_timing(value)
+    return value
 
 
 def _load_yaml(path: str | Path) -> dict:
@@ -251,7 +259,7 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
         raise SyxFileError("'events' must be a list")
 
     parsed_events: list[EventItem] = []
-    seen_pairs: set[tuple[int, int]] = set()
+    seen_pairs: dict[tuple[int, int], set[int]] = {}
     for raw_event in raw_events:
         if not isinstance(raw_event, dict):
             raise SyxFileError("events[] entries must be mappings")
@@ -265,17 +273,22 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
         if step < 1 or step > max_step:
             raise SyxFileError(f"events[].step out of range: {step} (1..{max_step})")
 
-        pair = (step, track)
-        if pair in seen_pairs:
-            raise SyxFileError(
-                f"Chord is not supported yet: duplicate event for step={step}, track={track}"
-            )
-        seen_pairs.add(pair)
-
         note = str(raw_event.get("note", "")).strip()
         if not note:
             raise SyxFileError(f"events step={step} track={track}: note is required")
         note_midi = _parse_note_name(note)
+
+        pair = (step, track)
+        notes_for_pair = seen_pairs.setdefault(pair, set())
+        if note_midi in notes_for_pair:
+            raise SyxFileError(
+                f"events step={step} track={track}: duplicate note {note} is not allowed"
+            )
+        if notes_for_pair and track != 8:
+            raise SyxFileError(
+                f"events step={step} track={track}: multiple notes on the same step are only supported on track 8"
+            )
+        notes_for_pair.add(note_midi)
 
         velocity_raw = raw_event.get("velocity", "inherit")
         if isinstance(velocity_raw, str) and velocity_raw.strip().lower() == "inherit":
@@ -330,6 +343,8 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             elif length not in LENGTH_CODE_MAP:
                 raise SyxFileError(f"events step={step} track={track}: invalid length {length}")
 
+        time = _parse_micro_timing(raw_event.get("time", 0), f"events step={step} track={track} time")
+
         parsed_events.append(
             EventItem(
                 step=step,
@@ -339,10 +354,11 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
                 velocity=velocity,
                 length=("inherit" if length == "INHERIT" else length),
                 length_code=length_code,
+                time=time,
             )
         )
 
-    parsed_events.sort(key=lambda x: (x.track, x.step))
+    parsed_events.sort(key=lambda x: (x.track, x.step, x.note_midi))
 
     return EventAssignment(
         version=version,
