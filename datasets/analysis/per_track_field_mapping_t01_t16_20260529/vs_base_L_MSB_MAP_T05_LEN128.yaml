@@ -1,0 +1,19 @@
+analysis: per_track_field_mapping_t01_t16
+series: length_msb
+pair:
+  before: captures/Per_Track_Field_Mapping_T01_T16/02_EMPTY_PER_TRACK_DEFAULT.syx
+  after: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T05_LEN128.syx
+  track_changed: 5
+marker: 128
+diff_summary:
+  difference_count: 2
+  changed_offsets:
+  - 6770
+  - 6773
+patches:
+- offset: 6770
+  before: '0x00'
+  value: '0x10'
+- offset: 6773
+  before: '0x10'
+  value: '0x00'

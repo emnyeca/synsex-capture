@@ -1,0 +1,56 @@
+analysis: per_track_field_mapping_t01_t16
+series: speed
+pair:
+  before: captures/Per_Track_Field_Mapping_T01_T16/02_EMPTY_PER_TRACK_DEFAULT.syx
+  after: captures/Per_Track_Field_Mapping_T01_T16/S_MAP_BIT01_1-2X.syx
+  tracks_changed:
+  - 1
+  - 3
+  - 5
+  - 7
+  - 9
+  - 11
+  - 13
+  - 15
+  signature_bit: 1
+marker: 1/2x
+diff_summary:
+  difference_count: 9
+  changed_offsets:
+  - 1349
+  - 4062
+  - 6775
+  - 9488
+  - 12201
+  - 14915
+  - 17628
+  - 20341
+  - 114114
+patches:
+- offset: 1349
+  before: '0x02'
+  value: '0x04'
+- offset: 4062
+  before: '0x02'
+  value: '0x04'
+- offset: 6775
+  before: '0x02'
+  value: '0x04'
+- offset: 9488
+  before: '0x02'
+  value: '0x04'
+- offset: 12201
+  before: '0x02'
+  value: '0x04'
+- offset: 14915
+  before: '0x02'
+  value: '0x04'
+- offset: 17628
+  before: '0x02'
+  value: '0x04'
+- offset: 20341
+  before: '0x02'
+  value: '0x04'
+- offset: 114114
+  before: '0x3D'
+  value: '0x4D'

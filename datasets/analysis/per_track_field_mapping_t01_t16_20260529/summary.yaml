@@ -1,0 +1,269 @@
+analysis_id: per_track_field_mapping_t01_t16_20260529
+analysis: per_track_field_mapping_t01_t16
+baseline: captures/Per_Track_Field_Mapping_T01_T16/02_EMPTY_PER_TRACK_DEFAULT.syx
+method:
+  bit_signature:
+    bits:
+    - 1
+    - 2
+    - 4
+    - 8
+    - 16
+    track_groups:
+      1: &id001
+      - 1
+      - 3
+      - 5
+      - 7
+      - 9
+      - 11
+      - 13
+      - 15
+      2: &id002
+      - 2
+      - 3
+      - 6
+      - 7
+      - 10
+      - 11
+      - 14
+      - 15
+      4: &id003
+      - 4
+      - 5
+      - 6
+      - 7
+      - 12
+      - 13
+      - 14
+      - 15
+      8: &id004
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      16: &id005
+      - 16
+    decode_rule: Sum active signature bits to recover track number 1..16.
+  length_low7_marker: 17
+  length_msb_marker: 128
+  speed_marker: 1/2x
+captures:
+- series: baseline
+  file: captures/Per_Track_Field_Mapping_T01_T16/02_EMPTY_PER_TRACK_DEFAULT.syx
+  operation: Per-track mode baseline; all tracks default
+- series: length_low7
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MAP_BIT01_LEN017.syx
+  marker: 17
+  changed_tracks: *id001
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MAP_BIT01_LEN017.yaml
+- series: length_low7
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MAP_BIT02_LEN017.syx
+  marker: 17
+  changed_tracks: *id002
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MAP_BIT02_LEN017.yaml
+- series: length_low7
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MAP_BIT04_LEN017.syx
+  marker: 17
+  changed_tracks: *id003
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MAP_BIT04_LEN017.yaml
+- series: length_low7
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MAP_BIT08_LEN017.syx
+  marker: 17
+  changed_tracks: *id004
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MAP_BIT08_LEN017.yaml
+- series: length_low7
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MAP_BIT16_LEN017.syx
+  marker: 17
+  changed_tracks: *id005
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MAP_BIT16_LEN017.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T01_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 1
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T01_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T02_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 2
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T02_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T03_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 3
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T03_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T04_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 4
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T04_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T05_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 5
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T05_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T06_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 6
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T06_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T07_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 7
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T07_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T08_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 8
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T08_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T09_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 9
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T09_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T10_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 10
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T10_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T11_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 11
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T11_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T12_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 12
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T12_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T13_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 13
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T13_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T14_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 14
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T14_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T15_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 15
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T15_LEN128.yaml
+- series: length_msb
+  file: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T16_LEN128.syx
+  marker: 128
+  changed_tracks:
+  - 16
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_L_MSB_MAP_T16_LEN128.yaml
+- series: speed
+  file: captures/Per_Track_Field_Mapping_T01_T16/S_MAP_BIT01_1-2X.syx
+  marker: 1/2x
+  changed_tracks: *id001
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_S_MAP_BIT01_1-2X.yaml
+- series: speed
+  file: captures/Per_Track_Field_Mapping_T01_T16/S_MAP_BIT02_1-2X.syx
+  marker: 1/2x
+  changed_tracks: *id002
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_S_MAP_BIT02_1-2X.yaml
+- series: speed
+  file: captures/Per_Track_Field_Mapping_T01_T16/S_MAP_BIT04_1-2X.syx
+  marker: 1/2x
+  changed_tracks: *id003
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_S_MAP_BIT04_1-2X.yaml
+- series: speed
+  file: captures/Per_Track_Field_Mapping_T01_T16/S_MAP_BIT08_1-2X.syx
+  marker: 1/2x
+  changed_tracks: *id004
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_S_MAP_BIT08_1-2X.yaml
+- series: speed
+  file: captures/Per_Track_Field_Mapping_T01_T16/S_MAP_BIT16_1-2X.syx
+  marker: 1/2x
+  changed_tracks: *id005
+  diff_yaml: datasets/analysis/per_track_field_mapping_t01_t16_20260529/vs_base_S_MAP_BIT16_1-2X.yaml
+length_low7_summary:
+  field_count: 16
+  offsets:
+  - 1347
+  - 2703
+  - 4060
+  - 5416
+  - 6773
+  - 8129
+  - 9486
+  - 10843
+  - 12199
+  - 13556
+  - 14912
+  - 16269
+  - 17625
+  - 18982
+  - 20339
+  - 21695
+length_msb_summary:
+  field_count: 16
+  pack_offsets:
+  - 1346
+  - 2698
+  - 4058
+  - 5410
+  - 6770
+  - 8122
+  - 9482
+  - 10842
+  - 12194
+  - 13554
+  - 14906
+  - 16266
+  - 17618
+  - 18978
+  - 20338
+  - 21690
+speed_summary:
+  field_count: 16
+  offsets:
+  - 1349
+  - 2705
+  - 4062
+  - 5419
+  - 6775
+  - 8132
+  - 9488
+  - 10845
+  - 12201
+  - 13558
+  - 14915
+  - 16271
+  - 17628
+  - 18984
+  - 20341
+  - 21697
+change_reset:
+  change_scope: pattern-shared
+  reset_scope: pattern-shared
+  evidence_source: hardware UI observation during manual SysEx capture
+  ui_indicator: PATTERN
+  implication: Changing CHANGE or RESET on one track is reflected across all tracks,
+    so per-track mapping captures are not required.
+  requested_action: Recorded only; no additional capture analysis performed.

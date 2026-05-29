@@ -1,0 +1,9 @@
+analysis: pattern_shared_change_reset_observation
+observation:
+  change_scope: pattern-shared
+  reset_scope: pattern-shared
+  evidence_source: hardware UI observation during manual SysEx capture
+  ui_indicator: PATTERN
+  implication: Changing CHANGE or RESET on one track is reflected across all tracks,
+    so per-track mapping captures are not required.
+  requested_action: Recorded only; no additional capture analysis performed.

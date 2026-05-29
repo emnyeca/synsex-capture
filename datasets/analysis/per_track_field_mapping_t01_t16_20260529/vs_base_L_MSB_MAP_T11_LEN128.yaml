@@ -1,0 +1,23 @@
+analysis: per_track_field_mapping_t01_t16
+series: length_msb
+pair:
+  before: captures/Per_Track_Field_Mapping_T01_T16/02_EMPTY_PER_TRACK_DEFAULT.syx
+  after: captures/Per_Track_Field_Mapping_T01_T16/L_MSB_MAP_T11_LEN128.syx
+  track_changed: 11
+marker: 128
+diff_summary:
+  difference_count: 3
+  changed_offsets:
+  - 14906
+  - 14912
+  - 114114
+patches:
+- offset: 14906
+  before: '0x00'
+  value: '0x02'
+- offset: 14912
+  before: '0x10'
+  value: '0x00'
+- offset: 114114
+  before: '0x3D'
+  value: '0x2F'

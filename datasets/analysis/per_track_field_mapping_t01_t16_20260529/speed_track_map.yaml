@@ -1,0 +1,216 @@
+analysis: speed_track_map
+marker: 1/2x
+decode_method: bit signature
+map:
+- offset: 1349
+  signature_bits:
+  - 1
+  decoded_track: 1
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 2705
+  signature_bits:
+  - 2
+  decoded_track: 2
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 4062
+  signature_bits:
+  - 1
+  - 2
+  decoded_track: 3
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 5419
+  signature_bits:
+  - 4
+  decoded_track: 4
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 6775
+  signature_bits:
+  - 1
+  - 4
+  decoded_track: 5
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 8132
+  signature_bits:
+  - 2
+  - 4
+  decoded_track: 6
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 9488
+  signature_bits:
+  - 1
+  - 2
+  - 4
+  decoded_track: 7
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 10845
+  signature_bits:
+  - 8
+  decoded_track: 8
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 12201
+  signature_bits:
+  - 1
+  - 8
+  decoded_track: 9
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 13558
+  signature_bits:
+  - 2
+  - 8
+  decoded_track: 10
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 14915
+  signature_bits:
+  - 1
+  - 2
+  - 8
+  decoded_track: 11
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 16271
+  signature_bits:
+  - 4
+  - 8
+  decoded_track: 12
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 17628
+  signature_bits:
+  - 1
+  - 4
+  - 8
+  decoded_track: 13
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 18984
+  signature_bits:
+  - 2
+  - 4
+  - 8
+  decoded_track: 14
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 20341
+  signature_bits:
+  - 1
+  - 2
+  - 4
+  - 8
+  decoded_track: 15
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 1
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 2
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 4
+    before_hex: '0x02'
+    value_hex: '0x04'
+  - bit: 8
+    before_hex: '0x02'
+    value_hex: '0x04'
+- offset: 21697
+  signature_bits:
+  - 16
+  decoded_track: 16
+  expected_marker_value: '0x04'
+  observed_values:
+  - bit: 16
+    before_hex: '0x02'
+    value_hex: '0x04'

@@ -1,0 +1,135 @@
+analysis_target: per_track_field_mapping_t01_t16
+status: confirmed
+length:
+  low7_marker: 17
+  msb_marker: 128
+  tracks:
+  - track: 1
+    length_low7_offset: 1347
+    length_msb_pack_offset: 1346
+    length_msb_mask: '0x40'
+    speed_offset: 1349
+  - track: 2
+    length_low7_offset: 2703
+    length_msb_pack_offset: 2698
+    length_msb_mask: '0x04'
+    speed_offset: 2705
+  - track: 3
+    length_low7_offset: 4060
+    length_msb_pack_offset: 4058
+    length_msb_mask: '0x20'
+    speed_offset: 4062
+  - track: 4
+    length_low7_offset: 5416
+    length_msb_pack_offset: 5410
+    length_msb_mask: '0x02'
+    speed_offset: 5419
+  - track: 5
+    length_low7_offset: 6773
+    length_msb_pack_offset: 6770
+    length_msb_mask: '0x10'
+    speed_offset: 6775
+  - track: 6
+    length_low7_offset: 8129
+    length_msb_pack_offset: 8122
+    length_msb_mask: '0x01'
+    speed_offset: 8132
+  - track: 7
+    length_low7_offset: 9486
+    length_msb_pack_offset: 9482
+    length_msb_mask: '0x08'
+    speed_offset: 9488
+  - track: 8
+    length_low7_offset: 10843
+    length_msb_pack_offset: 10842
+    length_msb_mask: '0x40'
+    speed_offset: 10845
+  - track: 9
+    length_low7_offset: 12199
+    length_msb_pack_offset: 12194
+    length_msb_mask: '0x04'
+    speed_offset: 12201
+  - track: 10
+    length_low7_offset: 13556
+    length_msb_pack_offset: 13554
+    length_msb_mask: '0x20'
+    speed_offset: 13558
+  - track: 11
+    length_low7_offset: 14912
+    length_msb_pack_offset: 14906
+    length_msb_mask: '0x02'
+    speed_offset: 14915
+  - track: 12
+    length_low7_offset: 16269
+    length_msb_pack_offset: 16266
+    length_msb_mask: '0x10'
+    speed_offset: 16271
+  - track: 13
+    length_low7_offset: 17625
+    length_msb_pack_offset: 17618
+    length_msb_mask: '0x01'
+    speed_offset: 17628
+  - track: 14
+    length_low7_offset: 18982
+    length_msb_pack_offset: 18978
+    length_msb_mask: '0x08'
+    speed_offset: 18984
+  - track: 15
+    length_low7_offset: 20339
+    length_msb_pack_offset: 20338
+    length_msb_mask: '0x40'
+    speed_offset: 20341
+  - track: 16
+    length_low7_offset: 21695
+    length_msb_pack_offset: 21690
+    length_msb_mask: '0x04'
+    speed_offset: 21697
+  notes:
+  - length_low7_offset stores the low 7 bits of per-track LENGTH.
+  - length_msb_pack_offset and length_msb_mask identify the shared pack-byte bit used
+    when LENGTH >= 128.
+speed:
+  marker: 1/2x
+  tracks:
+  - track: 1
+    speed_offset: 1349
+  - track: 2
+    speed_offset: 2705
+  - track: 3
+    speed_offset: 4062
+  - track: 4
+    speed_offset: 5419
+  - track: 5
+    speed_offset: 6775
+  - track: 6
+    speed_offset: 8132
+  - track: 7
+    speed_offset: 9488
+  - track: 8
+    speed_offset: 10845
+  - track: 9
+    speed_offset: 12201
+  - track: 10
+    speed_offset: 13558
+  - track: 11
+    speed_offset: 14915
+  - track: 12
+    speed_offset: 16271
+  - track: 13
+    speed_offset: 17628
+  - track: 14
+    speed_offset: 18984
+  - track: 15
+    speed_offset: 20341
+  - track: 16
+    speed_offset: 21697
+  notes:
+  - All SPEED mapping captures use baseline 1x -> marker 1/2x (0x02 -> 0x04).
+change_reset:
+  change_scope: pattern-shared
+  reset_scope: pattern-shared
+  evidence_source: hardware UI observation during manual SysEx capture
+  ui_indicator: PATTERN
+  implication: Changing CHANGE or RESET on one track is reflected across all tracks,
+    so per-track mapping captures are not required.
+  requested_action: Recorded only; no additional capture analysis performed.

@@ -1,0 +1,216 @@
+analysis: length_low7_track_map
+marker: 17
+decode_method: bit signature
+map:
+- offset: 1347
+  signature_bits:
+  - 1
+  decoded_track: 1
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 2703
+  signature_bits:
+  - 2
+  decoded_track: 2
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 4060
+  signature_bits:
+  - 1
+  - 2
+  decoded_track: 3
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 5416
+  signature_bits:
+  - 4
+  decoded_track: 4
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 6773
+  signature_bits:
+  - 1
+  - 4
+  decoded_track: 5
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 8129
+  signature_bits:
+  - 2
+  - 4
+  decoded_track: 6
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 9486
+  signature_bits:
+  - 1
+  - 2
+  - 4
+  decoded_track: 7
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 10843
+  signature_bits:
+  - 8
+  decoded_track: 8
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 12199
+  signature_bits:
+  - 1
+  - 8
+  decoded_track: 9
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 13556
+  signature_bits:
+  - 2
+  - 8
+  decoded_track: 10
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 14912
+  signature_bits:
+  - 1
+  - 2
+  - 8
+  decoded_track: 11
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 16269
+  signature_bits:
+  - 4
+  - 8
+  decoded_track: 12
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 17625
+  signature_bits:
+  - 1
+  - 4
+  - 8
+  decoded_track: 13
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 18982
+  signature_bits:
+  - 2
+  - 4
+  - 8
+  decoded_track: 14
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 20339
+  signature_bits:
+  - 1
+  - 2
+  - 4
+  - 8
+  decoded_track: 15
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 1
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 2
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 4
+    before_hex: '0x10'
+    value_hex: '0x11'
+  - bit: 8
+    before_hex: '0x10'
+    value_hex: '0x11'
+- offset: 21695
+  signature_bits:
+  - 16
+  decoded_track: 16
+  expected_marker_low7: '0x11'
+  observed_values:
+  - bit: 16
+    before_hex: '0x10'
+    value_hex: '0x11'
