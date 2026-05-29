@@ -259,6 +259,9 @@ speed_summary:
   - 18984
   - 20341
   - 21697
+confirmed_outputs:
+- datasets/analysis/per_track_field_mapping_t01_t16_20260529/confirmed_layout.yaml
+- datasets/analysis/per_track_field_mapping_t01_t16_20260529/per_track_length_speed_pattern_controls_confirmed.yaml
 change_reset:
   change_scope: pattern-shared
   reset_scope: pattern-shared

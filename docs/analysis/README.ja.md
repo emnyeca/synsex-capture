@@ -60,7 +60,10 @@
 | Pattern tempo | offsets `101498`, `101503`, `101504`、`round(BPM * 120)` |
 | Pattern speed | offset `101512`、列挙コード |
 | Pattern total steps mode | offset `101511`、wide=`0x00`、per-track=`0x01` |
-| Pattern-wide total steps | offset `101507` と各Track値の同期更新 |
+| Per-track LENGTH / SPEED | Track 1〜16 の field 配置を確認済み。確定表は `datasets/analysis/per_track_field_mapping_t01_t16_20260529/per_track_length_speed_pattern_controls_confirmed.yaml` |
+| Pattern-shared CHANGE / RESET | CHANGE は `OFF`、RESET は `INF` を固定出力する。scope は track 個別ではなく pattern-shared |
+| Offset `101507` の mode 依存 | pattern-wide では total steps low byte、per-track では RESET low field |
+| Pattern-wide total steps | pattern-wide mode に限り、offset `101507` と各Track値の同期更新 |
 
 補足（Length full sweep 2026-05-26）:
 `0x00..0x7E` の実機表示読み取りは127件を確認し、全域対応表を確定。
@@ -74,7 +77,7 @@ EUB Changes 側の duration->Digitone Length 変換で利用可能。
 
 1. `(step, track)` 固定offset前提の `profile.slots` 方式を廃止し、内蔵 `BASE_EMPTY.syx` を基準に Trigger slot array へ順次配置する方式へ移行。
 2. Trigger Length の扱いを更新し、`inherit=0xFF` と明示 `INF=0x7F` を分離。明示 `1` は `0x0E` として扱う実装へ変更。
-3. Pattern total steps は pattern-wide 値 (`101507`) と Track 1〜16 mirror値を同期更新し、7-bit packing control を保持しながら書き換える方式へ変更。
+3. Pattern total steps の pattern-wide 書き込み規則は保持しているが、現行仕様では per-track 出力時に `101507` を total steps として書かない分岐が必要。
 4. Pitch 変換は Digitone表示基準（解析で確認した `C5 -> 0x3C`）を前提にした変換へ更新。
 
 一方で、以下は未反映または部分反映です。
@@ -83,6 +86,7 @@ EUB Changes 側の duration->Digitone Length 変換で利用可能。
 2. Step state table は 7-bit unpack 後の 2byte/step 連続テーブルとして整理し、`4 + 1187 * trackIndex + 2 * stepIndex` を実装へ反映。通常Trigger値は確認範囲で `odd=[0x03,0x81]`, `even=[0x03,0x91]` に一致し、page境界による追加分岐は未観測。
 3. Trigger record byte 0 は 0-based Track index として確定（Track 1〜8）。
 4. Step state 差分は packing control byte を含むため物理上 2〜3byte に見えることがあるが、意味上は decoded 2byte entry を更新するモデルへ統一。
+5. Pattern control write policy は per-track 生成へ更新が必要である。Track 1〜16 の LENGTH / SPEED mapping と、pattern-shared CHANGE / RESET、および mode-dependent offset `101507` を実装へ反映する。
 
 ## 未完了の解析
 

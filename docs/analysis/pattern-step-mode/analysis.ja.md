@@ -40,11 +40,15 @@ Track 1を8、Track 2を4へ変更した後にPATTERN-wideへ戻しても、`134
 
 ## EUB Changesでの扱い
 
-EUB ChangesはPATTERN-wideのみを生成対象とするため、出力時には次を行うべきである。
+EUB Changes の現在方針は per-track 生成である。したがって、出力時の扱いは次に更新する。
 
-1. `101511 = 0x00` を設定する。
-2. PATTERN-wide総STEP値を設定する。
-3. Track 1〜16の総STEP値を同じ値へ同期し、既存編集履歴に由来する非表示値を正規化する。
+1. `101511 = 0x01` を設定し、per-track mode で書き込む。
+2. LENGTH は Track 1〜16 の `low7_offset` と `msb_pack_offset + msb_mask` を用いて個別に書き込む。
+3. SPEED は Track 1〜16 の個別 offset に書き込む。
+4. CHANGE は pattern-shared control として `OFF` を出力する。
+5. RESET は pattern-shared control として `INF` を出力する。
 
-この正規化は実機の「modeだけを戻す」操作と同じではないが、完成Patternを一括生成する用途では整合した出力になる。
+特に `101507` は mode 依存で意味が変わる。PATTERN-wide では total steps low byte だが、per-track では RESET low field になる。そのため per-track 出力では、従来の PATTERN-wide total steps writer が `101507` を触らないよう分岐が必要である。
+
+Track 1〜16 の LENGTH / SPEED 配置、および pattern-shared CHANGE / RESET の確定表は `datasets/analysis/per_track_field_mapping_t01_t16_20260529/per_track_length_speed_pattern_controls_confirmed.yaml` を参照する。
 

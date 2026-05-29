@@ -1,0 +1,138 @@
+analysis_target: per_track_length_speed_pattern_controls
+status: confirmed_for_per_track_generation
+mode_field:
+  physical_offset: 101511
+  values:
+    pattern_wide: '0x00'
+    per_track: '0x01'
+length_fields:
+  track_1:
+    low7_offset: 1347
+    msb_pack_offset: 1346
+    msb_mask: '0x40'
+  track_2:
+    low7_offset: 2703
+    msb_pack_offset: 2698
+    msb_mask: '0x04'
+  track_3:
+    low7_offset: 4060
+    msb_pack_offset: 4058
+    msb_mask: '0x20'
+  track_4:
+    low7_offset: 5416
+    msb_pack_offset: 5410
+    msb_mask: '0x02'
+  track_5:
+    low7_offset: 6773
+    msb_pack_offset: 6770
+    msb_mask: '0x10'
+  track_6:
+    low7_offset: 8129
+    msb_pack_offset: 8122
+    msb_mask: '0x01'
+  track_7:
+    low7_offset: 9486
+    msb_pack_offset: 9482
+    msb_mask: '0x08'
+  track_8:
+    low7_offset: 10843
+    msb_pack_offset: 10842
+    msb_mask: '0x40'
+  track_9:
+    low7_offset: 12199
+    msb_pack_offset: 12194
+    msb_mask: '0x04'
+  track_10:
+    low7_offset: 13556
+    msb_pack_offset: 13554
+    msb_mask: '0x20'
+  track_11:
+    low7_offset: 14912
+    msb_pack_offset: 14906
+    msb_mask: '0x02'
+  track_12:
+    low7_offset: 16269
+    msb_pack_offset: 16266
+    msb_mask: '0x10'
+  track_13:
+    low7_offset: 17625
+    msb_pack_offset: 17618
+    msb_mask: '0x01'
+  track_14:
+    low7_offset: 18982
+    msb_pack_offset: 18978
+    msb_mask: '0x08'
+  track_15:
+    low7_offset: 20339
+    msb_pack_offset: 20338
+    msb_mask: '0x40'
+  track_16:
+    low7_offset: 21695
+    msb_pack_offset: 21690
+    msb_mask: '0x04'
+speed_fields:
+  enum_table:
+    '1/8x': '0x06'
+    '1/4x': '0x05'
+    '1/2x': '0x04'
+    '3/4x': '0x03'
+    1x: '0x02'
+    '3/2x': '0x01'
+    2x: '0x00'
+  track_1:
+    offset: 1349
+  track_2:
+    offset: 2705
+  track_3:
+    offset: 4062
+  track_4:
+    offset: 5419
+  track_5:
+    offset: 6775
+  track_6:
+    offset: 8132
+  track_7:
+    offset: 9488
+  track_8:
+    offset: 10845
+  track_9:
+    offset: 12201
+  track_10:
+    offset: 13558
+  track_11:
+    offset: 14915
+  track_12:
+    offset: 16271
+  track_13:
+    offset: 17628
+  track_14:
+    offset: 18984
+  track_15:
+    offset: 20341
+  track_16:
+    offset: 21697
+pattern_change:
+  scope: pattern_shared
+  required_output: OFF
+  extended_offset: 101508
+  low_offset: 101509
+  encoded_value:
+    extended: '0x00'
+    low: '0x01'
+pattern_reset:
+  scope: pattern_shared
+  required_output: INF
+  baseline_display_value: 16
+  extended_offset: 101505
+  low_offset: 101507
+  encoded_value:
+    extended: '0x00'
+    low: '0x01'
+mode_dependent_offsets:
+  101507:
+    pattern_wide: total_steps
+    per_track: reset_low_field
+notes:
+- LENGTH low7 and SPEED track mappings are confirmed for tracks 1..16.
+- LENGTH 128 encoding requires updating only the target MSB bit within the shared pack byte.
+- CHANGE and RESET are pattern-shared controls even when observed while Track 1 was selected.

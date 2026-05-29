@@ -1,16 +1,50 @@
 analysis_target: pattern_step_mode
-status: confirmed_for_mode_and_tracks_1_2
+status: confirmed_for_per_track_generation
 mode_field:
   physical_offset: 101511
   values:
-    pattern_wide: "0x00"
-    per_track: "0x01"
-per_track_confirmed_fields:
-  track_1_total_steps_payload_offset: 1347
-  track_2_total_steps_payload_offset: 2703
+    pattern_wide: '0x00'
+    per_track: '0x01'
 behavior:
   switching_to_pattern_wide_resynchronizes_hidden_track_values: false
   pattern_wide_edit_synchronizes_track_values: true
+per_track_layout_reference: datasets/analysis/per_track_field_mapping_t01_t16_20260529/per_track_length_speed_pattern_controls_confirmed.yaml
+pattern_shared_controls:
+  change:
+    scope: pattern_shared
+    fixed_output: OFF
+    extended_offset: 101508
+    low_offset: 101509
+    encoded_value:
+      extended: '0x00'
+      low: '0x01'
+  reset:
+    scope: pattern_shared
+    fixed_output: INF
+    extended_offset: 101505
+    low_offset: 101507
+    encoded_value:
+      extended: '0x00'
+      low: '0x01'
+mode_dependent_offsets:
+  101507:
+    pattern_wide: total_steps
+    per_track: reset_low_field
 harmony_cloud_write_policy:
-  mode: pattern_wide
-  normalize_track_values_to_pattern_value: true
+  mode: per_track
+  per_track:
+    length:
+      source: changes_computed
+      tracks: 1..16
+    speed:
+      source: changes_computed
+      tracks: 1..16
+  pattern_shared:
+    change:
+      fixed_output: OFF
+    reset:
+      fixed_output: INF
+  mode_dependent_offsets:
+    101507:
+      pattern_wide: total_steps
+      per_track: reset_low_field
