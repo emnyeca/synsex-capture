@@ -288,6 +288,10 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             raise SyxFileError(
                 f"events step={step} track={track}: multiple notes on the same step are only supported on track 8"
             )
+        if track == 8 and len(notes_for_pair) >= 16:
+            raise SyxFileError(
+                f"events step={step} track=8: chord note count exceeds Digitone II limit of 16"
+            )
         notes_for_pair.add(note_midi)
 
         velocity_raw = raw_event.get("velocity", "inherit")
@@ -340,6 +344,8 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
                             f"events step={step} track={track}: length_code cannot be combined with length=inherit"
                         )
                     length = "CODE"
+            elif length in DISPLAY_TO_EXPLICIT_LENGTH_CODE:
+                length = length
             elif length not in LENGTH_CODE_MAP:
                 raise SyxFileError(f"events step={step} track={track}: invalid length {length}")
 
@@ -358,7 +364,7 @@ def load_event_assignment_yaml(path: str | Path) -> EventAssignment:
             )
         )
 
-    parsed_events.sort(key=lambda x: (x.track, x.step, x.note_midi))
+    parsed_events.sort(key=lambda x: (x.track, x.step))
 
     return EventAssignment(
         version=version,

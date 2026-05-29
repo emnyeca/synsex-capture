@@ -123,6 +123,44 @@ def test_build_syx_from_events_encodes_trigger_record_fields(tmp_path: Path):
     assert [_read_trigger_slot_value(built, 2, rel) for rel in range(6)] == [0x07, 0x7F, 0x37, 0xFF, 0x7F, 0x00]
 
 
+def test_build_syx_from_events_preserves_track8_chord_note_order_and_micro_timing(tmp_path: Path):
+    events = tmp_path / "track8_chord_order.yaml"
+    _write_events_yaml(
+        events,
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: E4\n"
+        "    velocity: 50\n"
+        "    length: '1/8'\n"
+        "    time: -1\n"
+        "  - step: 1\n"
+        "    track: 8\n"
+        "    note: C4\n"
+        "    velocity: 70\n"
+        "    length: '1/8'\n"
+        "    time: 0\n",
+    )
+
+    output = tmp_path / "track8_chord_order.syx"
+    build_syx_from_events(events_yaml=events, output_file=output)
+    built = output.read_bytes()
+
+    slot1 = [_read_trigger_slot_value(built, 0, rel) for rel in range(6)]
+    slot2 = [_read_trigger_slot_value(built, 1, rel) for rel in range(6)]
+
+    assert slot1 == [0x07, 0x00, 0x34, 0x32, 0x1E, 0xFF]
+    assert slot2 == [0x07, 0x00, 0x30, 0x46, 0x1E, 0x00]
+    assert [slot1[2], slot2[2]] == [0x34, 0x30]
+
+
 def test_build_syx_from_events_writes_normalized_pattern_name(tmp_path: Path):
     events = tmp_path / "events_with_name.yaml"
     _write_events_yaml(

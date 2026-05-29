@@ -6,6 +6,19 @@ from digitone_syx_toolkit.errors import SyxFileError
 from digitone_syx_toolkit.events_yaml import load_event_assignment_yaml
 
 
+def _pattern_wide_header() -> str:
+    return (
+        "version: 1\n"
+        "device: digitone2\n"
+        "pattern:\n"
+        "  mode: pattern-wide\n"
+        "  tempo: 120\n"
+        "  speed: 1/8\n"
+        "  total_steps: 16\n"
+        "events:\n"
+    )
+
+
 def test_load_event_assignment_yaml_valid(tmp_path: Path):
     yaml_path = tmp_path / "events.yaml"
     yaml_path.write_text(
@@ -126,6 +139,79 @@ def test_load_event_assignment_yaml_rejects_duplicate_track8_note(tmp_path: Path
 
     with pytest.raises(SyxFileError, match="duplicate note"):
         load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_accepts_track8_chord_group_with_16_notes(tmp_path: Path):
+    yaml_path = tmp_path / "events_track8_16_notes.yaml"
+    notes = [
+        "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1",
+        "G#1", "A1", "A#1", "B1", "C2", "C#2", "D2", "D#2",
+    ]
+    yaml_body = _pattern_wide_header() + "".join(
+        (
+            "  - step: 1\n"
+            "    track: 8\n"
+            f"    note: {note}\n"
+            "    velocity: inherit\n"
+            "    length: inherit\n"
+        )
+        for note in notes
+    )
+    yaml_path.write_text(yaml_body, encoding="utf-8")
+
+    parsed = load_event_assignment_yaml(yaml_path)
+
+    assert len(parsed.events) == 16
+    assert [event.note for event in parsed.events] == notes
+
+
+def test_load_event_assignment_yaml_rejects_track8_chord_group_with_17_notes(tmp_path: Path):
+    yaml_path = tmp_path / "events_track8_17_notes.yaml"
+    notes = [
+        "C1", "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1",
+        "G#1", "A1", "A#1", "B1", "C2", "C#2", "D2", "D#2", "E2",
+    ]
+    yaml_body = _pattern_wide_header() + "".join(
+        (
+            "  - step: 1\n"
+            "    track: 8\n"
+            f"    note: {note}\n"
+            "    velocity: inherit\n"
+            "    length: inherit\n"
+        )
+        for note in notes
+    )
+    yaml_path.write_text(yaml_body, encoding="utf-8")
+
+    with pytest.raises(
+        SyxFileError,
+        match="events step=1 track=8: chord note count exceeds Digitone II limit of 16",
+    ):
+        load_event_assignment_yaml(yaml_path)
+
+
+def test_load_event_assignment_yaml_preserves_track8_chord_note_order(tmp_path: Path):
+    yaml_path = tmp_path / "events_track8_order.yaml"
+    yaml_path.write_text(
+        _pattern_wide_header()
+        + "  - step: 1\n"
+        + "    track: 8\n"
+        + "    note: E4\n"
+        + "    velocity: 50\n"
+        + "    length: '1/8'\n"
+        + "    time: -1\n"
+        + "  - step: 1\n"
+        + "    track: 8\n"
+        + "    note: C4\n"
+        + "    velocity: 70\n"
+        + "    length: '1/8'\n"
+        + "    time: 0\n",
+        encoding="utf-8",
+    )
+
+    parsed = load_event_assignment_yaml(yaml_path)
+
+    assert [(event.note, event.time) for event in parsed.events] == [("E4", -1), ("C4", 0)]
 
 
 @pytest.mark.parametrize("time_value", [-24, 24])

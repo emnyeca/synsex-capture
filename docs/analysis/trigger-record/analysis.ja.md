@@ -20,8 +20,10 @@
 7-bit unpack後のTrigger領域では、通常Triggerは6 byte固定長のrecordとして解釈できる。
 
 ```text
-record = [track_index, step_index, pitch, velocity, length, field_5]
+record = [track_index, step_index, pitch, velocity, length, micro_timing]
 ```
+
+Track 8 chord triggerの確認では、同一Track / Step内のrecord順は保存時の挿入順に従い、同じTIMEでもその順序は維持される。したがって、代表NOTEは「同一Track / Step groupの先頭record」で説明できる。
 
 今回解析した通常Triggerでは、未編集属性を継承した `Step 1 / C5` は次のrecordになる。
 
@@ -42,7 +44,9 @@ Track 7 -> 0x06
 Track 8 -> 0x07
 ```
 
-このため Trigger record配列は Track 共通領域であり、各recordが自身の Track/Step/Pitch/Velocity/Length を保持するモデルが成立する。`field_5` は引き続き未確定。
+このため Trigger record配列は Track 共通領域であり、各recordが自身の Track/Step/Pitch/Velocity/Length/micro_timing を保持するモデルが成立する。
+
+Track 8 chord triggerの確定記録は、[datasets/analysis/track08_chord_trigger_notes_20260529/track08_chord_trigger_notes_confirmed.yaml](../../../datasets/analysis/track08_chord_trigger_notes_20260529/track08_chord_trigger_notes_confirmed.yaml) を参照。
 
 ### 2. slotはStep位置に固定されない
 
@@ -102,7 +106,6 @@ Trigger追加時にはrecord領域に加え、ファイル前方のStep対応領
 
 ## 未確定事項
 
-- `field_5` の意味
 - Track 2〜8 の Step 2以降における Step state offset 規則
 - Track 9以降の Track index / Step state 挙動
 - Step state領域の一般的なoffset計算式

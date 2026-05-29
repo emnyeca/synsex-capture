@@ -11,6 +11,7 @@ from .checksum import recompute_checksum
 from .constants import (
     CHECKSUM_SUM_END,
     CHECKSUM_SUM_START,
+    DISPLAY_TO_EXPLICIT_LENGTH_CODE,
     LENGTH_CODE_MAP,
     PATTERN_CHANGE_EXTENDED_MASK,
     PATTERN_CHANGE_EXTENDED_OFFSET,
@@ -64,6 +65,8 @@ def _length_to_code(length: str) -> int:
     if key == "INHERIT":
         return 0xFF
     if key not in LENGTH_CODE_MAP:
+        if key in DISPLAY_TO_EXPLICIT_LENGTH_CODE:
+            return DISPLAY_TO_EXPLICIT_LENGTH_CODE[key]
         raise SyxFileError(f"Unsupported length: {length}")
     return LENGTH_CODE_MAP[key]
 
